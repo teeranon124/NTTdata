@@ -1,0 +1,4 @@
+Flask==3.0.3
+flask-cors==6.0.5
+boto3==1.43.114
+python-dotenv==1.2.4
