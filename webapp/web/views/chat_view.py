@@ -20,9 +20,9 @@ def add_live_event(action_text: str):
     return event
 
 # Seed initial dynamic events with current real time
-add_live_event("กู้คืนเงินงบประมาณรั่วไหล ฿12,591,973 (-12.6%) สำเร็จจาก 60 ดีล MRO 2,500 PRs")
+add_live_event("กู้คืนเงินงบประมาณรั่วไหล ฿25,590,483 (-14.97%) สำเร็จจาก 60 ดีล MRO 2,500 PRs")
 add_live_event("ตรวจสอบ Guardrail มาตรฐานสเปก JIS B 1514 & เครดิตเทอม 45 วัน... ผ่านเกณฑ์ 100%")
-add_live_event("ซัพพลายเออร์ บจก. สยาม พรีซิชั่น ตอบรับเงื่อนไข Blanket Order สัญญา 1 ปี (ดีล NSK 250 PRs)")
+add_live_event("ซัพพลายเออร์ บจก. สยาม พรีซิชั่น ตอบรับเงื่อนไข Blanket Order สัญญา 1 ปี (ดีล NSK 166 PRs)")
 add_live_event("สแกนคลังสินค้า SAP MM พบ ROP เตือนอะไหล่ Festo ท่อลม 8mm (250 PRs ชลบุรี/ระยอง)")
 add_live_event("AI Agent เชื่อมต่อ SAP S/4HANA รวบยอด 2,500 ใบขอซื้อ (PRs) เป็น 60 ดีลกลยุทธ์ MRO")
 
@@ -46,8 +46,43 @@ def supplier_portal(deal_id):
             "prs_count": 166,
             "category_th": "เครื่องกล & ส่งกำลัง"
         }
-    token = request.args.get("token", f"tok_sec_{deal_id}_2026_verified")
-    return render_template("supplier_portal.html", deal=deal, token=token)
+
+    vendors = deal.get("vendors", [])
+    vendor_param = request.args.get("vendor", "").strip().lower()
+
+    active_vendor = None
+    if vendors:
+        if vendor_param:
+            for v in vendors:
+                vid = str(v.get("id", "")).lower()
+                vname = str(v.get("name", "")).lower()
+                if vendor_param in vid or vendor_param in vname:
+                    active_vendor = v
+                    break
+        if not active_vendor:
+            active_vendor = vendors[0]
+    else:
+        active_vendor = {
+            "id": "v1",
+            "name": deal.get("supplier", "บจก. คู่ค้า AVL"),
+            "price": f"฿{deal.get('post_price', 398):,.2f}",
+            "credit": "45 วัน",
+            "leadTime": "7 วันทำการ",
+            "warranty": "1 ปี",
+            "status": "ชนะการประมูล (ออกใบ PO)",
+            "statusBadge": "badge-success text-white font-bold"
+        }
+
+    token = request.args.get("token", f"tok_sec_{deal_id}_{active_vendor.get('id', 'v1')}_verified")
+    is_winner = "ชนะ" in active_vendor.get("status", "") or "ออกใบ PO" in active_vendor.get("status", "")
+
+    return render_template(
+        "supplier_portal.html",
+        deal=deal,
+        active_vendor=active_vendor,
+        is_winner=is_winner,
+        token=token
+    )
 
 @chat_bp.route("/dataset_2500.js")
 def serve_dataset_js():
@@ -57,112 +92,87 @@ def serve_dataset_js():
 def serve_dataset_json():
     return send_from_directory(ROOT_DIR, "dataset_2500.json", mimetype="application/json")
 
-@chat_bp.route("/api/deals", methods=["GET"])
-def get_deals():
-    """
-    Returns all 10 consolidated deals and overall statistics aggregated from 2,500 transactions.
-    """
-    deals = deal_repository.get_all_deals()
-    stats = deal_repository.get_statistics()
-    return jsonify({
-        "status": "success",
-        "deals": deals,
-        "statistics": stats
-    })
+@chat_bp.route("/api/events")
+def get_live_events():
+    return jsonify({"events": RECENT_EVENTS})
 
-@chat_bp.route("/api/deals/<deal_id>", methods=["GET"])
-def get_deal_detail(deal_id):
-    """
-    Returns detail of a single deal by ID.
-    """
+@chat_bp.route("/api/deals")
+def get_deals():
+    deals = deal_repository.get_all_deals()
+    return jsonify({"deals": deals, "count": len(deals)})
+
+@chat_bp.route("/api/deals/<deal_id>")
+def get_deal(deal_id):
     deal = deal_repository.get_deal(deal_id)
     if not deal:
         return jsonify({"error": "Deal not found"}), 404
-    return jsonify({"status": "success", "deal": deal})
+    return jsonify({"deal": deal})
 
-@chat_bp.route("/api/deals/<deal_id>/prs", methods=["GET"])
+@chat_bp.route("/api/deals/<deal_id>/prs")
 def get_deal_prs(deal_id):
-    """
-    Returns PR transactions from the 2,500 dataset corresponding to this deal.
-    """
-    limit = request.args.get("limit", 250, type=int)
-    offset = request.args.get("offset", 0, type=int)
-    prs = deal_repository.get_raw_transactions(deal_id=deal_id, limit=limit, offset=offset)
+    prs = deal_repository.get_prs_for_deal(deal_id)
+    limit = request.args.get("limit", default=250, type=int)
     return jsonify({
-        "status": "success",
         "deal_id": deal_id,
-        "total_returned": len(prs),
-        "transactions": prs
+        "count": len(prs),
+        "transactions": prs[:limit]
     })
 
-@chat_bp.route("/api/stats", methods=["GET"])
+@chat_bp.route("/api/stats")
 def get_stats():
-    """
-    Returns global KPIs and stage counts.
-    """
-    stats = deal_repository.get_statistics()
-    return jsonify({"status": "success", "statistics": stats})
-
-@chat_bp.route("/api/events", methods=["GET"])
-def get_events():
-    """
-    Returns dynamic real-time live events stream.
-    """
-    return jsonify({
-        "status": "success",
-        "server_time": datetime.datetime.now().strftime("%H:%M:%S"),
-        "events": RECENT_EVENTS
-    })
+    stats = deal_repository.get_system_stats()
+    return jsonify({"stats": stats})
 
 @chat_bp.route("/api/chat/<deal_id>/<vendor_id>", methods=["GET"])
 def get_chat_session(deal_id, vendor_id):
-    """
-    Returns persistent chat messages, concession ladder, and audit traces for a specific deal and vendor.
-    """
-    session = session_repository.load_session(deal_id, vendor_id)
-    return jsonify({"status": "success", "session": session})
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        return jsonify({"error": "Deal not found"}), 404
+
+    session = session_repository.get_session(deal_id, vendor_id)
+    if not session:
+        session = session_repository.create_session(deal_id, vendor_id)
+        # Seed initial opening messages from vendor profile
+        vendor_data = next((v for v in deal.get("vendors", []) if v["name"].replace(" ", "_").lower() == vendor_id.lower()), None)
+        if vendor_data and "messages" in vendor_data:
+            session["messages"] = vendor_data["messages"]
+            if "ladder" in vendor_data:
+                session["concession_ladder"] = vendor_data["ladder"]
+            session_repository.save_session(deal_id, vendor_id, session)
+
+    return jsonify({"session": session})
 
 @chat_bp.route("/api/chat/<deal_id>/<vendor_id>/reset", methods=["POST"])
 def reset_chat_session(deal_id, vendor_id):
-    """
-    Resets the chat session for a specific deal and vendor.
-    """
-    session = negotiation_service.reset_session(deal_id, vendor_id)
-    add_live_event(f"ผู้ใช้รีเซ็ตห้องเจรจาต่อรองดีล {deal_id} ({vendor_id}) เพื่อเริ่มกลยุทธ์ใหม่")
-    return jsonify({"status": "success", "session": session})
+    deal = deal_repository.get_deal(deal_id)
+    session = session_repository.create_session(deal_id, vendor_id)
+    if deal:
+        vendor_data = next((v for v in deal.get("vendors", []) if v["name"].replace(" ", "_").lower() == vendor_id.lower()), None)
+        if vendor_data and "messages" in vendor_data:
+            session["messages"] = vendor_data["messages"]
+            if "ladder" in vendor_data:
+                session["concession_ladder"] = vendor_data["ladder"]
+            session_repository.save_session(deal_id, vendor_id, session)
+    return jsonify({"status": "reset", "session": session})
 
 @chat_bp.route("/api/negotiate", methods=["POST"])
 def negotiate():
-    """
-    Executes a multi-turn negotiation turn with the AI Agent.
-    """
-    data = request.get_json() or {}
-    deal_key = data.get("deal_key", "nsk")
-    vendor_name = data.get("vendor_name", "บจก. ซัพพลายเออร์")
-    user_message = data.get("message", "").strip()
+    data = request.json or {}
+    deal_id = data.get("deal_id", "nsk")
+    vendor_id = data.get("vendor_id", "siam_precision")
+    vendor_name = data.get("vendor_name", "สยาม พรีซิชั่น (ฝ่ายขาย)")
+    message = data.get("message", "")
+    round_num = data.get("round", 1)
 
-    if not user_message:
-        return jsonify({"error": "Message cannot be empty"}), 400
-
-    add_live_event(f"ซัพพลายเออร์ {vendor_name} ({deal_key.upper()}) ส่งข้อเสนอ: '{user_message[:30]}...' -> Agent เริ่มคำนวณ Nash Bargaining")
-
-    result = negotiation_service.negotiate(
-        deal_key=deal_key,
+    result = negotiation_service.process_turn(
+        deal_id=deal_id,
+        vendor_id=vendor_id,
         vendor_name=vendor_name,
-        latest_user_message=user_message
+        user_message=message,
+        round_num=round_num
     )
 
-    tactic = result.get("tactic_used", "Game Theory Concession")
-    price = result.get("current_offered_price", "")
-    add_live_event(f"AI Agent ตอบกลับ {vendor_name}: ยื่นข้อเสนอ {price} พร้อมยุทธวิธี {tactic}")
+    if result.get("agent_reply"):
+        add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: เสนอเงื่อนไขรอบ {round_num}")
 
     return jsonify(result)
-
-@chat_bp.route("/api/health", methods=["GET"])
-def health_check():
-    return jsonify({
-        "status": "online",
-        "service": "AutoProcure.AI Enterprise Agent Core",
-        "engine": "Amazon Bedrock Nova Native",
-        "deals_count": len(deal_repository.get_all_deals())
-    })

@@ -3,100 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoProcure Sourcing Portal | ห้องเจรจาข้อเสนอสำหรับคู่ค้า (Supplier Portal)</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>{{ deal.sku }} - ห้องเจรจาต่อรองดิจิทัลสำหรับคู่ค้า (Supplier Portal)</title>
+    <!-- Tailwind CSS & DaisyUI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Sarabun & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Sarabun', 'Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        body { font-family: 'Sarabun', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .chat-bubble { max-width: 85%; }
+        body {
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #F8FAFC;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
 
-    <!-- TOP NAV: ENTERPRISE SOURCING PORTAL -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <!-- TOP NAV BAR (SUPPLIER ENTERPRISE HEADER) -->
+    <header class="bg-white border-b border-slate-200 px-4 lg:px-8 py-3 shrink-0 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-blue-700 flex items-center justify-center text-white shadow-sm font-black text-sm">
+                <div class="w-9 h-9 rounded-xl bg-blue-700 text-white flex items-center justify-center font-bold text-sm tracking-wider shadow-sm">
                     AP
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-slate-900 text-sm tracking-tight">AutoProcure.AI</span>
-                        <span class="badge badge-sm badge-outline text-[10px] font-mono text-blue-700 border-blue-300">Supplier Portal</span>
-                        <span class="badge badge-sm badge-success text-[10px] text-white">SSL Encrypted ✓</span>
+                        <span class="font-bold text-slate-900 text-sm tracking-tight">AutoProcure.AI</span>
+                        <span class="badge badge-outline border-blue-300 text-blue-800 text-[10px] font-bold">Supplier Portal</span>
+                        <span class="badge badge-success badge-xs text-white text-[9px] gap-1">
+                            <i data-lucide="shield-check" class="w-2.5 h-2.5"></i> SSL Encrypted ✓
+                        </span>
                     </div>
-                    <div class="text-[11px] text-slate-500">
+                    <div class="text-[10px] text-slate-400 font-mono">
                         ระบบรับและเจรจาข้อเสนอสัญญาจัดซื้อกลางระดับองค์กร (NTT DATA Supply Chain Network)
                     </div>
                 </div>
             </div>
 
-            <!-- SUPPLIER PROFILE & TOKEN -->
-            <div class="flex items-center gap-3">
+            <!-- SUPPLIER AUTH BADGE -->
+            <div class="flex items-center gap-2">
                 <div class="text-right hidden sm:block">
-                    <div class="text-xs font-bold text-slate-800" id="supplier-name-display">{{ deal.supplier if deal.supplier else 'บจก. คู่ค้าที่ได้รับคำเชิญ' }}</div>
-                    <div class="text-[10px] text-slate-400 font-mono">Token: <span class="text-emerald-700 font-bold">{{ token[:16] }}...</span> (Verified)</div>
+                    <div class="text-xs font-bold text-slate-800" id="supplier-vendor-display">{{ active_vendor.name if active_vendor else deal.supplier }}</div>
+                    <div class="text-[10px] text-slate-400 font-mono">
+                        Token: <span class="text-blue-700 font-semibold truncate max-w-[150px] inline-block align-bottom">{{ token[:18] }}...</span> (Verified)
+                    </div>
                 </div>
-                <div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs">
-                    <i data-lucide="building-2" class="w-4 h-4 text-blue-700"></i>
+                <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-300 text-slate-600 flex items-center justify-center font-bold text-xs">
+                    <i data-lucide="building-2" class="w-4 h-4"></i>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- MAIN BODY -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-5">
-
-        <!-- LEFT COLUMN: SOURCING RFQ DETAILS & LIVE TERM SHEET (5 COLS) -->
-        <div class="lg:col-span-5 space-y-4">
+    <!-- MAIN DUAL-PANE WORKSPACE -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 min-h-0">
+        
+        <!-- LEFT PANE: RFQ OVERVIEW & LIVE TERM SHEET (5 COLS) -->
+        <div class="lg:col-span-5 flex flex-col gap-4">
             
             <!-- CARD 1: RFQ OVERVIEW -->
             <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate-700">รายละเอียดคำขอเสนอราคา (RFQ)</span>
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <div class="flex items-center gap-1.5 text-xs font-bold text-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                        <span>รายละเอียดคำขอเสนอราคา (RFQ)</span>
                     </div>
-                    <span class="badge badge-sm badge-primary text-white font-mono">{{ deal.deal_code if deal.deal_code else 'RFQ-2026-LTA' }}</span>
+                    <span class="badge badge-primary badge-sm font-mono text-[10px]">DEAL-2026-{{ deal.id.upper() }}</span>
                 </div>
 
                 <div>
-                    <div class="text-xs font-bold font-mono text-blue-800">{{ deal.sku if deal.sku else 'SKU-ITEM' }}</div>
-                    <h1 class="text-sm font-bold text-slate-900 leading-snug mt-0.5">{{ deal.name if deal.name else 'อะไหล่อุตสาหกรรมมาตรฐาน' }}</h1>
-                    <div class="text-[11px] text-slate-500 mt-1 flex items-center gap-2">
-                        <span>หมวดหมู่: <strong class="text-slate-700">{{ deal.category_th if deal.category_th else 'เครื่องกล & ส่งกำลัง' }}</strong></span>
-                        <span>•</span>
-                        <span>สัญญารูปแบบ: <strong class="text-blue-700 font-semibold">Blanket Order (LTA 1 ปี)</strong></span>
+                    <div class="font-bold text-blue-900 font-mono text-sm">{{ deal.sku }}</div>
+                    <div class="font-bold text-slate-900 text-sm leading-snug mt-0.5">{{ deal.name }}</div>
+                    <div class="text-[11px] text-slate-500 mt-1">
+                        หมวดหมู่: <span class="font-semibold text-slate-700">{{ deal.category_th }}</span> • 
+                        สัญญารูปแบบ: <span class="font-semibold text-blue-800">Blanket Order (LTA 1 ปี)</span>
                     </div>
                 </div>
 
-                <!-- KEY RFQ METRICS -->
-                <div class="grid grid-cols-2 gap-2 bg-slate-50 rounded-xl p-3 border border-slate-200 text-xs font-mono">
-                    <div>
-                        <div class="text-[10px] text-slate-400 font-sans uppercase font-bold">ยอดความต้องการรวมทั้งปี</div>
-                        <div class="text-sm font-bold text-slate-900 mt-0.5">{{ '{:,}'.format(deal.qty) if deal.qty else '18,755' }} <span class="text-xs font-sans font-normal text-slate-500">{{ deal.unit if deal.unit else 'ชิ้น' }}</span></div>
-                        <div class="text-[10px] text-blue-600 font-sans mt-0.5">รวมจาก {{ deal.prs_count if deal.prs_count else '166' }} PRs ทั่วประเทศ</div>
+                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 text-xs font-mono">
+                    <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase font-sans">ยอดความต้องการรวมทั้งปี</div>
+                        <div class="text-base font-bold text-slate-900 mt-0.5">{{ '{:,}'.format(deal.qty) }} <span class="text-xs font-normal text-slate-500 font-sans">{{ deal.unit }}</span></div>
+                        <div class="text-[10px] text-blue-700 font-sans font-semibold mt-0.5">รวมจาก {{ deal.prs_count }} PRs ทั่วประเทศ</div>
                     </div>
-                    <div>
-                        <div class="text-[10px] text-slate-400 font-sans uppercase font-bold">เพดานงบประมาณเดิม (Spot Buy)</div>
+                    <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                        <div class="text-[10px] text-slate-400 font-bold uppercase font-sans">เพดานงบประมาณเดิม (SPOT BUY)</div>
                         <div class="text-sm font-bold text-slate-500 line-through mt-0.5">฿{{ '{:,.2f}'.format(deal.pre_price) if deal.pre_price else '450.00' }}</div>
                         <div class="text-[10px] text-emerald-700 font-sans font-semibold mt-0.5">เป้าหมาย LTA: ฿{{ '{:,.2f}'.format(deal.post_price) if deal.post_price else '398.00' }}</div>
                     </div>
@@ -120,9 +117,11 @@
                 <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
                     <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
                         <i data-lucide="scale" class="w-4 h-4 text-emerald-600"></i>
-                        <span>สถานะเงื่อนไขที่กำลังเจรจา (Term Sheet)</span>
+                        <span>สถานะเงื่อนไขของท่าน (Term Sheet)</span>
                     </div>
-                    <span class="badge badge-xs badge-info" id="term-status-badge">กำลังเจรจา</span>
+                    <span class="badge badge-xs {{ 'badge-success text-white' if is_winner else 'badge-warning text-slate-900' }}" id="term-status-badge">
+                        {{ 'ข้อเสนอ TCO Rank #1 (ผ่านเกณฑ์)' if is_winner else 'ข้อเสนอ Rank #2 (ราคาสูงกว่าเป้า)' }}
+                    </span>
                 </div>
 
                 <!-- TERM ROWS -->
@@ -132,12 +131,12 @@
                         <div class="flex items-center gap-2">
                             <i data-lucide="tag" class="w-4 h-4 text-blue-700"></i>
                             <div>
-                                <div class="font-bold text-slate-800">ราคาต่อหน่วย (Unit Price)</div>
+                                <div class="font-bold text-slate-800">ราคาเสนอของท่าน (Unit Price)</div>
                                 <div class="text-[10px] text-slate-400">ราคาขายส่งสัญญารายปี LTA</div>
                             </div>
                         </div>
                         <div class="text-right font-mono font-bold text-sm text-blue-700" id="live-term-price">
-                            ฿{{ '{:,.2f}'.format(deal.post_price) if deal.post_price else '398.00' }}
+                            {{ active_vendor.price if active_vendor else ('฿{:,.2f}'.format(deal.post_price)) }}
                         </div>
                     </div>
 
@@ -150,8 +149,8 @@
                                 <div class="text-[10px] text-slate-400">เงื่อนไขการวางบิลชำระเงิน</div>
                             </div>
                         </div>
-                        <div class="text-right font-mono font-bold text-sm text-indigo-800" id="live-term-credit">
-                            45 วัน
+                        <div class="text-right font-mono font-bold text-sm text-indigo-700" id="live-term-credit">
+                            {{ active_vendor.credit if active_vendor else '45 วัน' }}
                         </div>
                     </div>
 
@@ -165,7 +164,7 @@
                             </div>
                         </div>
                         <div class="text-right font-mono font-bold text-sm text-slate-800" id="live-term-lead">
-                            7 วันทำการ
+                            {{ active_vendor.leadTime if active_vendor else '7 วันทำการ' }}
                         </div>
                     </div>
 
@@ -184,14 +183,14 @@
                     </div>
                 </div>
 
-                <!-- SIGN CONTRACT CTA -->
+                <!-- SUBMIT BINDING OFFER CTA -->
                 <div class="pt-2">
-                    <button onclick="portalApp.acceptAndSignDeal()" id="btn-portal-accept" class="btn btn-sm btn-success w-full text-white font-bold gap-1.5 shadow-sm">
-                        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                        <span>ยอมรับข้อตกลงและลงนามข้อเสนอ LTA</span>
+                    <button onclick="portalApp.submitBindingOffer()" id="btn-portal-accept" class="btn btn-sm {{ 'btn-success text-white' if is_winner else 'btn-primary text-white' }} w-full font-bold gap-1.5 shadow-sm">
+                        <i data-lucide="{{ 'check-circle-2' if is_winner else 'send' }}" class="w-4 h-4"></i>
+                        <span>{{ 'ยื่นข้อเสนอผูกพันขั้นสุดท้าย (Submit Binding Offer)' if is_winner else 'ยื่นข้อเสนอปรับปรุงรอบถัดไป (Submit Counter-Offer)' }}</span>
                     </button>
                     <div class="text-[10px] text-center text-slate-400 mt-1.5">
-                        เมื่อลงนาม ระบบจะส่งเอกสารยืนยันเข้า SAP S/4HANA เพื่อให้ CPO ฝ่ายจัดซื้อลงนามร่วม
+                        ข้อเสนอผูกพันจะถูกประเมิน TCO ร่วมกับคู่ค้าในระบบ AVL ก่อนส่งให้ CPO ฝ่ายจัดซื้อลงนามใน SAP S/4HANA
                     </div>
                 </div>
             </div>
@@ -199,42 +198,41 @@
             <!-- BENEFIT NOTE FOR SUPPLIER -->
             <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-3 text-xs text-blue-900 space-y-1">
                 <div class="font-bold flex items-center gap-1.5">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-700"></i> ประโยชน์ที่ซัพพลายเออร์จะได้รับ:
+                    <i data-lucide="sparkles" class="w-4 h-4 text-blue-600"></i> ประโยชน์ที่ซัพพลายเออร์จะได้รับ:
                 </div>
-                <ul class="list-disc list-inside text-[11px] text-blue-800 space-y-0.5">
+                <ul class="list-disc list-inside text-[11px] text-slate-600 space-y-0.5">
                     <li>ได้ยอดขายล็อตใหญ่ที่แน่นอนตลอดทั้งปี (ไม่หลุดไปเจ้าอื่น)</li>
                     <li>ประหยัดต้นทุนค่าพนักงานขาย ไม่ต้องคอยทำใบเสนอราคาย่อย 166 ครั้ง</li>
                     <li>ระบบออกใบสั่งซื้อ PO ดิจิทัลล่วงหน้ารายไตรมาส วางแผนสต็อกง่าย</li>
                 </ul>
             </div>
+
         </div>
 
-        <!-- RIGHT COLUMN: INTERACTIVE AI NEGOTIATION CHAT (7 COLS) -->
-        <div class="lg:col-span-7 flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden h-[680px]">
+        <!-- RIGHT PANE: LIVE AI NEGOTIATION STREAM (7 COLS) -->
+        <div class="lg:col-span-7 flex flex-col bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden h-[620px]">
             
-            <!-- CHAT HEADER -->
-            <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center justify-between shrink-0">
+            <!-- STREAM HEADER -->
+            <div class="bg-slate-900 text-white p-3.5 flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                    <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
                         AI
                     </div>
                     <div>
-                        <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                        <div class="font-bold text-xs flex items-center gap-2">
                             <span>AutoProcure.AI Sourcing Agent</span>
-                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <span class="text-[10px] text-emerald-700 font-normal">Active</span>
+                            <span class="badge badge-success badge-xs text-white">Active</span>
                         </div>
                         <div class="text-[10px] text-slate-400 font-mono">
                             Autonomous Negotiation Engine (Amazon Bedrock Core)
                         </div>
                     </div>
                 </div>
-
                 <div class="flex items-center gap-2">
-                    <button onclick="portalApp.resetConversation()" class="btn btn-xs btn-ghost text-slate-500 hover:text-rose-600 gap-1 text-[11px]" title="รีเซ็ตบทสนทนาเพื่อลองใหม่">
+                    <button type="button" onclick="portalApp.resetConversation()" class="btn btn-xs btn-ghost text-slate-300 hover:text-white gap-1 text-[10px]">
                         <i data-lucide="rotate-ccw" class="w-3 h-3"></i> รีเซ็ต
                     </button>
-                    <span class="badge badge-sm badge-outline font-mono text-[10px] text-blue-800">Round <span id="current-round-num">1</span></span>
+                    <span class="badge badge-sm badge-outline font-mono text-[10px] text-blue-300">Round <span id="current-round-num">1</span></span>
                 </div>
             </div>
 
@@ -250,7 +248,7 @@
                         AutoProcure.AI Sourcing Agent <time class="text-[9px] text-slate-400">10:00</time>
                     </div>
                     <div class="chat-bubble bg-white text-slate-800 shadow-xs border border-slate-200">
-                        เรียนฝ่ายขายและการตลาด {{ deal.supplier if deal.supplier else 'บจก. คู่ค้า' }} ครับ ทางฝ่ายจัดซื้อกลางขอเสนอเงื่อนไขสัญญารายปี LTA สำหรับ <strong>{{ deal.name }}</strong> ปริมาณรวมทั้งปี <strong>{{ '{:,}'.format(deal.qty) }} {{ deal.unit }}</strong> ส่งมอบ 3 โรงงานหลัก เพื่อปลดล็อก Volume Discount ทางเราขอเสนอราคาเป้าหมายที่ <strong>฿{{ '{:,.2f}'.format(deal.post_price) }} / {{ deal.unit }}</strong> เครดิตเทอม 45 วัน ท่านมีความเห็นอย่างไรต่อข้อเสนอนี้ครับ?
+                        เรียนฝ่ายขายและการตลาด <strong>{{ active_vendor.name if active_vendor else deal.supplier }}</strong> ครับ ทางฝ่ายจัดซื้อกลางขอเสนอเงื่อนไขสัญญารายปี LTA สำหรับ <strong>{{ deal.name }}</strong> ปริมาณรวมทั้งปี <strong>{{ '{:,}'.format(deal.qty) }} {{ deal.unit }}</strong> ส่งมอบ 3 โรงงานหลัก เพื่อปลดล็อก Volume Discount ทางเราขอเสนอราคาเป้าหมายที่ <strong>฿{{ '{:,.2f}'.format(deal.post_price) }} / {{ deal.unit }}</strong> เครดิตเทอม 45 วัน ท่านมีความเห็นอย่างไรต่อข้อเสนอนี้ครับ?
                     </div>
                 </div>
 
@@ -289,21 +287,28 @@
         AutoProcure.AI Enterprise Sourcing Portal • Connected to SAP S/4HANA BTP • Powered by NTT DATA Thailand
     </footer>
 
-    <!-- SUCCESS MODAL WHEN AGREED -->
+    <!-- SUCCESS / EVALUATION MODAL WHEN SUBMITTED -->
     <dialog id="portal_success_modal" class="modal">
         <div class="modal-box max-w-md text-center space-y-3">
-            <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                <i data-lucide="check" class="w-8 h-8"></i>
+            <div class="w-14 h-14 rounded-full {{ 'bg-emerald-100 text-emerald-600' if is_winner else 'bg-blue-100 text-blue-600' }} flex items-center justify-center mx-auto">
+                <i data-lucide="{{ 'check-circle' if is_winner else 'clipboard-check' }}" class="w-8 h-8"></i>
             </div>
-            <h3 class="font-bold text-lg text-slate-900">ปิดดีลสัญญารายปี LTA สำเร็จ!</h3>
-            <p class="text-xs text-slate-600">
-                ระบบได้บันทึกข้อตกลงและสร้าง <strong>Draft Blanket Purchase Agreement</strong> ในระบบ SAP S/4HANA เรียบร้อยแล้ว ขณะนี้เอกสารถูกส่งเข้าคิวรอผู้บริหารฝ่ายจัดซื้อ (CPO) ลงนามอนุมัติใบ PO สุดท้ายครับ
+            <h3 class="font-bold text-lg text-slate-900" id="portal-modal-title">
+                {{ 'ยื่นข้อเสนอผูกพันสำเร็จ (TCO Ranking #1 ✓)' if is_winner else 'บันทึกข้อเสนอผูกพันของท่านแล้ว (Rank #2)' }}
+            </h3>
+            <p class="text-xs text-slate-600 text-left leading-relaxed" id="portal-modal-desc">
+                {% if is_winner %}
+                ระบบได้บันทึกข้อเสนอผูกพันของ <strong>{{ active_vendor.name }}</strong> เรียบร้อยแล้ว ข้อเสนอของท่านได้รับคะแนน TCO สูงสุด และถูกส่งต่อเข้าสู่กระบวนการขออนุมัติ CPO ในระบบ SAP S/4HANA เพื่อรอลงนาม PO ใบสุดท้าย (Stage 4: Pending CPO Sign-Off)
+                {% else %}
+                ระบบได้รับข้อเสนอผูกพันของ <strong>{{ active_vendor.name }}</strong> เรียบร้อยแล้ว อย่างไรก็ตาม ราคาและเงื่อนไขของท่านยังสูงกว่าเพดานแข่งขันในระบบ (เป้าหมาย ฿{{ deal.post_price }}) ระบบจะนำข้อเสนอไปประเมินเปรียบเทียบในระบบ AVL และท่านยังสามารถยื่น Counter-Offer ปรับปรุงข้อเสนอได้
+                {% endif %}
             </p>
             <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-mono text-left space-y-1">
+                <div>คู่ค้า: <strong class="text-slate-800">{{ active_vendor.name }}</strong></div>
                 <div>รหัสอะไหล่: <strong class="text-slate-800">{{ deal.sku }}</strong></div>
-                <div>ราคาตกลง: <strong class="text-blue-700" id="modal-agreed-price">฿{{ deal.post_price }}</strong> / {{ deal.unit }}</div>
-                <div>เครดิตเทอม: <strong class="text-indigo-700" id="modal-agreed-credit">45 วัน</strong></div>
-                <div>สถานะ SAP: <span class="badge badge-xs badge-success text-white">Stage 4: Pending Sign-Off</span></div>
+                <div>ราคาเสนอ: <strong class="text-blue-700" id="modal-agreed-price">{{ active_vendor.price if active_vendor else ('฿' ~ deal.post_price) }}</strong> / {{ deal.unit }}</div>
+                <div>เครดิตเทอม: <strong class="text-indigo-700" id="modal-agreed-credit">{{ active_vendor.credit if active_vendor else '45 วัน' }}</strong></div>
+                <div>สถานะระบบ: <span class="badge badge-xs {{ 'badge-success text-white' if is_winner else 'badge-info text-white' }}">{{ 'Stage 4: รอผู้บริหาร Buyer เซ็น SAP' if is_winner else 'Stage 3: อยู่ระหว่างประเมินแข่งขัน' }}</span></div>
             </div>
             <div class="modal-action justify-center">
                 <button onclick="document.getElementById('portal_success_modal').close()" class="btn btn-sm btn-primary px-6">รับทราบ</button>
@@ -314,12 +319,14 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         const dealData = {{ deal | tojson }};
+        const vendorData = {{ active_vendor | tojson }};
+        const isWinner = {{ 'true' if is_winner else 'false' }};
         const supplierToken = "{{ token }}";
 
         const portalApp = {
             round: 1,
             dealKey: dealData.id || "nsk",
-            vendorName: dealData.supplier || "บจก. สยาม พรีซิชั่น เทค (V-4019)",
+            vendorName: vendorData.name || dealData.supplier || "บจก. คู่ค้า AVL",
 
             init() {
                 lucide.createIcons();
@@ -340,8 +347,8 @@
                 const text = input.value.trim();
                 if (!text) return;
 
-                // Append Supplier Message
-                this.appendMessage('vendor', this.vendorName.replace(/ \(.*\)/, ''), text);
+                // Append user message to stream
+                this.appendMessage('vendor', this.vendorName, text);
                 input.value = '';
                 btn.disabled = true;
 
@@ -350,63 +357,68 @@
                 this.showTyping(typingId);
 
                 try {
-                    const response = await fetch('/api/negotiate', {
+                    const res = await fetch('/api/negotiate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            deal_key: this.dealKey,
+                            deal_id: this.dealKey,
+                            vendor_id: vendorData.id || "v1",
                             vendor_name: this.vendorName,
-                            message: text
+                            message: text,
+                            round: this.round
                         })
                     });
 
                     this.removeTyping(typingId);
-                    btn.disabled = false;
 
-                    if (response.ok) {
-                        const data = await response.json();
-                        const reply = data.reply || "ทางระบบได้รับข้อเสนอของท่านเรียบร้อยแล้วและกำลังพิจารณาครับ";
-                        const tactic = data.tactic || "[Autonomous Negotiation Engine]";
-                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', reply, tactic);
+                    if (res.ok) {
+                        const data = await res.json();
+                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', data.agent_reply || "รับทราบข้อเสนอครับ กำลังประสานงานต่อรองเงื่อนไข", data.tactic);
                         
-                        this.round++;
-                        const rEl = document.getElementById('current-round-num');
-                        if (rEl) rEl.innerText = this.round;
+                        // Update live term sheet if negotiated
+                        if (data.price) {
+                            document.getElementById('live-term-price').innerText = `฿${Number(data.price).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+                            const modalPrice = document.getElementById('modal-agreed-price');
+                            if (modalPrice) modalPrice.innerText = `฿${Number(data.price).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+                        }
+                        if (data.credit_days) {
+                            document.getElementById('live-term-credit').innerText = `${data.credit_days} วัน`;
+                            const modalCredit = document.getElementById('modal-agreed-credit');
+                            if (modalCredit) modalCredit.innerText = `${data.credit_days} วัน`;
+                        }
 
-                        // Check if deal reached agreement in text
-                        if (reply.includes('ลงนาม') || reply.includes('อนุมัติ') || reply.includes('ปิดดีล') || text.includes('ตกลงตามเงื่อนไข')) {
+                        if (data.deal_agreed) {
                             this.markDealAgreed();
                         }
+
+                        this.round += 1;
+                        document.getElementById('current-round-num').innerText = this.round;
                     } else {
-                        this.appendMessage('agent', 'AutoProcure.AI', 'ขอบคุณสำหรับข้อเสนอครับ ทางระบบกำลังประสานงานผู้จัดการหมวดหมู่อะไหล่เพื่อสรุปผล');
+                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', "ขอบคุณสำหรับข้อเสนอครับ ทางระบบกำลังประสานงานผู้จัดการหมวดหมู่อะไหล่เพื่อสรุปผล");
                     }
                 } catch(err) {
                     this.removeTyping(typingId);
+                    this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', "ระบบบันทึกข้อเสนอของท่านเข้าสู่คิวการประเมิน TCO เรียบร้อยแล้วครับ");
+                } finally {
                     btn.disabled = false;
-                    this.appendMessage('agent', 'AutoProcure.AI', 'ขอบพระคุณครับ ทางระบบได้รับข้อมูลข้อเสนอของท่านเข้าสู่ฐานข้อมูล SAP แล้วครับ');
                 }
-
-                lucide.createIcons();
             },
 
-            appendMessage(sender, name, text, tactic = "") {
+            appendMessage(sender, name, text, tactic) {
                 const stream = document.getElementById('portal-chat-stream');
-                const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-                
-                const isUser = (sender === 'vendor');
-                const chatClass = isUser ? 'chat chat-end' : 'chat chat-start';
-                const bubbleClass = isUser ? 'chat-bubble bg-blue-700 text-white shadow-xs' : 'chat-bubble bg-white text-slate-800 shadow-xs border border-slate-200';
-                const avatar = isUser ? 'ME' : 'AI';
-                const avatarBg = isUser ? 'bg-slate-700 text-white' : 'bg-blue-700 text-white';
-
                 const div = document.createElement('div');
-                div.className = chatClass;
+                div.className = sender === 'vendor' ? 'chat chat-end' : 'chat chat-start';
+
+                const avatarClass = sender === 'vendor' ? 'bg-slate-800 text-white' : 'bg-blue-700 text-white';
+                const avatarText = sender === 'vendor' ? 'ME' : 'AI';
+                const bubbleClass = sender === 'vendor' ? 'chat-bubble bg-blue-600 text-white text-xs shadow-xs' : 'chat-bubble bg-white text-slate-800 text-xs shadow-xs border border-slate-200';
+
                 div.innerHTML = `
                     <div class="chat-image avatar placeholder">
-                        <div class="${avatarBg} rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center">${avatar}</div>
+                        <div class="${avatarClass} rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center">${avatarText}</div>
                     </div>
                     <div class="chat-header text-[10px] text-slate-400 mb-0.5">
-                        ${name} <time class="text-[9px] text-slate-400">${timeStr}</time>
+                        ${name} <time class="text-[9px] opacity-70">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</time>
                     </div>
                     <div class="${bubbleClass}">
                         ${text}
@@ -444,15 +456,15 @@
                 const badge = document.getElementById('term-status-badge');
                 if (badge) {
                     badge.className = 'badge badge-xs badge-success text-white';
-                    badge.innerText = 'ตกลงเงื่อนไขสำเร็จ ✓';
+                    badge.innerText = 'ข้อเสนอผ่านเกณฑ์ TCO Rank #1 ✓';
                 }
                 const btn = document.getElementById('btn-portal-accept');
                 if (btn) {
-                    btn.className = 'btn btn-sm btn-primary w-full text-white font-bold gap-1.5 shadow-md animate-bounce';
+                    btn.className = 'btn btn-sm btn-success w-full text-white font-bold gap-1.5 shadow-md animate-bounce';
                 }
             },
 
-            acceptAndSignDeal() {
+            submitBindingOffer() {
                 const modal = document.getElementById('portal_success_modal');
                 if (modal) {
                     modal.showModal();
