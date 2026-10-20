@@ -359,7 +359,7 @@
                                         <div class="text-[9px] text-emerald-600 font-normal mt-0.5">(Cost Savings)</div>
                                     </th>
                                     <th class="py-2.5 px-2 text-center min-w-[100px]">Stage จัดซื้อ</th>
-                                    <th class="py-2.5 px-2 text-center min-w-[135px]">การดำเนินการ (Cockpit)</th>
+                                    <th class="py-2.5 px-2 text-center min-w-[155px]">การดำเนินการ (Cockpit)</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
@@ -396,8 +396,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('nsk')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('nsk')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('nsk')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'nsk\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'nsk\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -435,8 +435,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('skf')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('skf')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('skf')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'skf\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'skf\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -471,10 +471,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('ntn_ucp')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('ntn_ucp')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('ntn_ucp')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -509,10 +510,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('koyo_taper')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('koyo_taper')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('koyo_taper')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -547,10 +549,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 4 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('thk')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('thk')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('thk')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -585,10 +588,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('iko_bushing')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('iko_bushing')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('iko_bushing')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -623,10 +627,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('gates')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('gates')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('gates')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -664,8 +669,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('mitsuboshi_vbelt')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('mitsuboshi_vbelt')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('mitsuboshi_vbelt')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'mitsuboshi_vbelt\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'mitsuboshi_vbelt\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -700,10 +705,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เทียบสัญญาเดิม</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('bando_ribbed')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('bando_ribbed')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('bando_ribbed')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -738,10 +744,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ต่อรองรอบ 2</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('tsubaki_chain')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('tsubaki_chain')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('tsubaki_chain')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -776,10 +783,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('did_chain')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('did_chain')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('did_chain')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -814,10 +822,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('nbk_coupling')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('nbk_coupling')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('nbk_coupling')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -855,8 +864,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('lovejoy_coupling')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('lovejoy_coupling')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('lovejoy_coupling')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'lovejoy_coupling\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'lovejoy_coupling\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -891,10 +900,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('khk_gear')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('khk_gear')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('khk_gear')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -929,10 +939,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เจรจาต่อรอง</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('misumi_shaft')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('misumi_shaft')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('misumi_shaft')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -967,10 +978,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เทียบสัญญาเดิม</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('thk_ballscrew')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('thk_ballscrew')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('thk_ballscrew')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1008,8 +1020,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('asahi_uc208')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('asahi_uc208')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('asahi_uc208')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'asahi_uc208\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'asahi_uc208\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1044,10 +1056,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('ina_needle')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('ina_needle')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('ina_needle')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1082,10 +1095,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('martin_sprocket')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('martin_sprocket')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('martin_sprocket')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1120,10 +1134,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('misumi_cam')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('misumi_cam')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('misumi_cam')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1161,8 +1176,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('habasit_belt')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('habasit_belt')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('habasit_belt')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'habasit_belt\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'habasit_belt\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1197,10 +1212,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('chiorino_belt')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('chiorino_belt')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('chiorino_belt')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1238,8 +1254,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('omron')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('omron')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('omron')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'omron\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'omron\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1274,10 +1290,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('omron_photo')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('omron_photo')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('omron_photo')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1312,10 +1329,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('keyence_fiber')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('keyence_fiber')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('keyence_fiber')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1350,10 +1368,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ต่อรองรอบ 2</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('schneider')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('schneider')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('schneider')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1388,10 +1407,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เทียบสัญญาเดิม</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('mitsubishi')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('mitsubishi')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('mitsubishi')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1429,8 +1449,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('mitsu_mccb')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('mitsu_mccb')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('mitsu_mccb')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'mitsu_mccb\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'mitsu_mccb\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1465,10 +1485,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('fuji_contactor')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('fuji_contactor')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('fuji_contactor')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1503,10 +1524,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เจรจาต่อรอง</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('panasonic_photo')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('panasonic_photo')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('panasonic_photo')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1541,10 +1563,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('sick_laser')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('sick_laser')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('sick_laser')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1582,8 +1605,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('autonics_temp')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('autonics_temp')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('autonics_temp')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'autonics_temp\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'autonics_temp\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1618,10 +1641,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('omron_ssr')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('omron_ssr')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('omron_ssr')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1659,8 +1683,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('idec_estop')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('idec_estop')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('idec_estop')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'idec_estop\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'idec_estop\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1695,10 +1719,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('weidmuller_term')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('weidmuller_term')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('weidmuller_term')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1733,10 +1758,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ต่อรองรอบ 2</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('meanwell_psu')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('meanwell_psu')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('meanwell_psu')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1771,10 +1797,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('abb_mcb')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('abb_mcb')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('abb_mcb')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1809,10 +1836,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เทียบสัญญาเดิม</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('siemens_soft')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('siemens_soft')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('siemens_soft')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1850,8 +1878,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('mitsu_plc_io')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('mitsu_plc_io')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('mitsu_plc_io')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'mitsu_plc_io\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'mitsu_plc_io\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1886,10 +1914,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('omron_safety')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('omron_safety')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('omron_safety')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1924,10 +1953,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('smc')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('smc')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('smc')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1965,8 +1995,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('smc_frl')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('smc_frl')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('smc_frl')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'smc_frl\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'smc_frl\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2004,8 +2034,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('rexroth')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('rexroth')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('rexroth')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'rexroth\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'rexroth\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2040,10 +2070,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ต่อรองรอบ 2</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('festo_cylinder')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('festo_cylinder')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('festo_cylinder')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2078,10 +2109,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('smc_compact_cyl')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('smc_compact_cyl')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('smc_compact_cyl')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2116,10 +2148,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เจรจาต่อรอง</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('parker_pump')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('parker_pump')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('parker_pump')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2154,10 +2187,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('ckd_valve')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('ckd_valve')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('ckd_valve')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2195,8 +2229,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('smc_speed_ctrl')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('smc_speed_ctrl')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('smc_speed_ctrl')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'smc_speed_ctrl\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'smc_speed_ctrl\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2231,10 +2265,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('pisco_fitting')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('pisco_fitting')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('pisco_fitting')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2269,10 +2304,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('koganei_qev')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('koganei_qev')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('koganei_qev')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2307,10 +2343,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('smc_pu_tubing')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('smc_pu_tubing')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('smc_pu_tubing')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2345,10 +2382,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เทียบสัญญาเดิม</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('vickers_relief')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('vickers_relief')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('vickers_relief')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2383,10 +2421,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมยอด PR</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('nok')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('nok')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('nok')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2424,8 +2463,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('skf_seal')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('skf_seal')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('skf_seal')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'skf_seal\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'skf_seal\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2460,10 +2499,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ต่อรองรอบ 2</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('trelleborg_oring')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('trelleborg_oring')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('trelleborg_oring')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2498,10 +2538,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('klinger_gasket')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('klinger_gasket')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('klinger_gasket')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2536,10 +2577,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เทียบสัญญาเดิม</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('grundfos_mech_seal')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('grundfos_mech_seal')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('grundfos_mech_seal')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2577,8 +2619,8 @@
                                     <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('loctite_243')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('loctite_243')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('loctite_243')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openChatModal(\'loctite_243\')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openSignOff(\'loctite_243\')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2613,10 +2655,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ประมูล 3 เจ้า</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('mobil_gear_oil')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('mobil_gear_oil')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('mobil_gear_oil')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2651,10 +2694,11 @@
                                             <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ตรวจสต็อกต่ำ</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 px-2 text-center min-w-[115px]">
+                                    <td class="py-2 px-2 text-center min-w-[155px]">
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('shinetsu_silicone')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
-                                            <button type="button" onclick="app.openChatModal('shinetsu_silicone')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-3 py-1 shadow-2xs flex items-center gap-1.5 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.openChatModal('shinetsu_silicone')" class="btn btn-xs bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-800 border border-slate-300 hover:border-blue-300 font-medium rounded-lg px-2.5 py-1 shadow-2xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5 text-blue-700"></i> <span>ห้องเจรจา</span></button>
+                                            <button type="button" onclick="app.showToast('ดีลนี้ยังอยู่ระหว่างขั้นตอนการเจรจาต่อรอง ยังไม่สามารถลงนามได้ กรุณาเข้าห้องเจรจาเพื่อสรุปผลก่อน', 'info')" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-500 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-65 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ลงนาม</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -5393,6 +5437,23 @@
                 vendor.ladder = [];
                 this.renderVendorMessages(vendor);
                 this.renderRightPanel(deal, vendorIndex);
+
+                // Update Cockpit Header Sign-off Button State
+                const headerSignOff = document.getElementById('chat-header-signoff-btn');
+                if (headerSignOff) {
+                    const isWinner = vendor.status && (vendor.status.includes('ชนะ') || vendor.status.includes('PO'));
+                    if (deal.stage === 4 && (vendorIndex === 0 || isWinner)) {
+                        headerSignOff.className = 'btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg gap-1 border border-emerald-400/40 shadow-sm cursor-pointer transition-all';
+                        headerSignOff.innerHTML = '<i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">ได้ข้อสรุปแล้ว ➔ ลงนาม PO</span>';
+                        headerSignOff.onclick = () => app.openSignOff(this.currentChatDealKey);
+                        headerSignOff.title = 'ได้ข้อสรุปแล้ว ➔ ลงนามสัญญาดิจิทัลใน SAP';
+                    } else {
+                        headerSignOff.className = 'btn btn-xs bg-slate-800 text-slate-400 border border-slate-700 rounded-lg gap-1 cursor-not-allowed opacity-60 hover:bg-slate-750 transition-all';
+                        headerSignOff.innerHTML = '<i data-lucide="lock" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">ยังไม่พร้อมลงนาม</span>';
+                        headerSignOff.onclick = () => app.showToast('การเจรจากับคู่ค้ารายนี้ยังไม่ได้ข้อสรุป กรุณาดำเนินการต่อรองให้เสร็จสิ้นก่อนลงนามสัญญา', 'info');
+                        headerSignOff.title = 'ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)';
+                    }
+                }
                 this.showToast(`รีเซ็ตห้องเจรจา ${vendor.name} เรียบร้อยแล้ว`, 'info');
                 lucide.createIcons({ root: document.getElementById('chat_modal') });
             },
@@ -5550,6 +5611,23 @@
                 const vendor = deal.vendors[vendorIndex];
                 this.renderVendorMessages(vendor);
                 this.renderRightPanel(deal, vendorIndex);
+
+                // Update Cockpit Header Sign-off Button State
+                const headerSignOff = document.getElementById('chat-header-signoff-btn');
+                if (headerSignOff) {
+                    const isWinner = vendor.status && (vendor.status.includes('ชนะ') || vendor.status.includes('PO'));
+                    if (deal.stage === 4 && (vendorIndex === 0 || isWinner)) {
+                        headerSignOff.className = 'btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg gap-1 border border-emerald-400/40 shadow-sm cursor-pointer transition-all';
+                        headerSignOff.innerHTML = '<i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">ได้ข้อสรุปแล้ว ➔ ลงนาม PO</span>';
+                        headerSignOff.onclick = () => app.openSignOff(this.currentChatDealKey);
+                        headerSignOff.title = 'ได้ข้อสรุปแล้ว ➔ ลงนามสัญญาดิจิทัลใน SAP';
+                    } else {
+                        headerSignOff.className = 'btn btn-xs bg-slate-800 text-slate-400 border border-slate-700 rounded-lg gap-1 cursor-not-allowed opacity-60 hover:bg-slate-750 transition-all';
+                        headerSignOff.innerHTML = '<i data-lucide="lock" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">ยังไม่พร้อมลงนาม</span>';
+                        headerSignOff.onclick = () => app.showToast('การเจรจากับคู่ค้ารายนี้ยังไม่ได้ข้อสรุป กรุณาดำเนินการต่อรองให้เสร็จสิ้นก่อนลงนามสัญญา', 'info');
+                        headerSignOff.title = 'ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)';
+                    }
+                }
             },
 
             renderVendorMessages(vendor) {
@@ -5604,7 +5682,7 @@
                             <span class="font-medium text-slate-700 text-xs">${vendor.outcome}</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            ${isWinner ? `<button type="button" onclick="app.openSignOff('${this.currentChatDealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg px-3 py-1 shadow-xs flex items-center gap-1"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ได้ข้อสรุปแล้ว ➔ ลงนามสัญญา PO</span></button>` : `<span class="badge badge-xs badge-ghost text-slate-500 font-mono">กำลังเจรจาแข่งขัน</span>`}
+                            ${isWinner ? `<button type="button" onclick="app.openSignOff('${this.currentChatDealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg px-3 py-1 shadow-xs flex items-center gap-1"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ได้ข้อสรุปแล้ว ➔ ลงนามสัญญา PO</span></button>` : `<button type="button" onclick="app.showToast('การเจรจากับคู่ค้ารายนี้ยังไม่ได้ข้อสรุป กรุณาดำเนินการต่อรองให้เสร็จสิ้นก่อนลงนามสัญญา', 'info')" class="btn btn-xs bg-slate-100 text-slate-400 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-70 hover:bg-slate-200 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ยังไม่พร้อมลงนาม</span></button>`}
                             <span class="text-slate-400 font-mono text-[10px] hidden sm:flex items-center gap-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live
                             </span>
