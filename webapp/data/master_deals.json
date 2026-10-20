@@ -2,1678 +2,3361 @@
   "nsk": {
     "id": "nsk",
     "deal_code": "DEAL-2026-NSK",
-    "part_code": "NSK-6208-2RS1",
-    "brand": "NSK",
+    "sku": "NSK-6208-2RS1",
     "name": "ตลับลูกปืน NSK Deep Groove Ball Bearing (6208-2RS1)",
-    "category": "Bearings & Power Transmission",
-    "total_prs": 348,
-    "total_quantity": 20274,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 450,
-    "target_unit_price": 398,
-    "budget_total_thb": 9170565.33,
-    "target_total_thb": 8110562.28,
-    "total_savings_thb": 1119509.33,
-    "savings_pct": 12.2,
-    "standard_credit_days": 30,
-    "target_credit_days": 45,
-    "incumbent_supplier": "บจก. เอเพ็กซ์ ซีลลิ่ง แอนด์ โพลีเมอร์",
-    "awarded_supplier": "บจก. สยาม พรีซิชั่น เทค",
-    "spec_standard": "JIS B 1514 / ISO 492",
-    "warranty_standard": "12 เดือน (ศูนย์ NSK)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
     "stage": 4,
-    "stage_meta": {
-      "label": "ปิดดีลออก PO",
-      "badge": "Stage 4",
-      "desc": "ผู้บริหารลงนามใน SAP",
-      "class": "badge-success text-white"
-    },
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ชลบุรี เหลือ 12 (Min: 50)",
+    "stock_type": "Low Stock",
+    "unit": "ชิ้น",
+    "qty": 18755,
+    "prs_count": 166,
+    "pre_price": 450.0,
+    "post_price": 398.0,
+    "pre_spend": 8699267.5,
+    "post_spend": 7464490.0,
+    "savings": 1234777.5,
+    "savings_pct": 14.2,
+    "supplier": "บจก. สยาม พรีซิชั่น เทค (V-4019)",
     "vendors": [
       {
-        "id": "siam_precision",
-        "name": "บจก. สยาม พรีซิชั่น เทค",
+        "id": "v1_nsk",
+        "name": "บจก. สยาม พรีซิชั่น เทค (V-4019)",
         "price": "฿398.00",
         "credit": "45 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "1 ปีเต็ม (ศูนย์ NSK)",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
         "status": "ชนะการประมูล (ออกใบ PO)",
         "statusBadge": "badge-success text-white font-bold",
-        "outcome": "ผู้ชนะ TCO Rank #1 | สัญญา Blanket Order 1 ปี",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿1,234,777.50 (-14.2%)",
         "messages": [
           {
             "sender": "vendor",
-            "name": "สยาม พรีซิชั่น (ฝ่ายขาย)",
+            "name": "สยาม พรีซิชั่น เทค (V-4019) (ฝ่ายขาย)",
             "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ตามที่ได้รับคำขอเสนอราคา (RFQ) สำหรับตลับลูกปืน NSK Deep Groove Ball Bearing 6208-2RS1 จำนวน 1,200 ชิ้น เนื่องจากสถานการณ์ต้นทุนค่าระวางเรือและอัตราแลกเปลี่ยนเยนปรับตัว ทางเราขอเสนอราคาเปิดที่ 425.00 บาท/ชิ้น เครดิต 30 วัน สต็อกพร้อมส่งภายใน 7 วันทำการครับ"
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ตลับลูกปืน NSK Deep Groove Ball Bearing (6208-2RS1) ยอดรวม 18755 ชิ้น ทางเราขอเสนอราคา ฿450.00/ชิ้น เครดิต 30 วันครับ"
           },
           {
             "sender": "agent",
             "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
             "time": "10:32",
-            "text": "ขอบคุณคุณสมศักดิ์ครับ จากการตรวจสอบประวัติฐานข้อมูลจัดซื้อย้อนหลังและราคาอ้างอิงตลาด (Market Benchmark) ของตลับลูกปืนมาตรฐาน JIS B 1514 ในเขตนิคม EEC สำหรับคำสั่งซื้อขนาด 1,200 ชิ้น ราคาเฉลี่ยอยู่ที่ 400 - 405 บาท อีกทั้งเราได้รับข้อเสนอเบื้องต้นจากคู่ค้ารายอื่นใน AVL ที่ 405 บาท หากทางสยาม พรีซิชั่น สามารถปรับลดราคาลงมาที่ 395 บาท ทางเราพร้อมพิจารณาจัดสรรคำสั่งซื้อให้ทันทีครับ",
-            "tactic": "[BATNA Engine: อ้างอิงราคาตลาดและข้อเสนอคู่แข่งในระบบ]"
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 166 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 18755 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿398.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
           },
           {
             "sender": "vendor",
-            "name": "สยาม พรีซิชั่น (ฝ่ายขาย)",
-            "time": "10:35",
-            "text": "395 บาทเป็นราคาที่ต่ำกว่าเพดานขั้นต่ำของเรามากเลยครับคุณจัดซื้อ ถ้าสั่งล็อต 1,200 ชิ้นจริงๆ ทางเราลดสุดตัวได้ที่ 408.00 บาท/ชิ้น และขอรักษาระยะเวลาเครดิตเทอมไว้ที่ 30 วันครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:37",
-            "text": "เข้าใจข้อจำกัดด้านต้นทุนครับ เพื่อให้เกิดข้อตกลงที่เกิดประโยชน์ร่วมกัน (Win-Win) ทางโรงงานขอเสนอเงื่อนไขแลกเปลี่ยนหลายมิติ (Multi-variable Concession): เราขอยืนยันราคาที่ 398.00 บาท/ชิ้น แต่ทางเราจะขยายสัญญาเป็น Blanket Order สัญญารายปี 1 ปีเต็ม การันตียอดสั่งซื้อทั้งเครือต่อเนื่อง และขอยืดเครดิตเทอมเป็น 45 วัน หากท่านอนุมัติได้ ทางเราจะล็อกให้สยามฯ เป็นคู่ค้า Tier-1 ประจำปีสำหรับอะไหล่ NSK ของทุกโรงงานครับ",
-            "tactic": "[Concession Exchange: แลกสัญญารายปี 1 ปี กับส่วนลดและเครดิต 45 วัน]"
-          },
-          {
-            "sender": "vendor",
-            "name": "สยาม พรีซิชั่น (ฝ่ายขาย)",
-            "time": "10:41",
-            "text": "ข้อเสนอน่าสนใจมากครับ ขอเวลาทางผมปรึกษาผู้อำนวยการฝ่ายขายสักครู่ครับ... ทางผู้บริหารยินดีตกลงตามเงื่อนไขครับ! ที่ราคา 398.00 บาท/ชิ้น เครดิตเทอม 45 วัน พร้อมสัญญารายปี 1,200 ชิ้น และการันตีส่งมอบล็อตแรกเข้าโรงงานชลบุรีภายใน 7 วันทำการครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:43",
-            "text": "ขอบพระคุณครับ ตกลงตามเงื่อนไข: ราคา ฿398.00/ชิ้น (ประหยัดสุทธิ ฿62,400 / -11.55%), เครดิต 45 วัน, รับประกันศูนย์ 1 ปี, มาตรฐาน JIS B 1514 ทางระบบได้สร้าง Draft PO เข้ารอผู้บริหารลงนามดิจิทัล (Sign-Off) ในระบบ SAP เรียบร้อยแล้วครับ",
-            "tactic": "[Award PO: คัดเลือกผู้ชนะและส่งต่อผู้บริหารลงนามใน SAP]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ราคาเปิดแรกตามใบเสนอราคา",
-            "price": "฿425.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-500",
-            "note": "อ้างอิงต้นทุนนำเข้าและค่าระวางเรือปรับขึ้น"
-          },
-          {
-            "round": "Counter 1",
-            "title": "AI ดึงราคาตลาด EEC บีบราคา",
-            "price": "฿408.00",
-            "tag": "Market Pressure",
-            "color": "border-blue-300 text-blue-700",
-            "note": "แจ้งช่วงราคาคู่แข่งในระบบ ฿405-฿408"
-          },
-          {
-            "round": "Concession",
-            "title": "AI แลกสัญญา 1 ปี + เครดิต 45 วัน",
-            "price": "฿398.00",
-            "tag": "Volume Trade-off",
-            "color": "border-indigo-300 text-indigo-700",
-            "note": "ผูกยอดรวม 1,200 ชิ้น ชลบุรี+ระยอง"
-          },
-          {
-            "round": "Awarded",
-            "title": "ตกลงทำสัญญาและออกใบ PO",
-            "price": "฿398.00",
-            "tag": "Winner ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "ชนะประมูล TCO สูงสุด ประหยัด ฿62,400"
-          }
-        ]
-      },
-      {
-        "id": "eastern_bearing",
-        "name": "บจก. อีสเทิร์น แบริ่ง แอนด์ ซัพพลาย",
-        "price": "฿412.00",
-        "credit": "30 วัน",
-        "leadTime": "7 วันทำการ",
-        "warranty": "1 ปี",
-        "status": "ไม่ได้รับเลือก (ราคาสูง)",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "ไม่ได้รับเลือก | ราคาสูงกว่าเป้า ฿14/ชิ้น",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "อีสเทิร์น แบริ่ง (ฝ่ายขาย)",
-            "time": "10:31",
-            "text": "สวัสดีครับ ทางอีสเทิร์น แบริ่ง ขอเสนอราคา NSK 6208-2RS1 ล็อต 1,200 ชิ้น ที่ราคา 440.00 บาท/ชิ้น เครดิต 30 วัน ส่งมอบ 10 วันทำการครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:33",
-            "text": "ราคา 440 บาทสูงกว่าราคาเฉลี่ยในระบบค่อนข้างมาก ทางเรามีข้อเสนอจากคู่แข่งใน AVL ที่ต่ำกว่า 400 บาท หากทางอีสเทิร์นสามารถปรับลดราคาลงมาแข่งขันที่ 398 บาท ทางเราพร้อมพิจารณาครับ",
-            "tactic": "[Competitive Pressure: แจ้งช่วงราคาคู่แข่งเพื่อกดดันราคา]"
-          },
-          {
-            "sender": "vendor",
-            "name": "อีสเทิร์น แบริ่ง (ฝ่ายขาย)",
-            "time": "10:36",
-            "text": "ทางเราตรวจสอบสต็อกแล้ว ลดได้เต็มที่ 420 บาทครับ ถ้าต่ำกว่านี้ทางเราเข้าเนื้อจริงๆ เนื่องจากเป็นเกรด C3 ฝายางแท้"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "name": "สยาม พรีซิชั่น เทค (V-4019) (ฝ่ายขาย)",
             "time": "10:38",
-            "text": "หากทางอีสเทิร์นยืนยันราคาที่ 420 บาท ทางเรามีข้อเสนอจาก บจก. สยาม พรีซิชั่น ที่ 398 บาท พร้อมเงื่อนไขเครดิต 45 วัน หากท่านไม่สามารถปรับลดราคาลงมาใกล้เคียงได้ ทางเราจำเป็นต้องเลือกคู่ค้ารายอื่นครับ",
-            "tactic": "[Final Counter: แจ้งสถานะเปรียบเทียบในระบบ]"
-          },
-          {
-            "sender": "vendor",
-            "name": "อีสเทิร์น แบริ่ง (ฝ่ายขาย)",
-            "time": "10:40",
-            "text": "ทางเราปรึกษาผู้จัดการแล้ว ลดเต็มที่ได้แค่ 412.00 บาท/ชิ้น และเครดิตเทอมให้ได้แค่ 30 วันเท่านั้นครับ ไม่สามารถสู้ราคา 398 ได้จริงๆ ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:42",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ เนื่องจากราคา ฿412.00 สูงกว่าเป้าหมาย TCO และมีคู่ค้ารายอื่นให้เงื่อนไขที่ดีกว่า ทางระบบขอสงวนสิทธิ์ไม่เลือกข้อเสนอนี้ในรอบนี้ และบันทึกประวัติราคาไว้สำหรับการประมูลในรอบถัดไปครับ",
-            "tactic": "[Decline Offer: ปฏิเสธข้อเสนอเนื่องจากคะแนน TCO ต่ำกว่าคู่แข่ง]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ราคาเปิดแรก",
-            "price": "฿440.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สูงกว่าราคาตลาดเฉลี่ย 10%"
-          },
-          {
-            "round": "Counter 1",
-            "title": "AI แจ้งราคาคู่แข่งเพื่อต่อรอง",
-            "price": "฿398.00",
-            "tag": "AI Target",
-            "color": "border-blue-300 text-blue-700",
-            "note": "เสนอราคาแข่งขันในระบบ"
-          },
-          {
-            "round": "Final Offer",
-            "title": "ซัพพลายเออร์ลดได้เต็มที่",
-            "price": "฿412.00",
-            "tag": "Best Offer",
-            "color": "border-amber-300 text-amber-800",
-            "note": "ไม่ยอมรับเครดิต 45 วัน"
-          },
-          {
-            "round": "Rejected",
-            "title": "ตัดสิทธิ์เนื่องจากราคาสูงกว่าคู่แข่ง",
-            "price": "฿412.00",
-            "tag": "Rejected ✗",
-            "color": "border-rose-300 bg-rose-50 text-rose-800 font-bold",
-            "note": "แพ้ราคา บจก. สยาม พรีซิชั่น (฿398)"
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿398.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
           }
         ]
-      },
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿425.00",
-        "credit": "30 วัน",
-        "leadTime": "14 วันทำการ",
-        "warranty": "1 ปี",
-        "status": "ตกรอบ SLA",
-        "statusBadge": "badge-error text-white",
-        "outcome": "ตกรอบประมูล | Lead Time 14 วัน ไม่ผ่านเกณฑ์",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "ไทย โคโย (ฝ่ายขาย)",
-            "time": "10:29",
-            "text": "ขอเสนอราคาพิเศษ NSK 6208-2RS1 ที่ 405.00 บาท/ชิ้น เครดิต 30 วัน แต่ปัจจุบันสินค้าหน้าร้านหมด ต้องรอสั่งนำเข้าจากคลังญี่ปุ่น ระยะเวลาส่งมอบ 21 วันทำการครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:31",
-            "text": "ขอบคุณครับ แม้ราคา 405 บาทจะอยู่ในเกณฑ์แข่งขันได้ แต่จากสัญญาณเตือนคลังโรงงานชลบุรี สต็อกคงเหลือเพียง 12 ชิ้น (ต่ำกว่า Min-Stock 50) การรอสินค้า 21 วันทำการมีความเสี่ยงสูงมากที่จะทำให้ไลน์ผลิตหยุดชะงัก (Downtime Risk) ทางไทย โคโย สามารถจัดส่งด่วนทางอากาศหรือแบ่งส่งล็อตแรก 200 ชิ้นภายใน 5 วันได้หรือไม่ครับ?",
-            "tactic": "[Risk Evaluation: ตรวจสอบความเสี่ยง Downtime ต่อไลน์การผลิต]"
-          },
-          {
-            "sender": "vendor",
-            "name": "ไทย โคโย (ฝ่ายขาย)",
-            "time": "10:34",
-            "text": "เช็กคลังสิงคโปร์แล้ว ไม่สามารถส่งด่วนได้ครับ ต้องรอตู้คอนเทนเนอร์เข้าตามรอบปกติ 21 วันเท่านั้นครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:36",
-            "text": "เข้าใจข้อจำกัดครับ แต่เนื่องจากระยะเวลาส่งมอบไม่ผ่านเกณฑ์มาตรฐานความปลอดภัย (Lead Time SLA กำหนดไม่เกิน 7 วัน) เพื่อป้องกันความเสียหายของโรงงาน ทางระบบขอตัดสิทธิ์ข้อเสนอนี้ในรอบนี้ครับ ขอบคุณครับ",
-            "tactic": "[Disqualify: ตัดสิทธิ์เนื่องจากไม่ผ่านเกณฑ์ SLA การส่งมอบ]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ราคาเปิดแรก (ราคาดีแต่ของหมด)",
-            "price": "฿405.00",
-            "tag": "Stock Out",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สินค้าไม่มีสต็อกในประเทศ"
-          },
-          {
-            "round": "SLA Check",
-            "title": "AI ตรวจสอบความเสี่ยงไลน์ผลิต",
-            "price": "฿405.00",
-            "tag": "Downtime Risk",
-            "color": "border-amber-300 text-amber-800",
-            "note": "สต็อกคงเหลือ 12 ชิ้น รองรับได้เพียง 4 วัน"
-          },
-          {
-            "round": "Disqualified",
-            "title": "ตัดสิทธิ์เนื่องจาก Lead Time เกิน SLA",
-            "price": "฿405.00",
-            "tag": "Disqualified ✗",
-            "color": "border-rose-300 bg-rose-50 text-rose-800 font-bold",
-            "note": "ไม่ผ่านเกณฑ์ส่งมอบฉุกเฉินภายใน 7 วัน"
-          }
-        ]
-      }
-    ],
-    "category_group": "mechanical",
-    "category_th": "เครื่องกล & ส่งกำลัง",
-    "logo_badge_style": "bg-rose-50 border-rose-200 text-rose-700",
-    "erp_trigger": "ชลบุรี เหลือ 12 (Min: 50)",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Analyst Agent (NTT Tsuzumi SLM)",
-        "time": "T+0.42s | Token: 180",
-        "title": "การรับสัญญาณคลังและรวมยอดข้ามโรงงาน",
-        "thought": "ตรวจพบสต็อกอะไหล่ NSK 6208 ในคลังชลบุรีคงเหลือ 12 ชิ้น (ต่ำกว่า Min-Stock 50) จึงทำหน้าที่กวาดใบขอซื้อ (PR) ทั่วทั้งเครือองค์กร พบโรงงานระยองต้องการ 800 ชิ้น และอยุธยาต้องการ 388 ชิ้น รวมยอดจัดซื้อเป็น 1,200 ชิ้น เพื่อสร้างอำนาจต่อรอง",
-        "toolCall": "sap_query_inventory(part_no='6208-2RS1') ➔ Demand: 1,200 units"
-      },
-      {
-        "step": 2,
-        "agent": "Analyst Agent (RAG + Tsuzumi)",
-        "time": "T+1.05s | On-Premise",
-        "title": "ค้นหามาตรฐาน JIS B 1514 และคำนวณ TCO",
-        "thought": "ค้นหาเอกสารสเปกชิ้นส่วนผ่าน BM25+FAISS จับคู่มาตรฐาน JIS B 1514 และคำนวณสมการ TCO กำหนดเพดานราคาสูงสุดไม่เกิน ฿395.00/ชิ้น",
-        "toolCall": "rag_retrieve('NSK 6208 JIS B 1514') ➔ Score: 0.96 | Target: ฿395.00"
-      },
-      {
-        "step": 3,
-        "agent": "Strategic Negotiator (Game Theory)",
-        "time": "T+3.20s | BATNA Engine",
-        "title": "การแลกเปลี่ยนผลประโยชน์ (Concession Exchange)",
-        "thought": "สยาม พรีซิชั่น เสนอแรกที่ ฿425 สูงกว่าเพดาน TCO ฿30 หากปฏิเสธทันทีอาจเสียคู่ค้า จึงหยิบเงื่อนไขอำนาจต่อรองจากยอด 1,200 ชิ้นมาแลกเปลี่ยน: 'ขอราคา ฿398 แลกสัญญา 1 ปี และเครดิต 45 วัน'",
-        "toolCall": "vendor_concession_eval() ➔ สยาม พรีซิชั่น ตกลงที่ ฿398 ✓"
-      },
-      {
-        "step": 4,
-        "agent": "Guardrail Agent",
-        "time": "T+3.45s | Rule Engine",
-        "title": "ตรวจสอบความถูกต้องตามระเบียบบริษัท",
-        "thought": "ตรวจราคาไม่เกินงบประมาณ (฿398 <= ฿400), คู่ค้าอยู่ใน AVL (V-4019), มีเงื่อนไขค่าปรับส่งช้า 0.5%/วัน ผ่านเกณฑ์ 100%",
-        "toolCall": "audit_verify(vendor='V-4019') ➔ 100% COMPLIANT"
-      },
-      {
-        "step": 5,
-        "agent": "LangGraph Interrupt",
-        "time": "T+3.50s | HITL",
-        "title": "หยุดรอผู้บริหารลงนามดิจิทัล (Sign-Off)",
-        "thought": "ระบบสร้างร่างสัญญาฉบับสมบูรณ์ และระงับการทำงานอัตโนมัติ เพื่อส่งมอบให้ผู้จัดการฝ่ายจัดซื้อตรวจสอบ Audit Trail และลงนาม",
-        "toolCall": "interrupt_await_human(role='CPO', action='DIGITAL_SIGN_OFF')"
-      }
-    ]
-  },
-  "smc": {
-    "id": "smc",
-    "deal_code": "DEAL-2026-SMC",
-    "part_code": "SMC-SY5120-5LZD-01",
-    "brand": "SMC",
-    "name": "โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC)",
-    "category": "Pneumatics & Fluid Control",
-    "total_prs": 224,
-    "total_quantity": 7777,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 1256.89,
-    "target_unit_price": 1089.33,
-    "budget_total_thb": 9776225.44,
-    "target_total_thb": 8604807.39,
-    "total_savings_thb": 1226648.09,
-    "savings_pct": 12.5,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. สยาม พรีซิชั่น เทค",
-    "awarded_supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-    "spec_standard": "ISO 5599-1 / CE",
-    "warranty_standard": "12 เดือน",
-    "stage": 3,
-    "stage_meta": {
-      "label": "AI กำลังเจรจา",
-      "badge": "Stage 3",
-      "desc": "เจรจาต่อรองหลายคู่ค้า",
-      "class": "badge-primary"
-    },
-    "vendors": [
-      {
-        "id": "chonburi_fluid",
-        "name": "บจก. ชลบุรี ไฮดรอลิก แอนด์ นิวเมติกส์",
-        "price": "฿1,680.00",
-        "credit": "45 วัน",
-        "leadTime": "3 วันทำการ",
-        "warranty": "18 เดือน",
-        "status": "AI กำลังเจรจารอบ 2",
-        "statusBadge": "badge-primary text-white font-bold",
-        "outcome": "คู่เจรจาหลัก | AI กำลังต่อรองขอยืดเครดิตเป็น 60 วัน",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "นิวเมติกส์ เซ็นเตอร์",
-            "time": "11:10",
-            "text": "ชุดซีล SMC MGPM25 ราคาปกติ 1,850 บาท/ชุด สำหรับล็อต 80 ชุด ทางเราลดให้ได้ 1,720 บาทครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "11:12",
-            "text": "ทางโรงงานรวมยอดการสั่งซื้อ 80 ชุดเพื่อเปิดออเดอร์ล็อตเดียว ขอต่อรองราคาเหมาที่ 1,635.00 บาท/ชุด พร้อมเงื่อนไขรับประกันส่งมอบภายใน 5 วันทำการครับ",
-            "tactic": "[กลยุทธ์ต่อรอง: รวมยอดสั่งซื้อแลกเงื่อนไข SLA จัดส่งด่วน]"
-          },
-          {
-            "sender": "vendor",
-            "name": "นิวเมติกส์ เซ็นเตอร์",
-            "time": "11:15",
-            "text": "ยินดีรับเงื่อนไขราคา 1,635.00 บาท/ชุด พร้อมทำข้อตกลง SLA การส่งมอบภายใน 5 วันทำการครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาขายปลีกปกติ",
-            "price": "฿1,850.00",
-            "tag": "List Price",
-            "color": "border-slate-300 text-slate-500",
-            "note": "ราคาซื้อเฉพาะหน้าร้าน"
-          },
-          {
-            "round": "R1",
-            "title": "ซัพพลายเออร์ลดเบื้องต้น",
-            "price": "฿1,720.00",
-            "tag": "Supplier Discount",
-            "color": "border-slate-300 text-slate-500",
-            "note": "ลดตามยอด 80 ชุด"
-          },
-          {
-            "round": "Agreed",
-            "title": "AI ต่อรองราคาเหมารวม SLA",
-            "price": "฿1,635.00",
-            "tag": "Agreed ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "ประหยัดรวม ฿14,200"
-          }
-        ]
-      },
-      {
-        "id": "siam_precision",
-        "name": "บจก. สยาม พรีซิชั่น เทค",
-        "price": "฿1,750.00",
-        "credit": "30 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "เสนอราคาเปิด",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "รอการเทียบราคา TCO",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "สยาม พรีซิชั่น เทค (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC) ที่ราคา ฿1,750.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿1,750.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿1,750.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿1,750.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      },
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿1,820.00",
-        "credit": "30 วัน",
-        "leadTime": "10 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ราคาสูงเกินงบ",
-        "statusBadge": "badge-warning text-slate-800",
-        "outcome": "ราคาสูงกว่าเพดานงบประมาณ",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย) (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC) ที่ราคา ฿1,820.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿1,820.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿1,820.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿1,820.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "pneumatic",
-    "category_th": "นิวแมติกส์ & ไฮดรอลิกส์",
-    "logo_badge_style": "bg-blue-50 border-blue-200 text-blue-700",
-    "erp_trigger": "ระยอง เหลือ 3 (ROP: 10)",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Analyst Agent",
-        "time": "T+0.35s",
-        "title": "ตรวจจุดสั่งซื้อซ้ำ (Reorder Point)",
-        "thought": "สต็อกในคลังเหลือ 3 ชุด ถึงจุด Reorder Point วิกฤตสำหรับรอบ Preventive Maintenance จึงรวมยอดใบขอซื้อทั้งโรงงานได้ 80 ชุด",
-        "toolCall": "sap_check_rop('MGPM25') ➔ Low Stock Alert"
-      },
-      {
-        "step": 2,
-        "agent": "Strategic Negotiator",
-        "time": "T+2.10s",
-        "title": "เจรจาผูกเงื่อนไข SLA",
-        "thought": "ต่อรองราคาลงจาก ฿1,850 เหลือ ฿1,635/ชุด แลกกับการให้สัญญาจัดซื้ออะไหล่นิวเมติกส์ต่อเนื่องและระบุค่าปรับส่งช้า 0.5%/วัน",
-        "toolCall": "batna_tradeoff(vendor='V-1102', price=1635) ➔ Agreed ✓"
-      }
-    ]
-  },
-  "omron": {
-    "id": "omron",
-    "deal_code": "DEAL-2026-OMRON",
-    "part_code": "OMRON-E2E-X5ME1",
-    "brand": "OMRON",
-    "name": "อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18",
-    "category": "Industrial Sensors & Automation",
-    "total_prs": 276,
-    "total_quantity": 11155,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 882.3,
-    "target_unit_price": 773.58,
-    "budget_total_thb": 9992719.74,
-    "target_total_thb": 8770222.75,
-    "total_savings_thb": 1288140.93,
-    "savings_pct": 12.9,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. ไทย โคโย อินดัสเทรียล",
-    "awarded_supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-    "spec_standard": "IEC 60947-5-2",
-    "warranty_standard": "18 เดือน",
-    "stage": 4,
-    "stage_meta": {
-      "label": "ปิดดีลออก PO",
-      "badge": "Stage 4",
-      "desc": "ผู้บริหารลงนามใน SAP",
-      "class": "badge-success text-white"
-    },
-    "vendors": [
-      {
-        "id": "bangkok_automation",
-        "name": "บจก. บางกอก ออโตเมชั่น ซิสเต็มส์",
-        "price": "฿930.00",
-        "credit": "45 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "24 เดือน",
-        "status": "ชนะการประมูล (ออกใบ PO)",
-        "statusBadge": "badge-success text-white font-bold",
-        "outcome": "ผู้ชนะ TCO Rank #1 | รับประกัน 2 ปี ส่งฟรี DDP",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "ไทย ออโตเมชั่น",
-            "time": "14:10",
-            "text": "รีเลย์ Omron MY4N-D2 พร้อม Socket ราคาขายปลีก 220 บาท สั่ง 200 ตัว ลดให้ได้ 195 บาท/ชุด ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "14:12",
-            "text": "เราได้รวบรวมยอดเบิกใช้งานของไลน์ผลิตทั้ง 2 ส่วนรวมเป็น 200 ชุด ขอยื่นราคาเป้าหมายที่ 185.00 บาท/ชุด โดยรอบนี้ขอวางบิลรอบสิ้นเดือน เครดิต 45 วันครับ",
-            "tactic": "[กลยุทธ์ต่อรอง: ยอดรวมข้ามแผนกแลกเครดิตเทอม]"
-          },
-          {
-            "sender": "vendor",
-            "name": "ไทย ออโตเมชั่น",
-            "time": "14:15",
-            "text": "ตกลงครับ ทางเรายินดีให้ราคา 185.00 บาท/ชุด เครดิต 45 วัน พร้อมจัดส่งของให้สัปดาห์หน้าครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาปลีกเดิม",
-            "price": "฿220.00",
-            "tag": "List Price",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สั่งยอดแยกแผนก"
-          },
-          {
-            "round": "R1",
-            "title": "ส่วนลดเบื้องต้น 200 ตัว",
-            "price": "฿195.00",
-            "tag": "Volume Quote",
-            "color": "border-slate-300 text-slate-500",
-            "note": "ลดลง ฿25/ชุด"
-          },
-          {
-            "round": "Agreed",
-            "title": "AI ปิดดีลยอดรวม 2 ไลน์",
-            "price": "฿185.00",
-            "tag": "Agreed ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "เซฟ ฿7,000 (-15.9%)"
-          }
-        ]
-      },
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿980.00",
-        "credit": "30 วัน",
-        "leadTime": "7 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ไม่ได้รับเลือก",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "ราคาสูงกว่าข้อเสนอของผู้ชนะ",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย) (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 ที่ราคา ฿980.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿980.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿980.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿980.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "electrical",
-    "category_th": "ไฟฟ้า & เซนเซอร์",
-    "logo_badge_style": "bg-amber-50 border-amber-200 text-amber-700",
-    "erp_trigger": "ฉะเชิงเทรา Line 1-3 (Min: 100)",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Analyst Agent",
-        "time": "T+0.28s",
-        "title": "รวมยอดจัดซื้อ Line A & Line B",
-        "thought": "ตรวจพบ PR รีเลย์จาก 2 แผนก รวบรวมยอดเป็น 200 ชุดเพื่อขอลดราคา Volume Discount",
-        "toolCall": "aggregate_orders() ➔ Total 200 Sets"
-      }
-    ]
-  },
-  "mitsubishi": {
-    "id": "mitsubishi",
-    "deal_code": "DEAL-2026-MITSUBISHI",
-    "part_code": "MITSUBISHI-FR-D720-0.75K",
-    "brand": "MITSUBISHI",
-    "name": "อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi 0.75kW 3-Phase",
-    "category": "Drives & Inverters",
-    "total_prs": 165,
-    "total_quantity": 2762,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 4826.24,
-    "target_unit_price": 4203.61,
-    "budget_total_thb": 13341868.61,
-    "target_total_thb": 11678335.42,
-    "total_savings_thb": 1751067.22,
-    "savings_pct": 13.1,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. เอเพ็กซ์ ซีลลิ่ง แอนด์ โพลีเมอร์",
-    "awarded_supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-    "spec_standard": "UL508C / EN61800-3",
-    "warranty_standard": "24 เดือน",
-    "stage": 2,
-    "stage_meta": {
-      "label": "รวมยอดซื้อ",
-      "badge": "Stage 2",
-      "desc": "กวาดรวม PR ทั้ง 5 โรงงาน",
-      "class": "badge-info"
-    },
-    "vendors": [
-      {
-        "id": "bangkok_automation",
-        "name": "บจก. บางกอก ออโตเมชั่น ซิสเต็มส์",
-        "price": "฿3,500.00",
-        "credit": "45 วัน",
-        "leadTime": "7 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "อยู่ระหว่างตั้งราคาเป้า",
-        "statusBadge": "badge-info text-white",
-        "outcome": "AI รวมยอด PR ครบ 5 โรงงาน เตรียมเปิด RFQ",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "เคียวเซร่า & มิตซูบิชิ ทูลส์ (ฝ่ายขาย)",
-            "time": "09:10",
-            "text": "เรียนฝ่ายจัดซื้อ สำหรับเม็ดมีดกลึงคาร์ไบด์ Mitsubishi CNMG120408 จำนวน 500 ชิ้น ราคาเบิกจ่ายหน้างานปกติอยู่ที่ 195.00 บาท/ชิ้น ครับ ยอดรวม 97,500 บาท"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "09:12",
-            "text": "ขอบคุณครับ อ้างอิงจากสัญญาซื้อขายเดิมที่เคยทำไว้กับทางบริษัทท่าน ล็อตก่อนเราเคยได้ราคา 168.00 บาท/ชิ้น สำหรับรอบนี้เราเปิดสั่งซื้อล็อตใหญ่ 500 ชิ้น เพื่อเติมสต็อกตู้เบิกส่วนกลาง จึงขอทำสัญญาในราคา 170.00 บาท/ชิ้น เครดิตเทอม 60 วันครับ",
-            "tactic": "[กลยุทธ์ต่อรอง: อ้างอิงสัญญาเดิมเพื่อคุมราคาและต่อรองส่วนลด Volume]"
-          },
-          {
-            "sender": "vendor",
-            "name": "เคียวเซร่า & มิตซูบิชิ ทูลส์ (ฝ่ายขาย)",
-            "time": "09:15",
-            "text": "หากเป็นการรวมยอดล็อตเดียว 500 ชิ้น ทางผู้จัดการยินดีอนุมัติยืนราคาพิเศษ 170.00 บาท/ชิ้น ตามสัญญาเดิมครับ พร้อมจัดส่งเติมเข้าตู้สต็อกภายใน 3 วันทำการครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาเบิกจ่ายหน้าร้านเดิม",
-            "price": "฿195.00",
-            "tag": "Spot Buy",
-            "color": "border-slate-300 text-slate-500",
-            "note": "ราคาซื้อย่อยหน้าตู้"
-          },
-          {
-            "round": "Agreed",
-            "title": "AI ยื่นสัญญา LTA ยอด 500 ชิ้น",
-            "price": "฿170.00",
-            "tag": "Agreed ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "ประหยัดงบ ฿12,500 (-12.8%)"
-          }
-        ]
-      },
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿3,850.00",
-        "credit": "30 วัน",
-        "leadTime": "12 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ราคาแคตตาล็อกเดิม",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "ราคา Spot Buy เดิมก่อนรวมยอด",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "สยาม คาร์ไบด์",
-            "time": "09:11",
-            "text": "เสนอราคาเม็ดมีด Mitsubishi CNMG แท้ 178.00 บาท/ชิ้น เครดิต 30 วัน จัดส่ง 5 วันครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "09:14",
-            "text": "ราคา 178 บาท สูงกว่าราคาเป้าหมาย (170 บาท) และเครดิตเทอม 30 วันไม่ผ่านเกณฑ์ หากท่านไม่สามารถปรับราคาลงได้ ทางเราจำเป็นต้องเลือกคู่แข่งครับ",
-            "tactic": "[กลยุทธ์ต่อรอง: ยื่นข้อเสนอทางเลือกที่ดีกว่า (Counter-Offer)]"
-          },
-          {
-            "sender": "vendor",
-            "name": "สยาม คาร์ไบด์",
-            "time": "09:17",
-            "text": "ทางเราลดราคาได้ต่ำสุด 175.00 บาท/ชิ้น ครับ ไม่สามารถลงถึง 170 บาทได้ ต้องขออภัยด้วยครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาเปิดแรก",
-            "price": "฿178.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สูงกว่าราคาเป้าหมาย 170"
-          }
-        ]
-      }
-    ],
-    "category_group": "electrical",
-    "category_th": "ไฟฟ้า & เซนเซอร์",
-    "logo_badge_style": "bg-red-50 border-red-200 text-red-700",
-    "erp_trigger": "คลังกลาง เทียบสัญญาเดิม",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Tool Crib Scanner",
-        "time": "T+0.25s",
-        "title": "ตรวจจับสัญญาณสต็อกวิกฤตจาก Smart Tool Crib",
-        "thought": "ตู้เบิกเครื่องมืออัตโนมัติ (Smart Tool Crib) แจ้งเตือนเม็ดมีดกลึง Mitsubishi CNMG120408 เหลือ 45 ชิ้น ต่ำกว่าเกณฑ์ Reorder Point (100 ชิ้น) กวาดความต้องการรอบใหม่รวม 500 ชิ้น เพื่อป้องกันการซื้อ Spot Buy รายย่อยหน้าร้านราคาแพง",
-        "toolCall": "tool_crib_alert('CNMG120408') ➔ Reorder Point Triggered | Demand: 500 pcs"
-      },
-      {
-        "step": 2,
-        "agent": "Analyst Agent (RAG + Tsuzumi)",
-        "time": "T+0.85s",
-        "title": "สืบค้นสัญญาจัดซื้อในอดีต (Contract RAG Retrieval)",
-        "thought": "ใช้ NTT Tsuzumi SLM ค้นหาเอกสารสัญญาจัดซื้อในอดีตผ่าน Vector DB (FAISS) พบสัญญาเก่าเลขที่ LTA-2024-MITS-092 เคยจัดซื้อที่ราคา ฿168/ชิ้น จึงคำนวณสมการ TCO และกำหนดเพดานราคาเจรจา (Walk-away Price) ไว้ไม่เกิน ฿170.00/ชิ้น",
-        "toolCall": "rag_contract_search('Mitsubishi CNMG120408') ➔ Best Historical Price: ฿168.00 | TCO Ceiling: ฿170.00"
-      },
-      {
-        "step": 3,
-        "agent": "Strategic Negotiator",
-        "time": "T+2.10s",
-        "title": "เปิดห้องเจรจาต่อรองด้วย Game Theory (BATNA)",
-        "thought": "นำราคาเพดาน ฿170 เข้าเจรจาคู่ขนานกับ 2 ตัวแทนจำหน่าย โดยใช้สัญญาในอดีตเป็นสมอราคา (Price Anchor) แลกกับยอดรวม 500 ชิ้น และเครดิต 60 วัน ผลลัพธ์: บจก. เคียวเซร่า & มิตซูบิชิ ทูลส์ ยอมรับราคา ฿170.00/ชิ้น",
-        "toolCall": "batna_negotiate(vendor='V-3088', target_price=170, terms='Credit 60D') ➔ Agreed ✓"
-      },
-      {
-        "step": 4,
-        "agent": "Compliance Guardrail",
-        "time": "T+3.00s",
-        "title": "ตรวจสอบระเบียบจัดซื้อและมาตรฐานสินค้า ISO 1832",
-        "thought": "ตรวจสอบสเปกเม็ดมีดแท้ตามมาตรฐาน ISO 1832 เครดิตเทอม 60 วัน และผู้ขายอยู่ใน Approved Vendor List (AVL) ถูกต้องตามระเบียบ 100%",
-        "toolCall": "guardrail_audit(po_draft) ➔ PASS (100% Policy Compliant)"
-      }
-    ]
-  },
-  "thk": {
-    "id": "thk",
-    "deal_code": "DEAL-2026-THK",
-    "part_code": "THK-SSR20XW1UU",
-    "brand": "THK",
-    "name": "บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide Block SSR20",
-    "category": "Linear Motion",
-    "total_prs": 192,
-    "total_quantity": 5547,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 2185.24,
-    "target_unit_price": 1934.05,
-    "budget_total_thb": 11976601.43,
-    "target_total_thb": 10633776.23,
-    "total_savings_thb": 1403198.94,
-    "savings_pct": 11.7,
-    "standard_credit_days": 15,
-    "target_credit_days": 45,
-    "incumbent_supplier": "บจก. ระยอง อินดัสเทรียล โมชั่น",
-    "awarded_supplier": "บจก. ไทย โคโย อินดัสเทรียล",
-    "spec_standard": "JIS B 1192 Linear Guide",
-    "warranty_standard": "24 เดือน (แท้จากญี่ปุ่น)",
-    "stage": 3,
-    "stage_meta": {
-      "label": "AI กำลังเจรจา",
-      "badge": "Stage 3",
-      "desc": "เจรจาต่อรองหลายคู่ค้า",
-      "class": "badge-primary"
-    },
-    "vendors": [
-      {
-        "id": "thai_koyo",
-        "name": "บจก. ไทย โคโย อินดัสเทรียล",
-        "price": "฿2,250.00",
-        "credit": "45 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "AI กำลังเจรจารอบ 1",
-        "statusBadge": "badge-primary text-white font-bold",
-        "outcome": "AI เสนอสัญญา 1 ปี แลกปรับราคาลงเหลือ ฿2,200",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "ทีเอชเค โมชั่น ซิสเต็มส์",
-            "time": "14:05",
-            "text": "บล็อกลิเนียร์ไกด์ THK HSR25A ของแท้จากญี่ปุ่น ราคาตั้งต้น 2,600 บาท/ตัว ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "14:07",
-            "text": "เนื่องจากเรามียอดแผนซ่อมบำรุงเครื่อง CNC ทั้งปีรวม 9,786 ตัว จาก 50 PR หากทำสัญญาล็อกโควตารายปี ขอราคาที่ 2,334.80 บาท/ตัว และเครดิต 60 วันได้ไหมครับ?",
-            "tactic": "[Annual Frame Contract + OEM Stock Reservation]"
-          },
-          {
-            "sender": "vendor",
-            "name": "ทีเอชเค โมชั่น ซิสเต็มส์",
-            "time": "14:12",
-            "text": "ยินดีครับ สำหรับยอด 9,786 ตัว ทางเราให้ราคาพิเศษ 2,334.80 บาท พร้อมเครดิต 60 วัน และสำรอง Safety Stock ไว้ที่คลังบางนาให้ทันทีครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาตั้งต้น Spot Buy",
-            "price": "฿2,600.00",
-            "tag": "Initial Quote",
-            "color": "border-slate-300 text-slate-500",
-            "note": "เครดิต 30 วัน"
-          },
-          {
-            "round": "R1",
-            "title": "AI เสนอ Annual Frame Contract",
-            "price": "฿2,420.00",
-            "tag": "Counter #1",
-            "color": "border-blue-300 text-blue-800",
-            "note": "รวมยอด 9,786 ตัว"
-          },
-          {
-            "round": "Current",
-            "title": "ข้อเสนอล่าสุดพร้อมเครดิต 60 วัน",
-            "price": "฿2,334.80",
-            "tag": "Best Offer ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "เซฟรวม ฿2,796,913"
-          }
-        ]
-      },
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿2,450.00",
-        "credit": "30 วัน",
-        "leadTime": "10 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ราคาเปิดแรก",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "ราคาสูงกว่าเป้า TCO",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย) (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide Block SSR20 ที่ราคา ฿2,450.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿2,450.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿2,450.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿2,450.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "mechanical",
-    "category_th": "เครื่องกล & ส่งกำลัง",
-    "logo_badge_style": "bg-purple-50 border-purple-200 text-purple-700",
-    "erp_trigger": "แผนซ่อมบำรุงประจำไตรมาส",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Spend Aggregator",
-        "time": "14:00:05",
-        "title": "รวบรวมแผน PM เครื่องจักร CNC ทั้งหมด 50 PR",
-        "thought": "รวมยอด THK Linear Guide HSR25A จำนวน 9,786 ตัว เพื่อปลดล็อกส่วนลด OEM Tier สูงสุด",
-        "toolCall": "aggregate_pr('THK-HSR25A') ➔ 9,786 units"
-      },
-      {
-        "step": 2,
-        "agent": "Negotiation Engine",
-        "time": "14:12:30",
-        "title": "เจรจาลดราคา 11.0% พร้อมล็อก Safety Stock",
-        "thought": "ประหยัดงบได้ ฿2,796,913 และป้องกันเครื่องจักรหยุดชะงักด้วยการให้ซัพพลายเออร์สำรองสต็อก",
-        "toolCall": "verify_sla(safety_stock=True, credit=60) ➔ PASSED ✓"
-      }
-    ]
-  },
-  "gates": {
-    "id": "gates",
-    "deal_code": "DEAL-2026-GATES",
-    "part_code": "GATES-8MGT-1120-20",
-    "brand": "GATES",
-    "name": "สายพานไทม์มิ่งแรงบิดสูง Gates Poly Chain GT Carbon",
-    "category": "Belts & Chains",
-    "total_prs": 305,
-    "total_quantity": 14015,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 782.19,
-    "target_unit_price": 704.16,
-    "budget_total_thb": 10992626.91,
-    "target_total_thb": 9770355.13,
-    "total_savings_thb": 1294958.74,
-    "savings_pct": 11.8,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. เอเพ็กซ์ ซีลลิ่ง แอนด์ โพลีเมอร์",
-    "awarded_supplier": "บจก. อีสเทิร์น แบริ่ง แอนด์ ซัพพลาย",
-    "spec_standard": "ISO 13050 Synchronous Belt",
-    "warranty_standard": "18 เดือน",
-    "stage": 3,
-    "stage_meta": {
-      "label": "AI กำลังเจรจา",
-      "badge": "Stage 3",
-      "desc": "เจรจาต่อรองหลายคู่ค้า",
-      "class": "badge-primary"
-    },
-    "vendors": [
-      {
-        "id": "eastern_bearing",
-        "name": "บจก. อีสเทิร์น แบริ่ง แอนด์ ซัพพลาย",
-        "price": "฿625.00",
-        "credit": "45 วัน",
-        "leadTime": "4 วันทำการ",
-        "warranty": "18 เดือน",
-        "status": "AI กำลังเจรจารอบ 2",
-        "statusBadge": "badge-primary text-white font-bold",
-        "outcome": "เจรจาต่อรองส่วนลด Lot Size 14,000 เส้น",
-        "messages": [
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "11:20",
-            "text": "สวัสดีครับ ทางโรงงานรวบรวมยอดสายพาน Gates Poly Chain GT Carbon จำนวน 14,015 เส้น (50 PR) ขอเสนอทำสัญญาจัดซื้อรายปีที่ราคาเป้าหมาย 1,053.60 บาท/เส้น เครดิต 60 วันครับ",
-            "tactic": "[Multi-Plant Spend Aggregation]"
-          },
-          {
-            "sender": "vendor",
-            "name": "เพาเวอร์ ทรานสมิชชั่น โซลูชั่น",
-            "time": "11:25",
-            "text": "ตกลงครับ ยอดสั่งซื้อระดับหมื่นเส้น ทางเรามอบส่วนลด Tier สูงสุดเหลือ 1,053.60 บาท/เส้น เครดิต 60 วัน และส่งฟรีทุกโรงงานครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาป้าย Spot Buy",
-            "price": "฿1,200.00",
-            "tag": "Initial",
-            "color": "border-slate-300 text-slate-500",
-            "note": "ซื้อแยกบิลย่อย"
-          },
-          {
-            "round": "Agreed",
-            "title": "ราคาหลัง AI รวมยอด 14,015 เส้น",
-            "price": "฿1,053.60",
-            "tag": "Agreed ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "เซฟ ฿2,175,905 + เครดิต 60 วัน"
-          }
-        ]
-      },
-      {
-        "id": "siam_precision",
-        "name": "บจก. สยาม พรีซิชั่น เทค",
-        "price": "฿680.00",
-        "credit": "30 วัน",
-        "leadTime": "6 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ราคาเปิดแรก",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "รอการสรุปผลรอบถัดไป",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "สยาม พรีซิชั่น เทค (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ สายพานไทม์มิ่งแรงบิดสูง Gates Poly Chain GT Carbon ที่ราคา ฿680.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿680.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿680.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿680.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "mechanical",
-    "category_th": "เครื่องกล & ส่งกำลัง",
-    "logo_badge_style": "bg-indigo-50 border-indigo-200 text-indigo-700",
-    "erp_trigger": "ชลบุรี & ระยอง รวมยอด PR",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Spend Aggregator",
-        "time": "11:15:00",
-        "title": "รวบรวมใบขอซื้อสายพาน Gates 50 รายการ",
-        "thought": "รวมยอดสายพานส่งกำลังหลัก 14,015 เส้น เพื่อเปลี่ยนจาก Spot Buy เป็นสัญญารายปี",
-        "toolCall": "aggregate_pr('GATES-8MGT') ➔ 14,015 pcs"
-      }
-    ]
-  },
-  "schneider": {
-    "id": "schneider",
-    "deal_code": "DEAL-2026-SCHNEIDER",
-    "part_code": "SCHNEIDER-LC1D25M7",
-    "brand": "SCHNEIDER",
-    "name": "แมกเนติกคอนแทคเตอร์ Schneider TeSys D 25A (220VAC)",
-    "category": "Electrical & Switchgear",
-    "total_prs": 238,
-    "total_quantity": 9786,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 958.44,
-    "target_unit_price": 844.39,
-    "budget_total_thb": 9356479.02,
-    "target_total_thb": 8204606.31,
-    "total_savings_thb": 1213659.14,
-    "savings_pct": 13,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. อมตะ แฟคทอรี่ พาร์ทส",
-    "awarded_supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-    "spec_standard": "IEC/EN 60947-4-1",
-    "warranty_standard": "18 เดือน",
-    "stage": 3,
-    "stage_meta": {
-      "label": "AI กำลังเจรจา",
-      "badge": "Stage 3",
-      "desc": "เจรจาต่อรองหลายคู่ค้า",
-      "class": "badge-primary"
-    },
-    "vendors": [
-      {
-        "id": "bangkok_automation",
-        "name": "บจก. บางกอก ออโตเมชั่น ซิสเต็มส์",
-        "price": "฿1,020.00",
-        "credit": "45 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "AI กำลังเจรจารอบ 2",
-        "statusBadge": "badge-primary text-white font-bold",
-        "outcome": "AI ขอขยายเครดิตเทอมเป็น 45 วันแลก LTA 1 ปี",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "สยาม อิเล็คทริค (ฝ่ายขาย)",
-            "time": "09:15",
-            "text": "Schneider NSX100F 3P จำนวน 25 ตัว ทางเราเสนอราคาที่ 7,600 บาท/ตัว ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "09:20",
-            "text": "จากงบประมาณและข้อมูลราคาอ้างอิงของโรงงาน ทางเรามีเป้าหมายจัดซื้อที่ 7,200 บาท/ตัว หากท่านปรับราคาลงได้ ทางเราพร้อมออกใบสั่งซื้อทันทีครับ",
-            "tactic": "[กลยุทธ์ต่อรอง: ยื่นราคาเป้าหมาย TCO]"
-          },
-          {
-            "sender": "vendor",
-            "name": "สยาม อิเล็คทริค (ฝ่ายขาย)",
-            "time": "09:30",
-            "text": "ทางเราขอปรับลดราคาลงมาที่ 7,350 บาท/ตัว เป็นข้อเสนอพิเศษสุดสำหรับล็อตนี้แล้วครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาเปิดแรกซัพพลายเออร์",
-            "price": "฿7,600.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สูงกว่างบประมาณ TCO ฿400"
-          },
-          {
-            "round": "R1",
-            "title": "AI สวนราคาเป้าหมายอ้างอิง",
-            "price": "฿7,200.00",
-            "tag": "AI Counter",
-            "color": "border-blue-300 text-blue-700",
-            "note": "อิงฐานข้อมูลสัญญาเดิม"
-          },
-          {
-            "round": "R2",
-            "title": "ซัพพลายเออร์ปรับลดข้อเสนอ",
-            "price": "฿7,350.00",
-            "tag": "Current Offer",
-            "color": "border-amber-400 bg-amber-50 text-amber-900 font-bold",
-            "note": "ลดลง ฿250/ตัว (เซฟ ฿6,250)"
-          }
-        ]
-      },
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿1,140.00",
-        "credit": "30 วัน",
-        "leadTime": "8 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ราคาเปิดแรก",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "ราคาสูงกว่าเป้า TCO ฿110/ชิ้น",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "เพาเวอร์ โซลูชั่น (ฝ่ายขาย)",
-            "time": "09:25",
-            "text": "ยื่นราคา Schneider NSX ที่ 7,480 บาท/ตัว เครดิต 30 วันครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "09:28",
-            "text": "ขณะนี้มีข้อเสนอที่ดีกว่าอยู่ที่ 7,350 บาท หากท่านไม่สามารถปรับราคาลงได้ ขออนุญาตจัดลำดับเป็นตัวเลือกรองครับ",
-            "tactic": "[กลยุทธ์ต่อรอง: ใช้แรงกดดันราคาจากคู่แข่ง]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาเปิดแรก",
-            "price": "฿7,480.00",
-            "tag": "Standby Offer",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สูงกว่าสยาม อิเล็คทริค"
-          }
-        ]
-      }
-    ],
-    "category_group": "electrical",
-    "category_th": "ไฟฟ้า & เซนเซอร์",
-    "logo_badge_style": "bg-emerald-50 border-emerald-200 text-emerald-700",
-    "erp_trigger": "คลังไฟฟ้าแจ้งเตือนรอบ 2",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Analyst Agent",
-        "time": "T+0.50s",
-        "title": "ดึงสเปกเบรกเกอร์ IEC 60947-2",
-        "thought": "ตรวจพบ PR เบรกเกอร์ 25 เครื่อง ดึงสเปกเทียบราคาตลาดและเปิดเทียบเชิญ 3 ตัวแทนจำหน่าย Schneider AVL",
-        "toolCall": "benchmark_pricing('NSX100F') ➔ Target: ฿7,200"
-      },
-      {
-        "step": 2,
-        "agent": "Strategic Negotiator",
-        "time": "T+4.15s",
-        "title": "เปิดห้องประมูลคู่ขนาน 3 เจ้า",
-        "thought": "กำลังต่อรองรอบที่ 2 เพื่อกดให้ถึงราคา TCO ฿7,200",
-        "toolCall": "live_bidding() ➔ Ongoing"
-      }
-    ]
-  },
-  "nok": {
-    "id": "nok",
-    "deal_code": "DEAL-2026-NOK",
-    "part_code": "NOK-TC-45-68-12-NBR",
-    "brand": "NOK",
-    "name": "ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal NBR",
-    "category": "Seals & Gaskets",
-    "total_prs": 462,
-    "total_quantity": 39092,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 179.4,
-    "target_unit_price": 160.95,
-    "budget_total_thb": 7081359.56,
-    "target_total_thb": 6244029.71,
-    "total_savings_thb": 870789.06,
-    "savings_pct": 12.3,
-    "standard_credit_days": 30,
-    "target_credit_days": 45,
-    "incumbent_supplier": "บจก. บางกอก ออโตเมชั่น ซิสเต็มส์",
-    "awarded_supplier": "บจก. ไทย โคโย อินดัสเทรียล",
-    "spec_standard": "JIS B 2402 Oil Seal",
-    "warranty_standard": "12 เดือน",
-    "stage": 2,
-    "stage_meta": {
-      "label": "รวมยอดซื้อ",
-      "badge": "Stage 2",
-      "desc": "กวาดรวม PR ทั้ง 5 โรงงาน",
-      "class": "badge-info"
-    },
-    "vendors": [
-      {
-        "id": "apex_sealing",
-        "name": "บจก. เอเพ็กซ์ ซีลลิ่ง แอนด์ โพลีเมอร์",
-        "price": "฿172.00",
-        "credit": "30 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "รวมยอดซื้อสำเร็จ",
-        "statusBadge": "badge-info text-white",
-        "outcome": "รวบรวม 250 PR รวม 39,092 ชิ้น เตรียมเปิดประมูล",
-        "messages": [
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:15",
-            "text": "ทางเราต้องการสั่งซื้อ Oil Seal NOK TC-45-68-12-NBR ยอดรวมทั้งปี 39,092 ชิ้น ขอราคาขายส่งระดับโรงงานที่ 158.90 บาท/ชิ้น พร้อมเครดิตเทอม 60 วันครับ",
-            "tactic": "[High-Volume Tier Unlocking]"
-          },
-          {
-            "sender": "vendor",
-            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค",
-            "time": "10:18",
-            "text": "อนุมัติราคา 158.90 บาท/ชิ้น เครดิต 60 วันครับ ยินดีจัดส่งตามรอบ Kanban ของแต่ละโรงงานครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาตั้งต้น Spot Buy",
-            "price": "฿180.00",
-            "tag": "Spot Price",
-            "color": "border-slate-300 text-slate-500",
-            "note": "สั่งซื้อย่อย 50 ครั้ง"
-          },
-          {
-            "round": "Agreed",
-            "title": "ราคาสัญญารวมยอด 39,092 ชิ้น",
-            "price": "฿158.90",
-            "tag": "Won Deal ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "ลดลง 12.3% + เครดิต 60 วัน"
-          }
-        ]
-      },
-      {
-        "id": "siam_precision",
-        "name": "บจก. สยาม พรีซิชั่น เทค",
-        "price": "฿185.00",
-        "credit": "30 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ผู้เสนอราคาร่วม",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "คู่ค้าใน AVL",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "สยาม พรีซิชั่น เทค (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal NBR ที่ราคา ฿185.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿185.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿185.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿185.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "mechanical",
-    "category_th": "เครื่องกล & ส่งกำลัง",
-    "logo_badge_style": "bg-cyan-50 border-cyan-200 text-cyan-700",
-    "erp_trigger": "สมุทรปราการ & อยุธยา รวมยอด PR",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "Spend Aggregator",
-        "time": "10:12:00",
-        "title": "รวบรวม PR ซีลกันน้ำมัน NOK 39,092 ชิ้น",
-        "thought": "ปิดดีลที่ราคา ฿158.90/ชิ้น ประหยัดงบรวม ฿870,789 พร้อมเครดิต 60 วัน",
-        "toolCall": "aggregate_pr('NOK-TC-45-68-12') ➔ 39,092 pcs ✓"
-      }
-    ]
-  },
-  "rexroth": {
-    "id": "rexroth",
-    "deal_code": "DEAL-2026-REXROTH",
-    "part_code": "REXROTH-4WE6D6X-EG24N9K4",
-    "brand": "REXROTH",
-    "name": "ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth Cetop 3",
-    "category": "Hydraulics",
-    "total_prs": 105,
-    "total_quantity": 1786,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 6479.74,
-    "target_unit_price": 5705.64,
-    "budget_total_thb": 11694038.67,
-    "target_total_thb": 10214306.72,
-    "total_savings_thb": 1557536.53,
-    "savings_pct": 13.3,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. ชลบุรี ไฮดรอลิก แอนด์ นิวเมติกส์",
-    "awarded_supplier": "บจก. ระยอง อินดัสเทรียล โมชั่น",
-    "spec_standard": "DIN 24340 / ISO 4401",
-    "warranty_standard": "24 เดือน",
-    "stage": 4,
-    "stage_meta": {
-      "label": "ปิดดีลออก PO",
-      "badge": "Stage 4",
-      "desc": "ผู้บริหารลงนามใน SAP",
-      "class": "badge-success text-white"
-    },
-    "vendors": [
-      {
-        "id": "rayong_motion",
-        "name": "บจก. ระยอง อินดัสเทรียล โมชั่น",
-        "price": "฿7,100.00",
-        "credit": "60 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "24 เดือน",
-        "status": "ชนะการประมูล (ออกใบ PO)",
-        "statusBadge": "badge-success text-white font-bold",
-        "outcome": "ผู้ชนะ TCO Rank #1 | เครดิต 60 วัน รับประกัน 2 ปี",
-        "messages": [
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "09:40",
-            "text": "สำหรับวาล์วไฮดรอลิก Bosch Rexroth 4WE6D6X ยอดรวม 1,786 ตัว (50 PR) ทางเราขอทำสัญญา Corporate LTA ที่ราคา 5,670.00 บาท/ตัว ขยายเครดิตเป็น 90 วัน และขอขยายเวลารับประกันเป็น 24 เดือนครับ",
-            "tactic": "[SLA & Warranty Lock + 90-Day Credit Extension]"
-          },
-          {
-            "sender": "vendor",
-            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส",
-            "time": "09:45",
-            "text": "ตกลงตามเงื่อนไขครับ ทางเราอนุมัติราคา 5,670.00 บาท/ตัว เครดิต 90 วัน พร้อมรับประกัน 24 เดือนและสำรองอะไหล่ฉุกเฉินให้ตลอดอายุสัญญาครับ"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Ask",
-            "title": "ราคาตั้งต้น OEM",
-            "price": "฿6,500.00",
-            "tag": "OEM Quote",
-            "color": "border-slate-300 text-slate-500",
-            "note": "เครดิต 30 วัน"
-          },
-          {
-            "round": "Agreed",
-            "title": "ตกลงสัญญา Corporate LTA 1,786 ตัว",
-            "price": "฿5,670.00",
-            "tag": "Won Deal ✓",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-            "note": "เครดิต 90 วัน + ประกัน 24 เดือน"
-          }
-        ]
-      },
-      {
-        "id": "siam_precision",
-        "name": "บจก. สยาม พรีซิชั่น เทค",
-        "price": "฿7,600.00",
-        "credit": "30 วัน",
-        "leadTime": "8 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ไม่ได้รับเลือก",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "ราคาสูงและเครดิตเทอมไม่ผ่านเกณฑ์เป้าหมาย",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "สยาม พรีซิชั่น เทค (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth Cetop 3 ที่ราคา ฿7,600.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿7,600.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿7,600.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿7,600.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "pneumatic",
-    "category_th": "นิวแมติกส์ & ไฮดรอลิกส์",
-    "logo_badge_style": "bg-orange-50 border-orange-200 text-orange-700",
-    "erp_trigger": "อนุมัติบันทึกใน SAP สำเร็จ",
-    "reasoning": [
-      {
-        "step": 1,
-        "agent": "SAP Dispatcher",
-        "time": "Completed",
-        "title": "ออกใบสั่งซื้อ PO#450098220 ใน SAP S/4HANA",
-        "thought": "เจรจาอะไหล่ไฮดรอลิกมูลค่าสูงสำเร็จ ลดต้นทุนรวม ฿1,557,537 พร้อมขยายเครดิตเทอมเป็น 90 วัน",
-        "toolCall": "BAPI_PO_CREATE1('450098220') ➔ CONFIRMED ✓"
       }
     ]
   },
   "skf": {
     "id": "skf",
     "deal_code": "DEAL-2026-SKF",
-    "part_code": "SKF-6310-2Z-C3",
-    "brand": "SKF",
+    "sku": "SKF-6310-2Z-C3",
     "name": "ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3)",
-    "category": "Bearings & Power Transmission",
-    "total_prs": 185,
-    "total_quantity": 800,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)"
-    ],
-    "budget_unit_price": 1250.0,
-    "target_unit_price": 1090.0,
-    "budget_total_thb": 1000000.0,
-    "target_total_thb": 872000.0,
-    "total_savings_thb": 128000.0,
-    "savings_pct": 12.8,
-    "standard_credit_days": 30,
-    "target_credit_days": 45,
-    "incumbent_supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น",
-    "awarded_supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น",
-    "spec_standard": "ISO 15 / DIN 625",
-    "warranty_standard": "12 เดือน",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
     "stage": 4,
-    "stage_meta": {
-      "label": "รออนุมัติ",
-      "badge": "Stage 4",
-      "desc": "ลงนามเปิด PO",
-      "class": "badge-success"
-    },
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "อยุธยา เหลือ 8 (Min: 30)",
+    "stock_type": "Safety Stock",
+    "unit": "ชิ้น",
+    "qty": 2940,
+    "prs_count": 101,
+    "pre_price": 1250.0,
+    "post_price": 1090.0,
+    "pre_spend": 3774987.25,
+    "post_spend": 3204600.0,
+    "savings": 570387.25,
+    "savings_pct": 15.1,
+    "supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
     "vendors": [
       {
-        "id": "bearing_power",
+        "id": "v1_skf",
         "name": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
         "price": "฿1,090.00",
         "credit": "45 วัน",
-        "leadTime": "3 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "ชนะดีล (PO)",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
         "statusBadge": "badge-success text-white font-bold",
-        "outcome": "ตกลงสัญญา Blanket Order 1 ปี",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿570,387.25 (-15.1%)",
         "messages": [
           {
             "sender": "vendor",
-            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (ฝ่ายขาย)",
-            "time": "09:15",
-            "text": "เรียนจัดซื้อ ทางเรายินดียืนยันราคาตลับลูกปืน SKF 6310-2Z/C3 ที่ ฿1,090.00 พร้อมขยายเครดิต 45 วัน สำหรับสัญญา LTA 800 ชิ้นครับ"
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3) ยอดรวม 2940 ชิ้น ทางเราขอเสนอราคา ฿1,250.00/ชิ้น เครดิต 30 วันครับ"
           },
           {
             "sender": "agent",
             "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "09:20",
-            "text": "ขอบคุณครับ เงื่อนไขราคา ฿1,090.00 ประหยัด ฿128,000 (-12.8%) และเครดิต 45 วัน ผ่านเกณฑ์ TCO เรียบร้อย ระบบได้สร้าง Draft PO รอลงนามแล้วครับ",
-            "tactic": "[Award PO: คัดเลือกผู้ชนะและส่งต่อผู้บริหารลงนามใน SAP]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ราคาเปิดแรกตามใบเสนอราคา",
-            "price": "฿1,250.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "ราคาป้ายเดิม"
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 101 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 2940 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,090.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
           },
           {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿1,090.00",
-            "tag": "Volume Trade-off",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "ผูกสัญญารายปี 800 ชิ้น"
-          },
-          {
-            "round": "Awarded",
-            "title": "ตกลงทำสัญญาและออกใบ PO",
-            "price": "฿1,090.00",
-            "tag": "Winner",
-            "color": "border-emerald-500 bg-emerald-50 text-emerald-900",
-            "note": "ชนะประมูล TCO"
+            "sender": "vendor",
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,090.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
           }
         ]
       }
-    ],
-    "category_group": "mechanical",
+    ]
+  },
+  "ntn_ucp": {
+    "id": "ntn_ucp",
+    "deal_code": "DEAL-2026-NTN_UCP",
+    "sku": "NTN-UCP205D1",
+    "name": "ชุดตลับลูกปืนตุ๊กตา NTN Pillow Block (UCP205D1 เพลา 25mm)",
+    "category": "mechanical",
     "category_th": "เครื่องกล & ส่งกำลัง",
-    "logo_badge_style": "bg-blue-50 border-blue-200 text-blue-700",
-    "erp_trigger": "อยุธยา เหลือ 8 (Min: 30)"
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "ระยอง เหลือ 4 (Min: 20)",
+    "stock_type": "ROP Alert",
+    "unit": "ชุด",
+    "qty": 8035,
+    "prs_count": 66,
+    "pre_price": 680.0,
+    "post_price": 595.0,
+    "pre_spend": 5659267.75,
+    "post_spend": 4780825.0,
+    "savings": 878442.75,
+    "savings_pct": 15.5,
+    "supplier": "บจก. สยาม แบริ่ง ซัพพลาย (V-3104)",
+    "vendors": [
+      {
+        "id": "v1_ntn_ucp",
+        "name": "บจก. สยาม แบริ่ง ซัพพลาย (V-3104)",
+        "price": "฿595.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿878,442.75 (-15.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม แบริ่ง ซัพพลาย (V-3104) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ชุดตลับลูกปืนตุ๊กตา NTN Pillow Block (UCP205D1 เพลา 25mm) ยอดรวม 8035 ชุด ทางเราขอเสนอราคา ฿680.00/ชุด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 66 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 8035 ชุด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿595.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม แบริ่ง ซัพพลาย (V-3104) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿595.00/ชุด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "koyo_taper": {
+    "id": "koyo_taper",
+    "deal_code": "DEAL-2026-KOYO_TAPER",
+    "sku": "KOYO-32210JR",
+    "name": "ตลับลูกปืนเตเปอร์ KOYO Tapered Roller Bearing (32210JR)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "ฉะเชิงเทรา Line 2-3",
+    "stock_type": "PM Schedule",
+    "unit": "ชิ้น",
+    "qty": 1530,
+    "prs_count": 45,
+    "pre_price": 1420.0,
+    "post_price": 1245.0,
+    "pre_spend": 2242972.85,
+    "post_spend": 1904850.0,
+    "savings": 338122.85,
+    "savings_pct": 15.1,
+    "supplier": "บจก. เคพี อินดัสเทรียล พาร์ท (V-2819)",
+    "vendors": [
+      {
+        "id": "v1_koyo_taper",
+        "name": "บจก. เคพี อินดัสเทรียล พาร์ท (V-2819)",
+        "price": "฿1,245.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿338,122.85 (-15.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เคพี อินดัสเทรียล พาร์ท (V-2819) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ตลับลูกปืนเตเปอร์ KOYO Tapered Roller Bearing (32210JR) ยอดรวม 1530 ชิ้น ทางเราขอเสนอราคา ฿1,420.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 45 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1530 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,245.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เคพี อินดัสเทรียล พาร์ท (V-2819) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,245.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "thk": {
+    "id": "thk",
+    "deal_code": "DEAL-2026-THK",
+    "sku": "THK-SSR20XW1UU",
+    "name": "บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide (SSR20 Caged Ball)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ประมูล 4 เจ้า",
+    "stock_alert": "แผนซ่อมบำรุงประจำไตรมาส",
+    "stock_type": "PM Schedule",
+    "unit": "ตัว",
+    "qty": 2595,
+    "prs_count": 77,
+    "pre_price": 2150.0,
+    "post_price": 1895.0,
+    "pre_spend": 5741750.65,
+    "post_spend": 4917525.0,
+    "savings": 824225.65,
+    "savings_pct": 14.4,
+    "supplier": "บจก. สยาม ลิเนียร์ โมชั่น (V-2291)",
+    "vendors": [
+      {
+        "id": "v1_thk",
+        "name": "บจก. สยาม ลิเนียร์ โมชั่น (V-2291)",
+        "price": "฿1,895.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿824,225.65 (-14.4%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม ลิเนียร์ โมชั่น (V-2291) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide (SSR20 Caged Ball) ยอดรวม 2595 ตัว ทางเราขอเสนอราคา ฿2,150.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 77 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 2595 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,895.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม ลิเนียร์ โมชั่น (V-2291) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,895.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "iko_bushing": {
+    "id": "iko_bushing",
+    "deal_code": "DEAL-2026-IKO_BUSHING",
+    "sku": "IKO-LBE25AJ",
+    "name": "บูชลูกปืนแนวเส้นตรง IKO Linear Bushing (LBE25AJ)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "คลังกลาง เหลือ 5",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 3790,
+    "prs_count": 26,
+    "pre_price": 890.0,
+    "post_price": 780.0,
+    "pre_spend": 3479949.6,
+    "post_spend": 2956200.0,
+    "savings": 523749.6,
+    "savings_pct": 15.1,
+    "supplier": "บจก. ไทย พรีซิชั่น แมชชีนเนอรี่ (V-4412)",
+    "vendors": [
+      {
+        "id": "v1_iko_bushing",
+        "name": "บจก. ไทย พรีซิชั่น แมชชีนเนอรี่ (V-4412)",
+        "price": "฿780.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿523,749.60 (-15.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ไทย พรีซิชั่น แมชชีนเนอรี่ (V-4412) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ บูชลูกปืนแนวเส้นตรง IKO Linear Bushing (LBE25AJ) ยอดรวม 3790 ตัว ทางเราขอเสนอราคา ฿890.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 26 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 3790 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿780.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ไทย พรีซิชั่น แมชชีนเนอรี่ (V-4412) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿780.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "gates": {
+    "id": "gates",
+    "deal_code": "DEAL-2026-GATES",
+    "sku": "GATES-8MGT-1120-20",
+    "name": "สายพานไทม์มิ่งแรงบิดสูง Gates PowerGrip GT3 (8MGT)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "ชลบุรี & ระยอง",
+    "stock_type": "Low Stock",
+    "unit": "เส้น",
+    "qty": 13030,
+    "prs_count": 121,
+    "pre_price": 780.0,
+    "post_price": 688.5,
+    "pre_spend": 10435347.55,
+    "post_spend": 8971155.0,
+    "savings": 1464192.55,
+    "savings_pct": 14.0,
+    "supplier": "บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)",
+    "vendors": [
+      {
+        "id": "v1_gates",
+        "name": "บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)",
+        "price": "฿688.50",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿1,464,192.55 (-14.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สายพานไทม์มิ่งแรงบิดสูง Gates PowerGrip GT3 (8MGT) ยอดรวม 13030 เส้น ทางเราขอเสนอราคา ฿780.00/เส้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 121 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 13030 เส้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿688.50 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿688.50/เส้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "mitsuboshi_vbelt": {
+    "id": "mitsuboshi_vbelt",
+    "deal_code": "DEAL-2026-MITSUBOSHI_VBELT",
+    "sku": "MITSU-V-B68",
+    "name": "สายพานร่องวี Mitsuboshi Classical V-Belt (B-68)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "อยุธยา เหลือ 15",
+    "stock_type": "Safety Stock",
+    "unit": "เส้น",
+    "qty": 11470,
+    "prs_count": 91,
+    "pre_price": 290.0,
+    "post_price": 252.0,
+    "pre_spend": 3440792.65,
+    "post_spend": 2890440.0,
+    "savings": 550352.65,
+    "savings_pct": 16.0,
+    "supplier": "บจก. อีสเทิร์น พาวเวอร์ เบลท์ (V-1980)",
+    "vendors": [
+      {
+        "id": "v1_mitsuboshi_vbelt",
+        "name": "บจก. อีสเทิร์น พาวเวอร์ เบลท์ (V-1980)",
+        "price": "฿252.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿550,352.65 (-16.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น พาวเวอร์ เบลท์ (V-1980) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สายพานร่องวี Mitsuboshi Classical V-Belt (B-68) ยอดรวม 11470 เส้น ทางเราขอเสนอราคา ฿290.00/เส้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 91 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 11470 เส้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿252.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น พาวเวอร์ เบลท์ (V-1980) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿252.00/เส้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "bando_ribbed": {
+    "id": "bando_ribbed",
+    "deal_code": "DEAL-2026-BANDO_RIBBED",
+    "sku": "BANDO-6PK1210",
+    "name": "สายพานร่องฟันอุตสาหกรรม Bando Ribbed Belt (6PK1210)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 2,
+    "stage_label": "เทียบสัญญาเดิม",
+    "stock_alert": "ระยอง Line Motor 4",
+    "stock_type": "Low Stock",
+    "unit": "เส้น",
+    "qty": 6095,
+    "prs_count": 53,
+    "pre_price": 480.0,
+    "post_price": 418.0,
+    "pre_spend": 3019411.35,
+    "post_spend": 2547710.0,
+    "savings": 471701.35,
+    "savings_pct": 15.6,
+    "supplier": "บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)",
+    "vendors": [
+      {
+        "id": "v1_bando_ribbed",
+        "name": "บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)",
+        "price": "฿418.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿471,701.35 (-15.6%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สายพานร่องฟันอุตสาหกรรม Bando Ribbed Belt (6PK1210) ยอดรวม 6095 เส้น ทางเราขอเสนอราคา ฿480.00/เส้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 53 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 6095 เส้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿418.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿418.00/เส้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "tsubaki_chain": {
+    "id": "tsubaki_chain",
+    "deal_code": "DEAL-2026-TSUBAKI_CHAIN",
+    "sku": "TSUBAKI-RS60-1",
+    "name": "โซ่ส่งกำลังอุตสาหกรรม Tsubaki Roller Chain (RS60-1-RP-U)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ต่อรองรอบ 2",
+    "stock_alert": "สมุทรปราการ เหลือ 2 กล่อง",
+    "stock_type": "ROP Alert",
+    "unit": "กล่อง",
+    "qty": 1090,
+    "prs_count": 33,
+    "pre_price": 3200.0,
+    "post_price": 2810.0,
+    "pre_spend": 3615510.1,
+    "post_spend": 3062900.0,
+    "savings": 552610.1,
+    "savings_pct": 15.3,
+    "supplier": "บจก. สยาม โซ่และระบบขับเคลื่อน (V-5510)",
+    "vendors": [
+      {
+        "id": "v1_tsubaki_chain",
+        "name": "บจก. สยาม โซ่และระบบขับเคลื่อน (V-5510)",
+        "price": "฿2,810.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿552,610.10 (-15.3%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม โซ่และระบบขับเคลื่อน (V-5510) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โซ่ส่งกำลังอุตสาหกรรม Tsubaki Roller Chain (RS60-1-RP-U) ยอดรวม 1090 กล่อง ทางเราขอเสนอราคา ฿3,200.00/กล่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 33 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1090 กล่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿2,810.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม โซ่และระบบขับเคลื่อน (V-5510) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿2,810.00/กล่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "did_chain": {
+    "id": "did_chain",
+    "deal_code": "DEAL-2026-DID_CHAIN",
+    "sku": "DID-50-100L",
+    "name": "โซ่ขับส่งกำลัง DID Heavy Duty Chain (DID50-100L)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ชลบุรี Line Conveyor",
+    "stock_type": "Low Stock",
+    "unit": "กล่อง",
+    "qty": 680,
+    "prs_count": 19,
+    "pre_price": 2450.0,
+    "post_price": 2150.0,
+    "pre_spend": 1707062.4,
+    "post_spend": 1462000.0,
+    "savings": 245062.4,
+    "savings_pct": 14.4,
+    "supplier": "บจก. สยาม โซ่และระบบขับเคลื่อน (V-5510)",
+    "vendors": [
+      {
+        "id": "v1_did_chain",
+        "name": "บจก. สยาม โซ่และระบบขับเคลื่อน (V-5510)",
+        "price": "฿2,150.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿245,062.40 (-14.4%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม โซ่และระบบขับเคลื่อน (V-5510) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โซ่ขับส่งกำลัง DID Heavy Duty Chain (DID50-100L) ยอดรวม 680 กล่อง ทางเราขอเสนอราคา ฿2,450.00/กล่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 19 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 680 กล่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿2,150.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม โซ่และระบบขับเคลื่อน (V-5510) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿2,150.00/กล่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "nbk_coupling": {
+    "id": "nbk_coupling",
+    "deal_code": "DEAL-2026-NBK_COUPLING",
+    "sku": "NBK-MJC-40-EWH",
+    "name": "ข้อต่อเพลายาง NBK Flexible Jaw Coupling (MJC-40-EWH)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "อยุธยา เหลือ 6",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 965,
+    "prs_count": 29,
+    "pre_price": 1650.0,
+    "post_price": 1450.0,
+    "pre_spend": 1654068.9,
+    "post_spend": 1399250.0,
+    "savings": 254818.9,
+    "savings_pct": 15.4,
+    "supplier": "บจก. แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120)",
+    "vendors": [
+      {
+        "id": "v1_nbk_coupling",
+        "name": "บจก. แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120)",
+        "price": "฿1,450.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿254,818.90 (-15.4%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ข้อต่อเพลายาง NBK Flexible Jaw Coupling (MJC-40-EWH) ยอดรวม 965 ตัว ทางเราขอเสนอราคา ฿1,650.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 29 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 965 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,450.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,450.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "lovejoy_coupling": {
+    "id": "lovejoy_coupling",
+    "deal_code": "DEAL-2026-LOVEJOY_COUPLING",
+    "sku": "LOVEJOY-L095",
+    "name": "สไปเดอร์ข้อต่อเพลา Lovejoy Spider Insert (L-095 NBR)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 4,
+    "stage_label": "ออก PO สำเร็จ",
+    "stock_alert": "ระยอง บันทึกใน SAP สำเร็จ",
+    "stock_type": "PO Issued",
+    "unit": "ชิ้น",
+    "qty": 5820,
+    "prs_count": 46,
+    "pre_price": 320.0,
+    "post_price": 275.0,
+    "pre_spend": 1932209.2,
+    "post_spend": 1600500.0,
+    "savings": 331709.2,
+    "savings_pct": 17.2,
+    "supplier": "บจก. แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120)",
+    "vendors": [
+      {
+        "id": "v1_lovejoy_coupling",
+        "name": "บจก. แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120)",
+        "price": "฿275.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿331,709.20 (-17.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สไปเดอร์ข้อต่อเพลา Lovejoy Spider Insert (L-095 NBR) ยอดรวม 5820 ชิ้น ทางเราขอเสนอราคา ฿320.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 46 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 5820 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿275.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แอดวานซ์ คัปปลิ้ง ซิสเต็ม (V-7120) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿275.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "khk_gear": {
+    "id": "khk_gear",
+    "deal_code": "DEAL-2026-KHK_GEAR",
+    "sku": "KHK-SS2-30",
+    "name": "เฟืองตรงเหล็กกล้า KHK Spur Gear Module 2.0 (SS2-30)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ฉะเชิงเทรา เหลือ 3",
+    "stock_type": "Low Stock",
+    "unit": "ชิ้น",
+    "qty": 315,
+    "prs_count": 11,
+    "pre_price": 1150.0,
+    "post_price": 1010.0,
+    "pre_spend": 361779.1,
+    "post_spend": 318150.0,
+    "savings": 43629.1,
+    "savings_pct": 12.1,
+    "supplier": "บจก. สยาม เกียร์ แอนด์ แมนูแฟคเจอริ่ง (V-8321)",
+    "vendors": [
+      {
+        "id": "v1_khk_gear",
+        "name": "บจก. สยาม เกียร์ แอนด์ แมนูแฟคเจอริ่ง (V-8321)",
+        "price": "฿1,010.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿43,629.10 (-12.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม เกียร์ แอนด์ แมนูแฟคเจอริ่ง (V-8321) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เฟืองตรงเหล็กกล้า KHK Spur Gear Module 2.0 (SS2-30) ยอดรวม 315 ชิ้น ทางเราขอเสนอราคา ฿1,150.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 11 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 315 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,010.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม เกียร์ แอนด์ แมนูแฟคเจอริ่ง (V-8321) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,010.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "misumi_shaft": {
+    "id": "misumi_shaft",
+    "deal_code": "DEAL-2026-MISUMI_SHAFT",
+    "sku": "MISUMI-PSFHR25-500",
+    "name": "เพลาชุบแข็งเจียระไน Misumi Precision Shaft (Dia 25mm L500)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "เจรจาต่อรอง",
+    "stock_alert": "อยุธยา & ชลบุรี",
+    "stock_type": "PM Schedule",
+    "unit": "ท่อน",
+    "qty": 2410,
+    "prs_count": 23,
+    "pre_price": 980.0,
+    "post_price": 860.0,
+    "pre_spend": 2431113.65,
+    "post_spend": 2072600.0,
+    "savings": 358513.65,
+    "savings_pct": 14.7,
+    "supplier": "บจก. มิซูมิ (ประเทศไทย) (V-9901)",
+    "vendors": [
+      {
+        "id": "v1_misumi_shaft",
+        "name": "บจก. มิซูมิ (ประเทศไทย) (V-9901)",
+        "price": "฿860.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿358,513.65 (-14.7%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "มิซูมิ (ประเทศไทย) (V-9901) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เพลาชุบแข็งเจียระไน Misumi Precision Shaft (Dia 25mm L500) ยอดรวม 2410 ท่อน ทางเราขอเสนอราคา ฿980.00/ท่อน เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 23 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 2410 ท่อน ทางระบบขอต่อรองราคาเป้าหมายที่ ฿860.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "มิซูมิ (ประเทศไทย) (V-9901) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿860.00/ท่อน เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "thk_ballscrew": {
+    "id": "thk_ballscrew",
+    "deal_code": "DEAL-2026-THK_BALLSCREW",
+    "sku": "THK-BNK1520-3G0",
+    "name": "บอลสกรูความแม่นยำสูง THK Precision Ball Screw (BNK1520)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 2,
+    "stage_label": "เทียบสัญญาเดิม",
+    "stock_alert": "ระยอง CNC Line",
+    "stock_type": "Safety Stock",
+    "unit": "ชุด",
+    "qty": 45,
+    "prs_count": 5,
+    "pre_price": 8900.0,
+    "post_price": 7850.0,
+    "pre_spend": 411915.68,
+    "post_spend": 353250.0,
+    "savings": 58665.68,
+    "savings_pct": 14.2,
+    "supplier": "บจก. สยาม ลิเนียร์ โมชั่น (V-2291)",
+    "vendors": [
+      {
+        "id": "v1_thk_ballscrew",
+        "name": "บจก. สยาม ลิเนียร์ โมชั่น (V-2291)",
+        "price": "฿7,850.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿58,665.68 (-14.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม ลิเนียร์ โมชั่น (V-2291) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ บอลสกรูความแม่นยำสูง THK Precision Ball Screw (BNK1520) ยอดรวม 45 ชุด ทางเราขอเสนอราคา ฿8,900.00/ชุด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 5 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 45 ชุด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿7,850.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม ลิเนียร์ โมชั่น (V-2291) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿7,850.00/ชุด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "asahi_uc208": {
+    "id": "asahi_uc208",
+    "deal_code": "DEAL-2026-ASAHI_UC208",
+    "sku": "ASAHI-UC208",
+    "name": "ลูกปืนเม็ดตลับพร้อมปลอก Asahi Bearing Insert (UC208)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ชลบุรี เหลือ 10",
+    "stock_type": "Low Stock",
+    "unit": "ตลับ",
+    "qty": 4790,
+    "prs_count": 36,
+    "pre_price": 850.0,
+    "post_price": 745.0,
+    "pre_spend": 4186841.55,
+    "post_spend": 3568550.0,
+    "savings": 618291.55,
+    "savings_pct": 14.8,
+    "supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
+    "vendors": [
+      {
+        "id": "v1_asahi_uc208",
+        "name": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
+        "price": "฿745.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿618,291.55 (-14.8%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ลูกปืนเม็ดตลับพร้อมปลอก Asahi Bearing Insert (UC208) ยอดรวม 4790 ตลับ ทางเราขอเสนอราคา ฿850.00/ตลับ เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 36 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 4790 ตลับ ทางระบบขอต่อรองราคาเป้าหมายที่ ฿745.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿745.00/ตลับ เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "ina_needle": {
+    "id": "ina_needle",
+    "deal_code": "DEAL-2026-INA_NEEDLE",
+    "sku": "INA-HK2516",
+    "name": "ตลับลูกปืนเม็ดเข็ม Schaeffler INA Needle Bearing (HK2516)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "อยุธยา เหลือ 8",
+    "stock_type": "ROP Alert",
+    "unit": "ตลับ",
+    "qty": 1945,
+    "prs_count": 21,
+    "pre_price": 420.0,
+    "post_price": 368.0,
+    "pre_spend": 850037.65,
+    "post_spend": 715760.0,
+    "savings": 134277.65,
+    "savings_pct": 15.8,
+    "supplier": "บจก. สยาม พรีซิชั่น เทค (V-4019)",
+    "vendors": [
+      {
+        "id": "v1_ina_needle",
+        "name": "บจก. สยาม พรีซิชั่น เทค (V-4019)",
+        "price": "฿368.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿134,277.65 (-15.8%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม พรีซิชั่น เทค (V-4019) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ตลับลูกปืนเม็ดเข็ม Schaeffler INA Needle Bearing (HK2516) ยอดรวม 1945 ตลับ ทางเราขอเสนอราคา ฿420.00/ตลับ เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 21 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1945 ตลับ ทางระบบขอต่อรองราคาเป้าหมายที่ ฿368.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม พรีซิชั่น เทค (V-4019) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿368.00/ตลับ เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "martin_sprocket": {
+    "id": "martin_sprocket",
+    "deal_code": "DEAL-2026-MARTIN_SPROCKET",
+    "sku": "MARTIN-60B18",
+    "name": "สปร็อกเก็ตโซ่ Martin Sprocket Type B (60B18 ฟัน 18)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "ฉะเชิงเทรา Line 1",
+    "stock_type": "PM Schedule",
+    "unit": "ชิ้น",
+    "qty": 550,
+    "prs_count": 16,
+    "pre_price": 1280.0,
+    "post_price": 1120.0,
+    "pre_spend": 726544.95,
+    "post_spend": 616000.0,
+    "savings": 110544.95,
+    "savings_pct": 15.2,
+    "supplier": "บจก. สยาม โซ่และระบบขับเคลื่อน (V-5510)",
+    "vendors": [
+      {
+        "id": "v1_martin_sprocket",
+        "name": "บจก. สยาม โซ่และระบบขับเคลื่อน (V-5510)",
+        "price": "฿1,120.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿110,544.95 (-15.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม โซ่และระบบขับเคลื่อน (V-5510) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สปร็อกเก็ตโซ่ Martin Sprocket Type B (60B18 ฟัน 18) ยอดรวม 550 ชิ้น ทางเราขอเสนอราคา ฿1,280.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 16 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 550 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,120.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม โซ่และระบบขับเคลื่อน (V-5510) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,120.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "misumi_cam": {
+    "id": "misumi_cam",
+    "deal_code": "DEAL-2026-MISUMI_CAM",
+    "sku": "MISUMI-CF16-UU",
+    "name": "แคมฟอลโลเวอร์ลูกปืนล้อ Misumi Cam Follower (CF16-UU)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "สมุทรปราการ เหลือ 12",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 3335,
+    "prs_count": 26,
+    "pre_price": 720.0,
+    "post_price": 630.0,
+    "pre_spend": 2485208.4,
+    "post_spend": 2101050.0,
+    "savings": 384158.4,
+    "savings_pct": 15.5,
+    "supplier": "บจก. มิซูมิ (ประเทศไทย) (V-9901)",
+    "vendors": [
+      {
+        "id": "v1_misumi_cam",
+        "name": "บจก. มิซูมิ (ประเทศไทย) (V-9901)",
+        "price": "฿630.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿384,158.40 (-15.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "มิซูมิ (ประเทศไทย) (V-9901) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ แคมฟอลโลเวอร์ลูกปืนล้อ Misumi Cam Follower (CF16-UU) ยอดรวม 3335 ตัว ทางเราขอเสนอราคา ฿720.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 26 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 3335 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿630.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "มิซูมิ (ประเทศไทย) (V-9901) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿630.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "habasit_belt": {
+    "id": "habasit_belt",
+    "deal_code": "DEAL-2026-HABASIT_BELT",
+    "sku": "HABASIT-F5ENR",
+    "name": "สายพานลำเลียงผ้าใบเรียบ Habasit Flat Conveyor Belt (F-5ENR)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ระยอง กว้าง 600mm",
+    "stock_type": "Safety Stock",
+    "unit": "ม้วน",
+    "qty": 0,
+    "prs_count": 0,
+    "pre_price": 14500.0,
+    "post_price": 12750.0,
+    "pre_spend": 0,
+    "post_spend": 0,
+    "savings": 0,
+    "savings_pct": 12.0,
+    "supplier": "บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)",
+    "vendors": [
+      {
+        "id": "v1_habasit_belt",
+        "name": "บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)",
+        "price": "฿12,750.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿0.00 (-12.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สายพานลำเลียงผ้าใบเรียบ Habasit Flat Conveyor Belt (F-5ENR) ยอดรวม 0 ม้วน ทางเราขอเสนอราคา ฿14,500.00/ม้วน เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 0 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 0 ม้วน ทางระบบขอต่อรองราคาเป้าหมายที่ ฿12,750.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿12,750.00/ม้วน เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "chiorino_belt": {
+    "id": "chiorino_belt",
+    "deal_code": "DEAL-2026-CHIORINO_BELT",
+    "sku": "CHIORINO-T0",
+    "name": "สายพานส่งกำลังความเร็วสูง Chiorino Flat Drive Belt (T-0)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ชลบุรี คลังตัดต่อ",
+    "stock_type": "Low Stock",
+    "unit": "เส้น",
+    "qty": 295,
+    "prs_count": 9,
+    "pre_price": 2100.0,
+    "post_price": 1850.0,
+    "pre_spend": 637034.1,
+    "post_spend": 545750.0,
+    "savings": 91284.1,
+    "savings_pct": 14.3,
+    "supplier": "บจก. อีสเทิร์น พาวเวอร์ เบลท์ (V-1980)",
+    "vendors": [
+      {
+        "id": "v1_chiorino_belt",
+        "name": "บจก. อีสเทิร์น พาวเวอร์ เบลท์ (V-1980)",
+        "price": "฿1,850.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿91,284.10 (-14.3%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น พาวเวอร์ เบลท์ (V-1980) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สายพานส่งกำลังความเร็วสูง Chiorino Flat Drive Belt (T-0) ยอดรวม 295 เส้น ทางเราขอเสนอราคา ฿2,100.00/เส้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 9 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 295 เส้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,850.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น พาวเวอร์ เบลท์ (V-1980) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,850.00/เส้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "omron": {
+    "id": "omron",
+    "deal_code": "DEAL-2026-OMRON",
+    "sku": "OMRON-E2E-X5ME1",
+    "name": "อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 (E2E Series)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ฉะเชิงเทรา Line 1-3",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 16260,
+    "prs_count": 131,
+    "pre_price": 890.0,
+    "post_price": 773.58,
+    "pre_spend": 14907092.0,
+    "post_spend": 12578410.8,
+    "savings": 2328681.2,
+    "savings_pct": 15.6,
+    "supplier": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+    "vendors": [
+      {
+        "id": "v1_omron",
+        "name": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+        "price": "฿773.58",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿2,328,681.20 (-15.6%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 (E2E Series) ยอดรวม 16260 ตัว ทางเราขอเสนอราคา ฿890.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 131 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 16260 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿773.58 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿773.58/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "omron_photo": {
+    "id": "omron_photo",
+    "deal_code": "DEAL-2026-OMRON_PHOTO",
+    "sku": "OMRON-E3Z-T61",
+    "name": "โฟโตอิเล็กทริกเซนเซอร์ลำแสงส่งผ่าน OMRON Photo Sensor (E3Z-T61)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "อยุธยา เหลือ 4 (Min: 15)",
+    "stock_type": "Safety Stock",
+    "unit": "ชุด",
+    "qty": 1580,
+    "prs_count": 46,
+    "pre_price": 2450.0,
+    "post_price": 2150.0,
+    "pre_spend": 3972560.2,
+    "post_spend": 3397000.0,
+    "savings": 575560.2,
+    "savings_pct": 14.5,
+    "supplier": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+    "vendors": [
+      {
+        "id": "v1_omron_photo",
+        "name": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+        "price": "฿2,150.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿575,560.20 (-14.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โฟโตอิเล็กทริกเซนเซอร์ลำแสงส่งผ่าน OMRON Photo Sensor (E3Z-T61) ยอดรวม 1580 ชุด ทางเราขอเสนอราคา ฿2,450.00/ชุด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 46 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1580 ชุด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿2,150.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿2,150.00/ชุด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "keyence_fiber": {
+    "id": "keyence_fiber",
+    "deal_code": "DEAL-2026-KEYENCE_FIBER",
+    "sku": "KEYENCE-FS-N41N",
+    "name": "ไฟเบอร์ออปติกแอมพลิฟายเออร์ Keyence Digital Fiber (FS-N41N)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "ชลบุรี คลีนรูม Line 2",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 142,
+    "prs_count": 16,
+    "pre_price": 4600.0,
+    "post_price": 4050.0,
+    "pre_spend": 680233.02,
+    "post_spend": 575100.0,
+    "savings": 105133.02,
+    "savings_pct": 15.5,
+    "supplier": "บจก. เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205)",
+    "vendors": [
+      {
+        "id": "v1_keyence_fiber",
+        "name": "บจก. เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205)",
+        "price": "฿4,050.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿105,133.02 (-15.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ไฟเบอร์ออปติกแอมพลิฟายเออร์ Keyence Digital Fiber (FS-N41N) ยอดรวม 142 ตัว ทางเราขอเสนอราคา ฿4,600.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 16 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 142 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿4,050.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿4,050.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "schneider": {
+    "id": "schneider",
+    "deal_code": "DEAL-2026-SCHNEIDER",
+    "sku": "SCHNEIDER-LC1D25M7",
+    "name": "แมกเนติกคอนแทคเตอร์ Schneider TeSys D (25A 3P 220VAC)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 3,
+    "stage_label": "ต่อรองรอบ 2",
+    "stock_alert": "คลังไฟฟ้าแจ้งเตือน",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 14250,
+    "prs_count": 111,
+    "pre_price": 950.0,
+    "post_price": 832.0,
+    "pre_spend": 13932950.95,
+    "post_spend": 11856000.0,
+    "savings": 2076950.95,
+    "savings_pct": 14.9,
+    "supplier": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+    "vendors": [
+      {
+        "id": "v1_schneider",
+        "name": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+        "price": "฿832.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿2,076,950.95 (-14.9%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ แมกเนติกคอนแทคเตอร์ Schneider TeSys D (25A 3P 220VAC) ยอดรวม 14250 ตัว ทางเราขอเสนอราคา ฿950.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 111 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 14250 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿832.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿832.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "mitsubishi": {
+    "id": "mitsubishi",
+    "deal_code": "DEAL-2026-MITSUBISHI",
+    "sku": "MITSUBISHI-FR-D720-0.75K",
+    "name": "อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi FR-D720 (0.75kW 3-Phase)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 2,
+    "stage_label": "เทียบสัญญาเดิม",
+    "stock_alert": "คลังกลาง เหลือ 5",
+    "stock_type": "ROP Alert",
+    "unit": "เครื่อง",
+    "qty": 741,
+    "prs_count": 71,
+    "pre_price": 4800.0,
+    "post_price": 4198.5,
+    "pre_spend": 3655231.22,
+    "post_spend": 3111088.5,
+    "savings": 544142.72,
+    "savings_pct": 14.9,
+    "supplier": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+    "vendors": [
+      {
+        "id": "v1_mitsubishi",
+        "name": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+        "price": "฿4,198.50",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿544,142.72 (-14.9%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi FR-D720 (0.75kW 3-Phase) ยอดรวม 741 เครื่อง ทางเราขอเสนอราคา ฿4,800.00/เครื่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 71 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 741 เครื่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿4,198.50 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿4,198.50/เครื่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "mitsu_mccb": {
+    "id": "mitsu_mccb",
+    "deal_code": "DEAL-2026-MITSU_MCCB",
+    "sku": "MITSUBISHI-NF63-CV-3P-50A",
+    "name": "เบรกเกอร์โรงงาน Mitsubishi Molded Case Breaker (NF63-CV 3P 50A)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ระยอง ตู้ MDB หลัก",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 1080,
+    "prs_count": 36,
+    "pre_price": 1680.0,
+    "post_price": 1470.0,
+    "pre_spend": 1878000.2,
+    "post_spend": 1587600.0,
+    "savings": 290400.2,
+    "savings_pct": 15.5,
+    "supplier": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+    "vendors": [
+      {
+        "id": "v1_mitsu_mccb",
+        "name": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+        "price": "฿1,470.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿290,400.20 (-15.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เบรกเกอร์โรงงาน Mitsubishi Molded Case Breaker (NF63-CV 3P 50A) ยอดรวม 1080 ตัว ทางเราขอเสนอราคา ฿1,680.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 36 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1080 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,470.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,470.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "fuji_contactor": {
+    "id": "fuji_contactor",
+    "deal_code": "DEAL-2026-FUJI_CONTACTOR",
+    "sku": "FUJI-SC-03",
+    "name": "แมกเนติกคอนแทคเตอร์ Fuji Electric Magnetic Contactor (SC-03 220V)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "อยุธยา เหลือ 6",
+    "stock_type": "ROP Alert",
+    "unit": "ตัว",
+    "qty": 3395,
+    "prs_count": 26,
+    "pre_price": 620.0,
+    "post_price": 545.0,
+    "pre_spend": 2171246.85,
+    "post_spend": 1850275.0,
+    "savings": 320971.85,
+    "savings_pct": 14.8,
+    "supplier": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+    "vendors": [
+      {
+        "id": "v1_fuji_contactor",
+        "name": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+        "price": "฿545.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿320,971.85 (-14.8%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ แมกเนติกคอนแทคเตอร์ Fuji Electric Magnetic Contactor (SC-03 220V) ยอดรวม 3395 ตัว ทางเราขอเสนอราคา ฿620.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 26 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 3395 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿545.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿545.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "panasonic_photo": {
+    "id": "panasonic_photo",
+    "deal_code": "DEAL-2026-PANASONIC_PHOTO",
+    "sku": "PANASONIC-CX-421",
+    "name": "เซนเซอร์ตรวจจับชิ้นงาน Panasonic Photoelectric Sensor (CX-421)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 3,
+    "stage_label": "เจรจาต่อรอง",
+    "stock_alert": "ชลบุรี Packing Line",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 605,
+    "prs_count": 21,
+    "pre_price": 1480.0,
+    "post_price": 1295.0,
+    "pre_spend": 922998.85,
+    "post_spend": 783475.0,
+    "savings": 139523.85,
+    "savings_pct": 15.1,
+    "supplier": "บจก. เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205)",
+    "vendors": [
+      {
+        "id": "v1_panasonic_photo",
+        "name": "บจก. เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205)",
+        "price": "฿1,295.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿139,523.85 (-15.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เซนเซอร์ตรวจจับชิ้นงาน Panasonic Photoelectric Sensor (CX-421) ยอดรวม 605 ตัว ทางเราขอเสนอราคา ฿1,480.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 21 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 605 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,295.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,295.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "sick_laser": {
+    "id": "sick_laser",
+    "deal_code": "DEAL-2026-SICK_LASER",
+    "sku": "SICK-DX35",
+    "name": "เซนเซอร์วัดระยะเลเซอร์ Sick Laser Distance Sensor (Dx35 Series)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "ระยอง Warehouse Stacker",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 0,
+    "prs_count": 0,
+    "pre_price": 9800.0,
+    "post_price": 8620.0,
+    "pre_spend": 0,
+    "post_spend": 0,
+    "savings": 0,
+    "savings_pct": 12.0,
+    "supplier": "บจก. เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205)",
+    "vendors": [
+      {
+        "id": "v1_sick_laser",
+        "name": "บจก. เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205)",
+        "price": "฿8,620.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿0.00 (-12.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เซนเซอร์วัดระยะเลเซอร์ Sick Laser Distance Sensor (Dx35 Series) ยอดรวม 0 ตัว ทางเราขอเสนอราคา ฿9,800.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 0 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 0 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿8,620.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เซนเซอร์ เทคโนโลยี แอนด์ คอนโทรล (V-6205) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿8,620.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "autonics_temp": {
+    "id": "autonics_temp",
+    "deal_code": "DEAL-2026-AUTONICS_TEMP",
+    "sku": "AUTONICS-TC4S-14R",
+    "name": "เครื่องควบคุมอุณหภูมิดิจิตอล Autonics Temperature Controller (TC4S)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 4,
+    "stage_label": "ออก PO สำเร็จ",
+    "stock_alert": "อยุธยา บันทึกใน SAP สำเร็จ",
+    "stock_type": "PO Issued",
+    "unit": "เครื่อง",
+    "qty": 660,
+    "prs_count": 19,
+    "pre_price": 1350.0,
+    "post_price": 1180.0,
+    "pre_spend": 907849.25,
+    "post_spend": 778800.0,
+    "savings": 129049.25,
+    "savings_pct": 14.2,
+    "supplier": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+    "vendors": [
+      {
+        "id": "v1_autonics_temp",
+        "name": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+        "price": "฿1,180.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿129,049.25 (-14.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เครื่องควบคุมอุณหภูมิดิจิตอล Autonics Temperature Controller (TC4S) ยอดรวม 660 เครื่อง ทางเราขอเสนอราคา ฿1,350.00/เครื่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 19 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 660 เครื่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,180.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,180.00/เครื่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "omron_ssr": {
+    "id": "omron_ssr",
+    "deal_code": "DEAL-2026-OMRON_SSR",
+    "sku": "OMRON-G3NA-210B",
+    "name": "โซลิดสเตตรีเลย์ Omron Solid State Relay (G3NA-210B 24VDC/240VAC)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ฉะเชิงเทรา เตาอบ Line 1",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 1535,
+    "prs_count": 14,
+    "pre_price": 850.0,
+    "post_price": 745.0,
+    "pre_spend": 1350155.0,
+    "post_spend": 1143575.0,
+    "savings": 206580.0,
+    "savings_pct": 15.3,
+    "supplier": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+    "vendors": [
+      {
+        "id": "v1_omron_ssr",
+        "name": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+        "price": "฿745.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿206,580.00 (-15.3%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โซลิดสเตตรีเลย์ Omron Solid State Relay (G3NA-210B 24VDC/240VAC) ยอดรวม 1535 ตัว ทางเราขอเสนอราคา ฿850.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 14 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1535 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿745.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿745.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "idec_estop": {
+    "id": "idec_estop",
+    "deal_code": "DEAL-2026-IDEC_ESTOP",
+    "sku": "IDEC-HW1B-V4R",
+    "name": "สวิตช์ปุ่มกดหยุดฉุกเฉิน IDEC Emergency Stop 22mm (HW1B-V4R)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ทุกโรงงาน ตามมาตรฐานความปลอดภัย",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 6260,
+    "prs_count": 57,
+    "pre_price": 490.0,
+    "post_price": 425.0,
+    "pre_spend": 3175702.0,
+    "post_spend": 2660500.0,
+    "savings": 515202.0,
+    "savings_pct": 16.2,
+    "supplier": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+    "vendors": [
+      {
+        "id": "v1_idec_estop",
+        "name": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+        "price": "฿425.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿515,202.00 (-16.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สวิตช์ปุ่มกดหยุดฉุกเฉิน IDEC Emergency Stop 22mm (HW1B-V4R) ยอดรวม 6260 ตัว ทางเราขอเสนอราคา ฿490.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 57 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 6260 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿425.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿425.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "weidmuller_term": {
+    "id": "weidmuller_term",
+    "deal_code": "DEAL-2026-WEIDMULLER_TERM",
+    "sku": "WEIDMULLER-WDU2.5",
+    "name": "เทอร์มินอลบล็อกต่อสาย Weidmuller DIN-Rail Terminal (WDU 2.5)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "ชลบุรี & อยุธยา",
+    "stock_type": "Low Stock",
+    "unit": "กล่อง",
+    "qty": 4970,
+    "prs_count": 42,
+    "pre_price": 650.0,
+    "post_price": 560.0,
+    "pre_spend": 3336786.2,
+    "post_spend": 2783200.0,
+    "savings": 553586.2,
+    "savings_pct": 16.6,
+    "supplier": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+    "vendors": [
+      {
+        "id": "v1_weidmuller_term",
+        "name": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+        "price": "฿560.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿553,586.20 (-16.6%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เทอร์มินอลบล็อกต่อสาย Weidmuller DIN-Rail Terminal (WDU 2.5) ยอดรวม 4970 กล่อง ทางเราขอเสนอราคา ฿650.00/กล่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 42 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 4970 กล่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿560.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿560.00/กล่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "meanwell_psu": {
+    "id": "meanwell_psu",
+    "deal_code": "DEAL-2026-MEANWELL_PSU",
+    "sku": "MEANWELL-NDR-120-24",
+    "name": "สวิตชิ่งพาวเวอร์ซัพพลาย Mean Well DIN Rail 24VDC 5A (NDR-120-24)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 3,
+    "stage_label": "ต่อรองรอบ 2",
+    "stock_alert": "ระยอง ตู้คอนโทรล Line 3",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 710,
+    "prs_count": 26,
+    "pre_price": 1250.0,
+    "post_price": 1090.0,
+    "pre_spend": 917645.9,
+    "post_spend": 773900.0,
+    "savings": 143745.9,
+    "savings_pct": 15.7,
+    "supplier": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+    "vendors": [
+      {
+        "id": "v1_meanwell_psu",
+        "name": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+        "price": "฿1,090.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿143,745.90 (-15.7%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สวิตชิ่งพาวเวอร์ซัพพลาย Mean Well DIN Rail 24VDC 5A (NDR-120-24) ยอดรวม 710 ตัว ทางเราขอเสนอราคา ฿1,250.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 26 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 710 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,090.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,090.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "abb_mcb": {
+    "id": "abb_mcb",
+    "deal_code": "DEAL-2026-ABB_MCB",
+    "sku": "ABB-S203-C16",
+    "name": "มินิเอเจอร์เซอร์กิตเบรกเกอร์ ABB MCB 3-Pole 16A (S203-C16)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "สมุทรปราการ เหลือ 5",
+    "stock_type": "ROP Alert",
+    "unit": "ตัว",
+    "qty": 1115,
+    "prs_count": 12,
+    "pre_price": 920.0,
+    "post_price": 810.0,
+    "pre_spend": 1065938.0,
+    "post_spend": 903150.0,
+    "savings": 162788.0,
+    "savings_pct": 15.3,
+    "supplier": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+    "vendors": [
+      {
+        "id": "v1_abb_mcb",
+        "name": "บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)",
+        "price": "฿810.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿162,788.00 (-15.3%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ มินิเอเจอร์เซอร์กิตเบรกเกอร์ ABB MCB 3-Pole 16A (S203-C16) ยอดรวม 1115 ตัว ทางเราขอเสนอราคา ฿920.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 12 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1115 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿810.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "สยาม อิเล็คทริค คอนโทรล (V-7711) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿810.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "siemens_soft": {
+    "id": "siemens_soft",
+    "deal_code": "DEAL-2026-SIEMENS_SOFT",
+    "sku": "SIEMENS-3RW3016",
+    "name": "ซอฟต์สตาร์ทเตอร์มอเตอร์ Siemens Sirius Soft Starter (3RW3016 7.5kW)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 2,
+    "stage_label": "เทียบสัญญาเดิม",
+    "stock_alert": "ฉะเชิงเทรา ปั๊มน้ำหล่อเย็น",
+    "stock_type": "Safety Stock",
+    "unit": "เครื่อง",
+    "qty": 0,
+    "prs_count": 0,
+    "pre_price": 7200.0,
+    "post_price": 6350.0,
+    "pre_spend": 0,
+    "post_spend": 0,
+    "savings": 0,
+    "savings_pct": 12.0,
+    "supplier": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+    "vendors": [
+      {
+        "id": "v1_siemens_soft",
+        "name": "บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)",
+        "price": "฿6,350.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿0.00 (-12.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ซอฟต์สตาร์ทเตอร์มอเตอร์ Siemens Sirius Soft Starter (3RW3016 7.5kW) ยอดรวม 0 เครื่อง ทางเราขอเสนอราคา ฿7,200.00/เครื่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 0 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 0 เครื่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿6,350.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿6,350.00/เครื่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "mitsu_plc_io": {
+    "id": "mitsu_plc_io",
+    "deal_code": "DEAL-2026-MITSU_PLC_IO",
+    "sku": "MITSUBISHI-QX40",
+    "name": "โมดูลดิจิตอลอินพุต PLC Mitsubishi MELSEC-Q (QX40 16-Point 24VDC)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "อยุธยา สำรองตู้เครื่องจักรหลัก",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 42,
+    "prs_count": 7,
+    "pre_price": 3800.0,
+    "post_price": 3320.0,
+    "pre_spend": 168443.36,
+    "post_spend": 139440.0,
+    "savings": 29003.36,
+    "savings_pct": 17.2,
+    "supplier": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+    "vendors": [
+      {
+        "id": "v1_mitsu_plc_io",
+        "name": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+        "price": "฿3,320.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿29,003.36 (-17.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โมดูลดิจิตอลอินพุต PLC Mitsubishi MELSEC-Q (QX40 16-Point 24VDC) ยอดรวม 42 ตัว ทางเราขอเสนอราคา ฿3,800.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 7 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 42 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿3,320.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿3,320.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "omron_safety": {
+    "id": "omron_safety",
+    "deal_code": "DEAL-2026-OMRON_SAFETY",
+    "sku": "OMRON-G9SE-201",
+    "name": "เซฟตี้รีเลย์ควบคุมความปลอดภัย Omron Safety Relay Unit (G9SE-201)",
+    "category": "electrical",
+    "category_th": "ไฟฟ้า & เซนเซอร์",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "ชลบุรี Safety Gate Interlock",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 135,
+    "prs_count": 4,
+    "pre_price": 3100.0,
+    "post_price": 2720.0,
+    "pre_spend": 436622.7,
+    "post_spend": 367200.0,
+    "savings": 69422.7,
+    "savings_pct": 15.9,
+    "supplier": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+    "vendors": [
+      {
+        "id": "v1_omron_safety",
+        "name": "บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)",
+        "price": "฿2,720.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿69,422.70 (-15.9%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ เซฟตี้รีเลย์ควบคุมความปลอดภัย Omron Safety Relay Unit (G9SE-201) ยอดรวม 135 ตัว ทางเราขอเสนอราคา ฿3,100.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 4 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 135 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿2,720.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿2,720.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "smc": {
+    "id": "smc",
+    "deal_code": "DEAL-2026-SMC",
+    "sku": "SMC-SY5120-5LZD-01",
+    "name": "โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC ฐานยึด Sub-base)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ระยอง เหลือ 3 (ROP: 10)",
+    "stock_type": "ROP Alert",
+    "unit": "ชิ้น",
+    "qty": 3065,
+    "prs_count": 107,
+    "pre_price": 1250.0,
+    "post_price": 1089.33,
+    "pre_spend": 3932170.0,
+    "post_spend": 3338796.45,
+    "savings": 593373.55,
+    "savings_pct": 15.1,
+    "supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+    "vendors": [
+      {
+        "id": "v1_smc",
+        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+        "price": "฿1,089.33",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿593,373.55 (-15.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC ฐานยึด Sub-base) ยอดรวม 3065 ชิ้น ทางเราขอเสนอราคา ฿1,250.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 107 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 3065 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,089.33 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,089.33/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "smc_frl": {
+    "id": "smc_frl",
+    "deal_code": "DEAL-2026-SMC_FRL",
+    "sku": "SMC-AC30-03DG",
+    "name": "ชุดกรองลมดักน้ำปรับแรงดัน SMC FRL Unit (AC30-03DG 3/8 นิ้ว)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "อยุธยา ลมสะอาดเครื่องจักร",
+    "stock_type": "Low Stock",
+    "unit": "ชุด",
+    "qty": 1600,
+    "prs_count": 47,
+    "pre_price": 2850.0,
+    "post_price": 2490.0,
+    "pre_spend": 4661287.65,
+    "post_spend": 3984000.0,
+    "savings": 677287.65,
+    "savings_pct": 14.5,
+    "supplier": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+    "vendors": [
+      {
+        "id": "v1_smc_frl",
+        "name": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+        "price": "฿2,490.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿677,287.65 (-14.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ชุดกรองลมดักน้ำปรับแรงดัน SMC FRL Unit (AC30-03DG 3/8 นิ้ว) ยอดรวม 1600 ชุด ทางเราขอเสนอราคา ฿2,850.00/ชุด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 47 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1600 ชุด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿2,490.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿2,490.00/ชุด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "rexroth": {
+    "id": "rexroth",
+    "deal_code": "DEAL-2026-REXROTH",
+    "sku": "REXROTH-4WE6D6X-EG24N9K4",
+    "name": "ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth 4/3 Way (24VDC)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 4,
+    "stage_label": "ออก PO สำเร็จ",
+    "stock_alert": "บันทึกใน SAP สำเร็จ (PO#450098220)",
+    "stock_type": "PO Issued",
+    "unit": "ตัว",
+    "qty": 343,
+    "prs_count": 37,
+    "pre_price": 6500.0,
+    "post_price": 5670.0,
+    "pre_spend": 2286635.15,
+    "post_spend": 1944810.0,
+    "savings": 341825.15,
+    "savings_pct": 14.9,
+    "supplier": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+    "vendors": [
+      {
+        "id": "v1_rexroth",
+        "name": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+        "price": "฿5,670.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿341,825.15 (-14.9%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth 4/3 Way (24VDC) ยอดรวม 343 ตัว ทางเราขอเสนอราคา ฿6,500.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 37 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 343 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿5,670.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿5,670.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "festo_cylinder": {
+    "id": "festo_cylinder",
+    "deal_code": "DEAL-2026-FESTO_CYLINDER",
+    "sku": "FESTO-DNC-40-100",
+    "name": "กระบอกลมนิวเมติกส์มาตรฐาน Festo ISO Cylinder (DNC-40-100-PPV-A)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 3,
+    "stage_label": "ต่อรองรอบ 2",
+    "stock_alert": "ชลบุรี Line Stamping",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 265,
+    "prs_count": 27,
+    "pre_price": 4200.0,
+    "post_price": 3690.0,
+    "pre_spend": 1138428.28,
+    "post_spend": 977850.0,
+    "savings": 160578.28,
+    "savings_pct": 14.1,
+    "supplier": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+    "vendors": [
+      {
+        "id": "v1_festo_cylinder",
+        "name": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+        "price": "฿3,690.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿160,578.28 (-14.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ กระบอกลมนิวเมติกส์มาตรฐาน Festo ISO Cylinder (DNC-40-100-PPV-A) ยอดรวม 265 ตัว ทางเราขอเสนอราคา ฿4,200.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 27 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 265 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿3,690.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿3,690.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "smc_compact_cyl": {
+    "id": "smc_compact_cyl",
+    "deal_code": "DEAL-2026-SMC_COMPACT_CYL",
+    "sku": "SMC-CDQ2B50-30DZ",
+    "name": "กระบอกลมคอมแพ็คแบบบาง SMC Compact Cylinder (CDQ2B50-30DZ)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "ฉะเชิงเทรา เหลือ 5",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 945,
+    "prs_count": 32,
+    "pre_price": 2100.0,
+    "post_price": 1840.0,
+    "pre_spend": 2050393.7,
+    "post_spend": 1738800.0,
+    "savings": 311593.7,
+    "savings_pct": 15.2,
+    "supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+    "vendors": [
+      {
+        "id": "v1_smc_compact_cyl",
+        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+        "price": "฿1,840.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿311,593.70 (-15.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ กระบอกลมคอมแพ็คแบบบาง SMC Compact Cylinder (CDQ2B50-30DZ) ยอดรวม 945 ตัว ทางเราขอเสนอราคา ฿2,100.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 32 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 945 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,840.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,840.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "parker_pump": {
+    "id": "parker_pump",
+    "deal_code": "DEAL-2026-PARKER_PUMP",
+    "sku": "PARKER-PGP511",
+    "name": "ปั๊มไฮดรอลิกแรงดันสูง Parker Hydraulic Gear Pump (PGP511 Series)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 3,
+    "stage_label": "เจรจาต่อรอง",
+    "stock_alert": "ระยอง เครื่องเพรส 200 ตัน",
+    "stock_type": "PM Schedule",
+    "unit": "ตัว",
+    "qty": 0,
+    "prs_count": 0,
+    "pre_price": 16500.0,
+    "post_price": 14500.0,
+    "pre_spend": 0,
+    "post_spend": 0,
+    "savings": 0,
+    "savings_pct": 12.0,
+    "supplier": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+    "vendors": [
+      {
+        "id": "v1_parker_pump",
+        "name": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+        "price": "฿14,500.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿0.00 (-12.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ปั๊มไฮดรอลิกแรงดันสูง Parker Hydraulic Gear Pump (PGP511 Series) ยอดรวม 0 ตัว ทางเราขอเสนอราคา ฿16,500.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 0 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 0 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿14,500.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿14,500.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "ckd_valve": {
+    "id": "ckd_valve",
+    "deal_code": "DEAL-2026-CKD_VALVE",
+    "sku": "CKD-3PA110-06",
+    "name": "โซลินอยด์วาล์ว 3 ทาง CKD Direct Acting Valve (3PA110-06 24VDC)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "สมุทรปราการ เหลือ 4",
+    "stock_type": "ROP Alert",
+    "unit": "ตัว",
+    "qty": 2270,
+    "prs_count": 17,
+    "pre_price": 1100.0,
+    "post_price": 965.0,
+    "pre_spend": 2570321.1,
+    "post_spend": 2190550.0,
+    "savings": 379771.1,
+    "savings_pct": 14.8,
+    "supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+    "vendors": [
+      {
+        "id": "v1_ckd_valve",
+        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+        "price": "฿965.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿379,771.10 (-14.8%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ โซลินอยด์วาล์ว 3 ทาง CKD Direct Acting Valve (3PA110-06 24VDC) ยอดรวม 2270 ตัว ทางเราขอเสนอราคา ฿1,100.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 17 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 2270 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿965.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿965.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "smc_speed_ctrl": {
+    "id": "smc_speed_ctrl",
+    "deal_code": "DEAL-2026-SMC_SPEED_CTRL",
+    "sku": "SMC-AS2201F-02-08S",
+    "name": "วาล์วควบคุมความเร็วกระบอกลม SMC Speed Controller (AS2201F)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ทุกโรงงาน อะไหล่ใช้ประจำ",
+    "stock_type": "Safety Stock",
+    "unit": "ตัว",
+    "qty": 9505,
+    "prs_count": 77,
+    "pre_price": 280.0,
+    "post_price": 242.0,
+    "pre_spend": 2740167.25,
+    "post_spend": 2300210.0,
+    "savings": 439957.25,
+    "savings_pct": 16.1,
+    "supplier": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+    "vendors": [
+      {
+        "id": "v1_smc_speed_ctrl",
+        "name": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+        "price": "฿242.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿439,957.25 (-16.1%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ วาล์วควบคุมความเร็วกระบอกลม SMC Speed Controller (AS2201F) ยอดรวม 9505 ตัว ทางเราขอเสนอราคา ฿280.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 77 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 9505 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿242.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿242.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "pisco_fitting": {
+    "id": "pisco_fitting",
+    "deal_code": "DEAL-2026-PISCO_FITTING",
+    "sku": "PISCO-POC8-02",
+    "name": "ข้อต่อลมสวมเร็ว Pisco Push-In Tube Fitting (POC8-02 เกลียว 1/4)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "อยุธยา & ชลบุรี",
+    "stock_type": "Low Stock",
+    "unit": "ถุง (10ตัว)",
+    "qty": 7040,
+    "prs_count": 62,
+    "pre_price": 450.0,
+    "post_price": 388.0,
+    "pre_spend": 3243217.85,
+    "post_spend": 2731520.0,
+    "savings": 511697.85,
+    "savings_pct": 15.8,
+    "supplier": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+    "vendors": [
+      {
+        "id": "v1_pisco_fitting",
+        "name": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+        "price": "฿388.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿511,697.85 (-15.8%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ข้อต่อลมสวมเร็ว Pisco Push-In Tube Fitting (POC8-02 เกลียว 1/4) ยอดรวม 7040 ถุง (10ตัว) ทางเราขอเสนอราคา ฿450.00/ถุง (10ตัว) เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 62 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 7040 ถุง (10ตัว) ทางระบบขอต่อรองราคาเป้าหมายที่ ฿388.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿388.00/ถุง (10ตัว) เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "koganei_qev": {
+    "id": "koganei_qev",
+    "deal_code": "DEAL-2026-KOGANEI_QEV",
+    "sku": "KOGANEI-QEV2-02",
+    "name": "วาล์วระบายลมด่วน Koganei Quick Exhaust Valve (QEV2-02)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ระยอง Line Ejector",
+    "stock_type": "Low Stock",
+    "unit": "ตัว",
+    "qty": 1875,
+    "prs_count": 14,
+    "pre_price": 820.0,
+    "post_price": 718.0,
+    "pre_spend": 1593939.25,
+    "post_spend": 1346250.0,
+    "savings": 247689.25,
+    "savings_pct": 15.5,
+    "supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+    "vendors": [
+      {
+        "id": "v1_koganei_qev",
+        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)",
+        "price": "฿718.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿247,689.25 (-15.5%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ วาล์วระบายลมด่วน Koganei Quick Exhaust Valve (QEV2-02) ยอดรวม 1875 ตัว ทางเราขอเสนอราคา ฿820.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 14 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1875 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿718.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿718.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "smc_pu_tubing": {
+    "id": "smc_pu_tubing",
+    "deal_code": "DEAL-2026-SMC_PU_TUBING",
+    "sku": "SMC-TU0805B-100",
+    "name": "สายลมโพลียูรีเทน SMC Polyurethane Air Tubing (8mm x 5mm ยาว 100m)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "ฉะเชิงเทรา & อยุธยา",
+    "stock_type": "Safety Stock",
+    "unit": "ม้วน",
+    "qty": 765,
+    "prs_count": 27,
+    "pre_price": 2200.0,
+    "post_price": 1920.0,
+    "pre_spend": 1722573.25,
+    "post_spend": 1468800.0,
+    "savings": 253773.25,
+    "savings_pct": 14.7,
+    "supplier": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+    "vendors": [
+      {
+        "id": "v1_smc_pu_tubing",
+        "name": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
+        "price": "฿1,920.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿253,773.25 (-14.7%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ สายลมโพลียูรีเทน SMC Polyurethane Air Tubing (8mm x 5mm ยาว 100m) ยอดรวม 765 ม้วน ทางเราขอเสนอราคา ฿2,200.00/ม้วน เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 27 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 765 ม้วน ทางระบบขอต่อรองราคาเป้าหมายที่ ฿1,920.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿1,920.00/ม้วน เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "vickers_relief": {
+    "id": "vickers_relief",
+    "deal_code": "DEAL-2026-VICKERS_RELIEF",
+    "sku": "VICKERS-CG-06",
+    "name": "วาล์วจำกัดแรงดันไฮดรอลิก Vickers Hydraulic Relief Valve (CG-06)",
+    "category": "pneumatic",
+    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
+    "stage": 2,
+    "stage_label": "เทียบสัญญาเดิม",
+    "stock_alert": "ระยอง ระบบไฮดรอลิกกลาง",
+    "stock_type": "PM Schedule",
+    "unit": "ตัว",
+    "qty": 0,
+    "prs_count": 0,
+    "pre_price": 9400.0,
+    "post_price": 8250.0,
+    "pre_spend": 0,
+    "post_spend": 0,
+    "savings": 0,
+    "savings_pct": 12.0,
+    "supplier": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+    "vendors": [
+      {
+        "id": "v1_vickers_relief",
+        "name": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+        "price": "฿8,250.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿0.00 (-12.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ วาล์วจำกัดแรงดันไฮดรอลิก Vickers Hydraulic Relief Valve (CG-06) ยอดรวม 0 ตัว ทางเราขอเสนอราคา ฿9,400.00/ตัว เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 0 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 0 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿8,250.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿8,250.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "nok": {
+    "id": "nok",
+    "deal_code": "DEAL-2026-NOK",
+    "sku": "NOK-TC-45-68-12-NBR",
+    "name": "ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal (NBR 45x68x12)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 2,
+    "stage_label": "รวมยอด PR",
+    "stock_alert": "สมุทรปราการ & อยุธยา",
+    "stock_type": "Safety Stock",
+    "unit": "ชิ้น",
+    "qty": 22940,
+    "prs_count": 192,
+    "pre_price": 180.0,
+    "post_price": 158.0,
+    "pre_spend": 4276065.15,
+    "post_spend": 3624520.0,
+    "savings": 651545.15,
+    "savings_pct": 15.2,
+    "supplier": "บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)",
+    "vendors": [
+      {
+        "id": "v1_nok",
+        "name": "บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)",
+        "price": "฿158.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿651,545.15 (-15.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal (NBR 45x68x12) ยอดรวม 22940 ชิ้น ทางเราขอเสนอราคา ฿180.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 192 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 22940 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿158.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿158.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "skf_seal": {
+    "id": "skf_seal",
+    "deal_code": "DEAL-2026-SKF_SEAL",
+    "sku": "SKF-HMSA10-RG-50",
+    "name": "ซีลเพลาหมุนทนความร้อน SKF Radial Shaft Seal (50x72x8 NBR/FKM)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ชลบุรี มอเตอร์ปั๊มน้ำเคมี",
+    "stock_type": "Low Stock",
+    "unit": "ชิ้น",
+    "qty": 9255,
+    "prs_count": 67,
+    "pre_price": 380.0,
+    "post_price": 330.0,
+    "pre_spend": 3627654.3,
+    "post_spend": 3054150.0,
+    "savings": 573504.3,
+    "savings_pct": 15.8,
+    "supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
+    "vendors": [
+      {
+        "id": "v1_skf_seal",
+        "name": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
+        "price": "฿330.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿573,504.30 (-15.8%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ซีลเพลาหมุนทนความร้อน SKF Radial Shaft Seal (50x72x8 NBR/FKM) ยอดรวม 9255 ชิ้น ทางเราขอเสนอราคา ฿380.00/ชิ้น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 67 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 9255 ชิ้น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿330.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿330.00/ชิ้น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "trelleborg_oring": {
+    "id": "trelleborg_oring",
+    "deal_code": "DEAL-2026-TRELLEBORG_ORING",
+    "sku": "TRELLEBORG-VITON-KIT",
+    "name": "ชุดโอริงทนสารเคมีและอุณหภูมิสูง Trelleborg Viton O-Ring Box Kit",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ต่อรองรอบ 2",
+    "stock_alert": "ระยอง โรงกลั่น & ปิโตรเคมี",
+    "stock_type": "Safety Stock",
+    "unit": "กล่อง",
+    "qty": 160,
+    "prs_count": 17,
+    "pre_price": 3850.0,
+    "post_price": 3380.0,
+    "pre_spend": 637762.7,
+    "post_spend": 540800.0,
+    "savings": 96962.7,
+    "savings_pct": 15.2,
+    "supplier": "บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)",
+    "vendors": [
+      {
+        "id": "v1_trelleborg_oring",
+        "name": "บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)",
+        "price": "฿3,380.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿96,962.70 (-15.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ ชุดโอริงทนสารเคมีและอุณหภูมิสูง Trelleborg Viton O-Ring Box Kit ยอดรวม 160 กล่อง ทางเราขอเสนอราคา ฿3,850.00/กล่อง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 17 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 160 กล่อง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿3,380.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿3,380.00/กล่อง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "klinger_gasket": {
+    "id": "klinger_gasket",
+    "deal_code": "DEAL-2026-KLINGER_GASKET",
+    "sku": "KLINGER-C4400-2MM",
+    "name": "แผ่นปะเก็นไร้ใยหินทนแรงดัน Klinger Non-Asbestos Gasket Sheet (C-4400)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "อยุธยา หน้าแปลนไอน้ำ",
+    "stock_type": "ROP Alert",
+    "unit": "แผ่น",
+    "qty": 165,
+    "prs_count": 6,
+    "pre_price": 2900.0,
+    "post_price": 2550.0,
+    "pre_spend": 502783.55,
+    "post_spend": 420750.0,
+    "savings": 82033.55,
+    "savings_pct": 16.3,
+    "supplier": "บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)",
+    "vendors": [
+      {
+        "id": "v1_klinger_gasket",
+        "name": "บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)",
+        "price": "฿2,550.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿82,033.55 (-16.3%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ แผ่นปะเก็นไร้ใยหินทนแรงดัน Klinger Non-Asbestos Gasket Sheet (C-4400) ยอดรวม 165 แผ่น ทางเราขอเสนอราคา ฿2,900.00/แผ่น เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 6 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 165 แผ่น ทางระบบขอต่อรองราคาเป้าหมายที่ ฿2,550.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿2,550.00/แผ่น เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "grundfos_mech_seal": {
+    "id": "grundfos_mech_seal",
+    "deal_code": "DEAL-2026-GRUNDFOS_MECH_SEAL",
+    "sku": "GRUNDFOS-HQQE-12",
+    "name": "แมคคานิคอลซีลปั๊มน้ำ Grundfos Mechanical Seal Kit (HQQE 12mm)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 2,
+    "stage_label": "เทียบสัญญาเดิม",
+    "stock_alert": "ฉะเชิงเทรา ปั๊มน้ำ Cooling Tower",
+    "stock_type": "PM Schedule",
+    "unit": "ชุด",
+    "qty": 23,
+    "prs_count": 2,
+    "pre_price": 4500.0,
+    "post_price": 3950.0,
+    "pre_spend": 105938.36,
+    "post_spend": 90850.0,
+    "savings": 15088.36,
+    "savings_pct": 14.2,
+    "supplier": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+    "vendors": [
+      {
+        "id": "v1_grundfos_mech_seal",
+        "name": "บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)",
+        "price": "฿3,950.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿15,088.36 (-14.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ แมคคานิคอลซีลปั๊มน้ำ Grundfos Mechanical Seal Kit (HQQE 12mm) ยอดรวม 23 ชุด ทางเราขอเสนอราคา ฿4,500.00/ชุด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 2 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 23 ชุด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿3,950.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿3,950.00/ชุด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "loctite_243": {
+    "id": "loctite_243",
+    "deal_code": "DEAL-2026-LOCTITE_243",
+    "sku": "LOCTITE-243-50ML",
+    "name": "น้ำยาล็อคเกลียวแรงปานกลาง Loctite 243 Threadlocker (ขวด 50ml)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 4,
+    "stage_label": "รออนุมัติ PO",
+    "stock_alert": "ทุกโรงงาน แผนกซ่อมบำรุง",
+    "stock_type": "Low Stock",
+    "unit": "ขวด",
+    "qty": 8070,
+    "prs_count": 72,
+    "pre_price": 620.0,
+    "post_price": 535.0,
+    "pre_spend": 5140129.45,
+    "post_spend": 4317450.0,
+    "savings": 822679.45,
+    "savings_pct": 16.0,
+    "supplier": "บจก. เคมีคอล แอนด์ ซัพพลาย (V-6601)",
+    "vendors": [
+      {
+        "id": "v1_loctite_243",
+        "name": "บจก. เคมีคอล แอนด์ ซัพพลาย (V-6601)",
+        "price": "฿535.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "ชนะการประมูล (ออกใบ PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿822,679.45 (-16.0%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เคมีคอล แอนด์ ซัพพลาย (V-6601) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ น้ำยาล็อคเกลียวแรงปานกลาง Loctite 243 Threadlocker (ขวด 50ml) ยอดรวม 8070 ขวด ทางเราขอเสนอราคา ฿620.00/ขวด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 72 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 8070 ขวด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿535.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เคมีคอล แอนด์ ซัพพลาย (V-6601) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿535.00/ขวด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "mobil_gear_oil": {
+    "id": "mobil_gear_oil",
+    "deal_code": "DEAL-2026-MOBIL_GEAR_OIL",
+    "sku": "MOBIL-SHC630-20L",
+    "name": "น้ำมันเกียร์และแบริ่งสังเคราะห์แท้ Mobil SHC 630 Synthetic Oil (20L)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 3,
+    "stage_label": "ประมูล 3 เจ้า",
+    "stock_alert": "ระยอง & อยุธยา รอบเปลี่ยนถ่ายน้ำมัน",
+    "stock_type": "PM Schedule",
+    "unit": "ถัง",
+    "qty": 282,
+    "prs_count": 27,
+    "pre_price": 6800.0,
+    "post_price": 5980.0,
+    "pre_spend": 1957471.96,
+    "post_spend": 1686360.0,
+    "savings": 271111.96,
+    "savings_pct": 13.9,
+    "supplier": "บจก. เคมีคอล แอนด์ ซัพพลาย (V-6601)",
+    "vendors": [
+      {
+        "id": "v1_mobil_gear_oil",
+        "name": "บจก. เคมีคอล แอนด์ ซัพพลาย (V-6601)",
+        "price": "฿5,980.00",
+        "credit": "45 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "กำลังเจรจารอบ 2",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿271,111.96 (-13.9%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เคมีคอล แอนด์ ซัพพลาย (V-6601) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ น้ำมันเกียร์และแบริ่งสังเคราะห์แท้ Mobil SHC 630 Synthetic Oil (20L) ยอดรวม 282 ถัง ทางเราขอเสนอราคา ฿6,800.00/ถัง เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 27 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 282 ถัง ทางระบบขอต่อรองราคาเป้าหมายที่ ฿5,980.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เคมีคอล แอนด์ ซัพพลาย (V-6601) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿5,980.00/ถัง เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
+  },
+  "shinetsu_silicone": {
+    "id": "shinetsu_silicone",
+    "deal_code": "DEAL-2026-SHINETSU_SILICONE",
+    "sku": "SHINETSU-KE45T",
+    "name": "กาวซิลิโคนซีลปะเก็นอุตสาหกรรม Shin-Etsu Industrial Sealant (KE-45T)",
+    "category": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "stage": 1,
+    "stage_label": "ตรวจสต็อกต่ำ",
+    "stock_alert": "ชลบุรี คลังเคมี เหลือ 8 หลอด",
+    "stock_type": "Low Stock",
+    "unit": "หลอด",
+    "qty": 1270,
+    "prs_count": 11,
+    "pre_price": 340.0,
+    "post_price": 295.0,
+    "pre_spend": 436903.7,
+    "post_spend": 374650.0,
+    "savings": 62253.7,
+    "savings_pct": 14.2,
+    "supplier": "บจก. เคมีคอล แอนด์ ซัพพลาย (V-6601)",
+    "vendors": [
+      {
+        "id": "v1_shinetsu_silicone",
+        "name": "บจก. เคมีคอล แอนด์ ซัพพลาย (V-6601)",
+        "price": "฿295.00",
+        "credit": "30 วัน",
+        "leadTime": "7 วันทำการ",
+        "warranty": "1 ปี",
+        "status": "รอเปรียบเทียบสัญญา",
+        "statusBadge": "badge-info text-white",
+        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿62,253.70 (-14.2%)",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "เคมีคอล แอนด์ ซัพพลาย (V-6601) (ฝ่ายขาย)",
+            "time": "10:30",
+            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ กาวซิลิโคนซีลปะเก็นอุตสาหกรรม Shin-Etsu Industrial Sealant (KE-45T) ยอดรวม 1270 หลอด ทางเราขอเสนอราคา ฿340.00/หลอด เครดิต 30 วันครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "10:32",
+            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 11 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 1270 หลอด ทางระบบขอต่อรองราคาเป้าหมายที่ ฿295.00 พร้อมสัญญารายปี LTA ครับ",
+            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
+          },
+          {
+            "sender": "vendor",
+            "name": "เคมีคอล แอนด์ ซัพพลาย (V-6601) (ฝ่ายขาย)",
+            "time": "10:38",
+            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿295.00/หลอด เครดิต 45 วันครับ ขอบคุณครับ"
+          }
+        ]
+      }
+    ]
   }
 }

@@ -26,17 +26,17 @@ class DealRepository:
 
     def get_statistics(self) -> dict:
         deals = self.get_all_deals()
-        total_spend = sum(d.get('budget_total_thb', 0.0) for d in deals.values())
-        total_savings = sum(d.get('total_savings_thb', 0.0) for d in deals.values())
-        total_prs = sum(d.get('total_prs', 0) for d in deals.values())
-        total_qty = sum(d.get('total_quantity', 0) for d in deals.values())
+        total_spend = sum(d.get('pre_spend', d.get('budget_total_thb', 0.0)) for d in deals.values())
+        total_savings = sum(d.get('savings', d.get('total_savings_thb', 0.0)) for d in deals.values())
+        total_prs = sum(d.get('prs_count', d.get('total_prs', 0)) for d in deals.values())
+        total_qty = sum(d.get('qty', d.get('total_quantity', 0)) for d in deals.values())
 
         stages_count = {1: 0, 2: 0, 3: 0, 4: 0}
         stages_prs = {1: 0, 2: 0, 3: 0, 4: 0}
         for d in deals.values():
             s = d.get('stage', 1)
             stages_count[s] = stages_count.get(s, 0) + 1
-            stages_prs[s] = stages_prs.get(s, 0) + d.get('total_prs', 0)
+            stages_prs[s] = stages_prs.get(s, 0) + d.get('prs_count', d.get('total_prs', 0))
 
         return {
             'total_spend_thb': round(total_spend, 2),
@@ -60,12 +60,14 @@ class DealRepository:
         if not deal_id:
             return self._raw_cache[offset:offset+limit]
 
-        deal = self.get_deal(deal_id)
-        if not deal:
-            filtered = [r for r in self._raw_cache if deal_id.upper() in r.get('code', '').upper() or deal_id.upper() in r.get('deal', '').upper()]
-            return filtered[offset:offset+limit]
-        part_code = deal.get('part_code', '')
-        filtered = [r for r in self._raw_cache if r.get('code') == part_code or deal_id.upper() in r.get('code', '').upper()]
+        did = deal_id.lower()
+        filtered = [
+            r for r in self._raw_cache
+            if r.get('deal_key', '').lower() == did
+            or did in r.get('deal_key', '').lower()
+            or did.upper() in r.get('code', '').upper()
+            or did.upper() in r.get('deal', '').upper()
+        ]
         return filtered[offset:offset+limit]
 
 deal_repository = DealRepository()

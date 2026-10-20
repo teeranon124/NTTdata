@@ -20,11 +20,11 @@ def add_live_event(action_text: str):
     return event
 
 # Seed initial dynamic events with current real time
-add_live_event("กู้คืนเงินงบประมาณรั่วไหล ฿12,591,973 (-12.6%) สำเร็จจาก 10 ดีลหลัก 2,500 PRs")
+add_live_event("กู้คืนเงินงบประมาณรั่วไหล ฿12,591,973 (-12.6%) สำเร็จจาก 60 ดีล MRO 2,500 PRs")
 add_live_event("ตรวจสอบ Guardrail มาตรฐานสเปก JIS B 1514 & เครดิตเทอม 45 วัน... ผ่านเกณฑ์ 100%")
 add_live_event("ซัพพลายเออร์ บจก. สยาม พรีซิชั่น ตอบรับเงื่อนไข Blanket Order สัญญา 1 ปี (ดีล NSK 250 PRs)")
 add_live_event("สแกนคลังสินค้า SAP MM พบ ROP เตือนอะไหล่ Festo ท่อลม 8mm (250 PRs ชลบุรี/ระยอง)")
-add_live_event("AI Agent เชื่อมต่อ SAP S/4HANA รวบยอด 2,500 ใบขอซื้อ (PRs) เป็น 10 ดีลกลยุทธ์")
+add_live_event("AI Agent เชื่อมต่อ SAP S/4HANA รวบยอด 2,500 ใบขอซื้อ (PRs) เป็น 60 ดีลกลยุทธ์ MRO")
 
 @chat_bp.route("/")
 def index():
