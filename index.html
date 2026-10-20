@@ -335,7 +335,7 @@
                         </div>
                         <div class="text-[11px] text-slate-600 font-mono flex items-center gap-1.5">
                             <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-700"></i>
-                            <span>คลิกปุ่ม <strong class="text-blue-800 font-bold bg-white px-1.5 py-0.5 rounded border border-blue-200">"รวม 250 PRs"</strong> ในตารางเพื่อตรวจสอบ Audit Trail รายใบ</span>
+                            <span>คลิกปุ่ม <strong class="text-blue-800 font-bold bg-white px-1.5 py-0.5 rounded border border-blue-200">"รวม ... PRs"</strong> ในตารางเพื่อตรวจสอบ Audit Trail รายใบ</span>
                         </div>
                     </div>
 
@@ -345,13 +345,13 @@
                         <table class="table table-sm w-full text-xs">
                             <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold uppercase tracking-wider text-[10px]">
                                 <tr>
-                                    <th class="py-3 px-3 min-w-[200px]">รหัส & รายการอะไหล่ MRO</th>
-                                    <th class="py-3 px-2 min-w-[85px]">หมวดหมู่</th>
+                                    <th class="py-3 px-3 min-w-[240px]">รหัส & รายการอะไหล่ MRO</th>
+                                    <th class="py-3 px-2 min-w-[130px]">หมวดหมู่</th>
                                     <th class="py-2.5 px-2 min-w-[115px] leading-tight">
                                         <div>สัญญาณเตือนคลัง</div>
                                         <div class="text-[9px] text-slate-400 font-normal mt-0.5">(ERP Trigger)</div>
                                     </th>
-                                    <th class="py-3 px-2 text-right min-w-[85px]">จำนวนจัดซื้อ</th>
+                                    <th class="py-3 px-2 text-right min-w-[125px]">จำนวนจัดซื้อ</th>
                                     <th class="py-3 px-2 text-right min-w-[85px]">ราคาเดิม</th>
                                     <th class="py-3 px-2 text-right text-blue-800 min-w-[100px]">ราคาเจรจาได้</th>
                                     <th class="py-2.5 px-2 text-right text-emerald-700 min-w-[110px] leading-tight">
@@ -366,21 +366,25 @@
 
                                 <!-- ROW: NSK -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="mechanical" data-stage="4" data-stages="4">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 font-black text-rose-700 text-[10px]">NSK</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="ตลับลูกปืน NSK Deep Groove Ball Bearing (6208-2RS1)">ตลับลูกปืน NSK Deep Groove Ball Bearing (6208-2RS1)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">NSK-6208-2RS1 | บจก. สยาม พรีซิชั่น เทค (V-4019)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="ตลับลูกปืน NSK Deep Groove Ball Bearing (6208-2RS1)">ตลับลูกปืน NSK Deep Groove Ball Bearing (6208-2RS1)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">NSK-6208-2RS1 | บจก. สยาม พรีซิชั่น เทค (V-4019)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">เครื่องกล & ส่งกำลัง</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">เครื่องกล & ส่งกำลัง</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">Low Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ชลบุรี เหลือ 12 (Min: 50)</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">20,274 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('nsk')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 348 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">20,274 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('nsk')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 348 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿450.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿398.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,119,509 <span class="text-[9px] font-normal">(-12.2%)</span></td>
@@ -401,21 +405,25 @@
 
                                 <!-- ROW: SKF -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="mechanical" data-stage="4" data-stages="4">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 font-black text-blue-700 text-[10px]">SKF</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3)">ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">SKF-6310-2Z-C3 | บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3)">ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">SKF-6310-2Z-C3 | บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">เครื่องกล & ส่งกำลัง</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">เครื่องกล & ส่งกำลัง</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">Safety Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">อยุธยา เหลือ 8 (Min: 30)</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">800 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-emerald-600 font-medium"><button type="button" onclick="app.openPrModal('skf')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 185 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">800 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('skf')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 185 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿1,250.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿1,090.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿128,000 <span class="text-[9px] font-normal">(-12.8%)</span></td>
@@ -436,21 +444,25 @@
 
                                 <!-- ROW: SMC -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="pneumatic" data-stage="1" data-stages="1">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 font-black text-blue-700 text-[10px]">SMC</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC)">โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">SMC-SY5120-5LZD-01 | บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC)">โซลินอยด์วาล์วนิวเมติกส์ SMC 5/2 Way (24VDC)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">SMC-SY5120-5LZD-01 | บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (V-8802)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">นิวเมติกส์ & ไฮดรอลิกส์</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">นิวเมติกส์ & ไฮดรอลิกส์</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">ROP Alert</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ระยอง เหลือ 3 (ROP: 10)</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">7,777 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('smc')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 224 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">7,777 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('smc')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 224 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿1,250.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿1,089.33</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,226,648 <span class="text-[9px] font-normal">(-12.5%)</span></td>
@@ -471,21 +483,25 @@
 
                                 <!-- ROW: OMRON -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="electrical" data-stage="4" data-stages="4">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center shrink-0 font-black text-sky-700 text-[10px]">OMRON</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 (E2E Series)">อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 (E2E Series)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">OMRON-E2E-X5ME1 | บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 (E2E Series)">อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 (E2E Series)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">OMRON-E2E-X5ME1 | บจก. ออโตเมชั่น โซลูชั่น เซ็นเตอร์ (V-3310)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">ไฟฟ้า & เซนเซอร์</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">ไฟฟ้า & เซนเซอร์</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">Low Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ฉะเชิงเทรา Line 1-3</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">11,155 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('omron')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 276 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">11,155 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('omron')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 276 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿890.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿773.58</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,288,141 <span class="text-[9px] font-normal">(-12.9%)</span></td>
@@ -506,21 +522,25 @@
 
                                 <!-- ROW: MITSUBISHI -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="electrical" data-stage="2" data-stages="2">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 font-black text-slate-700 text-[10px]">MITSUBISH</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi FR-D720 (0.75kW 3-Phase)">อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi FR-D720 (0.75kW 3-Phase)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">MITSUBISHI-FR-D720-0.75K | บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi FR-D720 (0.75kW 3-Phase)">อินเวอร์เตอร์ขับมอเตอร์ Mitsubishi FR-D720 (0.75kW 3-Phase)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">MITSUBISHI-FR-D720-0.75K | บจก. ธนบุรี อิลเล็คทริค ซัพพลาย (V-5050)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">ไฟฟ้า & เซนเซอร์</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">ไฟฟ้า & เซนเซอร์</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">ROP Alert</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">คลังกลาง เหลือ 5</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">2,762 <span class="text-[10px] text-slate-500 font-normal">เครื่อง</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('mitsubishi')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 165 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">2,762 <span class="text-[10px] text-slate-500 font-normal">เครื่อง</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('mitsubishi')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 165 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿4,800.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿4,198.50</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,751,067 <span class="text-[9px] font-normal">(-13.1%)</span></td>
@@ -541,21 +561,25 @@
 
                                 <!-- ROW: THK -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="mechanical" data-stage="3" data-stages="3">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center shrink-0 font-black text-indigo-700 text-[10px]">THK</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide (SSR20 Caged Ball)">บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide (SSR20 Caged Ball)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">THK-SSR20XW1UU | บจก. สยาม ลิเนียร์ โมชั่น (V-2291)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide (SSR20 Caged Ball)">บล็อกสไลด์ลิเนียร์ไกด์ THK LM Guide (SSR20 Caged Ball)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">THK-SSR20XW1UU | บจก. สยาม ลิเนียร์ โมชั่น (V-2291)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">เครื่องกล & ส่งกำลัง</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">เครื่องกล & ส่งกำลัง</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">PM Schedule</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">แผนซ่อมบำรุงประจำไตรมาส</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">5,547 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('thk')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 192 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">5,547 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('thk')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 192 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿2,150.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿1,895.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,403,199 <span class="text-[9px] font-normal">(-11.7%)</span></td>
@@ -576,21 +600,25 @@
 
                                 <!-- ROW: GATES -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="mechanical" data-stage="3" data-stages="3">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 font-black text-rose-700 text-[10px]">GATES</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="สายพานไทม์มิ่งแรงบิดสูง Gates PowerGrip GT3 (8MGT)">สายพานไทม์มิ่งแรงบิดสูง Gates PowerGrip GT3 (8MGT)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">GATES-8MGT-1120-20 | บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="สายพานไทม์มิ่งแรงบิดสูง Gates PowerGrip GT3 (8MGT)">สายพานไทม์มิ่งแรงบิดสูง Gates PowerGrip GT3 (8MGT)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">GATES-8MGT-1120-20 | บจก. ไทย เบลท์ติ้ง แอนด์ ไดรฟ์ (V-6140)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">เครื่องกล & ส่งกำลัง</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">เครื่องกล & ส่งกำลัง</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">Low Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ชลบุรี & ระยอง</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">14,015 <span class="text-[10px] text-slate-500 font-normal">เส้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('gates')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 305 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">14,015 <span class="text-[10px] text-slate-500 font-normal">เส้น</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('gates')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 305 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿780.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿688.50</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,294,959 <span class="text-[9px] font-normal">(-11.8%)</span></td>
@@ -611,21 +639,25 @@
 
                                 <!-- ROW: Schneider -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="electrical" data-stage="3" data-stages="3">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0 font-black text-emerald-700 text-[10px]">Schneider</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="แมกเนติกคอนแทคเตอร์ Schneider TeSys D (25A 3P 220VAC)">แมกเนติกคอนแทคเตอร์ Schneider TeSys D (25A 3P 220VAC)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">SCHNEIDER-LC1D25M7 | บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="แมกเนติกคอนแทคเตอร์ Schneider TeSys D (25A 3P 220VAC)">แมกเนติกคอนแทคเตอร์ Schneider TeSys D (25A 3P 220VAC)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">SCHNEIDER-LC1D25M7 | บจก. สยาม อิเล็คทริค คอนโทรล (V-7711)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">ไฟฟ้า & เซนเซอร์</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">ไฟฟ้า & เซนเซอร์</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">Safety Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">คลังไฟฟ้าแจ้งเตือน</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">9,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('schneider')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 238 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">9,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('schneider')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 238 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿950.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿832.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,213,659 <span class="text-[9px] font-normal">(-13.0%)</span></td>
@@ -646,21 +678,25 @@
 
                                 <!-- ROW: NOK -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="mechanical" data-stage="2" data-stages="2">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 font-black text-amber-700 text-[10px]">NOK</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal (NBR)">ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal (NBR)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">NOK-TC-45-68-12-NBR | บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal (NBR)">ซีลกันน้ำมันอุตสาหกรรม NOK Double Lip Oil Seal (NBR)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">NOK-TC-45-68-12-NBR | บจก. อีสเทิร์น ซีล แอนด์ ปาร์ค (V-9012)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">เครื่องกล & ส่งกำลัง</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">เครื่องกล & ส่งกำลัง</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">Safety Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">สมุทรปราการ & อยุธยา</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">39,092 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('nok')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 462 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">39,092 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('nok')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 462 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿180.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿158.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿870,789 <span class="text-[9px] font-normal">(-12.3%)</span></td>
@@ -681,21 +717,25 @@
 
                                 <!-- ROW: REXROTH -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="pneumatic" data-stage="4" data-stages="4">
-                                    <td class="py-3 px-3 max-w-[240px]">
-                                        <div class="flex items-center gap-2.5 min-w-0">
-                                            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 font-black text-blue-700 text-[10px]">REXROTH</div>
-                                            <div class="min-w-0 flex-1">
-                                                <div class="font-bold text-slate-900 truncate" title="ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth 4/3 Way (24VDC)">ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth 4/3 Way (24VDC)</div>
-                                                <div class="text-[10px] text-slate-400 font-mono truncate">REXROTH-4WE6D6X-EG24N9K4 | บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)</div>
-                                            </div>
+                                    <td class="py-3 px-3 max-w-[320px]">
+                                        <div class="min-w-0">
+                                            <div class="font-bold text-slate-900 truncate" title="ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth 4/3 Way (24VDC)">ไฮดรอลิกไดเรกชันนอลวาล์ว Bosch Rexroth 4/3 Way (24VDC)</div>
+                                            <div class="text-[10px] text-slate-500 font-mono truncate">REXROTH-4WE6D6X-EG24N9K4 | บจก. แหลมฉบัง ไฮดรอลิกส์ เซอร์วิส (V-4520)</div>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-2"><span class="badge badge-ghost badge-sm text-[10px]">นิวเมติกส์ & ไฮดรอลิกส์</span></td>
+                                    <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">นิวเมติกส์ & ไฮดรอลิกส์</span></td>
                                     <td class="py-3 px-2">
                                         <span class="badge badge-warning badge-xs font-mono">PO#450098220</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">บันทึกใน SAP สำเร็จ</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">1,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('rexroth')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 105 PRs</button></div></td>
+                                    <td class="py-3 px-2 text-right whitespace-nowrap">
+                                        <div class="font-bold text-slate-900 font-mono text-xs">1,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div>
+                                        <div class="mt-1 flex justify-end">
+                                            <button type="button" onclick="app.openPrModal('rexroth')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer whitespace-nowrap inline-flex items-center px-2 py-0.5 text-[10px]" title="คลิกตรวจสอบใบขอซื้อย่อย (Audit Trail) ในดีลนี้">
+                                                <i data-lucide="layers" class="w-3 h-3"></i> รวม 105 PRs
+                                            </button>
+                                        </div>
+                                    </td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿6,500.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿5,670.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,557,537 <span class="text-[9px] font-normal">(-13.3%)</span></td>
@@ -722,7 +762,7 @@
                 <!-- CONTAINER FOR 2,500 TRANSACTIONS DATASET EXPLORER (HIDDEN BY DEFAULT) -->
                 <div id="container-2500-dataset" class="hidden space-y-3 pt-2">
                         <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 text-xs">
-                            <div class="flex items-center gap-2 flex-1 min-w-[280px]">
+                            <div class="flex items-center gap-2 flex-1 min-w-[240px]">
                                 <i data-lucide="search" class="w-4 h-4 text-blue-700 shrink-0"></i>
                                 <input type="text" id="dataset-search-input" oninput="app.searchDataset()" placeholder="ค้นหาด้วย PR Number, รหัสสินค้า, ชื่อโรงงาน, หรือ ซัพพลายเออร์..." class="input input-xs input-bordered w-full bg-white font-sans text-xs" />
                             </div>
@@ -3600,7 +3640,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 px-4 bg-slate-50 border border-slate-200 rounded-xl my-3 shrink-0">
                 <div>
                     <div class="text-[10px] text-slate-400 font-bold uppercase">จำนวนใบขอซื้อ (PRs)</div>
-                    <div class="text-base font-bold text-blue-700 font-mono" id="pr-stat-count">250 ใบ</div>
+                    <div class="text-base font-bold text-blue-700 font-mono" id="pr-stat-count">- ใบ</div>
                 </div>
                 <div>
                     <div class="text-[10px] text-slate-400 font-bold uppercase">จำนวนชิ้นรวม (Units)</div>
