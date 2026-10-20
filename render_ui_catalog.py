@@ -48,10 +48,10 @@ def render_row(m):
 
     return f'''                                <!-- ROW: {m['code']} -->
                                 <tr class="hover:bg-blue-50/40 transition-colors job-row" data-category="{m['cat']}" data-stage="{m['stage']}" data-stages="{m['stage']}">
-                                    <td class="py-3 px-3 max-w-[280px]">
+                                    <td class="py-3 px-3 min-w-[170px] max-w-[210px]">
                                         <div class="min-w-0">
-                                            <div class="font-bold text-slate-900 truncate" title="{m['name']}">{m['name']}</div>
-                                            <div class="text-[10px] text-slate-500 font-mono truncate">{m['code']} | {m['supplier']}</div>
+                                            <div class="font-bold font-mono text-blue-900 text-xs truncate" title="{m['code']}">{m['code']}</div>
+                                            <div class="text-[11px] text-slate-600 truncate mt-0.5" title="{m['name']}">{m['name']}</div>
                                         </div>
                                     </td>
                                     <td class="py-3 px-2 whitespace-nowrap"><span class="badge badge-ghost badge-sm text-[10px] whitespace-nowrap">{m['cat_th']}</span></td>
@@ -148,6 +148,12 @@ def update_html_file(path):
     )
 
     # 4. Replace entire table tbody
+    html = re.sub(
+        r'<th class="py-3 px-3 min-w-\[\d+px\]">รหัส & รายการอะไหล่ MRO</th>',
+        '<th class="py-3 px-3 min-w-[170px] max-w-[210px]">รหัส & รายการอะไหล่ MRO</th>',
+        html
+    )
+
     tbody_pattern = re.compile(r'(<tbody class="divide-y divide-slate-100">)(.*?)(</tbody>)', re.DOTALL)
     html = tbody_pattern.sub(f'\\1\n{all_rows_html}\n                            \\3', html, count=1)
 
