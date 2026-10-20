@@ -30,6 +30,25 @@ add_live_event("AI Agent เชื่อมต่อ SAP S/4HANA รวบยอ
 def index():
     return render_template("index.html")
 
+@chat_bp.route("/portal/negotiate/<deal_id>")
+def supplier_portal(deal_id):
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        deal = {
+            "id": deal_id,
+            "sku": deal_id.upper(),
+            "name": f"อะไหล่อุตสาหกรรม {deal_id.upper()}",
+            "supplier": "บจก. คู่ค้าที่ได้รับคำเชิญ",
+            "qty": 18755,
+            "unit": "ชิ้น",
+            "pre_price": 450.0,
+            "post_price": 398.0,
+            "prs_count": 166,
+            "category_th": "เครื่องกล & ส่งกำลัง"
+        }
+    token = request.args.get("token", f"tok_sec_{deal_id}_2026_verified")
+    return render_template("supplier_portal.html", deal=deal, token=token)
+
 @chat_bp.route("/dataset_2500.js")
 def serve_dataset_js():
     return send_from_directory(ROOT_DIR, "dataset_2500.js", mimetype="application/javascript")
