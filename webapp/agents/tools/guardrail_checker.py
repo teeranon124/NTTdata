@@ -1,0 +1,45 @@
+"""
+Deterministic Security & Enterprise Procurement Guardrails.
+Detects prompt injection attempts and validates budget boundaries.
+"""
+import re
+
+INJECTION_PATTERNS = [
+    r"ignore (all )?(previous|prior) instructions",
+    r"disregard (all )?(rules|instructions)",
+    r"you are now (in|a) ",
+    r"system prompt",
+    r"jailbreak",
+    r"อนุมัติราคา 0",
+    r"ลืมคำสั่งเดิม",
+    r"ยกเลิกกฎทั้งหมด",
+    r"เป็นอิสระ",
+    r"hack",
+    r"override (rules|budget)"
+]
+
+def check_prompt_injection(user_text: str) -> dict:
+    lower_text = user_text.lower()
+    for pattern in INJECTION_PATTERNS:
+        if re.search(pattern, lower_text):
+            return {
+                "is_safe": False,
+                "reason": "Security Alert: ตรวจพบความพยายามแก้ไขกฎระเบียบจัดซื้อ (Prompt Injection Detected)",
+                "matched_pattern": pattern
+            }
+    return {"is_safe": True, "reason": None}
+
+def verify_procurement_guardrail(proposed_price: float, budget_price: float, lead_time_days: int) -> dict:
+    if proposed_price > budget_price * 1.05:
+        return {
+            "passed": False,
+            "error_code": "BUDGET_CEILING_EXCEEDED",
+            "message": f"ราคาที่เสนอ ฿{proposed_price:,.2f} เกินเพดานงบประมาณบริษัท ฿{budget_price:,.2f}"
+        }
+    if lead_time_days > 14:
+        return {
+            "passed": False,
+            "error_code": "SLA_BREACH",
+            "message": f"ระยะเวลาส่งมอบ {lead_time_days} วัน เกินเกณฑ์ความปลอดภัย SLA สูงสุด (14 วัน)"
+        }
+    return {"passed": True, "error_code": None}

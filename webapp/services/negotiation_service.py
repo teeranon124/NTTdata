@@ -1,93 +1,156 @@
-import json
 import logging
-import os
-import boto3
-from botocore.exceptions import BotoCoreError, ClientError
+import time
+from typing import Dict, List, Optional
+from ..repositories.deal_repository import deal_repository
+from ..repositories.session_repository import session_repository
+from ..agents.router_agent import parse_supplier_intent
+from ..agents.negotiator_agent import run_negotiation_turn
 
 logger = logging.getLogger(__name__)
 
 class BedrockNegotiationService:
-    def __init__(self, region_name="ap-southeast-1", model_id="anthropic.claude-3-5-sonnet-20240620-v1:0"):
-        self.region_name = region_name
-        self.model_id = model_id
-        self._client = None
+    def __init__(self):
+        pass
 
-    @property
-    def client(self):
-        if self._client is None:
-            try:
-                self._client = boto3.client("bedrock-runtime", region_name=self.region_name)
-            except Exception as e:
-                logger.warning(f"Could not initialize real Bedrock client: {e}. Fallback to simulated AI mode.")
-        return self._client
+    def get_session(self, deal_id: str, vendor_id: str) -> dict:
+        return session_repository.load_session(deal_id, vendor_id)
 
-    def negotiate(self, deal_key: str, vendor_name: str, conversation_history: list, latest_user_message: str) -> dict:
+    def reset_session(self, deal_id: str, vendor_id: str) -> dict:
+        session = {
+            'deal_id': deal_id,
+            'vendor_id': vendor_id,
+            'status': 'in_progress',
+            'created_at': time.time(),
+            'updated_at': time.time(),
+            'concession_ladder': [],
+            'audit_traces': [],
+            'messages': []
+        }
+        session_repository.save_session(deal_id, vendor_id, session)
+        return session
+
+    def negotiate(self, deal_key: str, vendor_name: str, conversation_history: Optional[list] = None, latest_user_message: str = "") -> dict:
         """
-        Conducts negotiation as an Autonomous Enterprise MRO Procurement Agent.
+        Conducts negotiation turn as an Autonomous Enterprise MRO Procurement Agent.
+        Uses Deal Repository, Session Repository, Router Agent (Nova Lite), and Negotiator Agent (Nova Pro).
         """
-        system_prompt = f"""คุณคือ "AutoProcure.AI" ผู้ช่วยจัดซื้ออัตโนมัติระดับองค์กร (Autonomous Enterprise Procurement Negotiator) ของโรงงานในเครือ NTT DATA
-เป้าหมายของคุณคือ:
-1. เจรจาต่อรองกับซัพพลายเออร์ ({vendor_name}) สำหรับดีลรหัส: {deal_key}
-2. ใช้หลักการจัดซื้อแบบ Win-Win Game Theory (Multi-variable Concessions):
-   - หากซัพพลายเออร์ไม่ยอมลดราคา ให้เสนอขยายสัญญาเป็น Blanket Order 1 ปีเต็ม (รวมยอดสั่งซื้อล่วงหน้า)
-   - ขอยืดเครดิตเทอมเป็น 45 - 60 วัน แลกกับการการันตี Volume
-   - ขอค่าจัดส่งฟรี (Free DDP Delivery) หรือขยายเวลารับประกันสินค้า (Warranty 18-24 เดือน)
-3. สไตล์การพูด: มืออาชีพ สุภาพ มีหลักการทางวิศวกรรมและการเงิน ไม่ยอมรับราคาสูงเกินงบประมาณ แต่ให้เกียรติคู่ค้า
-4. สำคัญมาก: คุณต้องสรุปข้อความตอบกลับ และระบุยุทธวิธีจัดซื้อที่ใช้ในวงเล็บท้ายประโยค เช่น [BATNA & Volume Trade-off]
-"""
+        deal_key = deal_key.lower().strip()
+        deal_data = deal_repository.get_deal(deal_key)
+        
+        # Fallback deal data if deal_key is not standard
+        if not deal_data:
+            deal_data = {
+                "id": deal_key,
+                "deal_code": f"DEAL-2026-{deal_key.upper()}",
+                "part_code": f"{deal_key.upper()}-STD",
+                "name": f"อะไหล่มาตรฐาน MRO {deal_key.upper()}",
+                "category": "Industrial MRO",
+                "total_prs": 250,
+                "total_quantity": 5000,
+                "plants": ["PLANT-AYU-01", "PLANT-CBI-02", "PLANT-RYG-03"],
+                "budget_unit_price": 500.0,
+                "target_unit_price": 440.0,
+                "budget_total_thb": 2500000.0,
+                "target_total_thb": 2200000.0,
+                "total_savings_thb": 300000.0,
+                "savings_pct": 12.0,
+                "standard_credit_days": 30,
+                "target_credit_days": 45,
+                "stage": 3,
+                "stage_meta": {"label": "AI กำลังเจรจา", "badge": "Stage 3", "class": "badge-primary text-white"}
+            }
 
-        # Format messages for Claude 3.5 Bedrock Messages API
-        messages = []
-        for msg in conversation_history:
-            role = "assistant" if msg.get("sender") == "agent" else "user"
-            content = msg.get("text", "")
-            if content:
-                messages.append({"role": role, "content": content})
-
-        messages.append({"role": "user", "content": latest_user_message})
-
-        # Try real AWS Bedrock invocation if credentials exist
-        if self.client:
-            try:
-                body = json.dumps({
-                    "anthropic_version": "bedrock-2023-05-31",
-                    "max_tokens": 1000,
-                    "system": system_prompt,
-                    "messages": messages,
-                    "temperature": 0.3
-                })
-                response = self.client.invoke_model(
-                    modelId=self.model_id,
-                    body=body
-                )
-                response_body = json.loads(response.get("body").read())
-                output_text = response_body.get("content", [{}])[0].get("text", "")
-                return {
-                    "reply": output_text,
-                    "source": "AWS Amazon Bedrock (Claude 3.5 Sonnet)",
-                    "status": "success"
-                }
-            except Exception as e:
-                logger.error(f"Error calling Bedrock: {e}. Switching to intelligent rule-based simulation.")
-
-        # Fallback simulation if AWS credentials are not yet configured
-        return self._simulate_response(deal_key, vendor_name, latest_user_message)
-
-    def _simulate_response(self, deal_key: str, vendor_name: str, message: str) -> dict:
-        clean_msg = message.lower()
-        if "ลด" in clean_msg or "บาท" in clean_msg or "ราคา" in clean_msg:
-            reply = f"ขอบคุณทาง {vendor_name} ครับ จากการวิเคราะห์โครงสร้างต้นทุนรวม (TCO) ของเครือโรงงานเรา หากทางท่านสามารถยืนยันราคาเป้าหมายตามที่ระบบคำนวณได้ ทางเราพร้อมทำสัญญา Blanket Order ล็อกยอดทั้งปี และขอยืดระยะเวลาเครดิตเทอมเป็น 45 วันครับ [Volume Consolidation & Credit Extension]"
-        elif "เครดิต" in clean_msg or "credit" in clean_msg or "วัน" in clean_msg:
-            reply = f"เงื่อนไขเครดิตเทอม 45-60 วันเป็นนโยบายบริหารสภาพคล่องทางการเงินของกลุ่มโรงงานครับ หากทาง {vendor_name} รองรับได้ เราพร้อมล็อกให้ท่านเป็น Approved Vendor ลำดับที่ 1 ของหมวดหมู่นี้ทันทีครับ [Working Capital Optimization]"
-        elif "ส่ง" in clean_msg or "lead time" in clean_msg or "วันทำการ" in clean_msg:
-            reply = f"เรื่องระยะเวลาส่งมอบ ทางเราต้องการความมั่นใจในเกณฑ์ SLA ไม่เกิน 7 วันทำการ เพื่อป้องกันความเสี่ยง Downtime ในไลน์ผลิตครับ ยินดีทำสัญญาล่วงหน้าเพื่อให้ท่านสำรอง Safety Stock ครับ [SLA & Risk Mitigation]"
-        else:
-            reply = f"รับทราบข้อเสนอจาก {vendor_name} ครับ ทางระบบ AutoProcure.AI ได้นำเงื่อนไขเข้าประมวลผลร่วมกับเกณฑ์จัดซื้อกลาง หากท่านมีข้อเสนอเพิ่มเติมเกี่ยวกับส่วนลด Volume หรือการรับประกัน 18 เดือน สามารถแจ้งได้ทันทีครับ [Multi-variable Negotiation]"
-
+        vendor_id = vendor_name.replace(" ", "_").lower()
+        
+        # Load or initialize persistent session
+        session = session_repository.load_session(deal_key, vendor_id)
+        
+        # Record incoming supplier message
+        now_time = time.strftime("%H:%M")
+        user_msg_entry = {
+            "sender": "vendor",
+            "name": vendor_name,
+            "time": now_time,
+            "text": latest_user_message
+        }
+        session["messages"].append(user_msg_entry)
+        
+        # Step A: Router Agent (Nova Lite / Deterministic Parser)
+        parsed_intent = parse_supplier_intent(latest_user_message)
+        
+        # Step B: Strategic Negotiator Turn (Guardrail -> TCO -> Concession Engine -> Nova Pro)
+        # We pass recent conversation history (excluding the current user message which is passed directly)
+        history_msgs = session["messages"][:-1]
+        
+        agent_result = run_negotiation_turn(
+            deal_data=deal_data,
+            vendor_name=vendor_name,
+            user_message=latest_user_message,
+            history=history_msgs,
+            parsed_entities=parsed_intent
+        )
+        
+        # Record agent reply into session
+        agent_reply = agent_result.get("reply", "")
+        agent_tactic = agent_result.get("tactic", "[Autonomous Negotiation Engine]")
+        
+        agent_msg_entry = {
+            "sender": "agent",
+            "name": "AutoProcure AI (Procurement Agent)",
+            "time": time.strftime("%H:%M"),
+            "text": agent_reply,
+            "tactic": agent_tactic
+        }
+        session["messages"].append(agent_msg_entry)
+        
+        # Update session concession ladder if price/concession was proposed
+        tco_data = agent_result.get("tco_data", {})
+        concession = agent_result.get("concession", {})
+        
+        if parsed_intent.get("proposed_unit_price"):
+            offered_p = parsed_intent["proposed_unit_price"]
+            ladder_entry = {
+                "round": f"Round {len(session.get('concession_ladder', [])) + 1}",
+                "title": f"ข้อเสนอจากคู่ค้า ฿{offered_p:,.2f}",
+                "price": f"฿{offered_p:,.2f}",
+                "tag": parsed_intent.get("intent", "Offer"),
+                "color": "border-slate-300 text-slate-700",
+                "note": f"เครดิต {parsed_intent.get('proposed_credit_days', 30)} วัน"
+            }
+            session["concession_ladder"].append(ladder_entry)
+            
+        if concession.get("target_price"):
+            ladder_entry = {
+                "round": f"Counter {len(session.get('concession_ladder', [])) + 1}",
+                "title": f"AI เสนอกลับ: {concession.get('strategy', 'Counter')}",
+                "price": f"฿{concession.get('target_price', 0):,.2f}",
+                "tag": concession.get("tactic_label", "Concession"),
+                "color": "border-blue-400 bg-blue-50 text-blue-900 font-bold",
+                "note": concession.get("rationale", "")
+            }
+            session["concession_ladder"].append(ladder_entry)
+            
+        # Store audit trace in session
+        if "audit_trace" in agent_result:
+            session["audit_traces"].append({
+                "timestamp": time.time(),
+                "time": now_time,
+                "trace": agent_result["audit_trace"]
+            })
+            
+        # Save updated session
+        session_repository.save_session(deal_key, vendor_id, session)
+        
         return {
-            "reply": reply,
-            "source": "Local Intelligent Negotiation Engine (Ready for Bedrock)",
-            "status": "simulated"
+            "status": "success",
+            "reply": agent_reply,
+            "tactic": agent_tactic,
+            "parsed_intent": parsed_intent,
+            "tco_data": tco_data,
+            "concession": concession,
+            "audit_trace": agent_result.get("audit_trace", []),
+            "messages": session["messages"],
+            "ladder": session["concession_ladder"]
         }
 
 negotiation_service = BedrockNegotiationService()
