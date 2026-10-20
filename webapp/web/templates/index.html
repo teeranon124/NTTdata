@@ -219,21 +219,24 @@
                         <div class="stats stats-horizontal shadow-sm border border-slate-200 bg-white">
                             <div class="stat py-2 px-4">
                                 <div class="stat-title text-[11px] text-slate-400 flex items-center gap-1">
-                                    <i data-lucide="package" class="w-3.5 h-3.5"></i> รายการจำลอง (PR/PO)
+                                    <i data-lucide="package" class="w-3.5 h-3.5"></i> ใบขอซื้อตั้งต้น (PR Pool)
                                 </div>
                                 <div class="stat-value text-base text-blue-700 font-mono font-bold" id="stat-count">2,500 รายการ</div>
+                                <div class="text-[10px] text-slate-400 mt-0.5">จาก 3 นิคม (ชลบุรี/ระยอง/อยุธยา)</div>
                             </div>
                             <div class="stat py-2 px-4">
                                 <div class="stat-title text-[11px] text-slate-400 flex items-center gap-1">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> รวมยอด (Consolidated)
+                                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> รวมยอดเชิงกลยุทธ์ (Consolidated)
                                 </div>
-                                <div class="stat-value text-base text-purple-700 font-mono font-bold">500 ดีลใหญ่</div>
+                                <div class="stat-value text-base text-purple-700 font-mono font-bold" id="stat-deals-count">10 ดีลหลัก</div>
+                                <div class="text-[10px] text-purple-600 mt-0.5">รวบยอด 250 PRs / 1 สัญญาใหญ่</div>
                             </div>
                             <div class="stat py-2 px-4">
                                 <div class="stat-title text-[11px] text-emerald-600 font-medium flex items-center gap-1">
                                     <i data-lucide="trending-down" class="w-3.5 h-3.5"></i> กู้คืนเงินรั่วไหล (Hard ROI)
                                 </div>
-                                <div class="stat-value text-base text-emerald-700 font-mono font-bold">฿12,591,973 <span class="text-xs font-normal">(-12.59%)</span></div>
+                                <div class="stat-value text-base text-emerald-700 font-mono font-bold" id="stat-savings-val">฿12,591,973 <span class="text-xs font-normal">(-12.59%)</span></div>
+                                <div class="text-[10px] text-emerald-600 mt-0.5">TCO & Game Theory Optimization</div>
                             </div>
                         </div>
                     </div>
@@ -255,7 +258,7 @@
                                 <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-xs shrink-0 border border-amber-200">1</div>
                                 <div class="min-w-0 flex-1">
                                     <div class="font-bold text-xs text-slate-800 truncate">1. สต็อกต่ำถึงจุดสั่งซื้อ</div>
-                                    <div class="text-[10px] text-slate-400 truncate">คลังอะไหล่เตือน (<span id="stage-count-1">1</span> รายการ)</div>
+                                    <div class="text-[10px] text-slate-400 truncate">คลังอะไหล่เตือน (<span id="stage-count-1">1 ดีล</span> / <span id="stage-prs-1">250 PRs</span>)</div>
                                 </div>
                             </button>
 
@@ -264,7 +267,7 @@
                                 <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0 border border-blue-200">2</div>
                                 <div class="min-w-0 flex-1">
                                     <div class="font-bold text-xs text-slate-800 truncate">2. รวมยอดซื้อ & ตั้งราคาเป้า</div>
-                                    <div class="text-[10px] text-slate-400 truncate">เทียบสัญญาเดิม (<span id="stage-count-2">2</span> รายการ)</div>
+                                    <div class="text-[10px] text-slate-400 truncate">เทียบสัญญาเดิม (<span id="stage-count-2">2 ดีล</span> / <span id="stage-prs-2">500 PRs</span>)</div>
                                 </div>
                             </button>
 
@@ -273,7 +276,7 @@
                                 <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center font-bold text-xs shrink-0 border border-purple-200">3</div>
                                 <div class="min-w-0 flex-1">
                                     <div class="font-bold text-xs text-slate-800 truncate">3. เจรจาต่อรอง & แข่งราคา</div>
-                                    <div class="text-[10px] text-slate-400 truncate">ห้องเจรจาต่อรอง (<span id="stage-count-3">3</span> รายการ)</div>
+                                    <div class="text-[10px] text-slate-400 truncate">ห้องเจรจาต่อรอง (<span id="stage-count-3">3 ดีล</span> / <span id="stage-prs-3">750 PRs</span>)</div>
                                 </div>
                             </button>
 
@@ -282,7 +285,7 @@
                                 <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0 border border-emerald-200">4</div>
                                 <div class="min-w-0 flex-1">
                                     <div class="font-bold text-xs text-slate-800 truncate">4. อนุมัติ & ออกใบสั่งซื้อ</div>
-                                    <div class="text-[10px] text-slate-400 truncate">ลงนามเปิด PO (<span id="stage-count-4">4</span> รายการ)</div>
+                                    <div class="text-[10px] text-slate-400 truncate">ลงนามเปิด PO (<span id="stage-count-4">4 ดีล</span> / <span id="stage-prs-4">1,000 PRs</span>)</div>
                                 </div>
                             </button>
                         </div>
@@ -323,23 +326,19 @@
                     </div>
                 </div>
 
-                <!-- TAB SWITCHER: 10 STRATEGIC DEALS vs 2,500 TRANSACTIONS DATASET -->
-                    <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl mt-4">
+                <!-- ENTERPRISE SPEND AGGREGATION BANNER -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 p-3 bg-blue-50/70 border border-blue-200 rounded-xl mt-4">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                                <i data-lucide="database" class="w-4 h-4 text-blue-700"></i> ระดับการแสดงผลข้อมูล:
+                            <span class="badge badge-primary font-bold text-white text-xs gap-1 shadow-xs">
+                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Spend Pooling Active
                             </span>
-                            <div class="join shadow-xs">
-                                <button onclick="app.switchDataMode('strategic')" id="btn-mode-strategic" class="btn btn-xs join-item btn-primary">
-                                    <i data-lucide="star" class="w-3 h-3 mr-1"></i> 10 ดีลหลักเชิงกลยุทธ์ (Top 10 Deals)
-                                </button>
-                                <button onclick="app.switchDataMode('dataset')" id="btn-mode-dataset" class="btn btn-xs join-item btn-outline btn-primary">
-                                    <i data-lucide="list-filter" class="w-3 h-3 mr-1"></i> คลังประวัติจำลอง 2,500 รายการ (Full Dataset)
-                                </button>
-                            </div>
+                            <span class="text-xs font-semibold text-slate-800">
+                                ระบบรวบรวม 2,500 ใบขอซื้อ (PRs) ข้ามโรงงานชลบุรี, ระยอง, อยุธยา สู่ 10 ดีลเชิงกลยุทธ์
+                            </span>
                         </div>
-                        <div class="text-[11px] text-slate-500 font-mono">
-                            อิงชุดข้อมูลประวัติจัดซื้อย้อนหลัง: <span class="badge badge-sm badge-ghost font-bold text-blue-700">mro_transactions_2500.csv (รวบยอด 2,500 รายการ เป็น 10 ดีลหลัก)</span>
+                        <div class="text-[11px] text-slate-600 font-mono flex items-center gap-1.5">
+                            <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-700"></i>
+                            <span>คลิกปุ่ม <strong class="text-blue-800 font-bold bg-white px-1.5 py-0.5 rounded border border-blue-200">"รวม 250 PRs"</strong> ในตารางเพื่อตรวจสอบ Audit Trail รายใบ</span>
                         </div>
                     </div>
 
@@ -384,7 +383,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">Low Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ชลบุรี เหลือ 12 (Min: 50)</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">20,274 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">20,274 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('nsk')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿450.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿398.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,119,509 <span class="text-[9px] font-normal">(-12.2%)</span></td>
@@ -419,7 +418,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">Safety Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">อยุธยา เหลือ 8 (Min: 30)</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">800 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-emerald-600 font-medium">สัญญา LTA 1 ปี</div></td>
+                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">800 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-emerald-600 font-medium"><button type="button" onclick="app.openPrModal('skf')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿1,250.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿1,090.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿128,000 <span class="text-[9px] font-normal">(-12.8%)</span></td>
@@ -454,7 +453,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">ROP Alert</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ระยอง เหลือ 3 (ROP: 10)</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">7,777 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">7,777 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('smc')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿1,250.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿1,089.33</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,226,648 <span class="text-[9px] font-normal">(-12.5%)</span></td>
@@ -489,7 +488,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">Low Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ฉะเชิงเทรา Line 1-3</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">11,155 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">11,155 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('omron')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿890.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿773.58</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,288,141 <span class="text-[9px] font-normal">(-12.9%)</span></td>
@@ -524,7 +523,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">ROP Alert</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">คลังกลาง เหลือ 5</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">2,762 <span class="text-[10px] text-slate-500 font-normal">เครื่อง</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">2,762 <span class="text-[10px] text-slate-500 font-normal">เครื่อง</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('mitsubishi')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿4,800.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿4,198.50</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,751,067 <span class="text-[9px] font-normal">(-13.1%)</span></td>
@@ -559,7 +558,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">PM Schedule</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">แผนซ่อมบำรุงประจำไตรมาส</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">5,547 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">5,547 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('thk')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿2,150.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿1,895.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,403,199 <span class="text-[9px] font-normal">(-11.7%)</span></td>
@@ -594,7 +593,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">Low Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">ชลบุรี & ระยอง</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">14,015 <span class="text-[10px] text-slate-500 font-normal">เส้น</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">14,015 <span class="text-[10px] text-slate-500 font-normal">เส้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('gates')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿780.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿688.50</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,294,959 <span class="text-[9px] font-normal">(-11.8%)</span></td>
@@ -629,7 +628,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">Safety Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">คลังไฟฟ้าแจ้งเตือน</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">9,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right font-mono"><div class="font-bold text-slate-900 font-mono text-xs">9,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('schneider')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿950.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿832.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,213,659 <span class="text-[9px] font-normal">(-13.0%)</span></td>
@@ -664,7 +663,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">Safety Stock</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">สมุทรปราการ & อยุธยา</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">39,092 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">39,092 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('nok')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿180.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿158.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿870,789 <span class="text-[9px] font-normal">(-12.3%)</span></td>
@@ -699,7 +698,7 @@
                                         <span class="badge badge-warning badge-xs font-mono">PO#450098220</span>
                                         <div class="text-[10px] text-slate-500 mt-0.5">บันทึกใน SAP สำเร็จ</div>
                                     </td>
-                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">1,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium">รวม 50 PR</div></td>
+                                    <td class="py-3 px-2 text-right"><div class="font-bold text-slate-900 font-mono text-xs">1,786 <span class="text-[10px] text-slate-500 font-normal">ตัว</span></div><div class="text-[10px] text-blue-600 font-medium"><button type="button" onclick="app.openPrModal('rexroth')" class="badge badge-sm badge-info badge-outline gap-1 hover:bg-blue-100 cursor-pointer mt-1" title="คลิกตรวจสอบ 250 ใบขอซื้อย่อยในดีลนี้"><i data-lucide="layers" class="w-3 h-3"></i> รวม 250 PRs</button></div></td>
                                     <td class="py-3 px-2 text-right font-mono text-slate-400">฿6,500.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-blue-700">฿5,670.00</td>
                                     <td class="py-3 px-2 text-right font-mono font-bold text-emerald-700">฿1,557,537 <span class="text-[9px] font-normal">(-13.3%)</span></td>
@@ -2479,6 +2478,143 @@
         let datasetFiltered = DATASET_2500;
 
         const app = {
+            currentPrList: [],
+
+            async openPrModal(dealKey) {
+                const deal = (database.deals && database.deals[dealKey]) || { title: dealKey.toUpperCase() };
+                const modal = document.getElementById('pr_modal');
+                const titleEl = document.getElementById('pr-modal-title');
+                const subEl = document.getElementById('pr-modal-subtitle');
+                const cntEl = document.getElementById('pr-stat-count');
+                const qtyEl = document.getElementById('pr-stat-qty');
+                const preEl = document.getElementById('pr-stat-pre');
+                const savEl = document.getElementById('pr-stat-savings');
+                const tbody = document.getElementById('pr-table-body');
+                const searchInput = document.getElementById('pr-search-input');
+                if (searchInput) searchInput.value = '';
+
+                const cleanTitle = (deal.name || deal.title || dealKey.toUpperCase()).replace(/ยอดรวม.*$/, '').trim();
+                if (titleEl) titleEl.innerText = `ตรวจสอบ 250 ใบขอซื้อย่อย (PRs): ${cleanTitle} (รวม ${totalQty.toLocaleString()} ชิ้น)`;
+                if (subEl) subEl.innerText = `รายการใบขอซื้อย่อยระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount และเจรจาต่อรอง`;
+                if (tbody) tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400"><span class="loading loading-spinner loading-sm"></span> กำลังดึงข้อมูล 250 รายการจากระบบ ERP...</td></tr>`;
+
+                modal.showModal();
+                lucide.createIcons({ root: modal });
+
+                try {
+                    const res = await fetch(`/api/deals/${dealKey}/prs?limit=250`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        this.currentPrList = data.transactions || [];
+                    } else {
+                        this.currentPrList = [];
+                    }
+                } catch(e) {
+                    this.currentPrList = [];
+                }
+
+                if (this.currentPrList.length === 0 && window.DATASET_2500) {
+                    const codePrefix = dealKey.toUpperCase();
+                    this.currentPrList = window.DATASET_2500.filter(r => r.code && r.code.toUpperCase().includes(codePrefix));
+                }
+
+                // Calculate metrics
+                const totalPrs = this.currentPrList.length;
+                const totalQty = this.currentPrList.reduce((acc, r) => acc + (r.qty || 0), 0);
+                const preTotal = this.currentPrList.reduce((acc, r) => acc + (r.pre_tot || 0), 0);
+                const savTotal = this.currentPrList.reduce((acc, r) => acc + (r.tco_sav || 0), 0);
+
+                if (cntEl) cntEl.innerText = `${totalPrs.toLocaleString()} ใบ`;
+                if (qtyEl) qtyEl.innerText = `${totalQty.toLocaleString()} ชิ้น`;
+                if (preEl) preEl.innerText = `฿${Math.round(preTotal).toLocaleString()}`;
+                if (savEl) savEl.innerText = `฿${Math.round(savTotal).toLocaleString()}`;
+
+                this.renderPrTable(this.currentPrList);
+            },
+
+            renderPrTable(list) {
+                const tbody = document.getElementById('pr-table-body');
+                const countEl = document.getElementById('pr-showing-count');
+                if (countEl) countEl.innerText = list.length.toLocaleString();
+                if (!tbody) return;
+
+                if (list.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="8" class="text-center py-6 text-slate-400">ไม่พบรายการใบขอซื้อที่ตรงกับคำค้นหา</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = list.slice(0, 100).map(r => `
+                    <tr class="hover:bg-blue-50/50 transition-colors">
+                        <td class="py-2 px-3 font-bold text-blue-800 font-mono">${r.pr || r.id}</td>
+                        <td class="py-2 px-2 text-slate-500 font-mono">${r.date || '-'}</td>
+                        <td class="py-2 px-2"><span class="badge badge-ghost badge-xs font-mono text-[10px]">${(r.plant || '').split(' ')[0]}</span></td>
+                        <td class="py-2 px-2 text-right font-mono font-semibold">${(r.qty || 0).toLocaleString()}</td>
+                        <td class="py-2 px-2 text-right font-mono text-slate-400 line-through">฿${(r.pre_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</td>
+                        <td class="py-2 px-2 text-right font-mono font-bold text-blue-700">฿${(r.post_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</td>
+                        <td class="py-2 px-2 text-right font-mono font-bold text-emerald-700">฿${(r.tco_sav || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</td>
+                        <td class="py-2 px-3 font-sans text-[11px] text-slate-700 truncate max-w-[150px]">${r.sup_post || '-'}</td>
+                    </tr>
+                `).join('') + (list.length > 100 ? `<tr><td colspan="8" class="text-center py-2 text-xs text-slate-400 bg-slate-50">... แสดงตัวอย่าง 100 รายการแรกจากทั้งหมด ${list.length} รายการ ...</td></tr>` : '');
+            },
+
+            filterPrTable(q) {
+                const query = (q || '').trim().toLowerCase();
+                if (!query) {
+                    this.renderPrTable(this.currentPrList);
+                    return;
+                }
+                const filtered = this.currentPrList.filter(r => 
+                    (r.pr && r.pr.toLowerCase().includes(query)) ||
+                    (r.plant && r.plant.toLowerCase().includes(query)) ||
+                    (r.date && r.date.toLowerCase().includes(query)) ||
+                    (r.sup_post && r.sup_post.toLowerCase().includes(query))
+                );
+                this.renderPrTable(filtered);
+            },
+
+            async initDashboardData() {
+                try {
+                    const res = await fetch('/api/stats');
+                    if (res.ok) {
+                        const data = await res.json();
+                        const stats = data.statistics || {};
+                        
+                        const cnt = document.getElementById('stat-count');
+                        const dealsCnt = document.getElementById('stat-deals-count');
+                        const savVal = document.getElementById('stat-savings-val');
+                        
+                        if (cnt && stats.total_prs) cnt.innerText = `${stats.total_prs.toLocaleString()} รายการ`;
+                        if (dealsCnt && stats.total_deals) dealsCnt.innerText = `${stats.total_deals} ดีลหลัก`;
+                        if (savVal && stats.total_savings_thb) {
+                            savVal.innerHTML = `฿${Math.round(stats.total_savings_thb).toLocaleString()} <span class="text-xs font-normal">(-${stats.savings_pct}%)</span>`;
+                        }
+
+                        if (stats.stages_count) {
+                            for (let s = 1; s <= 4; s++) {
+                                const cEl = document.getElementById(`stage-count-${s}`);
+                                const prEl = document.getElementById(`stage-prs-${s}`);
+                                if (cEl) cEl.innerText = `${stats.stages_count[s] || 0} ดีล`;
+                                if (prEl && stats.stages_prs) prEl.innerText = `${(stats.stages_prs[s] || 0).toLocaleString()} PRs`;
+                            }
+                        }
+                    }
+                } catch(e) {}
+            },
+
+            async initLiveEvents() {
+                try {
+                    const res = await fetch('/api/events');
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.events && data.events.length > 0) {
+                            this.tickerMessages = data.events;
+                            const el = document.getElementById('ticker-msg');
+                            if (el) el.innerText = this.tickerMessages[0];
+                        }
+                    }
+                } catch(e) {}
+            },
+    
             currentFilter: 'all',
             currentStage: null,
             tickerIndex: 0,
@@ -3417,13 +3553,20 @@
         };
 
         // AUTO ROTATE LIVE TICKER EVERY 6 SECONDS TO FEEL ALIVE
-        setInterval(() => {
-            app.tickerIndex = (app.tickerIndex + 1) % app.tickerMessages.length;
-            const el = document.getElementById('ticker-msg');
-            if (el) el.innerText = app.tickerMessages[app.tickerIndex];
-        }, 6000);
+        setInterval(async () => {
+            if (app.tickerIndex % 5 === 0 && app.initLiveEvents) {
+                await app.initLiveEvents();
+            }
+            if (app.tickerMessages && app.tickerMessages.length > 0) {
+                app.tickerIndex = (app.tickerIndex + 1) % app.tickerMessages.length;
+                const el = document.getElementById('ticker-msg');
+                if (el) el.innerText = app.tickerMessages[app.tickerIndex];
+            }
+        }, 4000);
 
         window.addEventListener('DOMContentLoaded', async () => {
+            if (app.initDashboardData) app.initDashboardData();
+            if (app.initLiveEvents) app.initLiveEvents();
             lucide.createIcons();
             if (app.updateStageCounters) app.updateStageCounters();
             try {
@@ -3439,5 +3582,78 @@
             if (app.renderDatasetTable) app.renderDatasetTable();
         });
     </script>
+
+    <!-- ================= PR DRILLDOWN MODAL ================= -->
+    <dialog id="pr_modal" class="modal">
+        <div class="modal-box max-w-5xl bg-white border border-slate-200 shadow-2xl p-6 rounded-2xl flex flex-col max-h-[90vh]">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between pb-4 border-b border-slate-100 shrink-0">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="badge badge-primary font-bold text-white text-xs">PR Audit Trail</span>
+                        <h3 class="font-bold text-lg text-slate-900" id="pr-modal-title">ตรวจสอบใบขอซื้อย่อยที่ถูกรวบยอด (Consolidated PRs)</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1" id="pr-modal-subtitle">รายการใบขอซื้อ (Purchase Requisitions) ระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount</p>
+                </div>
+                <button onclick="document.getElementById('pr_modal').close()" class="btn btn-sm btn-circle btn-ghost text-slate-400 hover:text-slate-700">✕</button>
+            </div>
+
+            <!-- Metric summary strip -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 px-4 bg-slate-50 border border-slate-200 rounded-xl my-3 shrink-0">
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">จำนวนใบขอซื้อ (PRs)</div>
+                    <div class="text-base font-bold text-blue-700 font-mono" id="pr-stat-count">250 ใบ</div>
+                </div>
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">จำนวนชิ้นรวม (Units)</div>
+                    <div class="text-base font-bold text-slate-800 font-mono" id="pr-stat-qty">0 ชิ้น</div>
+                </div>
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">งบประมาณเดิม (Spot Buy)</div>
+                    <div class="text-base font-bold text-slate-500 line-through font-mono" id="pr-stat-pre">฿0</div>
+                </div>
+                <div>
+                    <div class="text-[10px] text-emerald-600 font-bold uppercase">กู้คืนเงินรั่วไหล (Savings)</div>
+                    <div class="text-base font-bold text-emerald-700 font-mono" id="pr-stat-savings">฿0</div>
+                </div>
+            </div>
+
+            <!-- Filter input -->
+            <div class="flex items-center justify-between gap-3 mb-2 shrink-0">
+                <div class="relative flex-1 max-w-sm">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                    <input type="text" id="pr-search-input" oninput="app.filterPrTable(this.value)" placeholder="ค้นหาเลขที่ PR, โรงงาน, หรือวันที่..." class="input input-xs input-bordered w-full pl-9 rounded-lg" />
+                </div>
+                <div class="text-[11px] text-slate-500">
+                    แสดงผล <span id="pr-showing-count" class="font-bold text-blue-700">250</span> รายการ
+                </div>
+            </div>
+
+            <!-- Scrollable Table -->
+            <div class="overflow-y-auto flex-1 border border-slate-200 rounded-xl">
+                <table class="table table-xs w-full text-xs">
+                    <thead class="bg-slate-100 text-slate-700 sticky top-0 font-bold text-[10px] uppercase">
+                        <tr>
+                            <th class="py-2 px-3">เลขที่ PR</th>
+                            <th class="py-2 px-2">วันที่เบิก</th>
+                            <th class="py-2 px-2">โรงงาน / นิคม</th>
+                            <th class="py-2 px-2 text-right">จำนวน</th>
+                            <th class="py-2 px-2 text-right">ราคาป้าย (เดิม)</th>
+                            <th class="py-2 px-2 text-right text-blue-700">ราคาหลังต่อรอง</th>
+                            <th class="py-2 px-2 text-right text-emerald-700">ประหยัดได้</th>
+                            <th class="py-2 px-3">ซัพพลายเออร์ที่เลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pr-table-body" class="divide-y divide-slate-100 font-mono">
+                        <!-- Populated dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop bg-slate-900/40 backdrop-blur-xs">
+            <button>close</button>
+        </form>
+    </dialog>
+
 </body>
 </html>

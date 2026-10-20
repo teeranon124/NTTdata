@@ -26,15 +26,17 @@ class DealRepository:
 
     def get_statistics(self) -> dict:
         deals = self.get_all_deals()
-        total_spend = sum(d['budget_total_thb'] for d in deals.values())
-        total_savings = sum(d['total_savings_thb'] for d in deals.values())
-        total_prs = sum(d['total_prs'] for d in deals.values())
-        total_qty = sum(d['total_quantity'] for d in deals.values())
+        total_spend = sum(d.get('budget_total_thb', 0.0) for d in deals.values())
+        total_savings = sum(d.get('total_savings_thb', 0.0) for d in deals.values())
+        total_prs = sum(d.get('total_prs', 0) for d in deals.values())
+        total_qty = sum(d.get('total_quantity', 0) for d in deals.values())
 
         stages_count = {1: 0, 2: 0, 3: 0, 4: 0}
+        stages_prs = {1: 0, 2: 0, 3: 0, 4: 0}
         for d in deals.values():
             s = d.get('stage', 1)
             stages_count[s] = stages_count.get(s, 0) + 1
+            stages_prs[s] = stages_prs.get(s, 0) + d.get('total_prs', 0)
 
         return {
             'total_spend_thb': round(total_spend, 2),
@@ -43,7 +45,8 @@ class DealRepository:
             'total_prs': total_prs,
             'total_quantity': total_qty,
             'total_deals': len(deals),
-            'stages_count': stages_count
+            'stages_count': stages_count,
+            'stages_prs': stages_prs
         }
 
     def get_raw_transactions(self, deal_id: Optional[str] = None, limit: int = 100, offset: int = 0) -> List[dict]:
