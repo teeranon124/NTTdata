@@ -1,13 +1,23 @@
-from flask import Blueprint, request, jsonify, render_template, current_app
+import os
+from flask import Blueprint, request, jsonify, render_template, current_app, send_from_directory
 from ...services.negotiation_service import negotiation_service
 from ...repositories.deal_repository import deal_repository
 from ...repositories.session_repository import session_repository
 
 chat_bp = Blueprint("chat", __name__)
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
 @chat_bp.route("/")
 def index():
     return render_template("index.html")
+
+@chat_bp.route("/dataset_2500.js")
+def serve_dataset_js():
+    return send_from_directory(ROOT_DIR, "dataset_2500.js", mimetype="application/javascript")
+
+@chat_bp.route("/dataset_2500.json")
+def serve_dataset_json():
+    return send_from_directory(ROOT_DIR, "dataset_2500.json", mimetype="application/json")
 
 @chat_bp.route("/api/deals", methods=["GET"])
 def get_deals():
