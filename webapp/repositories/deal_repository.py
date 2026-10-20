@@ -62,9 +62,10 @@ class DealRepository:
 
         deal = self.get_deal(deal_id)
         if not deal:
-            return []
-        part_code = deal['part_code']
-        filtered = [r for r in self._raw_cache if r.get('code') == part_code]
+            filtered = [r for r in self._raw_cache if deal_id.upper() in r.get('code', '').upper() or deal_id.upper() in r.get('deal', '').upper()]
+            return filtered[offset:offset+limit]
+        part_code = deal.get('part_code', '')
+        filtered = [r for r in self._raw_cache if r.get('code') == part_code or deal_id.upper() in r.get('code', '').upper()]
         return filtered[offset:offset+limit]
 
 deal_repository = DealRepository()

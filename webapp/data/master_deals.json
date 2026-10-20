@@ -1444,170 +1444,6 @@
       }
     ]
   },
-  "festo": {
-    "id": "festo",
-    "deal_code": "DEAL-2026-FESTO",
-    "part_code": "FESTO-PUN-H-8X1.25-BL",
-    "brand": "FESTO",
-    "name": "ท่อลมโพลียูรีเทนทนแรงดันสูง Festo 8mm (ม้วน 50m)",
-    "category": "Piping & Tubing",
-    "total_prs": 185,
-    "total_quantity": 4655,
-    "plants": [
-      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
-      "PLANT-CBI-02 (Amata City Chonburi)",
-      "PLANT-CCO-04 (Gateway City Chachoengsao)",
-      "PLANT-RYG-03 (Eastern Seaboard Rayong)",
-      "PLANT-SPK-05 (Bangpoo Samut Prakan)"
-    ],
-    "budget_unit_price": 1414.31,
-    "target_unit_price": 1247.67,
-    "budget_total_thb": 6653806.51,
-    "target_total_thb": 5831572.32,
-    "total_savings_thb": 866464.77,
-    "savings_pct": 13,
-    "standard_credit_days": 30,
-    "target_credit_days": 60,
-    "incumbent_supplier": "บจก. บางกอก ออโตเมชั่น ซิสเต็มส์",
-    "awarded_supplier": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-    "spec_standard": "ISO 8573-1 Tubing",
-    "warranty_standard": "12 เดือน",
-    "stage": 1,
-    "stage_meta": {
-      "label": "สต็อกต่ำ",
-      "badge": "Stage 1",
-      "desc": "คลังอะไหล่เตือน ROP",
-      "class": "badge-warning"
-    },
-    "vendors": [
-      {
-        "id": "global_mro",
-        "name": "บจก. โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย)",
-        "price": "฿2,050.00",
-        "credit": "30 วัน",
-        "leadTime": "7 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "สต็อกต่ำเตือนจัดซื้อ",
-        "statusBadge": "badge-warning text-slate-800 font-bold",
-        "outcome": "ERP Trigger สต็อกต่ำกว่า Safety Stock",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "โกลบอล เอ็มอาร์โอ ซอร์สซิ่ง (ประเทศไทย) (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ ท่อลมโพลียูรีเทนทนแรงดันสูง Festo 8mm (ม้วน 50m) ที่ราคา ฿2,050.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿2,050.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿2,050.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿2,050.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      },
-      {
-        "id": "chonburi_fluid",
-        "name": "บจก. ชลบุรี ไฮดรอลิก แอนด์ นิวเมติกส์",
-        "price": "฿2,100.00",
-        "credit": "30 วัน",
-        "leadTime": "5 วันทำการ",
-        "warranty": "12 เดือน",
-        "status": "AVL สำรอง",
-        "statusBadge": "badge-ghost text-slate-600",
-        "outcome": "คู่ค้าสำรองในพื้นที่ชลบุรี",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "ชลบุรี ไฮดรอลิก แอนด์ นิวเมติกส์ (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อกลาง ทางเราขอเสนอราคาสำหรับ ท่อลมโพลียูรีเทนทนแรงดันสูง Festo 8mm (ม้วน 50m) ที่ราคา ฿2,100.00 เครดิต 30 วัน ครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:34",
-            "text": "ขอบคุณสำหรับข้อเสนอครับ จากการวิเคราะห์เปรียบเทียบข้อเสนอในระบบ ราคา ฿2,100.00 ยังสูงกว่าเกณฑ์ราคาเป้าหมายของเครือโรงงาน หากท่านปรับลดราคาลงมาได้ ทางเรายินดีนำมาพิจารณาในรอบถัดไปครับ",
-            "tactic": "[Benchmark Price Feedback]"
-          }
-        ],
-        "ladder": [
-          {
-            "round": "Opening",
-            "title": "ใบเสนอราคาเปิดแรก",
-            "price": "฿2,100.00",
-            "tag": "Initial Ask",
-            "color": "border-slate-300 text-slate-700",
-            "note": "เสนอตามรอบปกติ"
-          },
-          {
-            "round": "Concession",
-            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
-            "price": "฿2,100.00",
-            "tag": "In Review",
-            "color": "border-blue-400 bg-blue-50 text-blue-900",
-            "note": "กำลังพิจารณา"
-          }
-        ]
-      }
-    ],
-    "category_group": "pneumatic",
-    "category_th": "นิวแมติกส์ & ไฮดรอลิกส์",
-    "logo_badge_style": "bg-blue-50 border-blue-200 text-blue-700",
-    "erp_trigger": "ระยอง สต็อกต่ำเตือน ROP",
-    "reasoning": [
-      {
-        "time": "10:15:02",
-        "step": "STEP 1",
-        "agent": "ERP Trigger & Demand Aggregator",
-        "title": "รวบรวมใบขอซื้อ (PR Aggregation) 250 รายการ",
-        "thought": "ตรวจพบความต้องการใช้อะไหล่ ท่อลมโพลียูรีเทนทนแรงดันสูง Festo 8mm (ม้วน 50m) กระจายใน 5 โรงงาน จึงรวมยอดคำสั่งซื้อได้ทั้งสิ้น 4,655 ชิ้น เพื่อสร้างอำนาจต่อรอง (Scale Advantage)",
-        "toolCall": "aggregate_prs(part_code=\"FESTO-PUN-H-8X1.25-BL\") -> total_qty=4655, prs=250"
-      },
-      {
-        "time": "10:15:20",
-        "step": "STEP 2",
-        "agent": "TCO & Market Benchmark Engine",
-        "title": "วิเคราะห์โครงสร้างต้นทุน TCO และกำหนดราคาเป้าหมาย",
-        "thought": "คำนวณต้นทุนรวมจากราคาอดีตและฐานข้อมูลตลาด EEC กำหนดกรอบราคาเป้าหมายที่ ฿1,247.67 ต่อหน่วย พร้อมขยายเครดิตเทอม 45 วัน คาดการณ์กู้คืนเงินรั่วไหล ฿866,464.77 (13%)",
-        "toolCall": "calculate_tco(budget=1414.31, target=1247.67, credit=30) -> savings=฿866,464.77"
-      },
-      {
-        "time": "10:15:45",
-        "step": "STEP 3",
-        "agent": "Autonomous Multi-Vendor Negotiator",
-        "title": "เปิดห้องเจรจาต่อรองคู่ขนาน (Game Theory Concessions)",
-        "thought": "ส่งคำขอเสนอราคา (RFQ) และใช้ยุทธวิธี Nash Equilibrium แลกเปลี่ยนผลประโยชน์หลายมิติ (Volume Commitment vs Credit Extension vs Free DDP Delivery)",
-        "toolCall": "negotiate_multiturn(strategy=\"Nash Multi-variable Trade-off\", avl_count=2) -> READY"
-      },
-      {
-        "time": "10:16:10",
-        "step": "STEP 4",
-        "agent": "Enterprise Governance & Audit Guardrail",
-        "title": "ตรวจสอบความสอดคล้องระเบียบจัดซื้อและเสนอผู้บริหารลงนาม",
-        "thought": "เงื่อนไขของซัพพลายเออร์ที่ได้รับเลือกผ่านเกณฑ์งบประมาณและ TCO 100% พร้อมสร้างเอกสาร Draft PO รอการลงนามผ่าน SAP BAPI",
-        "toolCall": "verify_guardrails(compliance_score=1.0) -> APPROVED_FOR_SIGNOFF"
-      }
-    ]
-  },
   "rexroth": {
     "id": "rexroth",
     "deal_code": "DEAL-2026-REXROTH",
@@ -1747,5 +1583,97 @@
         "toolCall": "BAPI_PO_CREATE1('450098220') ➔ CONFIRMED ✓"
       }
     ]
+  },
+  "skf": {
+    "id": "skf",
+    "deal_code": "DEAL-2026-SKF",
+    "part_code": "SKF-6310-2Z-C3",
+    "brand": "SKF",
+    "name": "ตลับลูกปืน SKF Deep Groove Ball Bearing (6310-2Z/C3)",
+    "category": "Bearings & Power Transmission",
+    "total_prs": 185,
+    "total_quantity": 800,
+    "plants": [
+      "PLANT-AYU-01 (Ayutthaya Hi-Tech)",
+      "PLANT-CBI-02 (Amata City Chonburi)",
+      "PLANT-RYG-03 (Eastern Seaboard Rayong)"
+    ],
+    "budget_unit_price": 1250.0,
+    "target_unit_price": 1090.0,
+    "budget_total_thb": 1000000.0,
+    "target_total_thb": 872000.0,
+    "total_savings_thb": 128000.0,
+    "savings_pct": 12.8,
+    "standard_credit_days": 30,
+    "target_credit_days": 45,
+    "incumbent_supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น",
+    "awarded_supplier": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น",
+    "spec_standard": "ISO 15 / DIN 625",
+    "warranty_standard": "12 เดือน",
+    "stage": 4,
+    "stage_meta": {
+      "label": "รออนุมัติ",
+      "badge": "Stage 4",
+      "desc": "ลงนามเปิด PO",
+      "class": "badge-success"
+    },
+    "vendors": [
+      {
+        "id": "bearing_power",
+        "name": "บจก. แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (V-1082)",
+        "price": "฿1,090.00",
+        "credit": "45 วัน",
+        "leadTime": "3 วันทำการ",
+        "warranty": "12 เดือน",
+        "status": "ชนะดีล (PO)",
+        "statusBadge": "badge-success text-white font-bold",
+        "outcome": "ตกลงสัญญา Blanket Order 1 ปี",
+        "messages": [
+          {
+            "sender": "vendor",
+            "name": "แบริ่ง แอนด์ เพาเวอร์ ทรานสมิชชั่น (ฝ่ายขาย)",
+            "time": "09:15",
+            "text": "เรียนจัดซื้อ ทางเรายินดียืนยันราคาตลับลูกปืน SKF 6310-2Z/C3 ที่ ฿1,090.00 พร้อมขยายเครดิต 45 วัน สำหรับสัญญา LTA 800 ชิ้นครับ"
+          },
+          {
+            "sender": "agent",
+            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+            "time": "09:20",
+            "text": "ขอบคุณครับ เงื่อนไขราคา ฿1,090.00 ประหยัด ฿128,000 (-12.8%) และเครดิต 45 วัน ผ่านเกณฑ์ TCO เรียบร้อย ระบบได้สร้าง Draft PO รอลงนามแล้วครับ",
+            "tactic": "[Award PO: คัดเลือกผู้ชนะและส่งต่อผู้บริหารลงนามใน SAP]"
+          }
+        ],
+        "ladder": [
+          {
+            "round": "Opening",
+            "title": "ราคาเปิดแรกตามใบเสนอราคา",
+            "price": "฿1,250.00",
+            "tag": "Initial Ask",
+            "color": "border-slate-300 text-slate-700",
+            "note": "ราคาป้ายเดิม"
+          },
+          {
+            "round": "Concession",
+            "title": "AI ต่อรองสัญญา Blanket Order 1 ปี",
+            "price": "฿1,090.00",
+            "tag": "Volume Trade-off",
+            "color": "border-blue-400 bg-blue-50 text-blue-900",
+            "note": "ผูกสัญญารายปี 800 ชิ้น"
+          },
+          {
+            "round": "Awarded",
+            "title": "ตกลงทำสัญญาและออกใบ PO",
+            "price": "฿1,090.00",
+            "tag": "Winner",
+            "color": "border-emerald-500 bg-emerald-50 text-emerald-900",
+            "note": "ชนะประมูล TCO"
+          }
+        ]
+      }
+    ],
+    "category_group": "mechanical",
+    "category_th": "เครื่องกล & ส่งกำลัง",
+    "logo_badge_style": "bg-blue-50 border-blue-200 text-blue-700",
+    "erp_trigger": "อยุธยา เหลือ 8 (Min: 30)"
   }
 }
