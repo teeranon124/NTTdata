@@ -34,10 +34,14 @@ def run_negotiation_turn(deal_data: dict, vendor_name: str, user_message: str, h
     })
 
     # Step 3: TCO & Concession Math
-    budget_price = deal_data["budget_unit_price"]
-    target_price = deal_data["target_unit_price"]
-    annual_qty = deal_data["total_quantity"]
-    std_credit = deal_data["standard_credit_days"]
+    budget_price = float(deal_data.get("budget_unit_price") or deal_data.get("pre_price") or 450.0)
+    target_price = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or 398.0)
+    annual_qty = int(deal_data.get("total_quantity") or deal_data.get("qty") or 1000)
+    std_credit = int(deal_data.get("standard_credit_days") or 30)
+    plants = deal_data.get("plants") or ["PLANT-CBI-02 (ชลบุรี)", "PLANT-RYG-03 (ระยอง)", "PLANT-AYU-01 (อยุธยา)"]
+    part_code = deal_data.get("part_code") or deal_data.get("sku") or str(deal_data.get("id", "")).upper()
+    part_name = deal_data.get("name") or f"อะไหล่ MRO {part_code}"
+    category_name = deal_data.get("category_th") or deal_data.get("category") or "เครื่องกล & ส่งกำลัง" 
     
     offered_price = parsed_entities.get("proposed_unit_price") or budget_price
     offered_credit = parsed_entities.get("proposed_credit_days") or std_credit
@@ -80,9 +84,9 @@ def run_negotiation_turn(deal_data: dict, vendor_name: str, user_message: str, h
     
     deal_context = f"""
 CURRENT NEGOTIATION CONTEXT:
-- Part Name: {deal_data['name']} ({deal_data['part_code']})
-- Category: {deal_data['category']}
-- Annual Demand: {annual_qty:,} units (Consolidated across {len(deal_data['plants'])} plants)
+- Part Name: {deal_data['name']} ({deal_data.get('part_code', deal_data.get('sku', 'NSK-STD'))})
+- Category: {deal_data.get('category_th', deal_data.get('category', 'MRO'))}
+- Annual Demand: {annual_qty:,} units (Consolidated across {len(deal_data.get('plants', ['ชลบุรี', 'ระยอง', 'อยุธยา']))} plants)
 - Budget Ceiling Price: ฿{budget_price:,.2f} / unit
 - Target Price: ฿{target_price:,.2f} / unit
 - Supplier Name: {vendor_name}

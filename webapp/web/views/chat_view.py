@@ -57,10 +57,10 @@ def supplier_portal(deal_id):
                 vid = str(v.get("id", "")).lower()
                 vname = str(v.get("name", "")).lower()
                 if vendor_param in vid or vendor_param in vname:
-                    active_vendor = v
+                    active_vendor = v.copy()
                     break
         if not active_vendor:
-            active_vendor = vendors[0]
+            active_vendor = vendors[0].copy()
     else:
         active_vendor = {
             "id": "v1",
@@ -72,6 +72,44 @@ def supplier_portal(deal_id):
             "status": "ชนะการประมูล (ออกใบ PO)",
             "statusBadge": "badge-success text-white font-bold"
         }
+
+    pre_p = float(deal.get("pre_price", 450.0))
+    post_p = float(deal.get("post_price", 398.0))
+    v_id = str(active_vendor.get("id", "v1")).lower()
+
+    # Dynamic pricing tiers for realistic simulation per vendor
+    if "sp" in v_id or "siam" in v_id:
+        active_vendor["initial_price"] = 425.0
+        active_vendor["counter_price"] = 408.0
+        active_vendor["final_price"] = post_p
+        active_vendor["rank_text"] = "TCO Rank #1 (ผู้นำการประมูล)"
+        active_vendor["rank_badge"] = "badge-success text-white"
+        active_vendor["tco_score"] = 94.8
+        active_vendor["initial_credit"] = "30 วัน"
+    elif "eb" in v_id or "eastern" in v_id:
+        active_vendor["initial_price"] = 440.0
+        active_vendor["counter_price"] = 420.0
+        active_vendor["final_price"] = 412.0
+        active_vendor["rank_text"] = "TCO Rank #2 (ตามหลังผู้นำ ฿14)"
+        active_vendor["rank_badge"] = "badge-warning text-slate-900"
+        active_vendor["tco_score"] = 81.5
+        active_vendor["initial_credit"] = "30 วัน"
+    elif "tk" in v_id or "koyo" in v_id or "thai" in v_id:
+        active_vendor["initial_price"] = 430.0
+        active_vendor["counter_price"] = 415.0
+        active_vendor["final_price"] = 405.0
+        active_vendor["rank_text"] = "ตกรอบ SLA (ส่งช้าเกิน 7 วันทำการ)"
+        active_vendor["rank_badge"] = "badge-error text-white"
+        active_vendor["tco_score"] = 58.2
+        active_vendor["initial_credit"] = "30 วัน"
+    else:
+        active_vendor["initial_price"] = round(pre_p * 0.96, 2)
+        active_vendor["counter_price"] = round(post_p * 1.05, 2)
+        active_vendor["final_price"] = post_p
+        active_vendor["rank_text"] = "อยู่ระหว่างประเมินข้อเสนอ"
+        active_vendor["rank_badge"] = "badge-info text-white"
+        active_vendor["tco_score"] = 85.0
+        active_vendor["initial_credit"] = "30 วัน"
 
     token = request.args.get("token", f"tok_sec_{deal_id}_{active_vendor.get('id', 'v1')}_verified")
     is_winner = "ชนะ" in active_vendor.get("status", "") or "ออกใบ PO" in active_vendor.get("status", "")
@@ -164,15 +202,34 @@ def negotiate():
     message = data.get("message", "")
     round_num = data.get("round", 1)
 
-    result = negotiation_service.process_turn(
-        deal_id=deal_id,
-        vendor_id=vendor_id,
+    result = negotiation_service.negotiate(
+        deal_key=deal_id,
         vendor_name=vendor_name,
-        user_message=message,
-        round_num=round_num
+        latest_user_message=message
     )
 
-    if result.get("agent_reply"):
-        add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: เสนอเงื่อนไขรอบ {round_num}")
+    reply_text = result.get("reply", "")
+    tactic_text = result.get("tactic", "")
+    concession = result.get("concession", {})
+    parsed_intent = result.get("parsed_intent", {})
+    tco_data = result.get("tco_data", {})
 
-    return jsonify(result)
+    target_price = concession.get("counter_price") or concession.get("target_price") or parsed_intent.get("proposed_unit_price")
+    credit_days = parsed_intent.get("proposed_credit_days") or concession.get("target_credit")
+    is_agreed = concession.get("strategy") == "AGREE_AND_AWARD" or "ตกลง" in message or "รับข้อเสนอ" in message
+
+    add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: เสนอเงื่อนไขรอบ {round_num}")
+
+    return jsonify({
+        "status": "success",
+        "agent_reply": reply_text,
+        "reply": reply_text,
+        "tactic": tactic_text,
+        "price": target_price,
+        "credit_days": credit_days,
+        "deal_agreed": is_agreed,
+        "tco_data": tco_data,
+        "concession": concession,
+        "messages": result.get("messages", []),
+        "ladder": result.get("ladder", [])
+    })

@@ -3,7 +3,7 @@
   "vendor_id": "บจก._สยาม_พรีซิชั่น_เทค",
   "status": "in_progress",
   "created_at": 1792493125.273979,
-  "updated_at": 1792493125.531297,
+  "updated_at": 1792505515.3331525,
   "concession_ladder": [
     {
       "round": "Round 1",
@@ -12,6 +12,14 @@
       "tag": "counter_offer",
       "color": "border-slate-300 text-slate-700",
       "note": "เครดิต 30 วัน"
+    },
+    {
+      "round": "Round 2",
+      "title": "ข้อเสนอจากคู่ค้า ฿405.00",
+      "price": "฿405.00",
+      "tag": "counter_offer",
+      "color": "border-slate-300 text-slate-700",
+      "note": "เครดิต 45 วัน"
     }
   ],
   "audit_traces": [
@@ -44,6 +52,36 @@
           "tool_call": "generate_response() -> READY"
         }
       ]
+    },
+    {
+      "timestamp": 1792505515.3331525,
+      "time": "21:11",
+      "trace": [
+        {
+          "step": 1,
+          "agent": "Router Agent (Local Deterministic Parser (Ready for Bedrock Nova Lite))",
+          "thought": "สกัดความประสงค์คู่ค้า: counter_offer | ราคาเสนอ: 405.0 | เครดิต: 45 วัน",
+          "tool_call": "parse_supplier_intent() -> intent=counter_offer"
+        },
+        {
+          "step": 2,
+          "agent": "TCO Calculation Engine",
+          "thought": "ส่วนต่างราคาต่อหน่วย: ฿+7.00 | ผลประโยชน์เครดิต: ฿1.17 | ประหยัดสุทธิ TCO: ฿771,418.29 (10.3%)",
+          "tool_call": "calculate_tco(price=405.0, credit=45) -> Effective: ฿403.83"
+        },
+        {
+          "step": 3,
+          "agent": "Game Theory Concession Engine (Nash Bargaining)",
+          "thought": "เลือกยุทธวิธี: VOLUME_LTA_CONCESSION | เสนอทำสัญญา Blanket Order 1 ปีเต็ม รวมยอด 16,710 ชิ้น แลกกับราคาเป้าหมาย ฿398.00 และเครดิต 45 วัน",
+          "tool_call": "evaluate_concessions(gap=7.0) -> Strategy: VOLUME_LTA_CONCESSION"
+        },
+        {
+          "step": 4,
+          "agent": "Autonomous Negotiation Engine (Ready for Nova Pro)",
+          "thought": "สร้างข้อความโต้ตอบอัตโนมัติตามกลยุทธ์ VOLUME_LTA_CONCESSION",
+          "tool_call": "generate_response() -> READY"
+        }
+      ]
     }
   ],
   "messages": [
@@ -58,6 +96,19 @@
       "name": "AutoProcure AI (Procurement Agent)",
       "time": "17:45",
       "text": "เรียน บจก. สยาม พรีซิชั่น เทค เนื่องจากราคา ฿420.00 ยังสูงกว่าราคาเป้าหมายในระบบ เพื่อให้เกิดประโยชน์สูงสุดร่วมกัน ทางเครือโรงงานขอเสนอทำสัญญา Blanket Order 1 ปีเต็ม การันตียอดสั่งซื้อรวม 20,274 ชิ้น แลกกับการปรับลดราคาลงมาที่ ฿398.00 และเครดิต 45 วันครับ หากท่านอนุมัติได้เราพร้อมล็อกให้ท่านเป็นคู่สัญญาหลักทันทีครับ [Volume Consolidation: แลกสัญญา Blanket Order 1 ปีเต็ม]",
+      "tactic": "[Volume Consolidation: แลกสัญญา Blanket Order 1 ปีเต็ม]"
+    },
+    {
+      "sender": "vendor",
+      "name": "บจก. สยาม พรีซิชั่น เทค",
+      "time": "21:11",
+      "text": "ทางเราขอลดราคาเหลือ 405 บาท เครดิต 45 วันครับ"
+    },
+    {
+      "sender": "agent",
+      "name": "AutoProcure AI (Procurement Agent)",
+      "time": "21:11",
+      "text": "เรียน บจก. สยาม พรีซิชั่น เทค เนื่องจากราคา ฿405.00 ยังสูงกว่าราคาเป้าหมายในระบบ เพื่อให้เกิดประโยชน์สูงสุดร่วมกัน ทางเครือโรงงานขอเสนอทำสัญญา Blanket Order 1 ปีเต็ม การันตียอดสั่งซื้อรวม 16,710 ชิ้น แลกกับการปรับลดราคาลงมาที่ ฿398.00 และเครดิต 45 วันครับ หากท่านอนุมัติได้เราพร้อมล็อกให้ท่านเป็นคู่สัญญาหลักทันทีครับ [Volume Consolidation: แลกสัญญา Blanket Order 1 ปีเต็ม]",
       "tactic": "[Volume Consolidation: แลกสัญญา Blanket Order 1 ปีเต็ม]"
     }
   ]
