@@ -9,3 +9,16 @@ venv/
 .venv/
 .idea/
 .vscode/
+
+# Screenshots & Media files (Do not push to Git)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.pptx
+
+# Temporary test and check scripts
+test_*.py
+check_*.py
+scratch/
