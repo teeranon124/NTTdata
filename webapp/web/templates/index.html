@@ -5299,7 +5299,127 @@
                     }
                 } catch(e) {}
             },
-    
+
+            // ===== REAL-TIME (Server-Sent Events) =====
+            // Supplier chat turns + ticker updates stream in live, no polling.
+            _sse: null,
+            initRealtime() {
+                if (this._sse) return;
+                try {
+                    const es = new EventSource('/api/stream');
+                    this._sse = es;
+
+                    es.onmessage = (ev) => {
+                        let data;
+                        try { data = JSON.parse(ev.data); } catch (e) { return; }
+                        if (!data || !data.type) return;
+
+                        if (data.type === 'ticker' && data.text) {
+                            // Prepend to the live ticker feed instantly.
+                            this.tickerMessages = [data.text, ...(this.tickerMessages || [])].slice(0, 30);
+                            const el = document.getElementById('ticker-msg');
+                            if (el) el.innerText = data.text;
+                        } else if (data.type === 'negotiation') {
+                            this.onLiveNegotiation(data);
+                        }
+                    };
+
+                    es.onerror = () => {
+                        // EventSource auto-reconnects; polling fallback (setInterval) stays active.
+                    };
+                } catch (e) {
+                    // SSE unsupported — the existing polling fallback keeps the ticker alive.
+                }
+            },
+
+            // Called when a supplier sends a message from the Supplier Portal.
+            onLiveNegotiation(data) {
+                const dealKey = (data.deal_id || '').toLowerCase();
+                const deal = database.deals[dealKey];
+
+                // Flash a toast so the buyer notices even if the cockpit is closed.
+                if (this.showToast) {
+                    const priceTxt = data.price ? ` · เสนอ ฿${Number(data.price).toLocaleString(undefined,{minimumFractionDigits:2})}` : '';
+                    this.showToast(`🔔 ${data.vendor_name || 'คู่ค้า'} ส่งข้อเสนอสดในดีล ${(data.deal_id||'').toUpperCase()}${priceTxt}`, 'info');
+                }
+
+                if (!deal || !deal.vendors) return;
+
+                // Match the vendor by name (backend slugs spaces/underscores).
+                const slug = (s) => (s || '').replace(/ /g, '_').toLowerCase();
+                const targetSlug = slug(data.vendor_name);
+                let vIdx = deal.vendors.findIndex(v => slug(v.name) === targetSlug
+                    || slug(v.name).includes(targetSlug) || targetSlug.includes(slug(v.name)));
+                if (vIdx < 0) vIdx = 0;
+                const vendor = deal.vendors[vIdx];
+                if (!vendor) return;
+
+                if (!Array.isArray(vendor.messages)) vendor.messages = [];
+                // Append the supplier's message, then the AI reply, into the deal's transcript.
+                if (data.vendor_text) {
+                    vendor.messages.push({ sender: 'vendor', name: data.vendor_name || vendor.name, time: data.time || '', text: data.vendor_text });
+                }
+                if (data.agent_reply) {
+                    vendor.messages.push({ sender: 'agent', name: 'AutoProcure AI (Procurement Agent)', time: data.time || '', text: data.agent_reply, tactic: data.tactic || '' });
+                }
+
+                // If this exact deal + vendor cockpit is open, re-render it live.
+                const modal = document.getElementById('chat_modal');
+                const isOpen = modal && modal.open;
+                if (isOpen && this.currentChatDealKey === dealKey && this.currentChatVendorIndex === vIdx) {
+                    this.renderVendorMessages(vendor);
+                    lucide.createIcons({ root: modal });
+                }
+            },
+
+            // Fire a real (or simulated) AWS SES invite from the email modal.
+            async sendRealInvite() {
+                const dealKey = this.currentEmailDealKey || 'nsk';
+                const vIdx = this.currentEmailVendorIndex || 0;
+                const input = document.getElementById('email-real-recipient');
+                const statusEl = document.getElementById('email-send-status');
+                const btn = document.getElementById('btn-send-real-invite');
+                const prefilled = (document.getElementById('email-recipient-address') || {}).innerText || '';
+                const email = ((input && input.value.trim()) || prefilled).trim();
+
+                if (!email) {
+                    if (statusEl) statusEl.innerHTML = '<span class="text-amber-400">⚠ กรุณาระบุอีเมลผู้รับก่อนส่ง</span>';
+                    return;
+                }
+
+                // Resolve vendor id/name from the selected deal's vendor list.
+                const deal = (database.deals && database.deals[dealKey]) || {};
+                const vendors = (this.masterDeals && this.masterDeals[dealKey] && this.masterDeals[dealKey].vendors) || deal.vendors || [];
+                const vendor = vendors[vIdx] || vendors[0] || {};
+                const vendorId = (vendor.id || 'sp').toLowerCase();
+                const vendorName = vendor.name || deal.title || 'บจก. คู่ค้า AVL';
+
+                if (btn) btn.disabled = true;
+                if (statusEl) statusEl.innerHTML = '<span class="text-slate-300">⏳ กำลังส่งคำเชิญผ่าน AWS SES...</span>';
+
+                try {
+                    const res = await fetch('/api/send-invite', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ deal_id: dealKey, vendor_id: vendorId, vendor_name: vendorName, email })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.status === 'live_ses') {
+                        if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400">✓ ส่งจริงสำเร็จ → ${email} (MessageId: ${data.message_id || 'n/a'})</span>`;
+                        this.showToast(`ส่งอีเมลคำเชิญจริงผ่าน AWS SES ไปยัง ${email} สำเร็จ`, 'success');
+                    } else if (res.ok && data.status === 'simulated') {
+                        if (statusEl) statusEl.innerHTML = `<span class="text-blue-300">ℹ โหมดจำลอง (SES_ENABLED=false): ${data.detail || ''} → ${email}</span>`;
+                        this.showToast(`จำลองการส่งคำเชิญไปยัง ${email} (เปิด SES_ENABLED=true เพื่อส่งจริง)`, 'info');
+                    } else {
+                        if (statusEl) statusEl.innerHTML = `<span class="text-amber-400">⚠ ${data.detail || 'ส่งไม่สำเร็จ'}</span>`;
+                    }
+                } catch (err) {
+                    if (statusEl) statusEl.innerHTML = '<span class="text-rose-400">✕ เชื่อมต่อเซิร์ฟเวอร์ไม่สำเร็จ</span>';
+                } finally {
+                    if (btn) btn.disabled = false;
+                }
+            },
+
             currentFilter: 'all',
             currentStage: null,
             tickerIndex: 0,
@@ -6288,6 +6408,7 @@
         window.addEventListener('DOMContentLoaded', async () => {
             if (app.initDashboardData) app.initDashboardData();
             if (app.initLiveEvents) app.initLiveEvents();
+            if (app.initRealtime) app.initRealtime();
             lucide.createIcons();
             if (app.updateStageCounters) app.updateStageCounters();
             try {
@@ -6503,6 +6624,24 @@
                     <div>Amazon SES Message ID: <span id="email-ses-uuid">0100018f-a931-4192-bdf9-ntt-prod</span></div>
                     <div>TLS 1.3 Certified | ISO/IEC 27001 Procurement Gateway</div>
                 </div>
+            </div>
+
+            <!-- REAL AWS SES DISPATCH BAR -->
+            <div class="bg-slate-900 px-5 py-3 border-t border-slate-800 shrink-0">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <div class="flex items-center gap-1.5 text-[11px] text-slate-400 font-mono shrink-0">
+                        <i data-lucide="send" class="w-3.5 h-3.5 text-emerald-400"></i>
+                        <span>ส่งอีเมลจริง (AWS SES):</span>
+                    </div>
+                    <input id="email-real-recipient" type="email" placeholder="supplier@example.com"
+                           class="input input-xs bg-slate-800 border-slate-700 text-slate-100 rounded-lg flex-1 font-mono text-xs placeholder:text-slate-500" />
+                    <button type="button" onclick="app.sendRealInvite()" id="btn-send-real-invite"
+                            class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-lg px-4 font-bold flex items-center gap-1.5 shrink-0">
+                        <i data-lucide="mail-check" class="w-3.5 h-3.5"></i>
+                        <span>ยิง SES ส่งคำเชิญ</span>
+                    </button>
+                </div>
+                <div id="email-send-status" class="text-[10px] font-mono text-slate-400 mt-1.5 min-h-[14px]"></div>
             </div>
 
             <!-- MODAL BOTTOM ACTIONS -->

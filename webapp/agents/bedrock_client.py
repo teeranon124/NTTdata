@@ -1,26 +1,63 @@
-import json
 import logging
 import os
 import time
-from typing import Dict, List, Optional
+from typing import List
+
 import boto3
-from botocore.exceptions import BotoCoreError, ClientError
+from botocore.config import Config
 
 logger = logging.getLogger(__name__)
 
+# Bound AWS latency so a slow network never stalls a live negotiation turn:
+# fail fast and let the deterministic fallback take over.
+_BEDROCK_BOTO_CONFIG = Config(
+    connect_timeout=4,
+    read_timeout=20,
+    retries={"max_attempts": 2, "mode": "standard"},
+)
+
+# Defaults: Claude 3.5 Sonnet for the Thai negotiation voice, Nova Lite for the router.
+DEFAULT_ROUTER_MODEL = "amazon.nova-lite-v1:0"
+DEFAULT_NEGOTIATOR_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+
+
+def _env_any(keys: List[str], default: str) -> str:
+    """Return the first non-empty environment value among keys, else default."""
+    for key in keys:
+        val = os.environ.get(key)
+        if val:
+            return val
+    return default
+
+
 class BedrockClient:
     def __init__(self):
-        self.region = os.environ.get("AWS_REGION", "ap-southeast-1")
-        self.router_model = os.environ.get("BEDROCK_ROUTER_MODEL_ID", "amazon.nova-lite-v1:0")
-        self.negotiator_model = os.environ.get("BEDROCK_NEGOTIATOR_MODEL_ID", "amazon.nova-pro-v1:0")
+        # Accept both AWS_REGION and AWS_DEFAULT_REGION for flexibility.
+        self.region = _env_any(["AWS_REGION", "AWS_DEFAULT_REGION"], "us-east-1")
+        # Accept both the _ID suffixed names and the plain names used in .env.example.
+        self.router_model = _env_any(
+            ["BEDROCK_ROUTER_MODEL_ID", "BEDROCK_ROUTER_MODEL"], DEFAULT_ROUTER_MODEL
+        )
+        self.negotiator_model = _env_any(
+            ["BEDROCK_NEGOTIATOR_MODEL_ID", "BEDROCK_NEGOTIATOR_MODEL"], DEFAULT_NEGOTIATOR_MODEL
+        )
         self._client = None
+        self._credentials_present = bool(
+            os.environ.get("AWS_ACCESS_KEY_ID") and os.environ.get("AWS_SECRET_ACCESS_KEY")
+        ) or bool(os.environ.get("AWS_PROFILE"))
 
     @property
     def client(self):
+        # When no AWS credentials are configured, stay in deterministic fallback mode
+        # instead of creating a client that will fail on every call (keeps demo fast + stable).
+        if not self._credentials_present:
+            return None
         if self._client is None:
             try:
-                # boto3 automatically picks up AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN from env
-                self._client = boto3.client("bedrock-runtime", region_name=self.region)
+                # boto3 picks up AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_SESSION_TOKEN from env.
+                self._client = boto3.client(
+                    "bedrock-runtime", region_name=self.region, config=_BEDROCK_BOTO_CONFIG
+                )
             except Exception as e:
                 logger.warning(f"Bedrock client initialization warning: {e}")
         return self._client

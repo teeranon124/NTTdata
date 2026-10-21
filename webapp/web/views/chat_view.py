@@ -1,9 +1,15 @@
-import os
 import datetime
-from flask import Blueprint, request, jsonify, render_template, current_app, send_from_directory
-from ...services.negotiation_service import negotiation_service
+import json
+import os
+import queue
+import threading
+
+from flask import Blueprint, Response, jsonify, render_template, request, send_from_directory, stream_with_context
+
 from ...repositories.deal_repository import deal_repository
 from ...repositories.session_repository import session_repository
+from ...services.email_service import send_magic_link
+from ...services.negotiation_service import negotiation_service
 
 chat_bp = Blueprint("chat", __name__)
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
@@ -11,12 +17,48 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "
 # In-memory recent live events buffer
 RECENT_EVENTS = []
 
+# ---------------------------------------------------------------------------
+# Server-Sent Events (SSE) pub/sub — in-memory, dependency-free.
+# Each connected dashboard client owns a Queue; publish() fans out to all.
+# ---------------------------------------------------------------------------
+_SSE_SUBSCRIBERS = []
+_SSE_LOCK = threading.Lock()
+
+
+def _sse_subscribe() -> "queue.Queue":
+    q = queue.Queue(maxsize=100)
+    with _SSE_LOCK:
+        _SSE_SUBSCRIBERS.append(q)
+    return q
+
+
+def _sse_unsubscribe(q: "queue.Queue"):
+    with _SSE_LOCK:
+        if q in _SSE_SUBSCRIBERS:
+            _SSE_SUBSCRIBERS.remove(q)
+
+
+def publish_event(event_type: str, payload: dict):
+    """Broadcast a JSON event to every connected SSE subscriber (non-blocking)."""
+    message = {"type": event_type, **payload}
+    with _SSE_LOCK:
+        subscribers = list(_SSE_SUBSCRIBERS)
+    for q in subscribers:
+        try:
+            q.put_nowait(message)
+        except queue.Full:
+            # Drop for slow consumers rather than blocking the request thread.
+            pass
+
+
 def add_live_event(action_text: str):
     now_str = datetime.datetime.now().strftime("%H:%M:%S")
     event = f"[{now_str}] {action_text}"
     RECENT_EVENTS.insert(0, event)
     if len(RECENT_EVENTS) > 30:
         RECENT_EVENTS.pop()
+    # Push to live dashboard subscribers so the ticker updates without polling.
+    publish_event("ticker", {"text": event})
     return event
 
 # Seed initial dynamic events with current real time
@@ -134,6 +176,70 @@ def serve_dataset_json():
 def get_live_events():
     return jsonify({"events": RECENT_EVENTS})
 
+
+@chat_bp.route("/api/stream")
+def sse_stream():
+    """
+    Server-Sent Events stream for the Buyer dashboard.
+    Pushes supplier chat turns + ticker updates in real time (no polling).
+    """
+    @stream_with_context
+    def generator():
+        q = _sse_subscribe()
+        try:
+            # Prime the connection so EventSource fires 'open' immediately.
+            yield "retry: 3000\n\n"
+            yield f"event: ready\ndata: {json.dumps({'type': 'ready'})}\n\n"
+            while True:
+                try:
+                    message = q.get(timeout=15)
+                    yield f"data: {json.dumps(message, ensure_ascii=False)}\n\n"
+                except queue.Empty:
+                    # Heartbeat comment keeps proxies/browsers from closing the stream.
+                    yield ": keep-alive\n\n"
+        finally:
+            _sse_unsubscribe(q)
+
+    headers = {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "X-Accel-Buffering": "no",
+        "Connection": "keep-alive",
+    }
+    return Response(generator(), headers=headers)
+
+
+@chat_bp.route("/api/send-invite", methods=["POST"])
+def send_invite():
+    """
+    Send (or simulate) a supplier Magic Link invitation via AWS SES.
+    Returns status 'live_ses' or 'simulated' — always 200 so the UI never breaks.
+    """
+    data = request.json or {}
+    deal_id = (data.get("deal_id") or "nsk").strip()
+    vendor_id = (data.get("vendor_id") or "sp").strip()
+    vendor_name = (data.get("vendor_name") or "บจก. คู่ค้า AVL").strip()
+    email = (data.get("email") or "").strip()
+
+    if not email:
+        return jsonify({"status": "error", "detail": "กรุณาระบุอีเมลผู้รับ"}), 400
+
+    origin = request.host_url.rstrip("/")
+    token = f"tok_sec_{deal_id}_{vendor_id}_verified"
+    portal_url = f"{origin}/portal/negotiate/{deal_id}?vendor={vendor_id}&token={token}"
+
+    result = send_magic_link(
+        to_email=email,
+        vendor_name=vendor_name,
+        deal_id=deal_id,
+        portal_url=portal_url,
+    )
+
+    mode = "ส่งจริงผ่าน AWS SES" if result.get("status") == "live_ses" else "โหมดจำลอง (Simulation)"
+    add_live_event(f"ส่ง Magic Link เชิญ {vendor_name} เข้าห้องเจรจาดีล {deal_id.upper()} ({mode}) → {email}")
+
+    return jsonify({"portal_url": portal_url, **result})
+
 @chat_bp.route("/api/deals")
 def get_deals():
     deals = deal_repository.get_all_deals()
@@ -148,17 +254,17 @@ def get_deal(deal_id):
 
 @chat_bp.route("/api/deals/<deal_id>/prs")
 def get_deal_prs(deal_id):
-    prs = deal_repository.get_prs_for_deal(deal_id)
     limit = request.args.get("limit", default=250, type=int)
+    prs = deal_repository.get_raw_transactions(deal_id=deal_id, limit=limit)
     return jsonify({
         "deal_id": deal_id,
         "count": len(prs),
-        "transactions": prs[:limit]
+        "transactions": prs
     })
 
 @chat_bp.route("/api/stats")
 def get_stats():
-    stats = deal_repository.get_system_stats()
+    stats = deal_repository.get_statistics()
     return jsonify({"stats": stats})
 
 @chat_bp.route("/api/chat/<deal_id>/<vendor_id>", methods=["GET"])
@@ -167,10 +273,9 @@ def get_chat_session(deal_id, vendor_id):
     if not deal:
         return jsonify({"error": "Deal not found"}), 404
 
-    session = session_repository.get_session(deal_id, vendor_id)
-    if not session:
-        session = session_repository.create_session(deal_id, vendor_id)
-        # Seed initial opening messages from vendor profile
+    session = session_repository.load_session(deal_id, vendor_id)
+    if not session.get("messages"):
+        # Seed initial opening messages from vendor profile on first load.
         vendor_data = next((v for v in deal.get("vendors", []) if v["name"].replace(" ", "_").lower() == vendor_id.lower()), None)
         if vendor_data and "messages" in vendor_data:
             session["messages"] = vendor_data["messages"]
@@ -183,7 +288,7 @@ def get_chat_session(deal_id, vendor_id):
 @chat_bp.route("/api/chat/<deal_id>/<vendor_id>/reset", methods=["POST"])
 def reset_chat_session(deal_id, vendor_id):
     deal = deal_repository.get_deal(deal_id)
-    session = session_repository.create_session(deal_id, vendor_id)
+    session = negotiation_service.reset_session(deal_id, vendor_id)
     if deal:
         vendor_data = next((v for v in deal.get("vendors", []) if v["name"].replace(" ", "_").lower() == vendor_id.lower()), None)
         if vendor_data and "messages" in vendor_data:
@@ -219,6 +324,22 @@ def negotiate():
     is_agreed = concession.get("strategy") == "AGREE_AND_AWARD" or "ตกลง" in message or "รับข้อเสนอ" in message
 
     add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: เสนอเงื่อนไขรอบ {round_num}")
+
+    # Real-time push to the Buyer dashboard: supplier message + AI reply land live.
+    now_hhmm = datetime.datetime.now().strftime("%H:%M")
+    publish_event("negotiation", {
+        "deal_id": deal_id,
+        "vendor_id": vendor_id,
+        "vendor_name": vendor_name,
+        "vendor_text": message,
+        "agent_reply": reply_text,
+        "tactic": tactic_text,
+        "price": target_price,
+        "credit_days": credit_days,
+        "deal_agreed": bool(is_agreed),
+        "round": round_num,
+        "time": now_hhmm,
+    })
 
     return jsonify({
         "status": "success",
