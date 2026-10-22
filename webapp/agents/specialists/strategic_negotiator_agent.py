@@ -74,28 +74,27 @@ class StrategicNegotiatorAgent:
             "tool_call": f"evaluate_concessions(gap={tco_res['price_gap_per_unit']}) -> Strategy: {concession['strategy']}",
         })
 
-        # --- LLM synthesis via Dynamic Model Gateway (HEAVY tier -> Claude 3.5 Sonnet) ---
+        # --- LLM synthesis via Dynamic Model Gateway (HEAVY tier) ---
         policy_prompt = open(os.path.join(_PROMPTS_DIR, "negotiator_policy.md"), "r", encoding="utf-8").read()
+        directive = self._strategy_directive(concession, target_price, annual_qty)
         deal_context = f"""
 CURRENT NEGOTIATION CONTEXT:
-- Part Name: {deal_data.get('name')} ({deal_data.get('part_code', deal_data.get('sku', 'NSK-STD'))})
-- Category: {deal_data.get('category_th', deal_data.get('category', 'MRO'))}
-- Annual Demand: {annual_qty:,} units (Consolidated across {len(plants)} plants)
-- Budget Ceiling Price: ฿{budget_price:,.2f} / unit
-- Target Price: ฿{target_price:,.2f} / unit
-- Market Benchmark Band: ฿{market.get('market_low', target_price):,.2f} - ฿{market.get('market_high', budget_price):,.2f} (median ฿{market.get('market_mid', target_price):,.2f}, source: {market.get('source', 'n/a')})
-- Market Reservation Price (buyer walk-away): ฿{market.get('reservation_price', target_price):,.2f}
-- BATNA Leverage: {market.get('batna_leverage_score', 'n/a')}/100 — {market.get('leverage_stance', 'n/a')}
-- Volume-Tier Discount available at this annual demand: {market.get('volume_discount_pct', 0)}%
-- Supplier Name: {vendor_name}
-- Supplier Proposed Price: ฿{offered_price:,.2f} / unit
-- Supplier Proposed Credit: {offered_credit} days
+- Part: {deal_data.get('name')} ({deal_data.get('part_code', deal_data.get('sku', 'NSK-STD'))})
+- Annual Demand: {annual_qty:,} units across {len(plants)} plants
+- Budget Ceiling: ฿{budget_price:,.2f} | Target: ฿{target_price:,.2f} / unit
+- Market Band: ฿{market.get('market_low', target_price):,.2f}-฿{market.get('market_high', budget_price):,.2f} (median ฿{market.get('market_mid', target_price):,.2f})
+- BATNA Leverage: {market.get('batna_leverage_score', 'n/a')}/100 ({market.get('leverage_stance', 'n/a')})
+- Supplier: {vendor_name} proposed ฿{offered_price:,.2f} / {offered_credit} days
 - TCO Gap vs target: ฿{tco_res['price_gap_per_unit']:+,.2f} / unit
-- Game Theory Recommended Strategy: {concession['strategy']} ({concession['rationale']})
+- Decided Strategy: {concession['strategy']}
 
-INSTRUCTION: Use the Market Benchmark Band and BATNA Leverage as evidence-based
-justification when countering. If the supplier's price sits above the market
-median, cite the market range (not the secret target) to anchor the negotiation.
+REQUIRED ACTION FOR THIS TURN:
+{directive}
+
+STYLE: Reply in professional Thai procurement language. Be concise and decisive
+— no more than ~5 short sentences or a short numbered list. Do NOT pad or repeat.
+When countering a high price, cite the market band (not the secret target) as the
+anchor. End with the tactic tag in brackets.
 """
         system_text = policy_prompt + "\n" + deal_context
 
@@ -105,6 +104,9 @@ median, cite the market range (not the secret target) to anchor the negotiation.
             messages=history + [{"sender": "vendor", "text": user_message}],
             temperature=0.3,
             complexity=TaskComplexity.HEAVY,
+            # A concise procurement reply fits well under 512 tokens; this roughly
+            # halves generation latency vs 1024 for the Nova Pro negotiator turn.
+            max_tokens=512,
         )
 
         model_meta = {
@@ -141,6 +143,34 @@ median, cite the market range (not the secret target) to anchor the negotiation.
             "audit": audit,
             "model_meta": model_meta,
         }
+
+    @staticmethod
+    def _strategy_directive(concession, target_price, annual_qty) -> str:
+        """
+        Turn the game-theory decision into an explicit, unambiguous instruction so
+        the LLM's message matches the computed strategy (prevents the model from
+        counter-offering on a deal it should close).
+        """
+        strategy = concession.get("strategy")
+        if strategy == "AGREE_AND_AWARD":
+            return (
+                "ACCEPT and CLOSE the deal now. Thank the supplier, confirm their price "
+                "and credit terms are APPROVED, and state that a Draft PO will be issued "
+                "in SAP for executive sign-off. Do NOT ask for any further concession "
+                "(no extra credit days, no DDP, no price cut) — the terms already meet target."
+            )
+        if strategy == "CREDIT_TERM_LEVER":
+            return (
+                f"ACCEPT the price but request ONE concession only: extend credit terms to "
+                f"{concession.get('target_credit', 60)} days (optionally free DDP delivery). "
+                "Do not ask for a price reduction. Frame it as a win-win on working capital."
+            )
+        # VOLUME_LTA_CONCESSION (or default)
+        return (
+            f"COUNTER the offer: propose a 1-year Blanket Order (LTA) guaranteeing "
+            f"{annual_qty:,} units in exchange for the target price of ฿{target_price:,.2f} "
+            "and 45-day credit. Justify using the market band, not the secret target."
+        )
 
     @staticmethod
     def _fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market=None) -> str:

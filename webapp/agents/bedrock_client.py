@@ -65,7 +65,8 @@ class BedrockClient:
                 logger.warning(f"Bedrock client initialization warning: {e}")
         return self._client
 
-    def invoke_converse(self, model_id: str, system_text: str, messages: List[dict], temperature: float = 0.2) -> dict:
+    def invoke_converse(self, model_id: str, system_text: str, messages: List[dict],
+                        temperature: float = 0.2, max_tokens: int = 1024) -> dict:
         """
         Calls AWS Bedrock using the unified Converse API.
         Works seamlessly with Amazon Nova and Anthropic Claude models.
@@ -93,7 +94,7 @@ class BedrockClient:
                     "system": [{"text": system_text}],
                     "messages": bedrock_messages,
                     "inferenceConfig": {
-                        "maxTokens": 1024,
+                        "maxTokens": max_tokens,
                         "temperature": temperature,
                     },
                 }

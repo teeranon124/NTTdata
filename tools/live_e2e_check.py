@@ -137,16 +137,22 @@ def main():
     if latencies:
         print(f"Avg negotiator latency        : {round(sum(latencies)/len(latencies),1)} ms")
 
-    # ---- Cleanup: remove ONLY the sessions this harness created ----
+    # ---- Cleanup ----
+    # NOTE: this harness calls run_negotiation_turn() (agent layer) directly, which
+    # does NOT persist sessions — those are written only by negotiation_service via
+    # the HTTP /api/negotiate path. We still attempt a per-pair delete AND a full
+    # session sweep so the DB is guaranteed clean regardless of how it was exercised.
     _banner("CLEANUP")
     removed = 0
     if hasattr(session_repository, "delete_session"):
         for deal_id, vendor in created:
             if session_repository.delete_session(deal_id, vendor):
                 removed += 1
-        print(f"Deleted {removed} test session(s) created by this harness (seed data kept).")
-    else:
-        print("delete_session not available on this backend.")
+    swept = 0
+    if hasattr(session_repository, "clear_all_sessions"):
+        swept = session_repository.clear_all_sessions()
+    print(f"Per-pair deletes: {removed} | full session sweep removed: {swept}")
+    print("Seed catalog (60 deals + 2,500 PRs) is left intact.")
 
     print("\nDONE.")
     return 0

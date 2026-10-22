@@ -86,6 +86,7 @@ class ModelGateway:
         temperature: float = 0.2,
         complexity: Optional[TaskComplexity] = None,
         probe_text: str = "",
+        max_tokens: int = 1024,
     ) -> dict:
         """
         Route by complexity and call Bedrock. Returns the bedrock result dict
@@ -99,6 +100,7 @@ class ModelGateway:
             system_text=system_text,
             messages=messages,
             temperature=temperature,
+            max_tokens=max_tokens,
         )
         # Enrich with routing metadata for the audit trail (Pillar 4).
         result.setdefault("model_id", model_id)
