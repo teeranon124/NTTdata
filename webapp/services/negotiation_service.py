@@ -1,8 +1,7 @@
 import logging
 import time
 from typing import Dict, List, Optional
-from ..repositories.deal_repository import deal_repository
-from ..repositories.session_repository import session_repository
+from ..repositories import deal_repository, session_repository
 from ..agents.router_agent import parse_supplier_intent
 from ..agents.negotiator_agent import run_negotiation_turn
 

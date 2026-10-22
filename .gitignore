@@ -21,4 +21,10 @@ venv/
 # Temporary test and check scripts
 test_*.py
 check_*.py
+_*_test.py
 scratch/
+
+# Local database files (SQLite). The DB is reproducible via the seed loader.
+*.db
+*.sqlite
+*.sqlite3

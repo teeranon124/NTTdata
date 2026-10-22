@@ -6,8 +6,7 @@ import threading
 
 from flask import Blueprint, Response, jsonify, render_template, request, send_from_directory, stream_with_context
 
-from ...repositories.deal_repository import deal_repository
-from ...repositories.session_repository import session_repository
+from ...repositories import deal_repository, session_repository
 from ...services.email_service import send_magic_link
 from ...services.negotiation_service import negotiation_service
 
@@ -265,7 +264,9 @@ def get_deal_prs(deal_id):
 @chat_bp.route("/api/stats")
 def get_stats():
     stats = deal_repository.get_statistics()
-    return jsonify({"stats": stats})
+    # Return both keys: "stats" (legacy contract) and "statistics" (what the
+    # dashboard JS actually reads) so the live stat cards populate correctly.
+    return jsonify({"stats": stats, "statistics": stats})
 
 @chat_bp.route("/api/chat/<deal_id>/<vendor_id>", methods=["GET"])
 def get_chat_session(deal_id, vendor_id):

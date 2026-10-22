@@ -17,6 +17,18 @@ def load_config(app):
         except Exception:
             app.config[k] = v
 
+def _maybe_init_database():
+    """Initialize the ORM schema + seed data when USE_DATABASE is enabled."""
+    if os.environ.get("USE_DATABASE", "false").strip().lower() not in ("1", "true", "yes"):
+        return
+    try:
+        from ..database.seed_loader import seed
+        seed(force=False)  # idempotent: creates tables + seeds only if empty
+    except Exception as e:  # pragma: no cover - never block app startup
+        import logging
+        logging.getLogger(__name__).warning("Database init/seed skipped: %s", e)
+
+
 def create_app():
     app = Flask(
         __name__,
@@ -24,6 +36,7 @@ def create_app():
         template_folder="templates"
     )
     load_config(app)
+    _maybe_init_database()
     views.register_blueprint(app)
 
     return app
