@@ -58,12 +58,49 @@ SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False
 
 
 def init_db():
-    """Create all tables if they do not exist. Idempotent."""
+    """Create all tables if they do not exist, then add any missing columns. Idempotent."""
     # Import models so they register on Base.metadata before create_all.
     from . import models  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
+    _auto_add_missing_columns()
     logger.info("Database initialized at %s", _redacted_url())
+
+
+def _sql_type(column) -> str:
+    """Best-effort SQL type for a lightweight ADD COLUMN migration."""
+    try:
+        return column.type.compile(dialect=engine.dialect)
+    except Exception:
+        return "VARCHAR"
+
+
+def _auto_add_missing_columns():
+    """
+    Lightweight forward-only migration: add columns that exist on the models but
+    not yet in an existing table. Covers the common case of deploying a new build
+    over a previously-seeded database without a full migration tool. New columns
+    are nullable, so this is safe to run repeatedly.
+    """
+    from sqlalchemy import inspect, text
+
+    inspector = inspect(engine)
+    existing_tables = set(inspector.get_table_names())
+
+    with engine.begin() as conn:
+        for table in Base.metadata.sorted_tables:
+            if table.name not in existing_tables:
+                continue  # create_all already made it with all columns
+            present = {c["name"] for c in inspector.get_columns(table.name)}
+            for column in table.columns:
+                if column.name in present:
+                    continue
+                col_type = _sql_type(column)
+                try:
+                    conn.execute(text(f'ALTER TABLE {table.name} ADD COLUMN {column.name} {col_type}'))
+                    logger.info("Auto-migrated: added %s.%s (%s)", table.name, column.name, col_type)
+                except Exception as e:  # pragma: no cover - dialect dependent
+                    logger.warning("Could not add column %s.%s: %s", table.name, column.name, e)
 
 
 def get_session():

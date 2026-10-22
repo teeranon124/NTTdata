@@ -190,6 +190,13 @@ class NegotiationSession(Base):
     # Ladder is a list of display dicts; stored as JSON to match legacy shape.
     concession_ladder = Column(JSON, default=list)
 
+    # HITL (Human-in-the-Loop) executive sign-off governance.
+    signoff_status = Column(String(32), default="pending")   # pending | approved | rejected
+    approved_by = Column(String(128), nullable=True)
+    approved_at = Column(Float, nullable=True)
+    po_number = Column(String(64), nullable=True)
+    signoff_note = Column(Text, nullable=True)
+
     messages = relationship(
         "MessageLog", back_populates="session", cascade="all, delete-orphan",
         order_by="MessageLog.seq",
@@ -202,7 +209,10 @@ class NegotiationSession(Base):
     deal = relationship("Deal", back_populates="sessions")
 
     def to_api_dict(self) -> dict:
-        """Reproduce the legacy session dict exactly."""
+        """
+        Reproduce the legacy session dict exactly (keys the frontend reads), plus
+        an additive `signoff` block for HITL governance. Legacy consumers ignore it.
+        """
         return {
             "deal_id": self.deal_key,
             "vendor_id": self.vendor_key,
@@ -212,6 +222,13 @@ class NegotiationSession(Base):
             "concession_ladder": self.concession_ladder or [],
             "audit_traces": [a.to_api_dict() for a in self.audit_entries],
             "messages": [m.to_api_dict() for m in self.messages],
+            "signoff": {
+                "status": self.signoff_status or "pending",
+                "approved_by": self.approved_by,
+                "approved_at": self.approved_at,
+                "po_number": self.po_number,
+                "note": self.signoff_note,
+            },
         }
 
 
@@ -267,6 +284,8 @@ class AuditTrail(Base):
 
     # Production auditability metadata (Pillar 4).
     model_id = Column(String(128), nullable=True)
+    tier = Column(String(32), nullable=True)          # "light" | "heavy"
+    status = Column(String(32), nullable=True)        # "live_aws" | "fallback"
     latency_ms = Column(Float, nullable=True)
     input_tokens = Column(Integer, nullable=True)
     output_tokens = Column(Integer, nullable=True)
@@ -276,9 +295,20 @@ class AuditTrail(Base):
     session = relationship("NegotiationSession", back_populates="audit_entries")
 
     def to_api_dict(self) -> dict:
-        """Legacy audit_traces entry shape."""
+        """
+        Legacy audit_traces entry shape, plus additive telemetry so governance
+        dashboards can read model/cost metadata. Legacy consumers read only
+        timestamp/time/trace and ignore the rest.
+        """
         return {
             "timestamp": self.timestamp,
             "time": self.time,
             "trace": self.trace or [],
+            "model_id": self.model_id,
+            "tier": self.tier,
+            "status": self.status,
+            "latency_ms": self.latency_ms,
+            "input_tokens": self.input_tokens,
+            "output_tokens": self.output_tokens,
+            "tco_score": self.tco_score,
         }

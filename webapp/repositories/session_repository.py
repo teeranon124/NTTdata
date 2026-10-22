@@ -60,4 +60,83 @@ class SessionRepository:
         self.save_session(deal_id, vendor_id, session)
         return msg
 
+    # -- HITL governance / auditability (Phase D) --------------------------
+    def list_sessions(self) -> list:
+        """Index of all persisted session files for the governance view."""
+        out = []
+        if not os.path.isdir(SESSIONS_DIR):
+            return out
+        for fname in os.listdir(SESSIONS_DIR):
+            if not fname.endswith('.json'):
+                continue
+            try:
+                with open(os.path.join(SESSIONS_DIR, fname), 'r', encoding='utf-8') as f:
+                    s = json.load(f)
+            except Exception:
+                continue
+            signoff = s.get('signoff') or {}
+            out.append({
+                'deal_id': s.get('deal_id'),
+                'vendor_id': s.get('vendor_id'),
+                'status': s.get('status'),
+                'updated_at': s.get('updated_at'),
+                'messages': len(s.get('messages', [])),
+                'audit_entries': len(s.get('audit_traces', [])),
+                'signoff_status': signoff.get('status', 'pending'),
+                'po_number': signoff.get('po_number'),
+            })
+        out.sort(key=lambda x: x.get('updated_at') or 0, reverse=True)
+        return out
+
+    def get_audit_trail(self, deal_id: str, vendor_id: str) -> dict:
+        """Full audit trail + cost/latency rollup for a session (JSON backend)."""
+        session = self.load_session(deal_id, vendor_id)
+        clean_deal = deal_id.lower().replace('/', '_')
+        clean_vendor = vendor_id.lower().replace('/', '_').replace(' ', '_')
+        traces = session.get('audit_traces', [])
+        found = bool(traces or session.get('messages'))
+        total_in = sum((t.get('input_tokens') or 0) for t in traces)
+        total_out = sum((t.get('output_tokens') or 0) for t in traces)
+        latencies = [t.get('latency_ms') for t in traces if t.get('latency_ms') is not None]
+        tco_scores = [t.get('tco_score') for t in traces if t.get('tco_score') is not None]
+        models = sorted({t.get('model_id') for t in traces if t.get('model_id')})
+        rollup = {
+            'turns': len(traces),
+            'total_input_tokens': total_in,
+            'total_output_tokens': total_out,
+            'total_tokens': total_in + total_out,
+            'avg_latency_ms': round(sum(latencies) / len(latencies), 1) if latencies else None,
+            'latest_tco_score': tco_scores[-1] if tco_scores else None,
+            'models_used': models,
+        }
+        return {
+            'deal_id': clean_deal,
+            'vendor_id': clean_vendor,
+            'found': found,
+            'signoff': session.get('signoff', {'status': 'pending'}),
+            'audit_traces': traces,
+            'rollup': rollup,
+        }
+
+    def sign_off(self, deal_id: str, vendor_id: str, approved_by: str,
+                 decision: str = 'approved', po_number: Optional[str] = None,
+                 note: Optional[str] = None) -> dict:
+        """Record an executive HITL sign-off decision (JSON backend)."""
+        decision = (decision or 'approved').lower()
+        if decision not in ('approved', 'rejected'):
+            decision = 'approved'
+        session = self.load_session(deal_id, vendor_id)
+        signoff = {
+            'status': decision,
+            'approved_by': approved_by,
+            'approved_at': time.time(),
+            'po_number': po_number,
+            'note': note,
+        }
+        session['signoff'] = signoff
+        self.save_session(deal_id, vendor_id, session)
+        clean_deal = deal_id.lower().replace('/', '_')
+        clean_vendor = vendor_id.lower().replace('/', '_').replace(' ', '_')
+        return {'deal_id': clean_deal, 'vendor_id': clean_vendor, **signoff}
+
 session_repository = SessionRepository()

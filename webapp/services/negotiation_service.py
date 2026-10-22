@@ -92,13 +92,24 @@ class BedrockNegotiationService:
         # Record agent reply into session
         agent_reply = agent_result.get("reply", "")
         agent_tactic = agent_result.get("tactic", "[Autonomous Negotiation Engine]")
-        
+
+        # Pull production auditability metadata produced by the orchestrator.
+        model_meta = agent_result.get("model_meta", {}) or {}
+        arbitration = agent_result.get("arbitration", {}) or {}
+        tco_score = arbitration.get("tco_score")
+
         agent_msg_entry = {
             "sender": "agent",
             "name": "AutoProcure AI (Procurement Agent)",
             "time": time.strftime("%H:%M"),
             "text": agent_reply,
-            "tactic": agent_tactic
+            "tactic": agent_tactic,
+            # --- additive auditability metadata (ignored by the frontend) ---
+            "model_id": model_meta.get("model_id"),
+            "latency_ms": model_meta.get("latency_ms"),
+            "input_tokens": model_meta.get("input_tokens"),
+            "output_tokens": model_meta.get("output_tokens"),
+            "tco_score": tco_score,
         }
         session["messages"].append(agent_msg_entry)
         
@@ -129,17 +140,26 @@ class BedrockNegotiationService:
             }
             session["concession_ladder"].append(ladder_entry)
             
-        # Store audit trace in session
+        # Store audit trace in session, stamped with model/cost telemetry so the
+        # DB AuditTrail rows carry model_id, tier, latency, tokens and tco_score.
         if "audit_trace" in agent_result:
             session["audit_traces"].append({
                 "timestamp": time.time(),
                 "time": now_time,
-                "trace": agent_result["audit_trace"]
+                "trace": agent_result["audit_trace"],
+                # --- additive auditability metadata (Pillar 4) ---
+                "model_id": model_meta.get("model_id"),
+                "tier": model_meta.get("tier"),
+                "latency_ms": model_meta.get("latency_ms"),
+                "input_tokens": model_meta.get("input_tokens"),
+                "output_tokens": model_meta.get("output_tokens"),
+                "tco_score": tco_score,
+                "status": model_meta.get("status"),
             })
-            
+
         # Save updated session
         session_repository.save_session(deal_key, vendor_id, session)
-        
+
         return {
             "status": "success",
             "reply": agent_reply,
@@ -149,7 +169,10 @@ class BedrockNegotiationService:
             "concession": concession,
             "audit_trace": agent_result.get("audit_trace", []),
             "messages": session["messages"],
-            "ladder": session["concession_ladder"]
+            "ladder": session["concession_ladder"],
+            # --- additive: surfaced for governance/cost dashboards ---
+            "arbitration": arbitration,
+            "model_meta": model_meta,
         }
 
 negotiation_service = BedrockNegotiationService()

@@ -72,6 +72,15 @@ class SessionRepositoryDB:
                 row.updated_at = session_data["updated_at"]
                 row.concession_ladder = session_data.get("concession_ladder", [])
 
+                # Preserve any existing sign-off state carried in the dict.
+                signoff = session_data.get("signoff") or {}
+                if signoff:
+                    row.signoff_status = signoff.get("status", row.signoff_status or "pending")
+                    row.approved_by = signoff.get("approved_by", row.approved_by)
+                    row.approved_at = signoff.get("approved_at", row.approved_at)
+                    row.po_number = signoff.get("po_number", row.po_number)
+                    row.signoff_note = signoff.get("note", row.signoff_note)
+
                 # Replace messages + audit traces wholesale to mirror the
                 # file-based "write the whole document" semantics.
                 row.messages.clear()
@@ -98,6 +107,8 @@ class SessionRepositoryDB:
                         time=a.get("time"),
                         trace=a.get("trace", []),
                         model_id=a.get("model_id"),
+                        tier=a.get("tier"),
+                        status=a.get("status"),
                         latency_ms=a.get("latency_ms"),
                         input_tokens=a.get("input_tokens"),
                         output_tokens=a.get("output_tokens"),
@@ -121,6 +132,84 @@ class SessionRepositoryDB:
         session["messages"].append(msg)
         self.save_session(deal_id, vendor_id, session)
         return msg
+
+    # -- HITL governance / auditability (Phase D) --------------------------
+    def list_sessions(self) -> list:
+        """Lightweight index of all persisted sessions for the governance view."""
+        with session_scope() as s:
+            rows = s.query(NegotiationSession).order_by(NegotiationSession.updated_at.desc()).all()
+            out = []
+            for r in rows:
+                msg_count = len(r.messages)
+                audit_count = len(r.audit_entries)
+                out.append({
+                    "deal_id": r.deal_key,
+                    "vendor_id": r.vendor_key,
+                    "status": r.status,
+                    "updated_at": r.updated_at,
+                    "messages": msg_count,
+                    "audit_entries": audit_count,
+                    "signoff_status": r.signoff_status or "pending",
+                    "po_number": r.po_number,
+                })
+            return out
+
+    def get_audit_trail(self, deal_id: str, vendor_id: str) -> dict:
+        """
+        Return the full audit trail for a session plus a cost/latency rollup
+        across all model invocations (for the Cloud Cost comparison table).
+        """
+        deal_key, vendor_key = _normalize(deal_id, vendor_id)
+        with session_scope() as s:
+            row = self._get_row(s, deal_key, vendor_key)
+            if not row:
+                return {
+                    "deal_id": deal_key, "vendor_id": vendor_key,
+                    "found": False, "audit_traces": [], "rollup": {},
+                }
+            traces = [a.to_api_dict() for a in row.audit_entries]
+            total_in = sum((a.input_tokens or 0) for a in row.audit_entries)
+            total_out = sum((a.output_tokens or 0) for a in row.audit_entries)
+            latencies = [a.latency_ms for a in row.audit_entries if a.latency_ms is not None]
+            tco_scores = [a.tco_score for a in row.audit_entries if a.tco_score is not None]
+            models = sorted({a.model_id for a in row.audit_entries if a.model_id})
+            rollup = {
+                "turns": len(traces),
+                "total_input_tokens": total_in,
+                "total_output_tokens": total_out,
+                "total_tokens": total_in + total_out,
+                "avg_latency_ms": round(sum(latencies) / len(latencies), 1) if latencies else None,
+                "latest_tco_score": tco_scores[-1] if tco_scores else None,
+                "models_used": models,
+            }
+            return {
+                "deal_id": deal_key, "vendor_id": vendor_key, "found": True,
+                "signoff": row.to_api_dict()["signoff"],
+                "audit_traces": traces, "rollup": rollup,
+            }
+
+    def sign_off(self, deal_id: str, vendor_id: str, approved_by: str,
+                 decision: str = "approved", po_number: Optional[str] = None,
+                 note: Optional[str] = None) -> dict:
+        """Record an executive HITL sign-off decision on a negotiation session."""
+        deal_key, vendor_key = _normalize(deal_id, vendor_id)
+        decision = (decision or "approved").lower()
+        if decision not in ("approved", "rejected"):
+            decision = "approved"
+        with session_scope() as s:
+            row = self._get_row(s, deal_key, vendor_key)
+            if not row:
+                row = NegotiationSession(deal_key=deal_key, vendor_key=vendor_key, deal_id=deal_key)
+                s.add(row)
+                s.flush()
+            row.signoff_status = decision
+            row.approved_by = approved_by
+            row.approved_at = time.time()
+            row.po_number = po_number
+            row.signoff_note = note
+            row.updated_at = time.time()
+            result = row.to_api_dict()["signoff"]
+        return {"deal_id": deal_key, "vendor_id": vendor_key, **result}
 
 
 session_repository_db = SessionRepositoryDB()

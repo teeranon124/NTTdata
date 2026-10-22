@@ -299,6 +299,42 @@ def reset_chat_session(deal_id, vendor_id):
             session_repository.save_session(deal_id, vendor_id, session)
     return jsonify({"status": "reset", "session": session})
 
+@chat_bp.route("/api/audit/sessions")
+def list_audit_sessions():
+    """HITL governance: index of all negotiation sessions with sign-off status."""
+    sessions = session_repository.list_sessions() if hasattr(session_repository, "list_sessions") else []
+    return jsonify({"sessions": sessions, "count": len(sessions)})
+
+
+@chat_bp.route("/api/audit/<deal_id>/<vendor_id>")
+def get_audit_trail(deal_id, vendor_id):
+    """HITL governance: full audit trail + model/cost rollup for a session."""
+    if not hasattr(session_repository, "get_audit_trail"):
+        return jsonify({"error": "Audit trail not available on this backend"}), 501
+    return jsonify(session_repository.get_audit_trail(deal_id, vendor_id))
+
+
+@chat_bp.route("/api/signoff/<deal_id>/<vendor_id>", methods=["POST"])
+def executive_signoff(deal_id, vendor_id):
+    """HITL governance: record an executive sign-off (approve/reject) + PO number."""
+    if not hasattr(session_repository, "sign_off"):
+        return jsonify({"error": "Sign-off not available on this backend"}), 501
+    data = request.json or {}
+    approved_by = (data.get("approved_by") or "CPO").strip()
+    decision = (data.get("decision") or "approved").strip().lower()
+    po_number = data.get("po_number")
+    note = data.get("note")
+
+    result = session_repository.sign_off(
+        deal_id=deal_id, vendor_id=vendor_id,
+        approved_by=approved_by, decision=decision, po_number=po_number, note=note,
+    )
+    verb = "อนุมัติ" if result.get("status") == "approved" else "ปฏิเสธ"
+    po_txt = f" | PO: {po_number}" if po_number else ""
+    add_live_event(f"ผู้บริหาร ({approved_by}) {verb}การลงนามดีล {deal_id.upper()}{po_txt} [Human-in-the-Loop]")
+    return jsonify({"status": "ok", "signoff": result})
+
+
 @chat_bp.route("/api/negotiate", methods=["POST"])
 def negotiate():
     data = request.json or {}
