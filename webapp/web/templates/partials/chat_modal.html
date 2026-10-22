@@ -1,0 +1,144 @@
+    <dialog id="chat_modal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box p-0 max-w-5xl lg:max-w-6xl w-full bg-white border border-slate-200 h-[640px] flex flex-col rounded-2xl overflow-hidden shadow-2xl">
+            <!-- MODAL HEADER -->
+            <div class="p-3 md:p-4 border-b border-slate-200 flex justify-between items-center bg-slate-900 text-white shrink-0">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-9 h-9 rounded-xl bg-blue-600/30 border border-blue-400/40 text-blue-400 flex items-center justify-center font-bold shadow-inner shrink-0">
+                        <i data-lucide="bot" class="w-5 h-5 text-blue-400"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h3 class="font-bold text-sm text-white tracking-wide truncate" id="chat-modal-title">ห้องควบคุมการเจรจาต่อรองคู่ค้า (Autonomous Negotiation Cockpit)</h3>
+                            <span class="badge badge-success badge-xs text-white font-mono flex items-center gap-1 shrink-0">
+                                <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span> Live Session
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-300 font-normal block truncate" id="chat-modal-subtitle">ระบบ AI เจรจาต่อรองคู่ขนานรายซัพพลายเออร์ (Approved Vendor List - AVL)</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button type="button" id="chat-header-signoff-btn" onclick="app.openSignOff(app.currentChatDealKey)" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg gap-1 border border-emerald-400/40 shadow-sm" title="ได้ข้อสรุปแล้ว ➔ ลงนามสัญญาดิจิทัลใน SAP">
+                        <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">ได้ข้อสรุปแล้ว ➔ ลงนาม PO</span>
+                    </button>
+                    <button type="button" onclick="app.openEmailModal(app.currentDealId)" class="btn btn-xs bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg gap-1 border border-indigo-400/40 shadow-sm" title="จำลองการส่งอีเมลผ่าน AWS SES และเข้าสู่หน้าจอ Supplier Portal">
+                        <i data-lucide="mail-check" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">หน้าจอคู่ค้า (Supplier Portal)</span>
+                    </button>
+                    <button onclick="app.resetCurrentChat()" id="btn-reset-chat" class="btn btn-xs btn-ghost text-slate-300 hover:text-white rounded-lg gap-1 border border-slate-700" title="ล้างประวัติแชตเพื่อเริ่มคุยใหม่">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">รีเซ็ตห้อง</span>
+                    </button>
+                    <button onclick="app.simulateNextRound()" id="btn-simulate-round" class="btn btn-xs btn-primary text-white rounded-lg gap-1 border border-blue-400/40 hover:bg-blue-600 shadow-sm" title="จำลองให้ AI ส่งข้อเสนอต่อรองรอบถัดไป">
+                        <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">จำลองต่อรอง (Next Round)</span>
+                    </button>
+                    <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost text-slate-300 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button></form>
+                </div>
+            </div>
+
+            <!-- VENDOR SWITCHER TABS & DEAL METRICS STRIP -->
+            <div class="px-4 py-2 bg-slate-100/90 border-b border-slate-200 flex items-center justify-between gap-2 shrink-0 overflow-x-auto">
+                <div class="flex items-center gap-1.5 shrink-0" id="chat-vendor-tabs">
+                    <!-- Dynamically populated vendor buttons -->
+                </div>
+                <div class="hidden md:flex items-center gap-3 text-[11px] text-slate-500 shrink-0 font-mono">
+                    <span>งบประมาณเดิม (Baseline): <strong class="text-slate-800 font-bold" id="chat-stat-budget">-</strong></span>
+                    <span class="text-slate-300">|</span>
+                    <span>ราคาเป้าหมาย (TCO Target): <strong class="text-blue-700 font-bold" id="chat-stat-target">-</strong></span>
+                </div>
+            </div>
+
+            <!-- 2-COLUMN MAIN CONTENT -->
+            <div class="flex-grow grid grid-cols-1 lg:grid-cols-12 overflow-hidden min-h-0">
+                
+                <!-- LEFT COLUMN: LIVE CHAT STREAM & ACTION DOCK (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200 min-h-0 bg-white">
+                    <!-- CHAT MESSAGES STREAM -->
+                    <div class="flex-grow p-4 overflow-y-auto space-y-3 text-xs" id="chat-messages-container">
+                        <!-- Dynamically populated chat bubbles -->
+                    </div>
+
+                    <!-- INTERACTIVE LIVE CHAT INPUT DOCK (SUPPLIER PERSPECTIVE) -->
+                    <div class="p-3 border-t border-slate-200 bg-slate-50/80 shrink-0">
+                        <form onsubmit="event.preventDefault(); app.sendLiveUserMessage();" class="flex items-center gap-2">
+                            <div class="relative flex-1">
+                                <input type="text" id="live-chat-input" placeholder="พิมพ์ข้อเสนอต่อรองในฐานะซัพพลายเออร์ (เช่น ขอยืนราคาเดิมแต่เพิ่มของแถม, หรือลดได้ 5%)..." class="input input-sm input-bordered w-full pr-8 text-xs bg-white rounded-xl focus:outline-blue-600" />
+                            </div>
+                            <button type="submit" id="btn-live-send" class="btn btn-sm btn-primary rounded-xl px-3 font-medium text-white shadow-sm flex items-center gap-1">
+                                <span>ส่งข้อความ</span>
+                                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </form>
+                        <div class="flex items-center justify-between mt-1.5 px-1 text-[10px] text-slate-400">
+                            <span><i data-lucide="sparkles" class="w-3 h-3 text-blue-600 inline"></i> เชื่อมต่อ AI Agent ผ่าน Amazon Bedrock API (หรือ Simulation Fallback)</span>
+                            <span class="font-mono text-emerald-600 font-medium">Live Two-Way Ready ✓</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: LIVE CONCESSION LADDER & VENDOR MATRIX (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col bg-slate-50/70 p-3.5 overflow-y-auto space-y-3 text-xs min-h-0">
+                    
+                    <!-- 1. CONCESSION TRAJECTORY / LADDER -->
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                        <div class="flex justify-between items-center pb-1.5 border-b border-slate-100">
+                            <span class="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
+                                <i data-lucide="trending-down" class="w-3.5 h-3.5 text-blue-700"></i> Concession Steps (ไทม์ไลน์ต่อรองราคา)
+                            </span>
+                            <span class="badge badge-xs badge-ghost font-mono" id="concession-round-badge">Round 2</span>
+                        </div>
+                        <div class="space-y-1.5" id="concession-ladder-container">
+                            <!-- Dynamically generated steps -->
+                        </div>
+                    </div>
+
+                    <!-- 2. MULTI-VENDOR COMPARISON MATRIX -->
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1.5">
+                        <div class="flex justify-between items-center pb-1.5 border-b border-slate-100">
+                            <span class="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
+                                <i data-lucide="users" class="w-3.5 h-3.5 text-emerald-600"></i> Supplier Comparison (เปรียบเทียบซัพพลายเออร์)
+                            </span>
+                            <span class="text-[10px] text-slate-400 font-mono" id="matrix-vendor-count">3 AVL</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="table table-xs w-full text-[11px]" id="modal-vendor-matrix-table">
+                                <thead>
+                                    <tr class="text-slate-400 font-semibold border-b border-slate-100">
+                                        <th class="py-1 px-1">ซัพพลายเออร์</th>
+                                        <th class="py-1 px-1 text-right">ราคา/ตัว</th>
+                                        <th class="py-1 px-1 text-center">เครดิต</th>
+                                        <th class="py-1 px-1 text-center">ส่งมอบ</th>
+                                        <th class="py-1 px-1 text-right">สถานะ</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-50" id="modal-matrix-tbody">
+                                    <!-- Dynamically filled -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 3. COMMERCIAL TERMS & RISK SCORECARD -->
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1.5">
+                        <span class="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-purple-600"></i> Commercial Terms & SLA Scorecard
+                        </span>
+                        <div class="grid grid-cols-2 gap-1.5 text-[11px]" id="modal-terms-scorecard">
+                            <!-- Dynamically filled -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CHAT FOOTER STATUS BAR -->
+            <div class="p-3 border-t border-slate-200 bg-white flex flex-col sm:flex-row justify-between items-center gap-2 text-xs shrink-0" id="chat-footer-bar">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>close</button></form>
+    </dialog>
+

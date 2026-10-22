@@ -83,12 +83,19 @@ CURRENT NEGOTIATION CONTEXT:
 - Annual Demand: {annual_qty:,} units (Consolidated across {len(plants)} plants)
 - Budget Ceiling Price: ฿{budget_price:,.2f} / unit
 - Target Price: ฿{target_price:,.2f} / unit
-- Market Benchmark Band: ฿{market.get('market_low', target_price):,.2f} - ฿{market.get('market_high', budget_price):,.2f}
+- Market Benchmark Band: ฿{market.get('market_low', target_price):,.2f} - ฿{market.get('market_high', budget_price):,.2f} (median ฿{market.get('market_mid', target_price):,.2f}, source: {market.get('source', 'n/a')})
+- Market Reservation Price (buyer walk-away): ฿{market.get('reservation_price', target_price):,.2f}
+- BATNA Leverage: {market.get('batna_leverage_score', 'n/a')}/100 — {market.get('leverage_stance', 'n/a')}
+- Volume-Tier Discount available at this annual demand: {market.get('volume_discount_pct', 0)}%
 - Supplier Name: {vendor_name}
 - Supplier Proposed Price: ฿{offered_price:,.2f} / unit
 - Supplier Proposed Credit: {offered_credit} days
-- TCO Gap: ฿{tco_res['price_gap_per_unit']:+,.2f} / unit
+- TCO Gap vs target: ฿{tco_res['price_gap_per_unit']:+,.2f} / unit
 - Game Theory Recommended Strategy: {concession['strategy']} ({concession['rationale']})
+
+INSTRUCTION: Use the Market Benchmark Band and BATNA Leverage as evidence-based
+justification when countering. If the supplier's price sits above the market
+median, cite the market range (not the secret target) to anchor the negotiation.
 """
         system_text = policy_prompt + "\n" + deal_context
 
@@ -118,7 +125,7 @@ CURRENT NEGOTIATION CONTEXT:
                 "tool_call": f"model_gateway.invoke(negotiate) -> tokens={model_meta['input_tokens']}+{model_meta['output_tokens']} SUCCESS",
             })
         else:
-            reply_text = self._fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty)
+            reply_text = self._fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market)
             audit.append({
                 "step": 5,
                 "agent": "Autonomous Negotiation Engine (Ready for Claude 3.5 Sonnet)",
@@ -136,7 +143,18 @@ CURRENT NEGOTIATION CONTEXT:
         }
 
     @staticmethod
-    def _fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty) -> str:
+    def _fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market=None) -> str:
+        market = market or {}
+        m_low = market.get("market_low")
+        m_high = market.get("market_high")
+        m_mid = market.get("market_mid")
+        # Evidence sentence citing the market band (BATNA anchor) — never the secret target.
+        market_evidence = ""
+        if m_low and m_high:
+            market_evidence = (
+                f" ทั้งนี้ จากการอ้างอิงดัชนีราคากลางตลาดอุตสาหกรรม ({market.get('source', 'Market Index')}) "
+                f"ราคากลางของสินค้าประเภทนี้อยู่ในช่วง ฿{m_low:,.2f}–฿{m_high:,.2f} ต่อหน่วย (ค่ากลาง ฿{m_mid:,.2f})"
+            )
         if concession["strategy"] == "AGREE_AND_AWARD":
             return (
                 f"เรียน {vendor_name}\n\n"
@@ -155,7 +173,8 @@ CURRENT NEGOTIATION CONTEXT:
             )
         return (
             f"เรียน {vendor_name}\n\n"
-            f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย อย่างไรก็ดี ราคาดังกล่าวยังสูงกว่ากรอบราคาตลาดเป้าหมายขององค์กร\n\n"
+            f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย อย่างไรก็ดี ราคาดังกล่าวยังสูงกว่ากรอบราคาตลาดอ้างอิงขององค์กร"
+            f"{market_evidence}\n\n"
             f"เพื่อประโยชน์สูงสุดร่วมกัน ฝ่ายจัดซื้อขอเรียนเสนอการจัดทำสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม โดยการันตียอดสั่งซื้อรวม "
             f"{annual_qty:,} หน่วย แลกกับการปรับราคามาที่ ฿{target_price:,.2f} ต่อหน่วย และเงื่อนไขการชำระเงิน 45 วัน "
             f"หากท่านยืนยันเงื่อนไขนี้ ทางเราพร้อมล็อกสถานะคู่สัญญาหลักให้ท่านได้ทันทีครับ {concession['tactic_label']}"

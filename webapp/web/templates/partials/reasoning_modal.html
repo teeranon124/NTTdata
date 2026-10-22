@@ -1,0 +1,27 @@
+    <dialog id="reasoning_modal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box p-0 max-w-3xl bg-white border border-slate-200 h-[560px] flex flex-col">
+            <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center font-bold">
+                        <i data-lucide="brain-circuit" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-900" id="reasoning-modal-title">กระบวนการตัดสินใจของ AI (AI Reasoning Trace)</h3>
+                        <span class="text-xs text-slate-400 font-mono" id="reasoning-modal-subtitle">Audit Trail: บันทึก Chain-of-Thought & Tool Calls ตามลำดับเวลา</span>
+                    </div>
+                </div>
+                <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost"><i data-lucide="x" class="w-4 h-4"></i></button></form>
+            </div>
+
+            <div class="flex-grow p-6 overflow-y-auto space-y-4 text-xs" id="reasoning-modal-container">
+                <!-- Dynamically populated -->
+            </div>
+
+            <div class="p-3 border-t border-slate-200 bg-slate-50 flex justify-between items-center text-xs shrink-0">
+                <span class="text-slate-400 font-mono">Stateful Graph Execution | NTT Tsuzumi SLM</span>
+                <form method="dialog"><button class="btn btn-xs btn-primary rounded-full px-4 text-white">ปิดหน้าต่าง</button></form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>close</button></form>
+    </dialog>
+

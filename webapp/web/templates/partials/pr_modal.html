@@ -1,0 +1,72 @@
+    <dialog id="pr_modal" class="modal">
+        <div class="modal-box max-w-5xl bg-white border border-slate-200 shadow-2xl p-6 rounded-2xl flex flex-col max-h-[90vh]">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between pb-4 border-b border-slate-100 shrink-0">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="badge badge-primary font-bold text-white text-xs">PR Audit Trail</span>
+                        <h3 class="font-bold text-lg text-slate-900" id="pr-modal-title">ตรวจสอบใบขอซื้อย่อยที่ถูกรวบยอด (Consolidated PRs)</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1" id="pr-modal-subtitle">รายการใบขอซื้อ (Purchase Requisitions) ระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount</p>
+                </div>
+                <button onclick="document.getElementById('pr_modal').close()" class="btn btn-sm btn-circle btn-ghost text-slate-400 hover:text-slate-700">✕</button>
+            </div>
+
+            <!-- Metric summary strip -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 px-4 bg-slate-50 border border-slate-200 rounded-xl my-3 shrink-0">
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">จำนวนใบขอซื้อ (PRs)</div>
+                    <div class="text-base font-bold text-blue-700 font-mono" id="pr-stat-count">- ใบ</div>
+                </div>
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">จำนวนชิ้นรวม (Units)</div>
+                    <div class="text-base font-bold text-slate-800 font-mono" id="pr-stat-qty">0 ชิ้น</div>
+                </div>
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">งบประมาณเดิม (Spot Buy)</div>
+                    <div class="text-base font-bold text-slate-500 line-through font-mono" id="pr-stat-pre">฿0</div>
+                </div>
+                <div>
+                    <div class="text-[10px] text-emerald-600 font-bold uppercase">กู้คืนเงินรั่วไหล (Savings)</div>
+                    <div class="text-base font-bold text-emerald-700 font-mono" id="pr-stat-savings">฿0</div>
+                </div>
+            </div>
+
+            <!-- Filter input -->
+            <div class="flex items-center justify-between gap-3 mb-2 shrink-0">
+                <div class="relative flex-1 max-w-sm">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                    <input type="text" id="pr-search-input" oninput="app.filterPrTable(this.value)" placeholder="ค้นหาเลขที่ PR, โรงงาน, หรือวันที่..." class="input input-xs input-bordered w-full pl-9 rounded-lg" />
+                </div>
+                <div class="text-[11px] text-slate-500">
+                    แสดงผล <span id="pr-showing-count" class="font-bold text-blue-700">250</span> รายการ
+                </div>
+            </div>
+
+            <!-- Scrollable Table -->
+            <div class="overflow-y-auto flex-1 border border-slate-200 rounded-xl">
+                <table class="table table-xs w-full text-xs">
+                    <thead class="bg-slate-100 text-slate-700 sticky top-0 font-bold text-[10px] uppercase">
+                        <tr>
+                            <th class="py-2 px-3">เลขที่ PR</th>
+                            <th class="py-2 px-2">วันที่เบิก</th>
+                            <th class="py-2 px-2">โรงงาน / นิคม</th>
+                            <th class="py-2 px-2 text-right">จำนวน</th>
+                            <th class="py-2 px-2 text-right">ราคาป้าย (เดิม)</th>
+                            <th class="py-2 px-2 text-right text-blue-700">ราคาหลังต่อรอง</th>
+                            <th class="py-2 px-2 text-right text-emerald-700">ประหยัดได้</th>
+                            <th class="py-2 px-3">ซัพพลายเออร์ที่เลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pr-table-body" class="divide-y divide-slate-100 font-mono">
+                        <!-- Populated dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop bg-slate-900/40 backdrop-blur-xs">
+            <button>close</button>
+        </form>
+    </dialog>
+
+

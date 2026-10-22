@@ -1,0 +1,61 @@
+    <dialog id="signoff_modal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box p-0 max-w-2xl bg-white border border-slate-200">
+            <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold">
+                        <i data-lucide="file-signature" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-900">ตรวจสอบร่างสัญญาและลงนามอนุมัติ (Executive Sign-Off)</h3>
+                        <span class="text-xs text-slate-400 font-mono">อ้างอิงการแจ้งเตือนอะไหล่ใกล้หมดจาก SAP ERP</span>
+                    </div>
+                </div>
+                <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost"><i data-lucide="x" class="w-4 h-4"></i></button></form>
+            </div>
+
+            <div class="p-5 space-y-4 text-xs">
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                    <div class="font-bold text-sm flex justify-between items-center text-slate-800">
+                        <span id="modal-item-title">ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 1,200 ชิ้น</span>
+                        <span class="badge badge-success text-white badge-sm">Guardrail 100% Pass</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-slate-600">
+                        <div>• คู่สัญญา: <strong>บจก. สยาม พรีซิชั่น เทค (V-4019)</strong></div>
+                        <div>• ประเภทสัญญา: <strong>สัญญาซื้อขาย 1 ปี (LTA)</strong></div>
+                        <div>• ราคาเดิมซื้อเฉพาะหน้า: <span class="line-through text-slate-400">฿450 / ชิ้น (฿540,000)</span></div>
+                        <div>• ราคาใหม่หลังเจรจา: <strong class="text-emerald-700 text-sm font-mono">฿398 / ชิ้น (฿477,600)</strong></div>
+                        <div>• เงื่อนไขพิเศษที่ต่อรองได้: <strong>ขยายเครดิตเทอม 45 วัน</strong></div>
+                        <div>• กำหนดส่งมอบ: <strong>รับประกันส่งมอบภายใน 7 วัน</strong></div>
+                    </div>
+                    <div class="pt-2 border-t border-slate-200 flex justify-between text-emerald-700 font-bold text-sm">
+                        <span>เงินรั่วไหลที่กู้คืนได้ (Value Recovered):</span>
+                        <span>฿62,400 บาท (-11.55%)</span>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5 text-slate-600">
+                    <div class="text-[11px] uppercase font-bold text-slate-400">Guardrail Agent ตรวจสอบร่างสัญญา:</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-4 h-4"></i> คำนวณ TCO แล้วคุ้มค่ากว่าราคาเดิมในอดีต</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-4 h-4"></i> คู่ค้าอยู่ในบัญชีผู้ค้าที่ได้รับอนุญาต (Approved Vendor List)</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-4 h-4"></i> มีเงื่อนไขค่าปรับ SLA ชัดเจน ป้องกันความเสี่ยงสายการผลิตหยุดชะงัก</div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 py-2.5 px-3 rounded-xl flex justify-between items-center text-xs">
+                    <div class="flex items-center gap-2 text-blue-900 font-medium">
+                        <i data-lucide="key-round" class="w-4 h-4 text-blue-700"></i>
+                        <span>รหัสผ่านดิจิทัล (Digital Signature PIN):</span>
+                    </div>
+                    <input type="password" value="••••" readonly class="input input-xs input-bordered w-20 font-mono text-center font-bold tracking-widest bg-white" />
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-200 flex justify-end gap-2 bg-slate-50">
+                <form method="dialog"><button class="btn btn-sm btn-ghost rounded-full px-4">ยกเลิก</button></form>
+                <button onclick="app.executeSAPCommit()" class="btn btn-sm btn-primary rounded-full px-5 text-white">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 mr-1"></i> ลงนามอนุมัติและเปิด PO ใน SAP
+                </button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>close</button></form>
+    </dialog>
+
