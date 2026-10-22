@@ -15,7 +15,12 @@ INJECTION_PATTERNS = [
     r"ยกเลิกกฎทั้งหมด",
     r"เป็นอิสระ",
     r"hack",
-    r"override (rules|budget)"
+    r"override (rules|budget)",
+    # Social engineering / Authority spoofing defense (Mentor feedback)
+    r"(ผู้บริหาร|หัวหน้า|เจ้านาย|บอส|ผอ\.|ceo|cpo|ฝ่ายบริหาร).*(บอก|สั่ง|ตกลง|อนุมัติ|เคาะ)",
+    r"(ตกลงกับ|คุยกับ).*(ผู้บริหาร|หัวหน้า|เจ้านาย|บอส|ฝ่ายบริหาร|จัดซื้อไว้แล้ว)",
+    r"อนุมัติทันที",
+    r"ปิดดีลเดี๋ยวนี้",
 ]
 
 def check_prompt_injection(user_text: str) -> dict:
