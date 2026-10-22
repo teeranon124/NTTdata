@@ -39,6 +39,9 @@ class StrategicNegotiatorAgent:
         offered_price = parsed_entities.get("proposed_unit_price") or budget_price
         offered_credit = parsed_entities.get("proposed_credit_days") or std_credit
 
+        # Round number: each prior round added a vendor+agent message pair to history.
+        round_num = (len([m for m in (history or []) if m.get("sender") == "vendor"])) + 1
+
         # --- TCO math ---
         tco_res = calculate_tco(
             budget_price=budget_price,
@@ -76,7 +79,7 @@ class StrategicNegotiatorAgent:
 
         # --- LLM synthesis via Dynamic Model Gateway (HEAVY tier) ---
         policy_prompt = open(os.path.join(_PROMPTS_DIR, "negotiator_policy.md"), "r", encoding="utf-8").read()
-        directive = self._strategy_directive(concession, target_price, annual_qty)
+        directive = self._strategy_directive(concession, target_price, annual_qty, round_num, offered_price)
         deal_context = f"""
 CURRENT NEGOTIATION CONTEXT:
 - Part: {deal_data.get('name')} ({deal_data.get('part_code', deal_data.get('sku', 'NSK-STD'))})
@@ -145,31 +148,42 @@ anchor. End with the tactic tag in brackets.
         }
 
     @staticmethod
-    def _strategy_directive(concession, target_price, annual_qty) -> str:
+    def _strategy_directive(concession, target_price, annual_qty, round_num=1, offered_price=0.0) -> str:
         """
         Turn the game-theory decision into an explicit, unambiguous instruction so
         the LLM's message matches the computed strategy (prevents the model from
-        counter-offering on a deal it should close).
+        counter-offering on a deal it should close). Round-aware: later rounds push
+        toward convergence instead of repeating the same opening counter.
         """
         strategy = concession.get("strategy")
+        round_note = (
+            f"This is negotiation ROUND {round_num}. " +
+            ("This is an opening round — set the anchor clearly." if round_num <= 1
+             else "This is a follow-up round — acknowledge the supplier has already moved, "
+                  "avoid repeating the identical counter verbatim, and push toward convergence.")
+        )
+
         if strategy == "AGREE_AND_AWARD":
             return (
-                "ACCEPT and CLOSE the deal now. Thank the supplier, confirm their price "
-                "and credit terms are APPROVED, and state that a Draft PO will be issued "
+                round_note + " ACCEPT and CLOSE the deal now. Thank the supplier, confirm their "
+                "price and credit terms are APPROVED, and state that a Draft PO will be issued "
                 "in SAP for executive sign-off. Do NOT ask for any further concession "
                 "(no extra credit days, no DDP, no price cut) — the terms already meet target."
             )
         if strategy == "CREDIT_TERM_LEVER":
             return (
-                f"ACCEPT the price but request ONE concession only: extend credit terms to "
-                f"{concession.get('target_credit', 60)} days (optionally free DDP delivery). "
-                "Do not ask for a price reduction. Frame it as a win-win on working capital."
+                round_note + f" ACCEPT the price (฿{offered_price:,.2f}) but request ONE concession "
+                f"only: extend credit terms to {concession.get('target_credit', 60)} days "
+                "(optionally free DDP delivery). Do not ask for a price reduction. Frame it as a "
+                "win-win on working capital."
             )
         # VOLUME_LTA_CONCESSION (or default)
         return (
-            f"COUNTER the offer: propose a 1-year Blanket Order (LTA) guaranteeing "
+            round_note + f" COUNTER the offer: propose a 1-year Blanket Order (LTA) guaranteeing "
             f"{annual_qty:,} units in exchange for the target price of ฿{target_price:,.2f} "
-            "and 45-day credit. Justify using the market band, not the secret target."
+            "and 45-day credit. Justify using the market band, not the secret target. "
+            "If this is a later round and the supplier is already near target, acknowledge the "
+            "progress and move to close rather than restating the full opening position."
         )
 
     @staticmethod

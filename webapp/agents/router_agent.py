@@ -91,15 +91,43 @@ def parse_supplier_intent(user_message: str) -> dict:
                 parsed = json.loads(match.group(0))
                 parsed["source"] = f"Amazon Bedrock ({res.get('model_id')})"
                 parsed["latency_ms"] = res["latency_ms"]
+                # DEFENSE-IN-DEPTH: the LLM sometimes drops a field (e.g. misses a
+                # bare price/credit). Backfill any missing commercial fact from the
+                # deterministic regex parser so a single LLM miss never derails the
+                # whole pipeline (price=None -> wrong strategy). Regex only FILLS
+                # gaps; it never overrides a value the LLM extracted.
+                local = _regex_parse(user_message)
+                if parsed.get("proposed_unit_price") in (None, "", 0):
+                    parsed["proposed_unit_price"] = local["proposed_unit_price"]
+                if parsed.get("proposed_credit_days") in (None, "", 0):
+                    parsed["proposed_credit_days"] = local["proposed_credit_days"]
+                if not parsed.get("intent"):
+                    parsed["intent"] = local["intent"]
+                if parsed.get("proposed_unit_price") is not None or parsed.get("proposed_credit_days") is not None:
+                    parsed["source"] = f"Amazon Bedrock ({res.get('model_id')}) + regex backfill"
                 return parsed
         except Exception:
             pass
-            
-    # Deterministic local regex fallback (if no AWS keys)
+
+    # Deterministic local regex fallback (no AWS / LLM failure)
+    return _regex_parse(user_message)
+
+
+def _regex_parse(user_message: str) -> dict:
+    """Deterministic extraction of price / credit / intent from Thai+EN chat."""
     extracted_price = _extract_price(user_message)
-    credit_match = re.search(r"(\d{1,3})\s*(?:วัน|day|days)", user_message.lower())
-    extracted_credit = int(credit_match.group(1)) if credit_match else None
-    
+    _lc = user_message.lower()
+    # Prefer "<n> วัน/day"; else accept a number right after the credit keyword
+    # (e.g. "เครดิต 45 ตกลง" — no trailing 'วัน'). Day range bounded to 1-180.
+    credit_match = re.search(r"(\d{1,3})\s*(?:วัน|day|days)", _lc)
+    if not credit_match:
+        credit_match = re.search(r"(?:เครดิต|เครดิตเทอม|credit)\s*(?:เทอม\s*)?(\d{1,3})", _lc)
+    extracted_credit = None
+    if credit_match:
+        c = int(credit_match.group(1))
+        if 1 <= c <= 180:
+            extracted_credit = c
+
     intent = "counter_offer" if (extracted_price or extracted_credit) else "inquiry"
     if any(w in user_message for w in ["ตกลง", "อนุมัติ", "ยินดีรับ", "รับข้อเสนอ"]):
         intent = "accept_terms"

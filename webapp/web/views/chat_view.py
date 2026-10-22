@@ -269,6 +269,28 @@ def reset_chat_session(deal_id, vendor_id):
             session_repository.save_session(deal_id, vendor_id, session)
     return jsonify({"status": "reset", "session": session})
 
+@chat_bp.route("/api/sla")
+@chat_bp.route("/api/sla/<deal_id>")
+def get_sla_status(deal_id=None):
+    """
+    Negotiation SLA / Anti-Stall monitor: lists sessions and flags any that have
+    gone quiet beyond the response-SLA window (needs_followup=true). Answers
+    'how do you prevent stalling a counterpart / detect a stalled negotiation?'.
+    """
+    return jsonify(negotiation_service.get_sla_status(deal_id))
+
+
+@chat_bp.route("/api/deals/<deal_id>/award-board")
+def get_award_board(deal_id):
+    """
+    Multi-Vendor Award Board: ranks every vendor negotiated in this deal by latest
+    TCO score and declares the BAFO winner. Answers 'how does it decide between
+    multiple suppliers?'.
+    """
+    board = negotiation_service.get_award_board(deal_id)
+    return jsonify(board)
+
+
 @chat_bp.route("/api/audit/sessions")
 def list_audit_sessions():
     """HITL governance: index of all negotiation sessions with sign-off status."""

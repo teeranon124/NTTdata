@@ -1,4 +1,5 @@
 import logging
+import logging
 import time
 from typing import Dict, List, Optional
 from ..repositories import deal_repository, session_repository
@@ -173,6 +174,124 @@ class BedrockNegotiationService:
             # --- additive: surfaced for governance/cost dashboards ---
             "arbitration": arbitration,
             "model_meta": model_meta,
+        }
+
+    def get_sla_status(self, deal_key: str = None) -> dict:
+        """
+        Negotiation SLA / Anti-Stall monitor. Flags sessions that have gone quiet
+        beyond the response-SLA window so the buyer can follow up (or the system
+        can auto-nudge) instead of letting a counterpart 'ดองแชท' (stall) silently.
+
+        SLA window is configurable via NEGOTIATION_SLA_HOURS (default 48h).
+        Returns a per-session status: active | due_soon | stalled, plus the
+        hours since last activity.
+        """
+        import os
+        sla_hours = float(os.environ.get("NEGOTIATION_SLA_HOURS", "48"))
+        now = time.time()
+        rows = session_repository.list_sessions() if hasattr(session_repository, "list_sessions") else []
+
+        out = []
+        stalled = 0
+        for row in rows:
+            did = (row.get("deal_id") or "").lower()
+            if deal_key and did != (deal_key or "").lower():
+                continue
+            updated = row.get("updated_at") or now
+            hours_idle = round((now - updated) / 3600.0, 1)
+            signoff = row.get("signoff_status", "pending")
+
+            if signoff in ("approved", "rejected"):
+                status = "closed"
+            elif hours_idle >= sla_hours:
+                status = "stalled"
+                stalled += 1
+            elif hours_idle >= sla_hours * 0.75:
+                status = "due_soon"
+            else:
+                status = "active"
+
+            out.append({
+                "deal_id": did,
+                "vendor_id": row.get("vendor_id") or row.get("vendor_name"),
+                "hours_idle": hours_idle,
+                "sla_hours": sla_hours,
+                "status": status,
+                "signoff_status": signoff,
+                "needs_followup": status == "stalled",
+            })
+
+        out.sort(key=lambda s: s["hours_idle"], reverse=True)
+        return {"deal_id": deal_key, "sla_hours": sla_hours, "sessions": out,
+                "stalled_count": stalled, "evaluated": len(out)}
+
+    def get_award_board(self, deal_key: str) -> dict:
+        """
+        Multi-Vendor Award Board: compare every vendor negotiated in this deal and
+        declare a BAFO winner by latest TCO score. Reads persisted sessions, so it
+        reflects the real negotiation history (not a one-off turn).
+
+        Returns:
+          {
+            "deal_id": str,
+            "vendors": [ {vendor_id, latest_tco_score, rounds, last_price,
+                          signoff_status, rank, is_winner}, ... ],  # sorted best-first
+            "winner": {vendor_id, tco_score} | None,
+            "evaluated": int
+          }
+        """
+        deal_key = (deal_key or "").lower().strip()
+        rows = session_repository.list_sessions() if hasattr(session_repository, "list_sessions") else []
+
+        board = []
+        for row in rows:
+            if (row.get("deal_id") or "").lower() != deal_key:
+                continue
+            vendor_id = row.get("vendor_id") or row.get("vendor_name")
+            full = session_repository.load_session(deal_key, vendor_id)
+
+            # BEST TCO score across all rounds — a supplier is judged by the best
+            # offer they ever put on the table, not by a possibly-terse final turn.
+            scores = [t.get("tco_score") for t in full.get("audit_traces", []) if t.get("tco_score") is not None]
+            best_tco = max(scores) if scores else None
+
+            # Last price seen in the concession ladder (display string -> number best-effort).
+            last_price = None
+            for entry in reversed(full.get("concession_ladder", [])):
+                p = entry.get("price")
+                if p:
+                    last_price = p
+                    break
+
+            rounds = sum(1 for m in full.get("messages", []) if m.get("sender") == "vendor")
+            signoff = (full.get("signoff") or {}).get("status", "pending")
+
+            board.append({
+                "vendor_id": vendor_id,
+                "latest_tco_score": best_tco if best_tco is not None else 0.0,
+                "rounds": rounds,
+                "last_price": last_price,
+                "signoff_status": signoff,
+            })
+
+        # Rank best-first by TCO score; approved sign-off always ranks first.
+        board.sort(key=lambda v: (v["signoff_status"] == "approved", v["latest_tco_score"]), reverse=True)
+        for i, v in enumerate(board, 1):
+            v["rank"] = i
+            v["is_winner"] = i == 1
+
+        winner = None
+        if board:
+            top = board[0]
+            # Only declare a winner if someone actually cleared a competitive bar.
+            if top["signoff_status"] == "approved" or top["latest_tco_score"] >= 75:
+                winner = {"vendor_id": top["vendor_id"], "tco_score": top["latest_tco_score"]}
+
+        return {
+            "deal_id": deal_key,
+            "vendors": board,
+            "winner": winner,
+            "evaluated": len(board),
         }
 
 negotiation_service = BedrockNegotiationService()
