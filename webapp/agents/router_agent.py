@@ -1,7 +1,7 @@
 import json
 import os
 import re
-from .bedrock_client import bedrock_client
+from .model_gateway import TaskComplexity, model_gateway
 
 PROMPTS_DIR = os.path.join(os.path.dirname(__file__), "prompts")
 
@@ -71,15 +71,17 @@ def parse_supplier_intent(user_message: str) -> dict:
     Uses Amazon Nova Lite to extract intent and structured commercial facts.
     """
     system_prompt = open(os.path.join(PROMPTS_DIR, "router_system.md"), "r", encoding="utf-8").read()
-    
-    # Try calling Nova Lite
-    res = bedrock_client.invoke_converse(
-        model_id=bedrock_client.router_model,
+
+    # Route to the FAST tier (Nova Lite) via the Dynamic Model Gateway — this is a
+    # LIGHT classification/extraction task, so we deliberately avoid the costly model.
+    res = model_gateway.invoke(
+        task_type="intent",
         system_text=system_prompt,
         messages=[{"sender": "vendor", "text": user_message}],
-        temperature=0.0
+        temperature=0.0,
+        complexity=TaskComplexity.LIGHT,
     )
-    
+
     if res.get("status") == "live_aws" and res.get("text"):
         try:
             # Extract JSON from model output
@@ -87,7 +89,7 @@ def parse_supplier_intent(user_message: str) -> dict:
             match = re.search(r"\{.*\}", text, re.DOTALL)
             if match:
                 parsed = json.loads(match.group(0))
-                parsed["source"] = f"Amazon Bedrock ({bedrock_client.router_model})"
+                parsed["source"] = f"Amazon Bedrock ({res.get('model_id')})"
                 parsed["latency_ms"] = res["latency_ms"]
                 return parsed
         except Exception:
