@@ -50,6 +50,9 @@ class AgentOrchestrator:
             }
         audit_trace.append(verdict["audit"])
 
+        # Downstream agents operate on the sanitized message (Input Validation layer).
+        clean_message = verdict.get("clean_message", user_message)
+
         # Router/intent trace (kept for continuity with the prior audit layout).
         audit_trace.append({
             "step": 2,
@@ -70,7 +73,7 @@ class AgentOrchestrator:
         strat = self.negotiator.run(
             deal_data=deal_data,
             vendor_name=vendor_name,
-            user_message=user_message,
+            user_message=clean_message,
             history=history,
             parsed_entities=parsed_entities,
             market=market,

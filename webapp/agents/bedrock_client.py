@@ -34,6 +34,9 @@ class BedrockClient:
     def __init__(self):
         # Accept both AWS_REGION and AWS_DEFAULT_REGION for flexibility.
         self.region = _env_any(["AWS_REGION", "AWS_DEFAULT_REGION"], "us-east-1")
+        # Optional inline guardrail applied during Converse (filters input+output).
+        self.guardrail_id = os.environ.get("BEDROCK_GUARDRAIL_ID", "").strip()
+        self.guardrail_version = os.environ.get("BEDROCK_GUARDRAIL_VERSION", "DRAFT").strip()
         # Accept both the _ID suffixed names and the plain names used in .env.example.
         self.router_model = _env_any(
             ["BEDROCK_ROUTER_MODEL_ID", "BEDROCK_ROUTER_MODEL"], DEFAULT_ROUTER_MODEL
@@ -85,26 +88,38 @@ class BedrockClient:
 
         if self.client:
             try:
-                response = self.client.converse(
-                    modelId=model_id,
-                    system=[{"text": system_text}],
-                    messages=bedrock_messages,
-                    inferenceConfig={
+                converse_kwargs = {
+                    "modelId": model_id,
+                    "system": [{"text": system_text}],
+                    "messages": bedrock_messages,
+                    "inferenceConfig": {
                         "maxTokens": 1024,
-                        "temperature": temperature
+                        "temperature": temperature,
+                    },
+                }
+                # Inline Amazon Bedrock Guardrail: filters both the input and the
+                # model output during inference (defense-in-depth with the
+                # standalone ApplyGuardrail check in ComplianceGuardrailAgent).
+                if self.guardrail_id:
+                    converse_kwargs["guardrailConfig"] = {
+                        "guardrailIdentifier": self.guardrail_id,
+                        "guardrailVersion": self.guardrail_version,
                     }
-                )
+
+                response = self.client.converse(**converse_kwargs)
                 latency_ms = round((time.time() - start_time) * 1000, 1)
                 output_message = response["output"]["message"]["content"][0]["text"]
                 usage = response.get("usage", {})
-                
+
                 return {
                     "text": output_message,
                     "latency_ms": latency_ms,
                     "model_id": model_id,
                     "input_tokens": usage.get("inputTokens", 0),
                     "output_tokens": usage.get("outputTokens", 0),
-                    "status": "live_aws"
+                    "status": "live_aws",
+                    "stop_reason": response.get("stopReason"),
+                    "guardrail_applied": bool(self.guardrail_id),
                 }
             except Exception as e:
                 logger.warning(f"AWS Bedrock converse call failed ({e}). Falling back to deterministic local agent.")
