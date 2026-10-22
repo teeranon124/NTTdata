@@ -426,6 +426,84 @@
                 const scrollArea = document.getElementById('main-scroll-area');
                 if (scrollArea) scrollArea.scrollTop = 0;
                 lucide.createIcons();
+
+                // Lazy-load the live governance panels when that view opens.
+                if (viewName === 'governance') {
+                    this.initAwardDealOptions();
+                    this.loadAwardBoard();
+                    this.loadSlaMonitor();
+                }
+            },
+
+            // ===== Multi-Vendor Award Board + SLA Monitor (governance view) =====
+            initAwardDealOptions() {
+                const sel = document.getElementById('award-deal-select');
+                if (!sel || sel.dataset.ready) return;
+                const deals = (database && database.deals) ? Object.keys(database.deals) : ['nsk'];
+                sel.innerHTML = deals.map(d => `<option value="${d}">${d.toUpperCase()}</option>`).join('');
+                sel.dataset.ready = '1';
+            },
+
+            async loadAwardBoard() {
+                const sel = document.getElementById('award-deal-select');
+                const body = document.getElementById('award-board-body');
+                if (!body) return;
+                const dealKey = (sel && sel.value) || 'nsk';
+                body.innerHTML = '<div class="text-center py-4 text-slate-400"><span class="loading loading-spinner loading-xs"></span> กำลังประเมิน...</div>';
+                try {
+                    const res = await fetch(`/api/deals/${dealKey}/award-board`);
+                    const data = await res.json();
+                    if (!data.vendors || data.vendors.length === 0) {
+                        body.innerHTML = '<div class="text-center py-6 text-slate-400">ยังไม่มีการเจรจาในดีลนี้ (เริ่มเจรจาในห้องคู่ค้าเพื่อให้ระบบจัดอันดับ)</div>';
+                        return;
+                    }
+                    const winnerTxt = data.winner
+                        ? `<div class="mb-2 px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4"></i> ผู้ชนะ BAFO: ${data.winner.vendor_id.replace(/_/g,' ')} (TCO ${data.winner.tco_score})</div>`
+                        : '<div class="mb-2 px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 text-xs">ยังไม่มีผู้ผ่านเกณฑ์ชนะ (ต้องมี TCO ≥ 75 หรือได้ลงนาม)</div>';
+                    const rows = data.vendors.map(v => {
+                        const medal = v.rank === 1 ? '🥇' : (v.rank === 2 ? '🥈' : (v.rank === 3 ? '🥉' : `#${v.rank}`));
+                        const guard = v.guard_adjusted ? ' <span class="text-[9px] text-amber-600" title="ปรับตามหลัก Consistency Guard">⚖︎</span>' : '';
+                        const win = v.is_winner ? 'bg-emerald-50/60 font-semibold' : '';
+                        return `<tr class="${win}">
+                            <td class="py-1.5 px-2">${medal}</td>
+                            <td class="py-1.5 px-2 truncate max-w-[150px]" title="${v.vendor_id}">${v.vendor_id.replace(/_/g,' ')}</td>
+                            <td class="py-1.5 px-2 text-right font-mono font-bold text-blue-800">${v.latest_tco_score}${guard}</td>
+                            <td class="py-1.5 px-2 text-right font-mono text-slate-500">${v.best_price ? '฿'+Number(v.best_price).toLocaleString() : '-'}</td>
+                            <td class="py-1.5 px-2 text-center font-mono text-slate-500">${v.rounds}</td>
+                        </tr>`;
+                    }).join('');
+                    body.innerHTML = winnerTxt + `<table class="table table-xs w-full"><thead class="text-[10px] text-slate-400 uppercase"><tr><th class="py-1 px-2">#</th><th class="py-1 px-2">คู่ค้า</th><th class="py-1 px-2 text-right">TCO</th><th class="py-1 px-2 text-right">ราคา</th><th class="py-1 px-2 text-center">รอบ</th></tr></thead><tbody>${rows}</tbody></table>`;
+                    lucide.createIcons({ root: body.parentElement });
+                } catch (e) {
+                    body.innerHTML = '<div class="text-center py-4 text-rose-400">โหลดข้อมูลไม่สำเร็จ</div>';
+                }
+            },
+
+            async loadSlaMonitor() {
+                const body = document.getElementById('sla-monitor-body');
+                if (!body) return;
+                body.innerHTML = '<div class="text-center py-4 text-slate-400"><span class="loading loading-spinner loading-xs"></span> กำลังตรวจสอบ...</div>';
+                try {
+                    const res = await fetch('/api/sla');
+                    const data = await res.json();
+                    if (!data.sessions || data.sessions.length === 0) {
+                        body.innerHTML = '<div class="text-center py-6 text-slate-400">ยังไม่มีเซสชันการเจรจา</div>';
+                        return;
+                    }
+                    const badge = { active: 'badge-success', due_soon: 'badge-warning', stalled: 'badge-error', closed: 'badge-ghost' };
+                    const label = { active: 'ปกติ', due_soon: 'ใกล้ครบกำหนด', stalled: 'ค้าง (ต้องตาม)', closed: 'ปิดแล้ว' };
+                    const stalledNote = data.stalled_count > 0
+                        ? `<div class="mb-2 px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">⚠ พบ ${data.stalled_count} เซสชันค้างเกิน SLA ${data.sla_hours} ชม. — ควรส่ง follow-up</div>`
+                        : `<div class="mb-2 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs">ทุกเซสชันอยู่ในกรอบ SLA (${data.sla_hours} ชม.)</div>`;
+                    const rows = data.sessions.map(s => `<tr>
+                        <td class="py-1.5 px-2 truncate max-w-[140px]" title="${s.deal_id}/${s.vendor_id}">${(s.vendor_id||'').replace(/_/g,' ')}</td>
+                        <td class="py-1.5 px-2 text-right font-mono text-slate-500">${s.hours_idle}h</td>
+                        <td class="py-1.5 px-2 text-center"><span class="badge badge-xs ${badge[s.status]||'badge-ghost'}">${label[s.status]||s.status}</span></td>
+                    </tr>`).join('');
+                    body.innerHTML = stalledNote + `<table class="table table-xs w-full"><thead class="text-[10px] text-slate-400 uppercase"><tr><th class="py-1 px-2">คู่ค้า</th><th class="py-1 px-2 text-right">เงียบ</th><th class="py-1 px-2 text-center">สถานะ</th></tr></thead><tbody>${rows}</tbody></table>`;
+                } catch (e) {
+                    body.innerHTML = '<div class="text-center py-4 text-rose-400">โหลดข้อมูลไม่สำเร็จ</div>';
+                }
             },
 
             filterCat(cat) {

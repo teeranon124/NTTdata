@@ -68,6 +68,39 @@ def test_award_board_empty_deal():
     assert board["evaluated"] == 0 and board["winner"] is None
 
 
+def test_consistency_guard_lower_price_not_ranked_below():
+    """A cheaper offer with >= credit must never rank below a pricier one."""
+    _clean()
+    # Cheap vendor: ฿398 / 45 days ; Pricey vendor: ฿460 / 30 days.
+    svc.negotiate(deal_key=DEAL, vendor_name="เจ้า ถูก", latest_user_message="เสนอ 398 เครดิต 45 ตกลง")
+    svc.negotiate(deal_key=DEAL, vendor_name="เจ้า แพง", latest_user_message="เสนอ 460 เครดิต 30")
+
+    # Simulate the LLM-scoring anomaly: force the pricey vendor's audit score ABOVE
+    # the cheap vendor's, then confirm the guard corrects the final ranking.
+    from webapp.database.engine import session_scope
+    from webapp.database.models import NegotiationSession as N, AuditTrail as A
+    with session_scope() as s:
+        for row in s.query(N).filter(N.deal_key == DEAL).all():
+            for a in row.audit_entries:
+                if row.vendor_key.startswith("เจ้า_แพง") or "แพง" in row.vendor_key:
+                    a.tco_score = 99.0
+                    a.offered_price = 460.0
+                    a.offered_credit = 30
+                else:
+                    a.tco_score = 50.0
+                    a.offered_price = 398.0
+                    a.offered_credit = 45
+
+    board = svc.get_award_board(DEAL)
+    by_vendor = {v["vendor_id"]: v for v in board["vendors"]}
+    cheap = next(v for k, v in by_vendor.items() if "ถูก" in k)
+    pricey = next(v for k, v in by_vendor.items() if "แพง" in k)
+    # Guard must lift the cheaper (better) offer to at least the pricier score.
+    assert cheap["latest_tco_score"] >= pricey["latest_tco_score"], (cheap, pricey)
+    assert cheap["rank"] <= pricey["rank"]
+    _clean()
+
+
 # ---- SLA monitor ----
 def test_sla_flags_stalled_session():
     _clean()

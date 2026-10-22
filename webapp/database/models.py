@@ -292,6 +292,10 @@ class AuditTrail(Base):
     input_tokens = Column(Integer, nullable=True)
     output_tokens = Column(Integer, nullable=True)
     tco_score = Column(Float, nullable=True)
+    # The concrete offer that produced tco_score — needed by the Award Board's
+    # deterministic consistency guard (lower price + >= credit must not rank lower).
+    offered_price = Column(Float, nullable=True)
+    offered_credit = Column(Integer, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     session = relationship("NegotiationSession", back_populates="audit_entries")
@@ -313,4 +317,6 @@ class AuditTrail(Base):
             "input_tokens": self.input_tokens,
             "output_tokens": self.output_tokens,
             "tco_score": self.tco_score,
+            "offered_price": self.offered_price,
+            "offered_credit": self.offered_credit,
         }

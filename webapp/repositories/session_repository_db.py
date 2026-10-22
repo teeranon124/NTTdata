@@ -113,6 +113,8 @@ class SessionRepositoryDB:
                         input_tokens=a.get("input_tokens"),
                         output_tokens=a.get("output_tokens"),
                         tco_score=a.get("tco_score"),
+                        offered_price=a.get("offered_price"),
+                        offered_credit=a.get("offered_credit"),
                     ))
             return True
         except Exception as e:

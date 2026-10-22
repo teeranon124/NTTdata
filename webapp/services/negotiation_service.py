@@ -156,6 +156,9 @@ class BedrockNegotiationService:
                 "output_tokens": model_meta.get("output_tokens"),
                 "tco_score": tco_score,
                 "status": model_meta.get("status"),
+                # The concrete offer behind this score (for the Award Board guard).
+                "offered_price": tco_data.get("offered_price") or parsed_intent.get("proposed_unit_price"),
+                "offered_credit": tco_data.get("offered_credit_days") or parsed_intent.get("proposed_credit_days"),
             })
 
         # Save updated session
@@ -252,8 +255,14 @@ class BedrockNegotiationService:
 
             # BEST TCO score across all rounds — a supplier is judged by the best
             # offer they ever put on the table, not by a possibly-terse final turn.
-            scores = [t.get("tco_score") for t in full.get("audit_traces", []) if t.get("tco_score") is not None]
-            best_tco = max(scores) if scores else None
+            traces = full.get("audit_traces", [])
+            scored = [t for t in traces if t.get("tco_score") is not None]
+            best_tco = max((t["tco_score"] for t in scored), default=None)
+            # Capture the price/credit of the round that achieved the best score —
+            # used by the deterministic consistency guard below.
+            best_entry = max(scored, key=lambda t: t["tco_score"]) if scored else {}
+            best_price = best_entry.get("offered_price")
+            best_credit = best_entry.get("offered_credit")
 
             # Last price seen in the concession ladder (display string -> number best-effort).
             last_price = None
@@ -269,13 +278,55 @@ class BedrockNegotiationService:
             board.append({
                 "vendor_id": vendor_id,
                 "latest_tco_score": best_tco if best_tco is not None else 0.0,
+                "best_price": best_price,
+                "best_credit": best_credit,
                 "rounds": rounds,
                 "last_price": last_price,
                 "signoff_status": signoff,
             })
 
-        # Rank best-first by TCO score; approved sign-off always ranks first.
-        board.sort(key=lambda v: (v["signoff_status"] == "approved", v["latest_tco_score"]), reverse=True)
+        # --- Deterministic consistency guard (economic monotonicity) ---
+        # Rule: if vendor A's best price is LOWER (or equal) AND credit terms are
+        # EQUAL OR BETTER than vendor B's, A's effective TCO score must NOT rank
+        # below B's. LLM scoring is non-deterministic, so we clamp each score up to
+        # at least the max score of every vendor it economically dominates. This
+        # keeps the BAFO ranking defensible on stage without touching the raw score.
+        def _dominates(a, b):
+            ap, ac = a.get("best_price"), a.get("best_credit")
+            bp, bc = b.get("best_price"), b.get("best_credit")
+            if ap is None or bp is None:
+                return False  # cannot compare without concrete prices
+            credit_ok = (ac is None or bc is None) or (ac >= bc)  # more credit days = better for buyer
+            return ap <= bp and credit_ok and (ap < bp or (ac or 0) > (bc or 0))
+
+        for a in board:
+            a["raw_tco_score"] = a["latest_tco_score"]
+        for a in board:
+            floor = a["latest_tco_score"]
+            for b in board:
+                if a is b:
+                    continue
+                if _dominates(a, b):
+                    floor = max(floor, b["latest_tco_score"])
+            if floor > a["latest_tco_score"]:
+                a["latest_tco_score"] = round(floor, 1)
+                a["guard_adjusted"] = True
+
+        # Rank best-first by: approved sign-off, then guarded TCO score, then
+        # economic tiebreakers (lower price wins, then more credit days wins).
+        def _sort_key(v):
+            price = v.get("best_price")
+            credit = v.get("best_credit") or 0
+            # Lower price should rank higher -> negate; missing price sorts last.
+            price_rank = -price if price is not None else float("-inf")
+            return (
+                v["signoff_status"] == "approved",
+                v["latest_tco_score"],
+                price_rank,
+                credit,
+            )
+
+        board.sort(key=_sort_key, reverse=True)
         for i, v in enumerate(board, 1):
             v["rank"] = i
             v["is_winner"] = i == 1
