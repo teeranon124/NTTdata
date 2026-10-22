@@ -224,6 +224,8 @@ class NegotiationSession(Base):
             "messages": [m.to_api_dict() for m in self.messages],
             "signoff": {
                 "status": self.signoff_status or "pending",
+                "decision": self.signoff_status or "pending",
+                "signed_off": (self.signoff_status or "pending") in ("approved", "rejected"),
                 "approved_by": self.approved_by,
                 "approved_at": self.approved_at,
                 "po_number": self.po_number,

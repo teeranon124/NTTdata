@@ -149,7 +149,11 @@ class SessionRepositoryDB:
                     "updated_at": r.updated_at,
                     "messages": msg_count,
                     "audit_entries": audit_count,
+                    "deal_key": r.deal_key,
+                    "vendor_name": r.vendor_key,
                     "signoff_status": r.signoff_status or "pending",
+                    "decision": r.signoff_status or "pending",
+                    "signed_off": (r.signoff_status or "pending") in ("approved", "rejected"),
                     "po_number": r.po_number,
                 })
             return out
@@ -209,7 +213,7 @@ class SessionRepositoryDB:
             row.signoff_note = note
             row.updated_at = time.time()
             result = row.to_api_dict()["signoff"]
-        return {"deal_id": deal_key, "vendor_id": vendor_key, **result}
+        return {"deal_id": deal_key, "vendor_id": vendor_key, "signed_off": True, "decision": decision, **result}
 
 
 session_repository_db = SessionRepositoryDB()

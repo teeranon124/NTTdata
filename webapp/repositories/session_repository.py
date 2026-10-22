@@ -75,14 +75,19 @@ class SessionRepository:
             except Exception:
                 continue
             signoff = s.get('signoff') or {}
+            st = signoff.get('status', 'pending')
             out.append({
                 'deal_id': s.get('deal_id'),
+                'deal_key': s.get('deal_id'),
                 'vendor_id': s.get('vendor_id'),
+                'vendor_name': s.get('vendor_id'),
                 'status': s.get('status'),
                 'updated_at': s.get('updated_at'),
                 'messages': len(s.get('messages', [])),
                 'audit_entries': len(s.get('audit_traces', [])),
-                'signoff_status': signoff.get('status', 'pending'),
+                'signoff_status': st,
+                'decision': st,
+                'signed_off': st in ('approved', 'rejected'),
                 'po_number': signoff.get('po_number'),
             })
         out.sort(key=lambda x: x.get('updated_at') or 0, reverse=True)
@@ -128,6 +133,8 @@ class SessionRepository:
         session = self.load_session(deal_id, vendor_id)
         signoff = {
             'status': decision,
+            'decision': decision,
+            'signed_off': decision in ('approved', 'rejected'),
             'approved_by': approved_by,
             'approved_at': time.time(),
             'po_number': po_number,

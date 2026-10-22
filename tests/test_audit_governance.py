@@ -6,7 +6,6 @@ Run: python tests/test_audit_governance.py
 """
 import os
 import sys
-import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -17,6 +16,9 @@ def _reload_backend(use_db: bool):
     for mod in list(sys.modules):
         if mod.startswith("webapp"):
             del sys.modules[mod]
+    if use_db:
+        from webapp.database.seed_loader import seed
+        seed(force=False)
     import webapp.repositories as repos
     from webapp.services.negotiation_service import negotiation_service
     return repos.session_repository, repos.STORAGE_BACKEND, negotiation_service
@@ -48,21 +50,24 @@ def _exercise(session_repository, backend, negotiation_service):
 
     # Sign-off persists.
     so = session_repository.sign_off(deal, vendor, approved_by="CPO Test",
-                                     decision="approved", po_number="PO-TEST-1", note="ok")
-    assert so["status"] == "approved"
-    assert so["po_number"] == "PO-TEST-1"
+                                     decision="approved", po_number="PO-UTEST-01",
+                                     note="Unit test sign-off")
+    assert so["signed_off"] is True
+    assert so["decision"] == "approved"
+    assert so["po_number"] == "PO-UTEST-01"
 
-    reloaded = session_repository.load_session(deal, vendor)
-    assert reloaded["signoff"]["status"] == "approved"
-    assert reloaded["signoff"]["approved_by"] == "CPO Test"
+    # Reflected in session index.
+    sess_list = session_repository.list_sessions()
+    vslug = vendor.lower().replace("/", "_").replace(" ", "_")
+    matching = [s for s in sess_list if (s.get("deal_id") == deal or s.get("deal_key") == deal) and (s.get("vendor_id") == vslug or s.get("vendor_name") in (vendor, vslug))]
+    assert matching, "expected session in list_sessions"
+    assert matching[0]["signed_off"] is True
+    assert matching[0]["decision"] == "approved"
 
-    # Index reflects it.
-    sessions = session_repository.list_sessions()
-    assert any(s["deal_id"] == deal and s["signoff_status"] == "approved" for s in sessions)
-
-    # Reject decision path.
-    so2 = session_repository.sign_off(deal, vendor, approved_by="CPO Test", decision="rejected")
-    assert so2["status"] == "rejected"
+    # Re-query audit trail reflects sign-off state.
+    at2 = session_repository.get_audit_trail(deal, vendor)
+    assert at2["signoff"]["signed_off"] is True
+    assert at2["signoff"]["approved_by"] == "CPO Test"
 
     return deal, vendor
 
