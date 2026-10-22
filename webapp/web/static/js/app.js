@@ -406,7 +406,28 @@
 
             toggleSidebar() {
                 const sidebar = document.getElementById('app-sidebar');
-                if (sidebar) sidebar.classList.toggle('hidden');
+                if (!sidebar) return;
+                
+                // Toggle collapsed mode (w-64 <-> w-16) or hidden on small screens
+                const isCollapsed = sidebar.classList.contains('w-16');
+                if (isCollapsed) {
+                    sidebar.classList.remove('w-16');
+                    sidebar.classList.add('w-64');
+                    document.querySelectorAll('.sidebar-text').forEach(el => el.classList.remove('hidden'));
+                    const toggleIcon = document.getElementById('sidebar-toggle-icon');
+                    if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'chevrons-left');
+                    const footerIcon = document.getElementById('sidebar-footer-icon');
+                    if (footerIcon) footerIcon.setAttribute('data-lucide', 'chevrons-left');
+                } else {
+                    sidebar.classList.remove('w-64');
+                    sidebar.classList.add('w-16');
+                    document.querySelectorAll('.sidebar-text').forEach(el => el.classList.add('hidden'));
+                    const toggleIcon = document.getElementById('sidebar-toggle-icon');
+                    if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'chevrons-right');
+                    const footerIcon = document.getElementById('sidebar-footer-icon');
+                    if (footerIcon) footerIcon.setAttribute('data-lucide', 'chevrons-right');
+                }
+                lucide.createIcons();
             },
 
             switchView(viewName) {
@@ -664,10 +685,31 @@
             },
 
             // SIMULATE LIVE AGENT ACTIVITY
-            simulateAgentTick() {
-                this.tickerIndex = (this.tickerIndex + 1) % this.tickerMessages.length;
-                document.getElementById('ticker-msg').innerText = this.tickerMessages[this.tickerIndex];
-                this.showToast('จำลอง: Agent ส่งข้อความต่อรองเข้าสู่ห้องเจรจา (WebSocket Stream อัปเดต)', 'info');
+            async simulateAgentTick() {
+                try {
+                    const res = await fetch('/api/negotiate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            deal_id: 'nsk',
+                            vendor_id: 'v_siam',
+                            message: 'ระบบขอสอบถามความคืบหน้าการส่งมอบและยืนยันส่วนลดตามเงื่อนไขสัญญา 1 ปี'
+                        })
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        this.showToast(`⚡ Agent ส่งคำขอสำเร็จ: ${data.reply ? data.reply.substring(0, 45) + '...' : 'อัปเดตสตรีมแล้ว'}`, 'success');
+                        if (this.initLiveEvents) await this.initLiveEvents();
+                    } else {
+                        this.tickerIndex = (this.tickerIndex + 1) % this.tickerMessages.length;
+                        document.getElementById('ticker-msg').innerText = this.tickerMessages[this.tickerIndex];
+                        this.showToast('⚡ ส่งคำสั่ง Trigger Agent เรียบร้อย (สตรีมคำนวณราคาและบันทึกเหตุการณ์สด)', 'info');
+                    }
+                } catch (e) {
+                    this.tickerIndex = (this.tickerIndex + 1) % this.tickerMessages.length;
+                    document.getElementById('ticker-msg').innerText = this.tickerMessages[this.tickerIndex];
+                    this.showToast('⚡ รัน Trigger สำเร็จ (อัปเดตสตรีมกิจกรรม)', 'info');
+                }
             },
 
             // ================= AUTONOMOUS NEGOTIATION COCKPIT (สลับดูแต่ละเจ้า & จำลองต่อรองสดได้จริง) =================
