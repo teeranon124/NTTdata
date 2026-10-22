@@ -18,9 +18,9 @@ venv/
 *.webp
 *.pptx
 
-# Temporary test and check scripts
-test_*.py
-check_*.py
+# Temporary scratch/check scripts at repo root (keep the tests/ suite tracked)
+/test_*.py
+/check_*.py
 _*_test.py
 scratch/
 

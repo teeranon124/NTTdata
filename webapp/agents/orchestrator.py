@@ -14,6 +14,7 @@ are additive and ignored by existing consumers.
 """
 import logging
 
+from .market import market_benchmark_tool
 from .specialists import (
     CentralArbitratorAgent,
     ComplianceGuardrailAgent,
@@ -26,8 +27,11 @@ logger = logging.getLogger(__name__)
 
 class AgentOrchestrator:
     def __init__(self, benchmark_tool=None):
+        # Default to the Thai Industrial MRO benchmark tool (Phase C). Callers can
+        # inject a different provider chain for enterprise deployments.
+        tool = benchmark_tool if benchmark_tool is not None else market_benchmark_tool
         self.compliance = ComplianceGuardrailAgent()
-        self.market = MarketIntelligenceAgent(benchmark_tool=benchmark_tool)
+        self.market = MarketIntelligenceAgent(benchmark_tool=tool)
         self.negotiator = StrategicNegotiatorAgent()
         self.arbitrator = CentralArbitratorAgent()
 
