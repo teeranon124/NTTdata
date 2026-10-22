@@ -1,0 +1,59 @@
+# ==========================================================================
+# AutoProcure.AI — local production-like stack (web + PostgreSQL 16)
+# Usage:  docker compose up --build
+#         Web -> http://localhost:8080
+# ==========================================================================
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: autoprocure-db
+    environment:
+      POSTGRES_USER: autoprocure
+      POSTGRES_PASSWORD: autoprocure_pw
+      POSTGRES_DB: autoprocure
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autoprocure -d autoprocure"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: autoprocure-web
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Enterprise mode: PostgreSQL via the ORM layer. Tables auto-create + seed on boot.
+      USE_DATABASE: "true"
+      DATABASE_URL: "postgresql+psycopg2://autoprocure:autoprocure_pw@db:5432/autoprocure"
+      SECRET_KEY: "autoprocure_secret_key_nttdata_2026"
+      FLASK_DEBUG: "0"
+      # AWS Bedrock/SES are optional — leave unset to run deterministic fallback.
+      # AWS_ACCESS_KEY_ID: "..."
+      # AWS_SECRET_ACCESS_KEY: "..."
+      # AWS_DEFAULT_REGION: "us-east-1"
+      # SES_ENABLED: "false"
+      WEB_CONCURRENCY: "2"
+      GUNICORN_THREADS: "8"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/api/events"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    driver: local

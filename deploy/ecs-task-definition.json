@@ -1,0 +1,58 @@
+{
+  "family": "autoprocure-ai",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/autoprocureEcsExecutionRole",
+  "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/autoprocureTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "autoprocure-web",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/autoprocure:latest",
+      "essential": true,
+      "portMappings": [
+        { "containerPort": 8080, "protocol": "tcp" }
+      ],
+      "environment": [
+        { "name": "USE_DATABASE", "value": "true" },
+        { "name": "FLASK_DEBUG", "value": "0" },
+        { "name": "AWS_DEFAULT_REGION", "value": "us-east-1" },
+        { "name": "WEB_CONCURRENCY", "value": "2" },
+        { "name": "GUNICORN_THREADS", "value": "8" },
+        { "name": "BEDROCK_ROUTER_MODEL_ID", "value": "amazon.nova-lite-v1:0" },
+        { "name": "BEDROCK_NEGOTIATOR_MODEL_ID", "value": "anthropic.claude-3-5-sonnet-20240620-v1:0" }
+      ],
+      "secrets": [
+        {
+          "name": "DATABASE_URL",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:autoprocure/DATABASE_URL"
+        },
+        {
+          "name": "SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:autoprocure/SECRET_KEY"
+        }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -fsS http://localhost:8080/api/events || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 20
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/autoprocure-ai",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "web",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}

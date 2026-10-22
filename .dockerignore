@@ -1,0 +1,44 @@
+# Version control & CI
+.git
+.gitignore
+.github
+
+# Python caches / virtualenvs
+__pycache__
+*.py[cod]
+*$py.class
+venv
+.venv
+.pytest_cache
+
+# Local environment & secrets (never bake into the image)
+.env
+*.env
+
+# Local databases & generated session state (reproducible via seed loader)
+*.db
+*.sqlite
+*.sqlite3
+webapp/data/sessions/*.json
+
+# Editor / OS cruft
+.idea
+.vscode
+.DS_Store
+
+# Docs & media not needed at runtime
+*.md
+!DEPLOYMENT.md
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.pptx
+
+# Scratch / temporary test scripts at root
+test_*.py
+check_*.py
+_*_test.py
+scratch

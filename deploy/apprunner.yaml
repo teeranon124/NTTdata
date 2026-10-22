@@ -1,0 +1,45 @@
+# ==========================================================================
+# AWS App Runner — source/image configuration for AutoProcure.AI
+# Serverless, pay-as-you-go (scales to configured min instances during POC).
+#
+# Use this file as the App Runner config when deploying from a container image
+# in Amazon ECR. For source-code based deploys, App Runner reads apprunner.yaml
+# at the repo root; here we document the image-based runtime settings.
+# ==========================================================================
+version: 1.0
+runtime: docker
+
+build:
+  # Image is built separately and pushed to ECR (see DEPLOYMENT.md).
+  # App Runner then pulls <account>.dkr.ecr.<region>.amazonaws.com/autoprocure:latest
+
+run:
+  # Gunicorn (gthread) is the container CMD; App Runner injects PORT=8080.
+  network:
+    port: 8080
+  env:
+    - name: USE_DATABASE
+      value: "true"
+    # DATABASE_URL should point at an RDS PostgreSQL instance. Store the real
+    # value in AWS Secrets Manager and reference it via the App Runner console
+    # (Secrets) rather than committing it here.
+    - name: FLASK_DEBUG
+      value: "0"
+    - name: AWS_DEFAULT_REGION
+      value: "us-east-1"
+    - name: WEB_CONCURRENCY
+      value: "2"
+    - name: GUNICORN_THREADS
+      value: "8"
+    - name: BEDROCK_ROUTER_MODEL_ID
+      value: "amazon.nova-lite-v1:0"
+    - name: BEDROCK_NEGOTIATOR_MODEL_ID
+      value: "anthropic.claude-3-5-sonnet-20240620-v1:0"
+
+# --------------------------------------------------------------------------
+# Recommended App Runner service settings (set in console / IaC, not in YAML):
+#   Instance role: grant bedrock:InvokeModel, bedrock:Converse,
+#                  bedrock:ApplyGuardrail, ses:SendEmail (least privilege).
+#   Instance size: 1 vCPU / 2 GB (POC). Auto scaling: min 1, max 3.
+#   Health check:  HTTP GET /api/events  (200 = healthy)
+# --------------------------------------------------------------------------
