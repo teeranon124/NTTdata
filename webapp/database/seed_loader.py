@@ -13,7 +13,7 @@ import json
 import logging
 import os
 
-from .engine import init_db, session_scope
+from .engine import init_db, seed_lock, session_scope
 from .models import Deal, PurchaseRequest, Vendor
 
 logger = logging.getLogger(__name__)
@@ -94,7 +94,8 @@ def seed(force: bool = False) -> dict:
     """
     init_db()
 
-    with session_scope() as s:
+    # Serialize across workers so only one process seeds an empty DB.
+    with seed_lock(), session_scope() as s:
         existing_deals = s.query(Deal).count()
         if existing_deals and not force:
             logger.info("Database already seeded (%d deals) — skipping. Use force=True to reload.", existing_deals)
@@ -132,11 +133,35 @@ def seed(force: bool = False) -> dict:
     return summary
 
 
+def reset_sessions() -> int:
+    """
+    Clear all transient negotiation sessions (messages + audit trails) while
+    keeping the seed catalog intact. Returns the number of sessions removed.
+    Clean-slate helper for demo preparation.
+    """
+    init_db()
+    from .models import NegotiationSession
+
+    with session_scope() as s:
+        count = s.query(NegotiationSession).count()
+        s.query(NegotiationSession).delete()
+    logger.info("Cleared %d negotiation sessions (seed catalog kept).", count)
+    return count
+
+
 def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    parser = argparse.ArgumentParser(description="Seed the AutoProcure.AI database.")
-    parser.add_argument("--force", action="store_true", help="Wipe and reload all data.")
+    parser = argparse.ArgumentParser(description="Seed / maintain the AutoProcure.AI database.")
+    parser.add_argument("--force", action="store_true", help="Wipe and reload all data (deals + PRs).")
+    parser.add_argument("--reset-sessions", action="store_true",
+                        help="Clear all negotiation sessions but KEEP seed data (demo clean slate).")
     args = parser.parse_args()
+
+    if args.reset_sessions:
+        n = reset_sessions()
+        print(f"Sessions cleared: {n} (seed catalog kept)")
+        return
+
     result = seed(force=args.force)
     print(f"Seed result: {result}")
 

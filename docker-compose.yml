@@ -23,6 +23,19 @@ services:
       start_period: 10s
     restart: unless-stopped
 
+  redis:
+    image: redis:7-alpine
+    container_name: autoprocure-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
   web:
     build:
       context: .
@@ -31,12 +44,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       # Enterprise mode: PostgreSQL via the ORM layer. Tables auto-create + seed on boot.
       USE_DATABASE: "true"
       DATABASE_URL: "postgresql+psycopg2://autoprocure:autoprocure_pw@db:5432/autoprocure"
+      # Redis makes SSE events correct across the 2 Gunicorn workers below.
+      REDIS_URL: "redis://redis:6379/0"
       SECRET_KEY: "autoprocure_secret_key_nttdata_2026"
       FLASK_DEBUG: "0"
+      # Enables the demo clean-slate endpoint POST /api/admin/reset-sessions.
+      ADMIN_RESET_TOKEN: "change-me-before-demo"
       # AWS Bedrock/SES are optional — leave unset to run deterministic fallback.
       # AWS_ACCESS_KEY_ID: "..."
       # AWS_SECRET_ACCESS_KEY: "..."

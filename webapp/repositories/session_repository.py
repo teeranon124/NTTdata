@@ -146,4 +146,34 @@ class SessionRepository:
         clean_vendor = vendor_id.lower().replace('/', '_').replace(' ', '_')
         return {'deal_id': clean_deal, 'vendor_id': clean_vendor, **signoff}
 
+    # -- Data hygiene: separate transient sessions from permanent seed data ---
+    def delete_session(self, deal_id: str, vendor_id: str) -> bool:
+        """Delete one session JSON file."""
+        path = self._get_session_path(deal_id, vendor_id)
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+                return True
+            except OSError as e:
+                print(f'Error deleting session {path}: {e}')
+        return False
+
+    def clear_all_sessions(self) -> int:
+        """
+        Delete ALL session JSON files (transient negotiation state) while leaving
+        the seed datasets (master_deals.json / dataset_2500.json) untouched.
+        Returns the number of session files removed.
+        """
+        if not os.path.isdir(SESSIONS_DIR):
+            return 0
+        count = 0
+        for fname in os.listdir(SESSIONS_DIR):
+            if fname.endswith('.json'):
+                try:
+                    os.remove(os.path.join(SESSIONS_DIR, fname))
+                    count += 1
+                except OSError:
+                    pass
+        return count
+
 session_repository = SessionRepository()

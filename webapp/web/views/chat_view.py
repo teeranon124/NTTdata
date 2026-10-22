@@ -1,8 +1,7 @@
 import datetime
+import datetime
 import json
 import os
-import queue
-import threading
 
 from flask import Blueprint, Response, jsonify, render_template, request, send_from_directory, stream_with_context
 
@@ -13,41 +12,17 @@ from ...services.negotiation_service import negotiation_service
 chat_bp = Blueprint("chat", __name__)
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
-# In-memory recent live events buffer
+# In-memory recent live events buffer (ticker history for late-joining clients)
 RECENT_EVENTS = []
 
-# ---------------------------------------------------------------------------
-# Server-Sent Events (SSE) pub/sub — in-memory, dependency-free.
-# Each connected dashboard client owns a Queue; publish() fans out to all.
-# ---------------------------------------------------------------------------
-_SSE_SUBSCRIBERS = []
-_SSE_LOCK = threading.Lock()
-
-
-def _sse_subscribe() -> "queue.Queue":
-    q = queue.Queue(maxsize=100)
-    with _SSE_LOCK:
-        _SSE_SUBSCRIBERS.append(q)
-    return q
-
-
-def _sse_unsubscribe(q: "queue.Queue"):
-    with _SSE_LOCK:
-        if q in _SSE_SUBSCRIBERS:
-            _SSE_SUBSCRIBERS.remove(q)
+# SSE fan-out broker: in-memory by default, Redis when REDIS_URL is set
+# (makes real-time events correct across multiple Gunicorn workers / instances).
+from ..sse_broker import broker as _sse_broker
 
 
 def publish_event(event_type: str, payload: dict):
-    """Broadcast a JSON event to every connected SSE subscriber (non-blocking)."""
-    message = {"type": event_type, **payload}
-    with _SSE_LOCK:
-        subscribers = list(_SSE_SUBSCRIBERS)
-    for q in subscribers:
-        try:
-            q.put_nowait(message)
-        except queue.Full:
-            # Drop for slow consumers rather than blocking the request thread.
-            pass
+    """Broadcast a JSON event to every connected SSE subscriber (via the broker)."""
+    _sse_broker.publish({"type": event_type, **payload})
 
 
 def add_live_event(action_text: str):
@@ -184,20 +159,15 @@ def sse_stream():
     """
     @stream_with_context
     def generator():
-        q = _sse_subscribe()
-        try:
-            # Prime the connection so EventSource fires 'open' immediately.
-            yield "retry: 3000\n\n"
-            yield f"event: ready\ndata: {json.dumps({'type': 'ready'})}\n\n"
-            while True:
-                try:
-                    message = q.get(timeout=15)
-                    yield f"data: {json.dumps(message, ensure_ascii=False)}\n\n"
-                except queue.Empty:
-                    # Heartbeat comment keeps proxies/browsers from closing the stream.
-                    yield ": keep-alive\n\n"
-        finally:
-            _sse_unsubscribe(q)
+        # Prime the connection so EventSource fires 'open' immediately.
+        yield "retry: 3000\n\n"
+        yield f"event: ready\ndata: {json.dumps({'type': 'ready'})}\n\n"
+        for message in _sse_broker.subscribe():
+            if message is None:
+                # Heartbeat comment keeps proxies/browsers from closing the stream.
+                yield ": keep-alive\n\n"
+            else:
+                yield f"data: {json.dumps(message, ensure_ascii=False)}\n\n"
 
     headers = {
         "Content-Type": "text/event-stream",
@@ -304,6 +274,34 @@ def list_audit_sessions():
     """HITL governance: index of all negotiation sessions with sign-off status."""
     sessions = session_repository.list_sessions() if hasattr(session_repository, "list_sessions") else []
     return jsonify({"sessions": sessions, "count": len(sessions)})
+
+
+@chat_bp.route("/api/admin/reset-sessions", methods=["POST"])
+def admin_reset_sessions():
+    """
+    Data hygiene: wipe ALL transient negotiation sessions while keeping the seed
+    catalog (60 deals + 2,500 PRs) intact — a clean slate before a live demo.
+
+    Protected by an admin token. Set ADMIN_RESET_TOKEN in the environment and
+    pass it as the X-Admin-Token header (or {"token": "..."} in the body). If no
+    token is configured the endpoint is disabled (safe-by-default in production).
+    """
+    configured = os.environ.get("ADMIN_RESET_TOKEN", "").strip()
+    if not configured:
+        return jsonify({"status": "disabled",
+                        "detail": "ADMIN_RESET_TOKEN is not set — reset endpoint is disabled."}), 403
+
+    data = request.json or {}
+    provided = (request.headers.get("X-Admin-Token") or data.get("token") or "").strip()
+    if provided != configured:
+        return jsonify({"status": "forbidden", "detail": "Invalid admin token."}), 403
+
+    if not hasattr(session_repository, "clear_all_sessions"):
+        return jsonify({"status": "unsupported"}), 501
+
+    removed = session_repository.clear_all_sessions()
+    add_live_event(f"ล้างข้อมูลเซสชันการเจรจาทั้งหมด {removed} รายการ (เตรียมพร้อมสำหรับการสาธิต) [Admin Reset]")
+    return jsonify({"status": "ok", "sessions_cleared": removed})
 
 
 @chat_bp.route("/api/audit/<deal_id>/<vendor_id>")

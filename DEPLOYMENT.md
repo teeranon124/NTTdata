@@ -166,11 +166,59 @@ POC budget.
 
 ---
 
-## 5. Verification checklist
+## 5. Production hardening (required env for a real deployment)
+
+| Variable | Purpose | Production value |
+| :--- | :--- | :--- |
+| `SECRET_KEY` | Flask session signing | strong random secret (Secrets Manager) — the app warns if the built-in default is used while `FLASK_DEBUG=0` |
+| `FLASK_DEBUG` | Debug mode | `0` (the Docker image sets this; never run debug in prod) |
+| `USE_DATABASE` | ORM backend | `true` |
+| `DATABASE_URL` | RDS PostgreSQL DSN | from Secrets Manager |
+| `REDIS_URL` | SSE fan-out across workers/instances | set when running >1 worker or >1 instance (e.g. `redis://host:6379/0`). If unset, SSE is per-process (fine for a single 1-worker demo). |
+| `ADMIN_RESET_TOKEN` | Enables `/api/admin/reset-sessions` | a secret token; **leave unset to disable the reset endpoint entirely** |
+| `BEDROCK_GUARDRAIL_ID` | Amazon Bedrock Guardrails | optional; falls back to deterministic local guardrails |
+
+Hardening notes already wired into the code:
+- **Seed race safety** — on PostgreSQL, first-boot seeding is serialized with a
+  `pg_advisory_lock`, so multiple Gunicorn workers never double-seed an empty DB.
+- **SSE correctness at scale** — the event broker uses Redis pub/sub when
+  `REDIS_URL` is set so an event produced on any worker reaches SSE clients on
+  every worker/instance; otherwise it stays in-memory (single process).
+- **Schema evolution** — `init_db()` auto-adds new nullable columns to an existing
+  database, so deploying a newer build over an older DB does not break.
+
+## 6. Data hygiene & demo preparation (IMPORTANT)
+
+Seed data (60 deals + 2,500 PRs) is **permanent**; negotiation **sessions**
+(chat, audit, sign-off) are **transient** and accumulate as you test. To get a
+clean slate before recording the demo WITHOUT destroying the seed catalog:
+
+```bash
+# Option A — CLI (local or one-off ECS task):
+python -m webapp.database.seed_loader --reset-sessions
+
+# Option B — HTTP admin endpoint (requires ADMIN_RESET_TOKEN set):
+curl -X POST https://<host>/api/admin/reset-sessions \
+     -H "X-Admin-Token: $ADMIN_RESET_TOKEN"
+```
+
+Both clear every session/message/audit row but keep all 60 deals and 2,500 PRs.
+To rebuild the seed catalog itself from scratch: `python -m webapp.database.seed_loader --force`.
+
+Recommended pre-demo ritual:
+1. `--reset-sessions` to clear test chatter.
+2. Open the dashboard; confirm 60 deals load and stats populate.
+3. Run one scripted negotiation per the demo script, then present.
+
+## 7. Verification checklist
 
 - `docker build .` produces a non-root image; `/api/events` healthcheck passes.
-- `docker compose up` brings up web + Postgres; app seeds on first boot.
+  (Requires a running Docker engine — validate on a machine with Docker Desktop
+  or in CI before relying on the image.)
+- `docker compose up` brings up web + Postgres; app seeds once on first boot.
 - App Runner / ECS use `/api/events` as the health probe and read secrets from
   Secrets Manager (never from committed files).
-- Unit tests: `python tests/test_market_benchmark.py` and
-  `python tests/test_audit_governance.py` (both backends) pass.
+- Unit tests pass (29 total): `tests/test_market_benchmark.py`,
+  `tests/test_agent_eval.py`, `tests/test_guardrails.py`,
+  `tests/test_audit_governance.py` (both backends).
+- `/api/admin/reset-sessions` clears sessions but keeps the seed catalog.

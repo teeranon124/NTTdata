@@ -56,6 +56,37 @@ def _make_engine():
 engine = _make_engine()
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False, future=True)
 
+IS_POSTGRES = DATABASE_URL.startswith("postgresql")
+# Arbitrary fixed key for the seed advisory lock (any app-unique 64-bit int).
+_SEED_LOCK_KEY = 728_193_466
+
+
+@contextlib.contextmanager
+def seed_lock():
+    """
+    Serialize first-boot seeding across multiple Gunicorn workers.
+
+    On PostgreSQL, uses a transaction-scoped advisory lock so only ONE worker
+    seeds an empty database while the others wait, then see it already seeded.
+    On SQLite (single-writer, single-process dev), this is a no-op.
+    """
+    if not IS_POSTGRES:
+        yield
+        return
+    from sqlalchemy import text
+    conn = engine.connect()
+    try:
+        conn.execute(text("SELECT pg_advisory_lock(:k)"), {"k": _SEED_LOCK_KEY})
+        conn.commit()
+        yield
+    finally:
+        try:
+            conn.execute(text("SELECT pg_advisory_unlock(:k)"), {"k": _SEED_LOCK_KEY})
+            conn.commit()
+        except Exception:
+            pass
+        conn.close()
+
 
 def init_db():
     """Create all tables if they do not exist, then add any missing columns. Idempotent."""

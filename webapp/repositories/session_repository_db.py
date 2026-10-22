@@ -215,5 +215,27 @@ class SessionRepositoryDB:
             result = row.to_api_dict()["signoff"]
         return {"deal_id": deal_key, "vendor_id": vendor_key, "signed_off": True, "decision": decision, **result}
 
+    # -- Data hygiene: separate transient sessions from permanent seed data ---
+    def delete_session(self, deal_id: str, vendor_id: str) -> bool:
+        """Delete one negotiation session (messages/audit cascade)."""
+        deal_key, vendor_key = _normalize(deal_id, vendor_id)
+        with session_scope() as s:
+            n = (s.query(NegotiationSession)
+                 .filter(NegotiationSession.deal_key == deal_key,
+                         NegotiationSession.vendor_key == vendor_key)
+                 .delete())
+        return bool(n)
+
+    def clear_all_sessions(self) -> int:
+        """
+        Delete ALL negotiation sessions (messages + audit trails cascade) while
+        leaving the seed catalog (deals / vendors / purchase_requests) intact.
+        Gives a clean slate before a demo without destroying the 60 deals / 2,500 PRs.
+        """
+        with session_scope() as s:
+            count = s.query(NegotiationSession).count()
+            s.query(NegotiationSession).delete()
+        return count
+
 
 session_repository_db = SessionRepositoryDB()
