@@ -1254,13 +1254,11 @@
                 // Lazy-load the live governance panels when that view opens.
 
                 if (viewName === 'governance') {
-
                     this.initAwardDealOptions();
-
                     this.loadAwardBoard();
-
                     this.loadSlaMonitor();
-
+                } else if (viewName === 'analytics') {
+                    this.initAnalyticsCharts();
                 }
 
             },
@@ -3635,7 +3633,189 @@
 
             }
 
-        };
+        
+            analyticsChartsInitialized: false,
+
+            initAnalyticsCharts() {
+                if (typeof Chart === 'undefined') return;
+                if (this.analyticsChartsInitialized) return;
+                this.analyticsChartsInitialized = true;
+
+                // 1. Chart Spend Comparison (Grouped Bar)
+                const ctx1 = document.getElementById('chart-spend-comparison');
+                if (ctx1) {
+                    new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: ['เครื่องกล', 'ไฟฟ้า & เซนเซอร์', 'นิวเมติกส์', 'ยอดรวมทั้งหมด'],
+                            datasets: [
+                                {
+                                    label: 'งบประมาณเดิม (Spot Buy)',
+                                    data: [91.50, 41.20, 38.26, 170.96],
+                                    backgroundColor: '#94a3b8',
+                                    borderRadius: 6
+                                },
+                                {
+                                    label: 'ยอดหลังต่อรอง (Optimized)',
+                                    data: [77.38, 35.21, 32.78, 145.37],
+                                    backgroundColor: '#2563eb',
+                                    borderRadius: 6
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Kanit', size: 11 } } },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(c) { return `${c.dataset.label}: ฿${c.raw.toFixed(2)}M`; }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(v) { return '฿' + v + 'M'; },
+                                        font: { family: 'JetBrains Mono', size: 10 }
+                                    },
+                                    grid: { color: '#f1f5f9' }
+                                },
+                                x: {
+                                    ticks: { font: { family: 'Kanit', size: 11 } },
+                                    grid: { display: false }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 2. Chart Savings Donut
+                const ctx2 = document.getElementById('chart-savings-donut');
+                if (ctx2) {
+                    new Chart(ctx2, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Spend Pooling (รวมยอดล็อตใหญ่)', 'BATNA Negotiation (การันตีสัญญา 1 ปี)', 'Payment Terms (ยืดวันเครดิต)'],
+                            datasets: [{
+                                data: [18.24, 5.38, 1.97],
+                                backgroundColor: ['#2563eb', '#6366f1', '#f59e0b'],
+                                hoverOffset: 4,
+                                borderWidth: 2,
+                                borderColor: '#ffffff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '65%',
+                            plugins: {
+                                legend: { position: 'bottom', labels: { boxWidth: 10, font: { family: 'Kanit', size: 10 } } },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(c) {
+                                            const total = 25.59;
+                                            const pct = ((c.raw / total) * 100).toFixed(1);
+                                            return `${c.label}: ฿${c.raw.toFixed(2)}M (${pct}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 3. Chart Category Savings (Horizontal Bar)
+                const ctx3 = document.getElementById('chart-category-savings');
+                if (ctx3) {
+                    new Chart(ctx3, {
+                        type: 'bar',
+                        data: {
+                            labels: ['เครื่องกล & ส่งกำลัง', 'ไฟฟ้า & เซนเซอร์', 'นิวเมติกส์ & วาล์ว'],
+                            datasets: [{
+                                label: 'ผลประหยัดสุทธิ (ล้านบาท)',
+                                data: [14.12, 5.99, 5.48],
+                                backgroundColor: ['#059669', '#10b981', '#34d399'],
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(c) { return `ประหยัด: ฿${c.raw.toFixed(2)}M`; }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(v) { return '฿' + v + 'M'; },
+                                        font: { family: 'JetBrains Mono', size: 10 }
+                                    },
+                                    grid: { color: '#f1f5f9' }
+                                },
+                                y: {
+                                    ticks: { font: { family: 'Kanit', size: 11 } },
+                                    grid: { display: false }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 4. Chart Plant Savings (Horizontal Bar)
+                const ctx4 = document.getElementById('chart-plant-savings');
+                if (ctx4) {
+                    new Chart(ctx4, {
+                        type: 'bar',
+                        data: {
+                            labels: ['ระยอง (PLANT-RYG-03)', 'ชลบุรี (PLANT-CBI-02)', 'อยุธยา (PLANT-AYU-01)', 'บางปู (PLANT-SPK-05)', 'ฉะเชิงเทรา (PLANT-CCO-04)'],
+                            datasets: [{
+                                label: 'เงินประหยัดที่ได้รับคืน (ล้านบาท)',
+                                data: [6.92, 6.41, 4.85, 4.12, 3.29],
+                                backgroundColor: '#6366f1',
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(c) { return `ประหยัดได้: ฿${c.raw.toFixed(2)}M`; }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(v) { return '฿' + v + 'M'; },
+                                        font: { family: 'JetBrains Mono', size: 10 }
+                                    },
+                                    grid: { color: '#f1f5f9' }
+                                },
+                                y: {
+                                    ticks: { font: { family: 'Kanit', size: 10 } },
+                                    grid: { display: false }
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+};
 
 
 
