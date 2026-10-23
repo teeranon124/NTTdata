@@ -127,6 +127,11 @@ class Vendor(Base):
         # Fall back to columns for any canonical field missing from raw.
         out.setdefault("id", self.vendor_id)
         out.setdefault("name", self.name)
+        # Ensure email column always takes precedence over stale JSON raw
+        if self.email:
+            out["email"] = self.email
+        elif "email" in raw:
+            out["email"] = raw["email"]
         if self.seed_messages:
             out["messages"] = self.seed_messages
         return out
