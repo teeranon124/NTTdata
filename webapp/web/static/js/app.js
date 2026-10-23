@@ -1662,7 +1662,7 @@
                             status: isStage4 ? "ชนะการประมูล (พร้อมอนุมัติ)" : (stage === 3 ? "อยู่ระหว่างการเจรจา (Stage 3)" : (stage === 2 ? "รอเริ่มเจรจา (Stage 2)" : "รอรับใบเสนอราคา (Stage 1)")),
                             statusBadge: isStage4 ? "badge-success text-white font-bold" : (stage === 3 ? "badge-warning font-bold" : "badge-info text-white font-bold"),
                             outcome: isStage4 ? "เจรจาได้ข้อสรุปตามกรอบ TCO ครบถ้วน พร้อมเข้าสู่ขั้นตอนอนุมัติ PO ใน SAP" : (stage === 3 ? "ระบบส่งข้อเสนอต่อรองรอบที่ 2 รอคู่ค้ายืนยันราคา" : "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย"),
-                const modal = document.getElementById('signoff_modal'); this.currentSignoffDealKey = dealKey;
+                            ladder: [],
                             messages: []
                         },
                         {
@@ -3215,6 +3215,8 @@
 
 
             openSignOff(dealKey) {
+
+                this.currentSignoffDealKey = dealKey;
 
                 const modal = document.getElementById('signoff_modal');
 

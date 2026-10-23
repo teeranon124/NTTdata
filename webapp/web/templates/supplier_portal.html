@@ -392,8 +392,11 @@
             // reopens their Magic Link, so the conversation is never lost.
             async loadHistory() {
                 try {
-                    const vKey = (this.vendorName || this.vendorId).replace(/ /g, '_').toLowerCase();
-                    const res = await fetch(`/api/chat/${this.dealKey}/${encodeURIComponent(vKey)}`);
+                    let res = await fetch(`/api/chat/${this.dealKey}/${encodeURIComponent(this.vendorId)}`);
+                    if (!res.ok) {
+                        const vKey = (this.vendorName || this.vendorId).replace(/ /g, '_').toLowerCase();
+                        res = await fetch(`/api/chat/${this.dealKey}/${encodeURIComponent(vKey)}`);
+                    }
                     if (!res.ok) return;
                     const data = await res.json();
                     const msgs = (data.session && data.session.messages) || [];
