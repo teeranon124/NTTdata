@@ -132,20 +132,16 @@ def supplier_portal(deal_id):
     token = request.args.get("token", "").strip()
     target_vid = str(active_vendor.get("id", "v1")).strip().lower()
 
-    # SECURITY VALIDATION: Validate Magic Link token against authorized deal and vendor
+    # SECURITY VALIDATION: the Magic Link token must EXACTLY match this deal+vendor.
+    # Exact match only — no universal bypass token, no loose substring match — so a
+    # token issued for one vendor can never open another vendor's room (anti-impersonation).
     def _is_valid_token(tok, d_id, v_id):
         if not tok:
             return False
-        t = tok.lower()
-        d = d_id.lower()
-        v = v_id.lower()
-        if t == f"tok_sec_{d}_{v}_verified" or t == f"tok_sec_{d}_{v}":
-            return True
-        if t == f"tok_sec_{d}_2026_verified":
-            return True
-        if f"tok_sec_{d}_{v}" in t:
-            return True
-        return False
+        t = tok.strip().lower()
+        d = d_id.strip().lower()
+        v = v_id.strip().lower()
+        return t in (f"tok_sec_{d}_{v}_verified", f"tok_sec_{d}_{v}")
 
     if not _is_valid_token(token, deal_id, target_vid):
         logger.warning(f"Security Alert: Blocked unauthorized portal access for deal={deal_id}, vendor={target_vid}, token={token}")
