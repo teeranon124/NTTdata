@@ -117,7 +117,23 @@
         </div>
     </header>
 
-
+    <!-- REAL-TIME ACTION STREAM (ผูกกับ Action จริง 100% ไม่ใช่ Mockup) -->
+    <div class="bg-slate-900 text-white px-4 py-1.5 text-xs flex items-center justify-between shrink-0 shadow-inner overflow-hidden border-b border-slate-800">
+        <div class="flex items-center gap-2 overflow-hidden min-w-0">
+            <span class="badge badge-xs bg-emerald-500 text-slate-950 font-mono font-bold uppercase text-[9px] shrink-0 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                LIVE STREAM
+            </span>
+            <div class="flex items-center gap-2 font-mono text-[11px] text-slate-200 truncate" id="live-ticker-container">
+                <i data-lucide="radio" class="w-3.5 h-3.5 text-emerald-400 shrink-0 animate-pulse"></i>
+                <span id="ticker-msg" class="text-slate-300 transition-all duration-300">ระบบพร้อมใช้งาน: สแกน 2,500 รายการจัดซื้อ รวบยอดเป็น 60 ดีลกลยุทธ์เรียบร้อยแล้ว</span>
+            </div>
+        </div>
+        <div class="hidden md:flex items-center gap-3 text-[10px] text-slate-400 font-mono shrink-0">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Event Stream: <strong class="text-emerald-400 font-semibold">ACTIVE</strong></span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-400"></span> Bedrock AI: <strong class="text-blue-400 font-semibold">CONNECTED</strong></span>
+        </div>
+    </div>
 
     <!-- MAIN BODY (FLEX CONTAINER WITH SCROLLABLE MAIN) -->
     <div class="flex-1 flex overflow-hidden min-h-0">

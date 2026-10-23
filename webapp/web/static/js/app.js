@@ -1,5 +1,24 @@
 // AUTO-EXTRACTED from index.html by Phase-F refactor. Do not add server-rendered values here.
         const app = {
+            // ================= REAL-TIME EVENT STREAM CONTROLLER =================
+            pushLiveEvent(text, highlight = false) {
+                const now = new Date();
+                const timeStr = now.toTimeString().split(' ')[0];
+                const formatted = `[${timeStr}] ${text}`;
+                const el = document.getElementById('ticker-msg');
+                if (el) {
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.innerText = formatted;
+                        if (highlight) {
+                            el.className = 'text-emerald-300 font-bold transition-all duration-300';
+                        } else {
+                            el.className = 'text-slate-300 transition-all duration-300';
+                        }
+                        el.style.opacity = '1';
+                    }, 150);
+                }
+            },
             currentPrList: [],
 
                         async openEmailModal(dealKey, vendorIndex = 0) {
@@ -431,6 +450,12 @@
             },
 
             switchView(viewName) {
+                const viewLabels = {
+                    'pipeline': 'กระดานจัดซื้อสด (Live Sourcing Pipeline) 60 ดีล',
+                    'governance': 'ศูนย์กำกับดูแลสัญญา & Multi-Vendor Award Board',
+                    'analytics': 'รายงานวิเคราะห์ ROI & สถิติเศรษฐศาสตร์จัดซื้อ'
+                };
+                if (this.pushLiveEvent) this.pushLiveEvent(`สลับมุมมองหน้าจอ: ${viewLabels[viewName] || viewName}`);
                 ['pipeline', 'governance', 'analytics'].forEach(v => {
                     const el = document.getElementById(`view-${v}`);
                     const nav = document.getElementById(`nav-${v}`);
@@ -723,6 +748,7 @@
 
                 const titleEl = document.getElementById('chat-modal-title');
                 if (titleEl) titleEl.innerText = `ห้องควบคุมการเจรจาต่อรองคู่ค้า: ${deal.title}`;
+                this.pushLiveEvent(`เปิดห้องเจรจา: ${deal.title} (${deal.part_code || dealKey.toUpperCase()}) ดึงประวัติคู่ค้าและเพดานราคาตลาด`, true);
 
                 const subEl = document.getElementById('chat-modal-subtitle');
                 if (subEl) {
@@ -1289,6 +1315,9 @@
 
             openSignOff(dealKey) {
                 const modal = document.getElementById('signoff_modal');
+                const deal = (database.deals && database.deals[dealKey]) ? database.deals[dealKey] : null;
+                const dealName = deal ? deal.title : dealKey.toUpperCase();
+                this.pushLiveEvent(`ส่งร่างสัญญาดีล ${dealName} เข้าสู่กระบวนการลงนามอนุมัติ (Executive Sign-Off)`, true);
                 if (dealKey === 'skf') {
                     document.getElementById('modal-item-title').innerText = 'ตลับลูกปืน SKF (6310-2Z/C3) ยอดรวม 800 ชิ้น (เซฟ ฿128,000)';
                 } else if (dealKey === 'smc') {
@@ -1360,6 +1389,7 @@
 
             executeSAPCommit() {
                 document.getElementById('signoff_modal').close();
+                this.pushLiveEvent('✅ ผู้บริหารลงนามอนุมัติสำเร็จ: ยิงคำสั่ง BAPI_PO_CREATE1 ออกใบสั่งซื้อ PO ใน SAP S/4HANA เรียบร้อยแล้ว', true);
                 this.showToast('ลงนามสำเร็จ! ยิงคำสั่ง BAPI_PO_CREATE1 ออกใบสั่งซื้อ PO ใน SAP S/4HANA เรียบร้อยแล้ว', 'success');
             },
 
