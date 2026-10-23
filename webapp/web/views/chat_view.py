@@ -211,6 +211,38 @@ def send_invite():
 
     return jsonify({"portal_url": portal_url, **result})
 
+
+@chat_bp.route("/api/deals/<deal_id>/vendors/<vendor_id>/email", methods=["POST"])
+def update_vendor_email(deal_id, vendor_id):
+    """Update and persist vendor email in database and memory."""
+    data = request.json or {}
+    new_email = (data.get("email") or "").strip()
+    if not new_email:
+        return jsonify({"status": "error", "detail": "Email cannot be empty"}), 400
+
+    # 1. Update in SQLite DB if ORM enabled
+    try:
+        from ...database.engine import session_scope
+        from ...database.models import Vendor
+        with session_scope() as session:
+            v = session.query(Vendor).filter_by(deal_id=deal_id, vendor_id=vendor_id).first()
+            if v:
+                v.email = new_email
+                if v.raw and isinstance(v.raw, dict):
+                    v.raw["email"] = new_email
+    except Exception as e:
+        logger.warning(f"Could not update vendor email in DB: {e}")
+
+    # 2. Update in deal_repository
+    deal = deal_repository.get_deal(deal_id)
+    if deal:
+        for v in deal.get("vendors", []):
+            if v.get("id") == vendor_id:
+                v["email"] = new_email
+
+    add_live_event(f"อัปเดตอีเมลคู่ค้า {vendor_id} ในดีล {deal_id.upper()} เป็น {new_email}")
+    return jsonify({"status": "success", "deal_id": deal_id, "vendor_id": vendor_id, "email": new_email})
+
 @chat_bp.route("/api/deals")
 def get_deals():
     deals = deal_repository.get_all_deals()

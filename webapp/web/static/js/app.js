@@ -21,126 +21,220 @@
             },
             currentPrList: [],
 
-                        async openEmailModal(dealKey, vendorIndex = 0) {
-                if (!dealKey) dealKey = 'nsk';
+                        async openEmailModal(dealKey) {
+                if (!dealKey) dealKey = 'festo_cyl';
                 this.currentEmailDealKey = dealKey;
-                this.currentEmailVendorIndex = vendorIndex;
                 const modal = document.getElementById('email_sim_modal');
                 if (!modal) return;
 
-                let deal = null;
-                if (this.masterDeals && this.masterDeals[dealKey]) {
-                    deal = this.masterDeals[dealKey];
-                } else {
-                    try {
-                        const res = await fetch('/api/deals');
-                        if (res.ok) {
-                            const data = await res.json();
-                            this.masterDeals = data.deals || {};
-                            deal = this.masterDeals[dealKey];
-                        }
-                    } catch(e) {}
+                const deal = (database.deals && database.deals[dealKey]) || { title: dealKey.toUpperCase(), vendors: [] };
+                const skuEl = document.getElementById('modal-email-deal-sku');
+                if (skuEl) skuEl.innerText = deal.part_code || deal.sku || dealKey.toUpperCase();
+
+                const vendors = deal.vendors || [];
+                const countBadge = document.getElementById('modal-vendor-count-badge');
+                if (countBadge) countBadge.innerText = `${vendors.length} บริษัท`;
+
+                // Render dynamic vendors table with editable email inputs
+                const tbody = document.getElementById('modal-vendors-tbody');
+                if (tbody) {
+                    if (vendors.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">ไม่พบคู่ค้าในรายการ Approved Vendor List</td></tr>`;
+                    } else {
+                        tbody.innerHTML = vendors.map((v, idx) => {
+                            const vId = v.id || `v${idx+1}`;
+                            const token = `tok_sec_${dealKey}_${vId}_verified`;
+                            const portalUrl = `${window.location.origin}/portal/negotiate/${dealKey}?vendor=${vId}&token=${token}`;
+                            const emailVal = v.email || 'teeranonn124@gmail.com';
+                            return `
+                                <tr class="hover:bg-slate-800/80 transition-colors">
+                                    <td class="font-mono text-slate-400 text-xs">#${idx + 1}</td>
+                                    <td class="min-w-[170px]">
+                                        <div class="font-bold text-slate-100 text-xs">${v.name}</div>
+                                        <div class="text-[10px] text-slate-400 font-mono mt-0.5">ID: ${vId} · สัญญา: Blanket 1 ปี</div>
+                                    </td>
+                                    <td class="min-w-[220px]">
+                                        <div class="flex items-center gap-1.5">
+                                            <input type="email" id="vendor-email-input-${idx}" 
+                                                   value="${emailVal}" 
+                                                   onchange="app.updateVendorEmail('${dealKey}', '${vId}', ${idx}, this.value)"
+                                                   class="input input-xs bg-slate-900 border-slate-700 text-slate-100 rounded-lg w-full font-mono text-xs focus:border-blue-500 placeholder:text-slate-600" 
+                                                   placeholder="ระบุอีเมลผู้รับ..." />
+                                            <button type="button" onclick="app.updateVendorEmail('${dealKey}', '${vId}', ${idx}, document.getElementById('vendor-email-input-${idx}').value)" 
+                                                    class="btn btn-xs btn-ghost text-slate-400 hover:text-white p-1" title="บันทึกอีเมล">
+                                                <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="text-right whitespace-nowrap">
+                                        <div class="flex items-center justify-end gap-1.5">
+                                            <button type="button" onclick="app.sendSingleVendorInvite('${dealKey}', ${idx})" id="btn-send-vendor-${idx}"
+                                                    class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg px-2.5 py-1 h-auto flex items-center gap-1 shadow-xs transition-all">
+                                                <i data-lucide="send" class="w-3 h-3"></i>
+                                                <span>ยิง SES</span>
+                                            </button>
+                                            <a href="${portalUrl}" target="_blank" class="btn btn-xs btn-ghost text-indigo-400 hover:text-indigo-300 hover:bg-slate-800 rounded-lg p-1" title="เปิดหน้าจอคู่ค้า (Supplier Portal)">
+                                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('');
+                    }
                 }
 
-                if (!deal) {
-                    deal = (database.deals && database.deals[dealKey]) ? {
-                        sku: dealKey.toUpperCase(),
-                        name: database.deals[dealKey].title,
-                        qty: 18755,
-                        prs_count: 166,
-                        supplier: (database.deals[dealKey].vendors && database.deals[dealKey].vendors[0]) ? database.deals[dealKey].vendors[0].name : "บจก. คู่ค้า AVL",
-                        post_price: 398,
-                        vendors: database.deals[dealKey].vendors
-                    } : {
-                        sku: dealKey.toUpperCase(),
-                        name: `อะไหล่มาตรฐานอุตสาหกรรม ${dealKey.toUpperCase()}`,
-                        qty: 5000,
-                        prs_count: 50,
-                        supplier: "บจก. คู่ค้าที่ได้รับเชิญ",
-                        post_price: 500
-                    };
+                // Populate Official RFQ Letter Preview Card below
+                const v0 = vendors[0] || { name: 'บจก. คู่ค้า AVL', id: 'v1' };
+                const prevVendor = document.getElementById('preview-vendor-name');
+                if (prevVendor) prevVendor.innerText = v0.name;
+
+                const prevSku = document.getElementById('preview-part-sku');
+                if (prevSku) prevSku.innerText = deal.part_code || deal.sku || dealKey.toUpperCase();
+
+                const prevQty = document.getElementById('preview-part-qty');
+                if (prevQty) prevQty.innerText = `${deal.qty || 850} ${deal.unit || 'ชิ้น'}`;
+
+                const prevPrs = document.getElementById('preview-part-prs');
+                if (prevPrs) prevPrs.innerText = `${deal.prs_count || 14} PRs`;
+
+                const prevBtn = document.getElementById('preview-portal-btn');
+                if (prevBtn) {
+                    const token0 = `tok_sec_${dealKey}_${v0.id || 'v1'}_verified`;
+                    prevBtn.href = `${window.location.origin}/portal/negotiate/${dealKey}?vendor=${v0.id || 'v1'}&token=${token0}`;
                 }
 
-                // Identify target vendor
-                let vendorsList = (database.deals && database.deals[dealKey] && database.deals[dealKey].vendors) || deal.vendors || [];
-                if (vendorsList.length === 0) {
-                    vendorsList = [{
-                        id: "v1",
-                        name: deal.supplier || "บจก. คู่ค้า AVL",
-                        price: `฿${deal.post_price || 398}`,
-                        credit: "45 วัน",
-                        status: "ชนะการประมูล (ออกใบ PO)"
-                    }];
-                }
-
-                const selectedVendor = vendorsList[vendorIndex] || vendorsList[0];
-                const vendorSlug = (selectedVendor.id || 'v1').toLowerCase();
-                const token = `tok_sec_${dealKey}_${vendorSlug}_verified`;
-                const portalUrl = `${window.location.origin}/portal/negotiate/${dealKey}?vendor=${vendorSlug}&token=${token}`;
-
-                // Populate vendor switcher pills
-                const pillsContainer = document.getElementById('email-vendor-pills');
-                if (pillsContainer) {
-                    pillsContainer.innerHTML = vendorsList.map((v, idx) => {
-                        const isAct = idx === vendorIndex;
-                        const isWin = v.status && (v.status.includes('ชนะ') || v.status.includes('PO'));
-                        const badgeClass = isAct 
-                            ? 'bg-blue-600 text-white font-bold border-blue-500' 
-                            : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700';
-                        const labelWin = isWin ? ' [Rank #1 ผู้ชนะ]' : ' [Rank #2 คู่แข่ง]';
-                        return `<button type="button" onclick="app.openEmailModal('${dealKey}', ${idx})" class="px-2 py-0.5 rounded-md text-[10px] font-mono border transition-all ${badgeClass}">${v.name.split(' ')[1] || v.name}${labelWin}</button>`;
-                    }).join('');
-                }
-
-                const vendorClean = selectedVendor.name.replace(/\(V-.*?\)/, '').trim();
-                const vendorEmail = selectedVendor.email || 'teeranonn124@gmail.com';
-
-                const elRecipient = document.getElementById('email-recipient-address');
-                if (elRecipient) elRecipient.innerText = vendorEmail;
-                
-                const realInput = document.getElementById('email-real-recipient');
-                if (realInput) realInput.value = vendorEmail;
-
-                const elCompany = document.getElementById('email-vendor-company');
-                if (elCompany) elCompany.innerText = selectedVendor.name;
-
-                const elSubject = document.getElementById('email-subject-line');
-                if (elSubject) elSubject.innerText = `[RFQ-2026-MRO] คำเชิญเข้าร่วมเจรจาข้อตกลงจัดซื้อระยะยาว (LTA) ประจำปี 2026: ${deal.sku || dealKey.toUpperCase()} - บมจ. เอ็นทีที เดต้า อินดัสเทรียล`;
-
-                const elBodyVendor = document.getElementById('email-body-vendor-name');
-                if (elBodyVendor) elBodyVendor.innerText = selectedVendor.name;
-
-                const elBodySku = document.getElementById('email-body-sku');
-                if (elBodySku) elBodySku.innerText = deal.sku || dealKey.toUpperCase();
-
-                const elBodyQty = document.getElementById('email-body-qty');
-                if (elBodyQty) elBodyQty.innerText = `${(deal.qty || 1000).toLocaleString()} ${deal.unit || 'ชิ้น'}`;
-
-                const elBodyPrs = document.getElementById('email-body-prs');
-                if (elBodyPrs) elBodyPrs.innerText = `${deal.prs_count || 50} PRs (5 โรงงาน)`;
-
-                const elRfqRef = document.getElementById('email-rfq-ref');
-                if (elRfqRef) elRfqRef.innerText = `RFQ-2026-MRO-${(deal.sku || dealKey).toUpperCase().replace(/[^A-Z0-9]/g, '-')}`;
-
-                const elMsgId = document.getElementById('email-ses-message-id');
-                const elSesUuid = document.getElementById('email-ses-uuid');
-                const randId = `0100018f-${dealKey.toLowerCase()}-${vendorSlug}-${Math.floor(Math.random()*8999+1000)}`;
-                if (elMsgId) elMsgId.innerText = randId;
-                if (elSesUuid) elSesUuid.innerText = randId;
-
-                const elPortalBtn = document.getElementById('email-portal-link-btn');
-                if (elPortalBtn) elPortalBtn.href = `/portal/negotiate/${dealKey}?vendor=${vendorSlug}&token=${token}`;
-
-                const elBottomBtn = document.getElementById('email-portal-bottom-btn');
-                if (elBottomBtn) elBottomBtn.href = `/portal/negotiate/${dealKey}?vendor=${vendorSlug}&token=${token}`;
-
-                const elDisplayUrl = document.getElementById('email-display-token-url');
-                if (elDisplayUrl) elDisplayUrl.innerText = portalUrl;
-
-                this.currentPortalUrl = portalUrl;
+                const statusEl = document.getElementById('email-send-status');
+                if (statusEl) statusEl.innerHTML = `<i data-lucide="info" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i> <span>พร้อมส่งเทียบเชิญไปยัง ${vendors.length} คู่ค้าผ่าน Amazon SES</span>`;
 
                 modal.showModal();
                 lucide.createIcons({ root: modal });
+            },
+
+            async updateVendorEmail(dealKey, vendorId, vendorIndex, newEmail) {
+                const cleanEmail = (newEmail || '').trim();
+                if (!cleanEmail) return;
+
+                // Update in memory
+                if (database.deals && database.deals[dealKey] && database.deals[dealKey].vendors && database.deals[dealKey].vendors[vendorIndex]) {
+                    database.deals[dealKey].vendors[vendorIndex].email = cleanEmail;
+                }
+
+                const statusEl = document.getElementById('email-send-status');
+                if (statusEl) statusEl.innerHTML = `<span class="loading loading-spinner loading-xs text-blue-400"></span> กำลังบันทึกอีเมล...`;
+
+                try {
+                    await fetch(`/api/deals/${dealKey}/vendors/${vendorId}/email`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: cleanEmail })
+                    });
+                    if (statusEl) statusEl.innerHTML = `<span class="text-emerald-400">✓ บันทึกอีเมล ${cleanEmail} เรียบร้อยแล้ว</span>`;
+                } catch (e) {
+                    if (statusEl) statusEl.innerHTML = `<span class="text-amber-400">บันทึกในหน่วยความจำเรียบร้อย (${cleanEmail})</span>`;
+                }
+            },
+
+            async sendSingleVendorInvite(dealKey, vendorIndex) {
+                const deal = (database.deals && database.deals[dealKey]) || {};
+                const vendors = deal.vendors || [];
+                const v = vendors[vendorIndex];
+                if (!v) return;
+
+                const input = document.getElementById(`vendor-email-input-${vendorIndex}`);
+                const email = (input ? input.value.trim() : (v.email || '')).trim();
+
+                const btn = document.getElementById(`btn-send-vendor-${vendorIndex}`);
+                const statusEl = document.getElementById('email-send-status');
+
+                if (!email) {
+                    if (statusEl) statusEl.innerHTML = `<span class="text-amber-400">⚠ กรุณาระบุอีเมลก่อนส่ง</span>`;
+                    return;
+                }
+
+                v.email = email;
+
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = `<span class="loading loading-spinner loading-xs"></span>`;
+                }
+                if (statusEl) statusEl.innerHTML = `<span class="loading loading-spinner loading-xs text-blue-400"></span> กำลังส่งผ่าน AWS SES ไปยัง ${email}...`;
+
+                try {
+                    const res = await fetch('/api/send-invite', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            deal_id: dealKey,
+                            vendor_id: v.id || `v${vendorIndex+1}`,
+                            vendor_name: v.name,
+                            email: email
+                        })
+                    });
+                    const data = await res.json();
+                    if (statusEl) {
+                        statusEl.innerHTML = `<span class="text-emerald-400 font-bold">✓ ยิง SES สำเร็จไปยัง ${email} (ID: ${(data.message_id || 'SES-OK').substring(0, 16)}...)</span>`;
+                    }
+                    this.showToast(`✅ ยิงเทียบเชิญ RFQ ทาง AWS SES ถึง ${v.name} (${email}) สำเร็จ!`, 'success');
+                    this.pushLiveEvent(`✉️ [AWS SES] ส่งเทียบเชิญ RFQ สำเร็จไปยัง ${v.name} (${email})`, true);
+                } catch (e) {
+                    if (statusEl) statusEl.innerHTML = `<span class="text-red-400">เกิดข้อผิดพลาด: ${e.message}</span>`;
+                } finally {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-emerald-300"></i> <span>ส่งแล้ว</span>`;
+                        lucide.createIcons({ root: btn });
+                    }
+                }
+            },
+
+            async sendAllVendorsInvite() {
+                const dealKey = this.currentEmailDealKey || 'festo_cyl';
+                const deal = (database.deals && database.deals[dealKey]) || {};
+                const vendors = deal.vendors || [];
+
+                const statusEl = document.getElementById('email-send-status');
+                const btnAll = document.getElementById('btn-send-all-vendors');
+
+                if (btnAll) {
+                    btnAll.disabled = true;
+                    btnAll.innerHTML = `<span class="loading loading-spinner loading-xs"></span> กำลังยิง SES ทุกเจ้า...`;
+                }
+                if (statusEl) statusEl.innerHTML = `<span class="loading loading-spinner loading-xs text-blue-400"></span> กำลังส่งเทียบเชิญไปยังคู่ค้าทั้ง ${vendors.length} เจ้าผ่าน AWS SES...`;
+
+                let sentCount = 0;
+                for (let i = 0; i < vendors.length; i++) {
+                    const v = vendors[i];
+                    const input = document.getElementById(`vendor-email-input-${i}`);
+                    const email = (input ? input.value.trim() : (v.email || '')).trim() || 'teeranonn124@gmail.com';
+                    v.email = email;
+
+                    try {
+                        await fetch('/api/send-invite', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                deal_id: dealKey,
+                                vendor_id: v.id || `v${i+1}`,
+                                vendor_name: v.name,
+                                email: email
+                            })
+                        });
+                        sentCount++;
+                    } catch(e) {}
+                }
+
+                if (statusEl) {
+                    statusEl.innerHTML = `<span class="text-emerald-400 font-bold">✓ ยิงเทียบเชิญ RFQ ทาง AWS SES ครบทั้ง ${sentCount}/${vendors.length} เจ้าเรียบร้อยแล้ว!</span>`;
+                }
+                this.showToast(`✅ ยิงเทียบเชิญ RFQ ทาง AWS SES ครบ ${sentCount} เจ้าเรียบร้อย!`, 'success');
+                this.pushLiveEvent(`🚀 [AWS SES] ยิงเทียบเชิญ RFQ แบบคู่ขนานครบทุกเจ้าในดีล ${dealKey.toUpperCase()} สำเร็จ`, true);
+
+                if (btnAll) {
+                    btnAll.disabled = false;
+                    btnAll.innerHTML = `<i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-300"></i> <span>ส่งครบทุกเจ้าแล้ว</span>`;
+                    lucide.createIcons({ root: btnAll });
+                }
             },
 
             copyMagicLink() {
