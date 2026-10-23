@@ -3264,7 +3264,9 @@
 
 
 
-            openRAGModal(dealKey = 'mitsubishi') {
+            openRAGModal(dealKey) {
+
+                if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
 
                 const modal = document.getElementById('rag_modal');
 
@@ -3272,93 +3274,65 @@
 
                 const title = document.getElementById('rag-modal-title');
 
-                
+                if (!modal || !content || !title) return;
 
-                if (dealKey === 'mitsubishi') {
+                const deal = (this.getDeal && this.getDeal(dealKey)) || (database.deals && database.deals[dealKey]) || { title: dealKey.toUpperCase() };
 
-                    title.innerText = 'ประวัติสัญญาจัดซื้อเดิม: เม็ดมีดกลึง Mitsubishi';
-
-                    content.innerHTML = `
-
-                        <div class="bg-blue-50 p-3.5 rounded-xl border border-blue-200 space-y-1.5">
-
-                            <div class="font-bold text-blue-950 flex items-center gap-1.5 text-xs">
-
-                                <i data-lucide="file-search" class="w-4 h-4 text-blue-700"></i> สัญญาจัดซื้อเดิมในระบบ (ฐานข้อมูลสัญญาองค์กร):
-
-                            </div>
-
-                            <div class="font-mono bg-white p-2.5 rounded-lg border border-blue-200 text-[11px] text-slate-800 space-y-1">
-
-                                <div>• <strong>เลขที่สัญญาเดิม:</strong> LTA-2024-MITS-092 (สัญญารายปี 2024)</div>
-
-                                <div>• <strong>คู่สัญญาเดิม:</strong> บจก. เคียวเซร่า & มิตซูบิชิ ทูลส์ (AVL Verified)</div>
-
-                                <div>• <strong>ราคาเดิมในสัญญา:</strong> <span class="text-emerald-700 font-bold">฿168.00 / ชิ้น</span> (สั่ง 300 ชิ้น)</div>
-
-                                <div>• <strong>ราคาตั้งต้นปัจจุบัน:</strong> <span class="text-rose-600 font-bold">฿195.00 / ชิ้น</span> (Spot Buy หน้าร้าน)</div>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
-
-                            <div class="font-bold text-slate-800 text-xs">การคำนวณต้นทุนรวมและราคาเป้าหมาย (TCO Target):</div>
-
-                            <div class="font-mono bg-white p-2 rounded-lg border border-slate-200 text-[11px] text-slate-700">
-
-                                ต้นทุนรวม (TCO) = ราคาต่อหน่วย + ค่าขนส่ง (฿0 ส่งฟรีถึง Tool Crib) - ส่วนลด Volume
-
-                            </div>
-
-                            <div class="text-[11px] text-slate-600 space-y-1">
-
-                                <div>• <strong>ยอดสั่งซื้อรวม:</strong> 500 ชิ้น (กวาดรวมจากตู้เบิก Smart Tool Crib ทุกไลน์)</div>
-
-                                <div>• <strong>กรอบราคาเป้าหมายเจรจา:</strong> <span class="text-emerald-700 font-bold font-mono">฿170.00 / ชิ้น</span></div>
-
-                                <div>• <strong>ผลประหยัดงบประมาณ:</strong> <span class="text-emerald-700 font-bold">฿12,500 (-12.8%)</span> เทียบกับราคา Spot Buy</div>
-
-                                <div>• <strong>ความปลอดภัยของข้อมูล:</strong> ประมวลผลภายในระบบ On-Premise ข้อมูลสัญญาและราคาไม่รั่วไหล 100%</div>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                } else {
-
-                    title.innerText = 'ข้อมูลสเปกและราคาอ้างอิง: อะไหล่ MRO';
-
-                    content.innerHTML = `
-
-                        <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 space-y-1 text-xs">
-
-                            <div class="font-bold text-blue-900 flex items-center gap-1.5">
-
-                                <i data-lucide="file-search" class="w-3.5 h-3.5 text-blue-700"></i> สเปกและราคาอ้างอิงเดิม:
-
-                            </div>
-
-                            <div class="font-mono bg-white p-2 rounded border border-blue-200 text-[11px] text-slate-700 space-y-0.5">
-
-                                <div>• <strong>มาตรฐานชิ้นส่วน:</strong> JIS B 1514 / ISO 492 (Radial Bearings)</div>
-
-                                <div>• <strong>ราคาเพดานในอดีต:</strong> ฿450.00 / ชิ้น</div>
-
-                                <div>• <strong>ราคาเป้าหมายเจรจาใหม่:</strong> ฿395.00 - ฿398.00 / ชิ้น</div>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
+                // Determine category and industrial standard
+                const cat = (deal.category || '').toLowerCase();
+                let std = 'JIS B 1514 / ISO 492 (Radial Precision Ball Bearings)';
+                if (cat.includes('pneumatic') || dealKey.includes('festo') || dealKey.includes('smc')) {
+                    std = 'ISO 15552 / JIS B 8350 (Pneumatic Actuators & Valves)';
+                } else if (cat.includes('electric') || dealKey.includes('schneider') || dealKey.includes('omron')) {
+                    std = 'IEC 60947 / JIS C 8201 (Low-voltage Switchgear & Automation)';
+                } else if (cat.includes('belt') || dealKey.includes('bando') || dealKey.includes('gates')) {
+                    std = 'RMA IP-22 / ISO 4184 (Industrial Power Transmission Belts)';
+                } else if (cat.includes('lubricant') || dealKey.includes('mobil')) {
+                    std = 'DIN 51524 / ISO VG 46 (Industrial Hydraulic Fluids)';
+                } else if (cat.includes('seal') || dealKey.includes('nok')) {
+                    std = 'DIN 3760 / ISO 6194 (Rotary Shaft Lip Seals)';
+                } else if (cat.includes('tool') || dealKey.includes('mitsubishi')) {
+                    std = 'ISO 1832 / JIS B 4120 (Indexable Carbide Inserts)';
                 }
+
+                const cleanKey = dealKey.replace(/[^a-zA-Z0-9]/g, '').slice(0, 8).toUpperCase();
+                const contractNo = `LTA-2024-${cleanKey}-092`;
+                const pastVendor = (deal.vendors && deal.vendors[0] && deal.vendors[0].name) || 'บจก. คู่ค้าในทะเบียน AVL';
+                const initialPrice = deal.initial_price || (deal.vendors && deal.vendors[0] && (deal.vendors[0].initialPrice || deal.vendors[0].price)) || 425;
+                const targetPrice = deal.target_price || Math.round(initialPrice * 0.88);
+                const qty = deal.total_quantity || 1200;
+                const estSavings = Math.round((initialPrice - targetPrice) * qty);
+                const savingsPct = Math.round(((initialPrice - targetPrice) / initialPrice) * 100);
+
+                title.innerText = `ประวัติสัญญาจัดซื้อเดิม & Benchmark: ${deal.title}`;
+
+                content.innerHTML = `
+                    <div class="bg-blue-50 p-3.5 rounded-xl border border-blue-200 space-y-1.5">
+                        <div class="font-bold text-blue-950 flex items-center gap-1.5 text-xs">
+                            <i data-lucide="file-search" class="w-4 h-4 text-blue-700"></i> สัญญาจัดซื้อเดิมในระบบ (Enterprise Contract RAG):
+                        </div>
+                        <div class="font-mono bg-white p-2.5 rounded-lg border border-blue-200 text-[11px] text-slate-800 space-y-1">
+                            <div>• <strong>เลขที่สัญญาเดิม:</strong> ${contractNo} (สัญญารายปี 2024)</div>
+                            <div>• <strong>คู่สัญญาเดิม:</strong> ${pastVendor} (AVL Certified ✓)</div>
+                            <div>• <strong>มาตรฐานชิ้นส่วน:</strong> <span class="text-blue-800 font-semibold">${std}</span></div>
+                            <div>• <strong>ราคาเดิมในสัญญา:</strong> <span class="text-emerald-700 font-bold">฿${(targetPrice * 0.98).toFixed(2)} / ชิ้น</span></div>
+                            <div>• <strong>ราคาตั้งต้นปัจจุบัน (Spot Buy):</strong> <span class="text-rose-600 font-bold">฿${Number(initialPrice).toFixed(2)} / ชิ้น</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                        <div class="font-bold text-slate-800 text-xs">การคำนวณต้นทุนรวมและราคาเป้าหมาย (TCO Target):</div>
+                        <div class="font-mono bg-white p-2 rounded-lg border border-slate-200 text-[11px] text-slate-700">
+                            ต้นทุนรวม (TCO) = ราคาต่อหน่วย + ค่าขนส่ง DDP (฿0) - ส่วนลด Volume (${qty.toLocaleString()} ชิ้น)
+                        </div>
+                        <div class="text-[11px] text-slate-600 space-y-1">
+                            <div>• <strong>ยอดสั่งซื้อรวมทุกโรงงาน:</strong> ${qty.toLocaleString()} ชิ้น (กวาดรวมจากใบขอซื้อ PR Pool)</div>
+                            <div>• <strong>กรอบราคาเป้าหมายเจรจา (BATNA):</strong> <span class="text-emerald-700 font-bold font-mono">฿${Number(targetPrice).toFixed(2)} / ชิ้น</span></div>
+                            <div>• <strong>ผลประหยัดงบประมาณที่คาดหวัง:</strong> <span class="text-emerald-700 font-bold">฿${estSavings.toLocaleString()} (-${savingsPct}%)</span></div>
+                            <div>• <strong>ความปลอดภัยของข้อมูล:</strong> ประมวลผลภายใน On-Premise ข้อมูลสัญญาและราคาไม่รั่วไหล 100%</div>
+                        </div>
+                    </div>
+                `;
 
                 modal.showModal();
 
