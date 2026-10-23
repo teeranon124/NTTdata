@@ -1209,7 +1209,7 @@
 
                     'pipeline': 'กระดานจัดซื้อสด (Live Sourcing Pipeline) 60 ดีล',
 
-                    'governance': 'ศูนย์กำกับดูแลสัญญา & Multi-Vendor Award Board',
+                    'governance': 'ศูนย์กำกับดูแลและการลงนามสัญญา (HITL Sign-Off)',
 
                     'analytics': 'รายงานวิเคราะห์ ROI & สถิติเศรษฐศาสตร์จัดซื้อ'
 

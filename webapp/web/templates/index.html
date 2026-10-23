@@ -3509,38 +3509,7 @@
                     </div>
                 </div>
 
-                <!-- ===== LIVE: MULTI-VENDOR AWARD BOARD + SLA MONITOR ===== -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                    <!-- Award Board -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                                <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i>
-                                กระดานตัดสินผู้ชนะ (Multi-Vendor Award Board)
-                            </h3>
-                            <div class="flex items-center gap-1.5">
-                                <select id="award-deal-select" class="select select-xs border-slate-200 text-xs font-mono rounded-lg" onchange="app.loadAwardBoard()"></select>
-                                <button type="button" onclick="app.loadAwardBoard()" class="btn btn-xs btn-ghost text-slate-500 hover:text-blue-700 rounded-lg" title="รีเฟรช"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i></button>
-                            </div>
-                        </div>
-                        <div id="award-board-body" class="text-xs text-slate-500">
-                            <div class="text-center py-6 text-slate-400">เลือกดีลเพื่อดูอันดับ BAFO Winner</div>
-                        </div>
-                    </div>
-                    <!-- SLA / Anti-Stall Monitor -->
-                    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                                <i data-lucide="timer" class="w-4 h-4 text-blue-600"></i>
-                                เฝ้าระวังการเจรจาค้าง (SLA Anti-Stall Monitor)
-                            </h3>
-                            <button type="button" onclick="app.loadSlaMonitor()" class="btn btn-xs btn-ghost text-slate-500 hover:text-blue-700 rounded-lg" title="รีเฟรช"><i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i></button>
-                        </div>
-                        <div id="sla-monitor-body" class="text-xs text-slate-500">
-                            <div class="text-center py-6 text-slate-400">ยังไม่มีเซสชันการเจรจา</div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="card bg-white border border-slate-200 shadow-sm overflow-hidden rounded-2xl">
                     <div class="overflow-x-auto">
