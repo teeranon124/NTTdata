@@ -509,76 +509,54 @@
 
 
             async openPrModal(dealKey) {
+                if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
+                const deal = (this.getDeal && this.getDeal(dealKey)) || (database.deals && database.deals[dealKey]) || { title: dealKey.toUpperCase() };
 
-                const deal = (database.deals && database.deals[dealKey]) || { title: dealKey.toUpperCase() };
+                // Accurately determine deal stage from DOM or deal object
+                let currentStage = (deal && deal.stage !== undefined && deal.stage !== null) ? parseInt(deal.stage, 10) : null;
+                if (currentStage === null || isNaN(currentStage)) {
+                    const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
+                    if (row && row.getAttribute('data-stage')) {
+                        currentStage = parseInt(row.getAttribute('data-stage'), 10);
+                    } else {
+                        currentStage = 1;
+                    }
+                }
+                this.currentPrDealStage = currentStage;
 
                 const modal = document.getElementById('pr_modal');
-
                 const titleEl = document.getElementById('pr-modal-title');
-
                 const subEl = document.getElementById('pr-modal-subtitle');
-
                 const cntEl = document.getElementById('pr-stat-count');
-
                 const qtyEl = document.getElementById('pr-stat-qty');
-
                 const preEl = document.getElementById('pr-stat-pre');
-
                 const savEl = document.getElementById('pr-stat-savings');
-
                 const tbody = document.getElementById('pr-table-body');
-
                 const searchInput = document.getElementById('pr-search-input');
-
                 if (searchInput) searchInput.value = '';
-
-
 
                 if (tbody) tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400"><span class="loading loading-spinner loading-sm"></span> กำลังดึงข้อมูลจากระบบ ERP...</td></tr>`;
 
-
-
                 modal.showModal();
-
                 lucide.createIcons({ root: modal });
 
-
-
                 try {
-
                     const res = await fetch(`/api/deals/${dealKey}/prs?limit=500`);
-
                     if (res.ok) {
-
                         const data = await res.json();
-
                         this.currentPrList = data.transactions || [];
-
                     } else {
-
                         this.currentPrList = [];
-
                     }
-
                 } catch(e) {
-
                     this.currentPrList = [];
-
                 }
-
-
 
                 if (this.currentPrList.length === 0) {
-
                     const dataset = window.DATASET_2500_DATA || window.DATASET_2500 || [];
-
                     const did = dealKey.toLowerCase();
-
                     this.currentPrList = dataset.filter(r => (r.deal_key && r.deal_key.toLowerCase() === did) || (r.code && r.code.toLowerCase().includes(did)));
-
                 }
-
-
 
                 // Calculate metrics
                 const totalPrs = this.currentPrList.length;
@@ -589,38 +567,45 @@
                 const cleanTitle = (deal.name || deal.title || dealKey.toUpperCase()).replace(/ยอดรวม.*$/, '').trim();
                 if (titleEl) titleEl.innerText = `ตรวจสอบใบขอซื้อย่อย (PRs): ${cleanTitle} (รวม ${totalPrs.toLocaleString()} ใบ / ${totalQty.toLocaleString()} ชิ้น)`;
 
-                const isStage1 = (deal && (deal.stage === 1 || deal.stage === undefined || !deal.stage || deal.stage < 4));
-                this.currentPrIsStage1 = isStage1;
+                const isAwarded = (currentStage === 4);
+                const isStage1 = (currentStage === 1);
 
                 if (subEl) {
-                    subEl.innerText = isStage1 
-                        ? `รายการใบขอซื้อย่อยระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount (สถานะ: Stage 1 รอเปิดห้องเจรจาคู่ค้า)`
-                        : `รายการใบขอซื้อย่อยระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount และเจรจาต่อรองเสร็จสมบูรณ์`;
+                    if (isAwarded) {
+                        subEl.innerText = `รายการใบขอซื้อย่อยระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount และเจรจาต่อรองเสร็จสมบูรณ์ (Stage 4 รออนุมัติ PO)`;
+                    } else if (isStage1) {
+                        subEl.innerText = `รายการใบขอซื้อย่อยระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount (สถานะ: Stage 1 รอเปิดห้องเจรจาคู่ค้า)`;
+                    } else {
+                        subEl.innerText = `รายการใบขอซื้อย่อยระดับโรงงานทั้งหมดที่ถูกมัดรวมเข้าสู่ดีลนี้เพื่อขอ Volume Discount (สถานะ: Stage ${currentStage} อยู่ระหว่างเจรจาต่อรอง)`;
+                    }
                 }
 
                 if (cntEl) cntEl.innerText = `${totalPrs.toLocaleString()} ใบ`;
                 if (qtyEl) qtyEl.innerText = `${totalQty.toLocaleString()} ชิ้น`;
                 if (preEl) {
                     preEl.innerText = `฿${Math.round(preTotal).toLocaleString()}`;
-                    preEl.className = isStage1 ? "text-base font-bold text-slate-700 font-mono" : "text-base font-bold text-slate-500 line-through font-mono";
+                    preEl.className = isAwarded ? "text-base font-bold text-slate-500 line-through font-mono" : "text-base font-bold text-slate-800 font-mono";
                 }
 
                 const savLabelEl = document.getElementById('pr-savings-label');
                 if (savEl) {
-                    if (isStage1) {
+                    if (isAwarded) {
+                        if (savLabelEl) savLabelEl.innerText = "กู้คืนเงินรั่วไหล (Savings)";
+                        savEl.innerHTML = `฿${Math.round(savTotal).toLocaleString()} <span class="text-xs text-emerald-600 font-normal font-sans">(-${preTotal > 0 ? ((savTotal/preTotal)*100).toFixed(1) : 0}%)</span>`;
+                    } else if (isStage1) {
                         if (savLabelEl) savLabelEl.innerText = "เป้าหมายลดต้นทุน TCO (Target)";
                         savEl.innerHTML = `<span class="text-blue-700">฿${Math.round(savTotal || (preTotal * 0.12)).toLocaleString()}</span> <span class="text-xs text-slate-400 font-normal font-sans">(คาดการณ์)</span>`;
                     } else {
-                        if (savLabelEl) savLabelEl.innerText = "กู้คืนเงินรั่วไหล (Savings)";
-                        savEl.innerHTML = `฿${Math.round(savTotal).toLocaleString()}`;
+                        if (savLabelEl) savLabelEl.innerText = "กรอบประหยัดเป้าหมาย TCO";
+                        savEl.innerHTML = `<span class="text-blue-700">฿${Math.round(savTotal || (preTotal * 0.12)).toLocaleString()}</span> <span class="text-xs text-slate-400 font-normal font-sans">(อยู่ระหว่างเจรจา)</span>`;
                     }
                 }
 
-                this.renderPrTable(this.currentPrList, isStage1);
+                this.renderPrTable(this.currentPrList, currentStage);
             },
 
-            renderPrTable(list, isStage1) {
-                if (isStage1 === undefined) isStage1 = this.currentPrIsStage1;
+            renderPrTable(list, currentStage) {
+                if (currentStage === undefined) currentStage = this.currentPrDealStage || 1;
                 const tbody = document.getElementById('pr-table-body');
                 const countEl = document.getElementById('pr-showing-count');
                 if (countEl) countEl.innerText = list.length.toLocaleString();
@@ -631,29 +616,38 @@
                     return;
                 }
 
+                const isAwarded = (currentStage === 4);
+                const isStage1 = (currentStage === 1);
+
                 tbody.innerHTML = list.slice(0, 100).map(r => `
                     <tr class="hover:bg-blue-50/50 transition-colors">
                         <td class="py-2 px-3 font-bold text-blue-800 font-mono">${r.pr || r.id}</td>
                         <td class="py-2 px-2 text-slate-500 font-mono">${r.date || '-'}</td>
                         <td class="py-2 px-2"><span class="badge badge-ghost badge-xs font-mono text-[10px]">${(r.plant || '').split(' ')[0]}</span></td>
                         <td class="py-2 px-2 text-right font-mono font-semibold">${(r.qty || 0).toLocaleString()}</td>
-                        <td class="py-2 px-2 text-right font-mono ${isStage1 ? 'font-bold text-slate-800' : 'text-slate-400 line-through'}">฿${(r.pre_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</td>
+                        <td class="py-2 px-2 text-right font-mono ${isAwarded ? 'text-slate-400 line-through' : 'font-bold text-slate-800'}">฿${(r.pre_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</td>
                         <td class="py-2 px-2 text-right font-mono">
-                            ${isStage1 
-                                ? '<span class="badge badge-warning badge-xs text-[10px]">รอเจรจา (Stage 1)</span>' 
-                                : `<span class="font-bold text-blue-700">฿${(r.post_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</span>`
+                            ${isAwarded 
+                                ? `<span class="font-bold text-blue-700">฿${(r.post_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</span>` 
+                                : (isStage1 
+                                    ? '<span class="badge badge-warning badge-xs text-[10px]">รอเจรจา (Stage 1)</span>' 
+                                    : `<span class="badge badge-info badge-xs text-[10px]">อยู่ระหว่างเจรจา (Stage ${currentStage})</span>`
+                                )
                             }
                         </td>
                         <td class="py-2 px-2 text-right font-mono">
-                            ${isStage1 
-                                ? '<span class="text-slate-400 text-xs">-</span>' 
-                                : `<span class="font-bold text-emerald-700">฿${(r.tco_sav || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</span>`
+                            ${isAwarded 
+                                ? `<span class="font-bold text-emerald-700">฿${(r.tco_sav || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</span>` 
+                                : '<span class="text-slate-400 text-xs">-</span>'
                             }
                         </td>
-                        <td class="py-2 px-3 font-sans text-[11px] truncate max-w-[160px]">
-                            ${isStage1 
-                                ? '<span class="text-slate-500 italic">รอคัดเลือกจาก AVL (3 เจ้า)</span>' 
-                                : `<span class="text-slate-700 font-medium">${r.sup_post || '-'}</span>`
+                        <td class="py-2 px-3 font-sans text-[11px] truncate max-w-[170px]">
+                            ${isAwarded 
+                                ? `<span class="text-slate-800 font-semibold">${r.sup_post || '-'}</span>` 
+                                : (isStage1 
+                                    ? '<span class="text-slate-500 italic">รอคัดเลือกจาก AVL (3 เจ้า)</span>' 
+                                    : '<span class="text-slate-500 italic">อยู่ระหว่างเปรียบเทียบข้อเสนอ</span>'
+                                )
                             }
                         </td>
                     </tr>
