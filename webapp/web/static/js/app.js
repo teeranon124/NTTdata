@@ -1176,30 +1176,31 @@
                 const now = new Date();
                 const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-                // 1. Append User (Supplier) Message
+                // 1. Append Buyer / AI Supervisor Directive
                 vendor.messages.push({
-                    sender: "vendor",
-                    name: `${vendor.name.replace('บจก. ', '')} (พิมพ์สด)`,
+                    sender: "ai",
+                    name: "AutoProcure.AI (ฝ่ายจัดซื้อ)",
                     time: timeStr,
-                    text: text
+                    text: text,
+                    tactic: "คำสั่งชี้นำกลยุทธ์จากผู้จัดซื้อ (Human-in-the-Loop Directive)"
                 });
                 inputEl.value = '';
                 this.renderVendorMessages(vendor);
 
-                // Disable button and show typing state
+                // Disable button and show typing state (Supplier is replying to Buyer/AI directive)
                 if (btnSend) btnSend.disabled = true;
                 const container = document.getElementById('chat-messages-container');
                 const typingId = 'typing-' + Date.now();
                 const typingBubble = document.createElement('div');
                 typingBubble.id = typingId;
-                typingBubble.className = 'chat chat-end animate-pulse';
+                typingBubble.className = 'chat chat-start animate-pulse';
                 typingBubble.innerHTML = `
                     <div class="chat-image avatar placeholder">
-                        <div class="bg-blue-700 text-white rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center shadow">AI</div>
+                        <div class="bg-slate-200 text-slate-700 rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center border border-slate-300">V</div>
                     </div>
-                    <div class="chat-header text-[11px] text-slate-500 mb-0.5">AutoProcure.AI กำลังประมวลผลกลยุทธ์...</div>
-                    <div class="chat-bubble bg-blue-100 text-blue-800 text-xs shadow-sm border border-blue-200 flex items-center gap-1.5">
-                        <span class="loading loading-dots loading-xs"></span> กำลังวิเคราะห์ข้อเสนอและคำนวณ TCO
+                    <div class="chat-header text-[11px] text-slate-500 mb-0.5">${vendor.name} กำลังพิจารณาเงื่อนไข...</div>
+                    <div class="chat-bubble bg-slate-100 text-slate-700 text-xs shadow-sm border border-slate-200 flex items-center gap-1.5">
+                        <span class="loading loading-dots loading-xs"></span> คู่ค้ากำลังพิจารณาข้อเสนอและคำนวณส่วนลด
                     </div>
                 `;
                 container.appendChild(typingBubble);
@@ -1214,21 +1215,21 @@
                             deal_key: dealKey,
                             vendor_name: vendor.name,
                             history: vendor.messages.slice(-6),
-                            message: text
+                            message: `[ฝ่ายจัดซื้อแจ้งคำสั่งชี้นำ]: ${text} -- ขอให้ทางซัพพลายเออร์ตอบรับหรือปรับเงื่อนไขกลับมา`
                         })
                     });
 
-                    let aiReplyText = "";
+                    let vendorReplyText = "";
                     let tacticText = "";
 
                     if (response.ok) {
                         const resData = await response.json();
-                        aiReplyText = resData.reply;
-                        tacticText = resData.tactic || `[${resData.source || 'AI Agent'}]`;
+                        vendorReplyText = resData.reply;
+                        tacticText = resData.tactic || `[${resData.source || 'ซัพพลายเออร์ AVL'}]`;
                         if (resData.ladder && resData.ladder.length > 0) {
                             vendor.ladder = resData.ladder;
                         }
-                        this.showToast(`AI Agent ตอบกลับสำเร็จ (${tacticText})`, 'success');
+                        this.showToast(`คู่ค้าตอบรับคำสั่งเจรจาเรียบร้อย`, 'success');
                     } else {
                         throw new Error("Backend offline");
                     }
@@ -1237,34 +1238,31 @@
                     if (typingEl) typingEl.remove();
 
                     vendor.messages.push({
-                        sender: "agent",
-                        name: "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+                        sender: "vendor",
+                        name: vendor.name,
                         time: timeStr,
-                        text: aiReplyText,
-                        tactic: tacticText
+                        text: vendorReplyText
                     });
 
                 } catch (err) {
-                    // Fallback to intelligent local procurement logic if opened directly as file://
                     const typingEl = document.getElementById(typingId);
                     if (typingEl) typingEl.remove();
 
                     let fallbackReply = "";
                     const lowerText = text.toLowerCase();
                     if (lowerText.includes('ลด') || lowerText.includes('บาท') || lowerText.includes('ราคา') || lowerText.includes('%')) {
-                        fallbackReply = `ขอบคุณสำหรับข้อเสนอราคาครับ จากการวิเคราะห์ TCO ของกลุ่มโรงงานเรา หากทาง ${vendor.name} สามารถปรับราคาลงมาใกล้เคียงราคาเป้าหมาย ทางเราพร้อมพิจารณาทำสัญญา Blanket Order 1 ปีเต็ม พร้อมขยายเครดิตเทอมเป็น 45 วันครับ [Volume Consolidation & Credit Extension]`;
+                        fallbackReply = `ทาง ${vendor.name} ได้หารือกับผู้จัดการฝ่ายขายแล้ว เพื่อรักษาสัญญา Blanket Order 1 ปีกับกลุ่มโรงงานของท่าน เรายินยอมปรับลดราคาลงตามข้อเสนอของฝ่ายจัดซื้อครับ`;
                     } else if (lowerText.includes('เครดิต') || lowerText.includes('วัน') || lowerText.includes('จ่าย')) {
-                        fallbackReply = `เรื่องเครดิตเทอม ทางเราขอยืนยันที่ 45-60 วัน เพื่อรักษาสภาพคล่องทางการเงิน หากท่านรองรับได้ ทางเราจะจัดสรรคำสั่งซื้อล็อตใหญ่ของทั้ง 5 โรงงานให้เป็นลำดับแรกครับ [Working Capital Optimization]`;
+                        fallbackReply = `เรื่องเครดิตเทอม ทางบริษัทยินดีขยายตามที่ฝ่ายจัดซื้อเสนอครับ เพื่อสนับสนุนสภาพคล่องทางการเงินของกลุ่มโรงงาน`;
                     } else {
-                        fallbackReply = `รับทราบข้อเสนอครับ ทางระบบ AutoProcure.AI ได้บันทึกเงื่อนไขเข้าสู่ระบบประเมินคู่ค้า (AVL) เรียบร้อยแล้ว หากท่านมีเงื่อนไขเรื่องการรับประกัน 18 เดือนหรือบริการจัดส่งฟรี DDP ทางเรายินดีนำมาพิจารณาเป็นคะแนนพิเศษครับ [Multi-variable Evaluation]`;
+                        fallbackReply = `รับทราบเงื่อนไขและข้อกำหนดเพิ่มเติมจากฝ่ายจัดซื้อครับ ทางเรายินดีปฏิบัติตามมาตรฐาน SLA และพร้อมส่งมอบตามกำหนดเวลาครับ`;
                     }
 
                     vendor.messages.push({
-                        sender: "agent",
-                        name: "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
+                        sender: "vendor",
+                        name: vendor.name,
                         time: timeStr,
-                        text: fallbackReply,
-                        tactic: "[Autonomous Negotiation Engine]"
+                        text: fallbackReply
                     });
                 }
 
