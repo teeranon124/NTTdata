@@ -27,7 +27,7 @@
                 const modal = document.getElementById('email_sim_modal');
                 if (!modal) return;
 
-                const deal = (database.deals && database.deals[dealKey]) || { title: dealKey.toUpperCase(), vendors: [] };
+                const deal = this.getDeal(dealKey);
                 const skuEl = document.getElementById('modal-email-deal-sku');
                 if (skuEl) skuEl.innerText = deal.part_code || deal.sku || dealKey.toUpperCase();
 
@@ -789,10 +789,104 @@
                 }
             },
 
+            getDeal(dealKey) {
+                if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
+                if (!window.database) window.database = {};
+                if (!window.database.deals) window.database.deals = {};
+
+                let deal = window.database.deals[dealKey];
+                
+                // If deal already exists in data.js, ensure deal.stage accurately reflects DOM/status
+                if (deal) {
+                    if (deal.stage === undefined || deal.stage === null) {
+                        const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
+                        if (row && row.getAttribute('data-stage')) {
+                            deal.stage = parseInt(row.getAttribute('data-stage'), 10);
+                        } else {
+                            const hasWinner = deal.vendors && deal.vendors.some(v => v.status && (v.status.includes('ชนะ') || v.status.includes('PO')));
+                            deal.stage = hasWinner ? 4 : 3;
+                        }
+                    }
+                    return deal;
+                }
+
+                // If not seeded in database.deals, build dynamically from index.html DOM row
+                const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
+                let title = dealKey.toUpperCase();
+                let partCode = dealKey.toUpperCase();
+                let budgetStr = 'ตามราคาตลาด';
+                let targetStr = 'คำนวณตามเกณฑ์ TCO';
+                let stage = 2;
+
+                if (row) {
+                    const stageAttr = row.getAttribute('data-stage');
+                    if (stageAttr) stage = parseInt(stageAttr, 10);
+                    const skuEl = row.querySelector('.font-mono.text-blue-900');
+                    if (skuEl) partCode = skuEl.innerText.trim();
+                    const descEl = row.querySelector('.text-slate-600.truncate');
+                    if (descEl) title = `${descEl.innerText.trim()} (${partCode})`;
+                    const priceCells = row.querySelectorAll('td.text-right.font-mono');
+                    if (priceCells.length >= 2) {
+                        budgetStr = `${priceCells[0].innerText.trim()}/หน่วย`;
+                        targetStr = `${priceCells[1].innerText.trim()}/หน่วย (เป้าหมาย TCO)`;
+                    }
+                }
+
+                const isStage4 = stage === 4;
+                deal = {
+                    title: title,
+                    part_code: partCode,
+                    budgetStr: budgetStr,
+                    targetStr: targetStr,
+                    stage: stage,
+                    chips: [
+                        `ขอราคาพิเศษตามสัญญาวอลลุ่ม ${partCode}`,
+                        "ขอขยายเครดิตเทอมเป็น 45 วัน",
+                        "การันตีระยะเวลาส่งมอบสินค้าภายใน 7 วัน",
+                        "ขอใบรับรองมาตรฐานสินค้า (Certificate of Quality)"
+                    ],
+                    vendors: [
+                        {
+                            id: `v_${dealKey}_1`,
+                            name: "บจก. สยาม อุตสาหกรรม ซัพพลาย (AVL Tier-1)",
+                            email: "contact@siam-industrial.co.th",
+                            price: budgetStr.split('/')[0] || "฿1,500.00",
+                            credit: "30 วัน",
+                            leadTime: "7 วันทำการ",
+                            warranty: "1 ปี",
+                            cert: "ISO 9001 / OEM Certified ✓",
+                            status: isStage4 ? "ชนะการประมูล (พร้อมอนุมัติ)" : (stage === 3 ? "อยู่ระหว่างการเจรจา (Stage 3)" : (stage === 2 ? "รอเริ่มเจรจา (Stage 2)" : "รอรับใบเสนอราคา (Stage 1)")),
+                            statusBadge: isStage4 ? "badge-success text-white font-bold" : (stage === 3 ? "badge-warning font-bold" : "badge-info text-white font-bold"),
+                            outcome: isStage4 ? "เจรจาได้ข้อสรุปตามกรอบ TCO ครบถ้วน พร้อมเข้าสู่ขั้นตอนอนุมัติ PO ใน SAP" : (stage === 3 ? "ระบบส่งข้อเสนอต่อรองรอบที่ 2 รอคู่ค้ายืนยันราคา" : "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย"),
+                            ladder: [],
+                            messages: []
+                        },
+                        {
+                            id: `v_${dealKey}_2`,
+                            name: "บจก. ไทย พาร์ท แมชชีนเนอรี่ (AVL Tier-2)",
+                            email: "sales@thaipart.co.th",
+                            price: budgetStr.split('/')[0] || "฿1,550.00",
+                            credit: "30 วัน",
+                            leadTime: "10 วันทำการ",
+                            warranty: "1 ปี",
+                            cert: "Standard Industrial Warranty ✓",
+                            status: isStage4 ? "ราคาสูงกว่าคู่แข่ง (ไม่ได้คัดเลือก)" : (stage === 3 ? "อยู่ระหว่างการเจรจา (Stage 3)" : "รอเริ่มเจรจา (ห้องว่างสด)"),
+                            statusBadge: isStage4 ? "badge-ghost text-slate-500" : (stage === 3 ? "badge-warning font-bold" : "badge-info text-white font-bold"),
+                            outcome: isStage4 ? "ราคาสูงกว่าคู่ค้ารายแรกและไม่สามารถขยายเครดิตเทอมได้ตามข้อกำหนด" : "รอเปิดห้องเจรจาหรือรับข้อเสนอผ่าน Supplier Portal",
+                            ladder: [],
+                            messages: []
+                        }
+                    ]
+                };
+
+                window.database.deals[dealKey] = deal;
+                return deal;
+            },
+
             async resetCurrentChat() {
                 const dealKey = this.currentChatDealKey || 'nsk';
                 if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
-                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const deal = this.getDeal(dealKey);
                 const vendorIndex = this.currentChatVendorIndex || 0;
                 const vendor = deal.vendors && deal.vendors[vendorIndex];
                 if (!vendor) return;
@@ -894,7 +988,7 @@
 
             async openChatModal(dealKey) {
                 if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
-                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const deal = this.getDeal(dealKey);
                 this.currentChatDealKey = dealKey;
                 this.currentChatVendorIndex = 0;
 
@@ -966,7 +1060,7 @@
 
             async switchVendorChat(dealKey, vendorIndex) {
                 if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
-                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const deal = this.getDeal(dealKey);
                 this.currentChatDealKey = dealKey;
                 this.currentChatVendorIndex = vendorIndex;
 
@@ -1080,14 +1174,17 @@
 
                 const footerEl = document.getElementById('chat-footer-bar');
                 if (footerEl) {
-                    const isWinner = vendor.status && (vendor.status.includes('ชนะ') || vendor.status.includes('PO'));
+                    const deal = this.getDeal(this.currentChatDealKey);
+                    const vendorIndex = this.currentChatVendorIndex || 0;
+                    const isWinner = vendor.status && (vendor.status.includes('ชนะ') || vendor.status.includes('PO'));
+                    const canSignOff = deal && deal.stage === 4 && (vendorIndex === 0 || isWinner);
                     footerEl.innerHTML = `
                         <div class="flex items-center gap-2 flex-wrap">
                             <span class="badge badge-sm ${vendor.statusBadge}">${vendor.status}</span>
                             <span class="font-medium text-slate-700 text-xs">${vendor.outcome}</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            ${isWinner ? `<button type="button" onclick="app.openSignOff('${this.currentChatDealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg px-3 py-1 shadow-xs flex items-center gap-1"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ได้ข้อสรุปแล้ว ➔ ลงนามสัญญา PO</span></button>` : `<button type="button" onclick="app.showToast('การเจรจากับคู่ค้ารายนี้ยังไม่ได้ข้อสรุป กรุณาดำเนินการต่อรองให้เสร็จสิ้นก่อนลงนามสัญญา', 'info')" class="btn btn-xs bg-slate-100 text-slate-400 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-70 hover:bg-slate-200 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ยังไม่พร้อมลงนาม</span></button>`}
+                            ${canSignOff ? `<button type="button" onclick="app.openSignOff('${this.currentChatDealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg px-3 py-1 shadow-xs flex items-center gap-1"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ได้ข้อสรุปแล้ว ➔ ลงนามสัญญา PO</span></button>` : `<button type="button" onclick="app.showToast('การเจรจากับคู่ค้ารายนี้ยังไม่ได้ข้อสรุป กรุณาดำเนินการต่อรองให้เสร็จสิ้นก่อนลงนามสัญญา', 'info')" class="btn btn-xs bg-slate-100 text-slate-400 border border-slate-200 rounded-lg px-2.5 py-1 flex items-center gap-1 cursor-not-allowed opacity-70 hover:bg-slate-200 transition-all" title="ยังไม่สามารถลงนามได้ (อยู่ระหว่างการเจรจาต่อรอง)"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> <span>ยังไม่พร้อมลงนาม</span></button>`}
                             <span class="text-slate-400 font-mono text-[10px] hidden sm:flex items-center gap-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live
                             </span>
@@ -1332,7 +1429,7 @@
                 if (!inputEl) return;
                 
                 const dealKey = this.currentChatDealKey || 'nsk';
-                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const deal = this.getDeal(dealKey);
                 const targetPrice = deal.target_price || '฿398';
                 
                 const directiveTemplates = {
@@ -1355,7 +1452,7 @@
                 if (!userDirective) return;
 
                 const dealKey = this.currentChatDealKey || 'nsk';
-                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const deal = this.getDeal(dealKey);
                 const vendorIndex = this.currentChatVendorIndex || 0;
                 const vendor = deal.vendors[vendorIndex];
 
@@ -1512,7 +1609,7 @@
             // ================= REASONING MODAL =================
             openReasoningModal(dealKey) {
                 if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
-                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const deal = this.getDeal(dealKey);
                 document.getElementById('reasoning-modal-title').innerText = `AI Reasoning Trace: ${deal.title}`;
                 
                 const container = document.getElementById('reasoning-modal-container');
