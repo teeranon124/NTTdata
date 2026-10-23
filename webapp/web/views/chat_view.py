@@ -197,11 +197,13 @@ def send_invite():
     token = f"tok_sec_{deal_id}_{vendor_id}_verified"
     portal_url = f"{origin}/portal/negotiate/{deal_id}?vendor={vendor_id}&token={token}"
 
+    deal_data = deal_repository.get_deal(deal_id) or {}
     result = send_magic_link(
         to_email=email,
         vendor_name=vendor_name,
         deal_id=deal_id,
         portal_url=portal_url,
+        deal_data=deal_data,
     )
 
     mode = "ส่งจริงผ่าน AWS SES" if result.get("status") == "live_ses" else "โหมดจำลอง (Simulation)"
