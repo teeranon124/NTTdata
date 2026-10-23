@@ -1487,17 +1487,7 @@
             }
         };
 
-        // AUTO ROTATE LIVE TICKER EVERY 6 SECONDS TO FEEL ALIVE
-        setInterval(async () => {
-            if (app.tickerIndex % 5 === 0 && app.initLiveEvents) {
-                await app.initLiveEvents();
-            }
-            if (app.tickerMessages && app.tickerMessages.length > 0) {
-                app.tickerIndex = (app.tickerIndex + 1) % app.tickerMessages.length;
-                const el = document.getElementById('ticker-msg');
-                if (el) el.innerText = app.tickerMessages[app.tickerIndex];
-            }
-        }, 4000);
+        // Ticker disabled
 
         window.addEventListener('DOMContentLoaded', async () => {
             if (app.initDashboardData) app.initDashboardData();

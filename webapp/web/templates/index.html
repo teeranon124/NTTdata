@@ -48,20 +48,7 @@
 
         <!-- RIGHT ERP STATUS, NOTIFICATION DROPDOWN & FICTIONAL USER -->
         <div class="flex items-center gap-3">
-            <!-- REAL AGENT DISPATCH BUTTON -->
-            <button onclick="app.simulateAgentTick()" class="btn btn-xs btn-primary text-white rounded-full hidden lg:flex items-center gap-1.5 shadow-sm hover:scale-105 transition-all" title="สั่งการ Autonomous Sourcing Agent ให้สแกนคลังและเจรจารอบใหม่ทันที">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                </span>
-                <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-300"></i>
-                <span>สั่ง Agent เจรจารอบถัดไป (Auto-Run)</span>
-            </button>
 
-            <div class="badge badge-success badge-outline gap-1.5 py-2.5 px-3 text-xs hidden md:flex bg-emerald-50 border-emerald-300 text-emerald-800">
-                <span class="badge badge-xs badge-success animate-pulse"></span>
-                <span>SAP S/4HANA: <strong>Chonburi Plant (TH01)</strong></span>
-            </div>
 
             <!-- NOTIFICATION BELL WITH REAL INTERACTIVE DROPDOWN (กดได้จริงตามสั่ง!) -->
             <div class="dropdown dropdown-end">
@@ -130,20 +117,7 @@
         </div>
     </header>
 
-    <!-- LIVE AI ACTIVITY TICKER (แถบแสดง Agent กำลังทำงานสดๆ ไม่นิ่งตามสั่ง!) -->
-    <div class="bg-blue-900 text-white px-4 py-1.5 text-xs flex items-center justify-between shrink-0 shadow-inner overflow-hidden">
-        <div class="flex items-center gap-2 overflow-hidden">
-            <span class="badge badge-xs badge-info font-mono uppercase text-[9px] shrink-0">Live Stream</span>
-            <div class="flex items-center gap-1.5 font-mono text-[11px] text-blue-200 truncate" id="live-ticker-text">
-                <i data-lucide="activity" class="w-3.5 h-3.5 text-emerald-400 shrink-0 animate-pulse"></i>
-                <span id="ticker-msg">[14:52:10] Agent กำลังคำนวณสมการ TCO สำหรับสายพาน Bando... รวบรวมข้อมูลใบเสนอราคาจาก 4 ซัพพลายเออร์</span>
-            </div>
-        </div>
-        <div class="hidden md:flex items-center gap-3 text-[11px] text-blue-300 font-mono shrink-0">
-            <span>WebSocket: <strong class="text-emerald-400">ACTIVE</strong></span>
-            <span>Tsuzumi SLM: <strong class="text-emerald-400">ONLINE</strong></span>
-        </div>
-    </div>
+
 
     <!-- MAIN BODY (FLEX CONTAINER WITH SCROLLABLE MAIN) -->
     <div class="flex-1 flex overflow-hidden min-h-0">
