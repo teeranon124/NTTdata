@@ -1161,75 +1161,90 @@
             },
 
             // ================= LIVE USER INTERACTIVE CHAT (SUPPLIER PERSPECTIVE) =================
+            // ================= QUICK STRATEGY DIRECTIVES (HUMAN-IN-THE-LOOP) =================
+            applyQuickDirective(strategyType) {
+                const inputEl = document.getElementById('live-chat-input');
+                if (!inputEl) return;
+                
+                const dealKey = this.currentChatDealKey || 'nsk';
+                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
+                const targetPrice = deal.target_price || '฿398';
+                
+                const directiveTemplates = {
+                    'target_price': `สั่ง AI ยื่นข้อเสนอราคาเป้าหมาย ${targetPrice} พร้อมเสนอสัญญา Blanket Order 1 ปีเต็ม`,
+                    'extend_credit': `สั่ง AI ขอขยายเงื่อนไขการชำระเงินเป็นเครดิตเทอม 60 วัน เพื่อรักษาสภาพคล่องทางการเงิน`,
+                    'lock_sla': `สั่ง AI ยืนยันข้อกำหนดส่งมอบภายใน 7 วัน พร้อมสำรองสต็อกฉุกเฉิน (Safety Stock Reservation) 10%`,
+                    'accept_deal': `ผู้บริหารเห็นชอบข้อเสนอนี้ สั่ง AI ยุติการต่อรองเพื่อเตรียมร่างสัญญาเปิด PO ทันที`
+                };
+
+                inputEl.value = directiveTemplates[strategyType] || '';
+                this.sendLiveUserMessage();
+            },
+
+            // ================= LIVE USER INTERACTIVE CHAT (BUYER DIRECTIVE -> AI NEGOTIATOR -> SUPPLIER) =================
             async sendLiveUserMessage() {
                 const inputEl = document.getElementById('live-chat-input');
                 const btnSend = document.getElementById('btn-live-send');
                 if (!inputEl) return;
-                const text = inputEl.value.trim();
-                if (!text) return;
+                const userDirective = inputEl.value.trim();
+                if (!userDirective) return;
 
                 const dealKey = this.currentChatDealKey || 'nsk';
-                const deal = database.deals[dealKey] || database.deals.nsk;
+                const deal = (database.deals && database.deals[dealKey]) || database.deals.nsk;
                 const vendorIndex = this.currentChatVendorIndex || 0;
                 const vendor = deal.vendors[vendorIndex];
 
                 const now = new Date();
                 const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-                // 1. Append Buyer / AI Supervisor Directive
+                // 1. Show Directive as a System Notice / Buyer Command in Chat
                 vendor.messages.push({
                     sender: "ai",
-                    name: "AutoProcure.AI (ฝ่ายจัดซื้อ)",
+                    name: "ผู้จัดซื้อ / Human Supervisor",
                     time: timeStr,
-                    text: text,
-                    tactic: "คำสั่งชี้นำกลยุทธ์จากผู้จัดซื้อ (Human-in-the-Loop Directive)"
+                    text: `🎯 [คำสั่งกลยุทธ์]: ${userDirective}`,
+                    tactic: "Human-in-the-Loop Directive (สั่งการ AI)"
                 });
                 inputEl.value = '';
                 this.renderVendorMessages(vendor);
 
-                // Disable button and show typing state (Supplier is replying to Buyer/AI directive)
                 if (btnSend) btnSend.disabled = true;
                 const container = document.getElementById('chat-messages-container');
                 const typingId = 'typing-' + Date.now();
                 const typingBubble = document.createElement('div');
                 typingBubble.id = typingId;
-                typingBubble.className = 'chat chat-start animate-pulse';
+                typingBubble.className = 'chat chat-end animate-pulse';
                 typingBubble.innerHTML = `
                     <div class="chat-image avatar placeholder">
-                        <div class="bg-slate-200 text-slate-700 rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center border border-slate-300">V</div>
+                        <div class="bg-blue-700 text-white rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center shadow">AI</div>
                     </div>
-                    <div class="chat-header text-[11px] text-slate-500 mb-0.5">${vendor.name} กำลังพิจารณาเงื่อนไข...</div>
-                    <div class="chat-bubble bg-slate-100 text-slate-700 text-xs shadow-sm border border-slate-200 flex items-center gap-1.5">
-                        <span class="loading loading-dots loading-xs"></span> คู่ค้ากำลังพิจารณาข้อเสนอและคำนวณส่วนลด
+                    <div class="chat-header text-[11px] text-slate-500 mb-0.5">AutoProcure.AI กำลังคำนวณและเจรจากับคู่ค้า...</div>
+                    <div class="chat-bubble bg-blue-50 text-blue-900 text-xs shadow-sm border border-blue-200 flex items-center gap-1.5">
+                        <span class="loading loading-dots loading-xs"></span> กำลังวิเคราะห์ข้อเสนอและยื่น Counter-Offer ไปยัง ${vendor.name}
                     </div>
                 `;
                 container.appendChild(typingBubble);
                 container.scrollTop = container.scrollHeight;
 
                 try {
-                    // Try to call Flask Backend /api/negotiate
+                    // Call backend /api/negotiate
                     const response = await fetch('/api/negotiate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            deal_key: dealKey,
+                            deal_id: dealKey,
                             vendor_name: vendor.name,
-                            history: vendor.messages.slice(-6),
-                            message: `[ฝ่ายจัดซื้อแจ้งคำสั่งชี้นำ]: ${text} -- ขอให้ทางซัพพลายเออร์ตอบรับหรือปรับเงื่อนไขกลับมา`
+                            message: userDirective
                         })
                     });
 
-                    let vendorReplyText = "";
+                    let aiOfferText = "";
                     let tacticText = "";
 
                     if (response.ok) {
                         const resData = await response.json();
-                        vendorReplyText = resData.reply;
-                        tacticText = resData.tactic || `[${resData.source || 'ซัพพลายเออร์ AVL'}]`;
-                        if (resData.ladder && resData.ladder.length > 0) {
-                            vendor.ladder = resData.ladder;
-                        }
-                        this.showToast(`คู่ค้าตอบรับคำสั่งเจรจาเรียบร้อย`, 'success');
+                        aiOfferText = resData.reply;
+                        tacticText = resData.tactic || "Strategic Counter-offer (Nova Pro)";
                     } else {
                         throw new Error("Backend offline");
                     }
@@ -1237,33 +1252,91 @@
                     const typingEl = document.getElementById(typingId);
                     if (typingEl) typingEl.remove();
 
+                    // 2. AI sends the professional counter-offer to the vendor
                     vendor.messages.push({
-                        sender: "vendor",
-                        name: vendor.name,
+                        sender: "ai",
+                        name: "AutoProcure.AI (ฝ่ายจัดซื้อ)",
                         time: timeStr,
-                        text: vendorReplyText
+                        text: aiOfferText,
+                        tactic: tacticText
                     });
+                    this.renderVendorMessages(vendor);
+
+                    // 3. Now the Supplier considers and responds!
+                    const supplierTypingId = 'supp-typing-' + Date.now();
+                    const suppBubble = document.createElement('div');
+                    suppBubble.id = supplierTypingId;
+                    suppBubble.className = 'chat chat-start animate-pulse';
+                    suppBubble.innerHTML = `
+                        <div class="chat-image avatar placeholder">
+                            <div class="bg-slate-200 text-slate-700 rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center border border-slate-300">V</div>
+                        </div>
+                        <div class="chat-header text-[11px] text-slate-500 mb-0.5">${vendor.name} กำลังพิจารณาเงื่อนไข...</div>
+                        <div class="chat-bubble bg-slate-100 text-slate-700 text-xs shadow-sm border border-slate-200 flex items-center gap-1.5">
+                            <span class="loading loading-dots loading-xs"></span> คู่ค้ากำลังคำนวณต้นทุนและอนุมัติส่วนลด
+                        </div>
+                    `;
+                    container.appendChild(suppBubble);
+                    container.scrollTop = container.scrollHeight;
+
+                    // Supplier responds after a short realistic reflection delay
+                    setTimeout(() => {
+                        const sEl = document.getElementById(supplierTypingId);
+                        if (sEl) sEl.remove();
+
+                        let supplierResponse = "";
+                        const lower = userDirective.toLowerCase();
+                        if (lower.includes('ปิดดีล') || lower.includes('ยอมรับ') || lower.includes('เห็นชอบ')) {
+                            supplierResponse = `ทาง ${vendor.name} ขอขอบคุณฝ่ายจัดซื้อเป็นอย่างสูงที่ให้ความไว้วางใจ ทางเราขอยืนยันราคาและเงื่อนไขตามที่ตกลงกันไว้ทั้งหมด และพร้อมลงนามในสัญญาเปิดใบสั่งซื้อ PO ในระบบ SAP ทันทีครับ`;
+                            vendor.status = "ชนะดีล (PO)";
+                            vendor.statusBadge = "badge-success text-white";
+                            vendor.outcome = "บรรลุข้อตกลงแล้ว ➔ พร้อมลงนามอนุมัติ";
+                        } else if (lower.includes('เครดิต') || lower.includes('60 วัน')) {
+                            supplierResponse = `เรียนฝ่ายจัดซื้อ ทางบริษัทยินดีขยายเครดิตเทอมเป็น 60 วันตามที่ร้องขอครับ เพื่อรักษาสัญญาความร่วมมือระยะยาว 1 ปีกับกลุ่มโรงงานของท่าน`;
+                        } else if (lower.includes('sla') || lower.includes('สต็อก') || lower.includes('7 วัน')) {
+                            supplierResponse = `ทางเราขอการันตีระยะเวลาส่งมอบภายใน 7 วันทำการ และยินดีล็อก Safety Stock สำรองไว้ที่คลังสินค้าชลบุรี 10% ตามข้อกำหนด SLA โดยไม่มีค่าใช้จ่ายเพิ่มเติมครับ`;
+                        } else {
+                            supplierResponse = `ทางฝ่ายขาย ${vendor.name} ได้ประชุมภายในแล้ว เพื่อรักษาความสัมพันธ์สัญญารายปี เราขอยอมรับเงื่อนไขและปรับลดราคาลงตามที่ฝ่ายจัดซื้อเสนอครับ`;
+                        }
+
+                        vendor.messages.push({
+                            sender: "vendor",
+                            name: vendor.name,
+                            time: timeStr,
+                            text: supplierResponse
+                        });
+
+                        this.renderVendorMessages(vendor);
+                        this.pushLiveEvent(`💬 ${vendor.name} ตอบรับข้อเสนอของฝ่ายจัดซื้อในห้องเจรจา`, true);
+                        this.showToast(`คู่ค้า ${vendor.name} ตอบกลับข้อเสนอเรียบร้อยแล้ว`, 'success');
+                        lucide.createIcons({ root: document.getElementById('chat_modal') });
+                    }, 1400);
 
                 } catch (err) {
                     const typingEl = document.getElementById(typingId);
                     if (typingEl) typingEl.remove();
 
-                    let fallbackReply = "";
-                    const lowerText = text.toLowerCase();
-                    if (lowerText.includes('ลด') || lowerText.includes('บาท') || lowerText.includes('ราคา') || lowerText.includes('%')) {
-                        fallbackReply = `ทาง ${vendor.name} ได้หารือกับผู้จัดการฝ่ายขายแล้ว เพื่อรักษาสัญญา Blanket Order 1 ปีกับกลุ่มโรงงานของท่าน เรายินยอมปรับลดราคาลงตามข้อเสนอของฝ่ายจัดซื้อครับ`;
-                    } else if (lowerText.includes('เครดิต') || lowerText.includes('วัน') || lowerText.includes('จ่าย')) {
-                        fallbackReply = `เรื่องเครดิตเทอม ทางบริษัทยินดีขยายตามที่ฝ่ายจัดซื้อเสนอครับ เพื่อสนับสนุนสภาพคล่องทางการเงินของกลุ่มโรงงาน`;
-                    } else {
-                        fallbackReply = `รับทราบเงื่อนไขและข้อกำหนดเพิ่มเติมจากฝ่ายจัดซื้อครับ ทางเรายินดีปฏิบัติตามมาตรฐาน SLA และพร้อมส่งมอบตามกำหนดเวลาครับ`;
-                    }
-
+                    // Graceful simulation fallback
+                    const fallbackAIOffer = `เรียน ${vendor.name} อ้างอิงคำสั่งของผู้บริหาร ฝ่ายจัดซื้อขอเสนอทำสัญญา Blanket Order 1 ปีเต็ม พร้อมขอปรับลดราคาให้อยู่ในกรอบ TCO ที่เหมาะสม และขอขยายเครดิตเทอมเพื่อรักษาสภาพคล่อง หากท่านยืนยันได้ทางเรายินดีออก PO ทันทีครับ`;
                     vendor.messages.push({
-                        sender: "vendor",
-                        name: vendor.name,
+                        sender: "ai",
+                        name: "AutoProcure.AI (ฝ่ายจัดซื้อ)",
                         time: timeStr,
-                        text: fallbackReply
+                        text: fallbackAIOffer,
+                        tactic: "Strategic Counter-offer (Bedrock Simulation)"
                     });
+
+                    setTimeout(() => {
+                        vendor.messages.push({
+                            sender: "vendor",
+                            name: vendor.name,
+                            time: timeStr,
+                            text: `ทาง ${vendor.name} ได้รับเงื่อนไขแล้ว ยินดีตกลงตามข้อเสนอเพื่อเป็นพันธมิตรคู่ค้าหลักในสัญญา 1 ปีของโรงงานครับ`
+                        });
+                        this.renderVendorMessages(vendor);
+                        this.showToast(`คู่ค้าตอบรับข้อตกลงเรียบร้อย`, 'success');
+                        lucide.createIcons({ root: document.getElementById('chat_modal') });
+                    }, 1200);
                 }
 
                 if (btnSend) btnSend.disabled = false;
