@@ -56,15 +56,19 @@ class DealRepositoryDB:
             q = s.query(PurchaseRequest)
             if deal_id:
                 did = deal_id.lower()
-                # Match legacy filter semantics: deal_key / code / deal_code.
-                like = f"%{did}%"
-                code_like = f"%{deal_id.upper()}%"
-                q = q.filter(
-                    (func.lower(PurchaseRequest.deal_key) == did)
-                    | (PurchaseRequest.deal_key.ilike(like))
-                    | (PurchaseRequest.code.ilike(code_like))
-                    | (PurchaseRequest.deal_code.ilike(code_like))
-                )
+                # Check for exact deal_key match first to avoid partial collision (e.g. festo_cyl vs festo_cylinder)
+                exact_count = s.query(PurchaseRequest).filter(func.lower(PurchaseRequest.deal_key) == did).count()
+                if exact_count > 0:
+                    q = s.query(PurchaseRequest).filter(func.lower(PurchaseRequest.deal_key) == did)
+                else:
+                    like = f"%{did}%"
+                    code_like = f"%{deal_id.upper()}%"
+                    q = q.filter(
+                        (func.lower(PurchaseRequest.deal_key) == did)
+                        | (PurchaseRequest.deal_key.ilike(like))
+                        | (PurchaseRequest.code.ilike(code_like))
+                        | (PurchaseRequest.deal_code.ilike(code_like))
+                    )
             q = q.order_by(PurchaseRequest.pk).offset(offset).limit(limit)
             return [r.to_api_dict() for r in q.all()]
 

@@ -61,10 +61,12 @@ class DealRepository:
             return self._raw_cache[offset:offset+limit]
 
         did = deal_id.lower()
+        exact = [r for r in self._raw_cache if r.get('deal_key', '').lower() == did]
+        if exact:
+            return exact[offset:offset+limit]
         filtered = [
             r for r in self._raw_cache
-            if r.get('deal_key', '').lower() == did
-            or did in r.get('deal_key', '').lower()
+            if did in r.get('deal_key', '').lower()
             or did.upper() in r.get('code', '').upper()
             or did.upper() in r.get('deal', '').upper()
         ]
