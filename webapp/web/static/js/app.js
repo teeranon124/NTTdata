@@ -1819,9 +1819,9 @@
 
 
 
-                const statCount = document.getElementById('stat-count');
+                const statCount = document.getElementById('stat-deals-count');
 
-                if (statCount) statCount.innerText = `${visibleCount} รายการ`;
+                if (statCount) statCount.innerText = `${visibleCount} ดีลหลัก`;
 
             },
 
