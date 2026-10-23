@@ -103,6 +103,11 @@ def parse_supplier_intent(user_message: str) -> dict:
                     parsed["proposed_credit_days"] = local["proposed_credit_days"]
                 if not parsed.get("intent"):
                     parsed["intent"] = local["intent"]
+                # Backfill the richer commercial-terms fields the LLM may omit.
+                for k in ("proposed_lead_time_days", "proposed_warranty_months",
+                          "proposed_sla_buffer", "proposed_compliance_cert"):
+                    if parsed.get(k) in (None, "", 0):
+                        parsed[k] = local.get(k)
                 if parsed.get("proposed_unit_price") is not None or parsed.get("proposed_credit_days") is not None:
                     parsed["source"] = f"Amazon Bedrock ({res.get('model_id')}) + regex backfill"
                 return parsed
@@ -128,6 +133,31 @@ def _regex_parse(user_message: str) -> dict:
         if 1 <= c <= 180:
             extracted_credit = c
 
+    # Lead time: "ส่ง 7 วัน", "lead time 10 วันทำการ", "จัดส่ง 5 วัน"
+    lead_match = re.search(r"(?:ส่ง|จัดส่ง|lead\s*time|ส่งมอบ)\D{0,8}(\d{1,3})\s*(?:วัน|day)", _lc)
+    lead_time = int(lead_match.group(1)) if lead_match else None
+
+    # Warranty: "รับประกัน 24 เดือน", "warranty 18 months", "ประกัน 2 ปี"
+    warranty_months = None
+    wmatch = re.search(r"(?:รับประกัน|ประกัน|warranty)\D{0,6}(\d{1,3})\s*(?:เดือน|month)", _lc)
+    if wmatch:
+        warranty_months = int(wmatch.group(1))
+    else:
+        wyear = re.search(r"(?:รับประกัน|ประกัน|warranty)\D{0,6}(\d)\s*(?:ปี|year)", _lc)
+        if wyear:
+            warranty_months = int(wyear.group(1)) * 12
+
+    # SLA buffer / safety stock: "สำรอง 10%", "buffer stock 15%"
+    sla_match = re.search(r"(?:สำรอง|buffer|safety\s*stock)\D{0,8}(\d{1,2})\s*%?", _lc)
+    sla_buffer = f"{sla_match.group(1)}%" if sla_match else None
+
+    # Compliance cert mentions (common industrial standards).
+    cert_hit = None
+    for cert in ["iso 15552", "iso 492", "jis b 1514", "ce/rohs", "rohs", "ce ", "iso 9001", "din"]:
+        if cert in _lc:
+            cert_hit = cert.upper().strip()
+            break
+
     intent = "counter_offer" if (extracted_price or extracted_credit) else "inquiry"
     if any(w in user_message for w in ["ตกลง", "อนุมัติ", "ยินดีรับ", "รับข้อเสนอ"]):
         intent = "accept_terms"
@@ -138,7 +168,10 @@ def _regex_parse(user_message: str) -> dict:
         "intent": intent,
         "proposed_unit_price": extracted_price,
         "proposed_credit_days": extracted_credit,
-        "proposed_lead_time_days": 7,
+        "proposed_lead_time_days": lead_time if lead_time is not None else 7,
+        "proposed_warranty_months": warranty_months,
+        "proposed_sla_buffer": sla_buffer,
+        "proposed_compliance_cert": cert_hit,
         "source": "Local Deterministic Parser (Ready for Bedrock Nova Lite)",
         "latency_ms": 1.2
     }

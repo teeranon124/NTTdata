@@ -71,6 +71,12 @@ class Deal(Base):
     savings_pct = Column(Float, default=0.0)
     supplier = Column(Text)
 
+    # Closed-loop award / PO state (set when a negotiation is agreed & signed off).
+    winning_vendor_id = Column(String(64), nullable=True)
+    agreed_price = Column(Float, nullable=True)
+    po_number = Column(String(64), nullable=True)
+    po_status = Column(String(32), nullable=True)   # None | AWARDED | PO_CREATED
+
     vendors = relationship(
         "Vendor", back_populates="deal", cascade="all, delete-orphan",
         order_by="Vendor.position",
@@ -83,11 +89,16 @@ class Deal(Base):
     )
 
     def to_api_dict(self) -> dict:
-        """Reproduce the legacy master_deals.json deal object exactly."""
+        """Reproduce the legacy master_deals.json deal object exactly (+ additive award/PO keys)."""
         out = {}
         for key in _DEAL_FIELD_ORDER:
             out[key] = getattr(self, key)
         out["vendors"] = [v.to_api_dict() for v in self.vendors]
+        # Additive award/PO state (legacy frontend ignores unknown keys).
+        out["winning_vendor_id"] = self.winning_vendor_id
+        out["agreed_price"] = self.agreed_price
+        out["po_number"] = self.po_number
+        out["po_status"] = self.po_status
         return out
 
 

@@ -68,5 +68,35 @@ class DealRepositoryDB:
             q = q.order_by(PurchaseRequest.pk).offset(offset).limit(limit)
             return [r.to_api_dict() for r in q.all()]
 
+    def mark_deal_awarded(self, deal_id: str, vendor_id: str, agreed_price=None) -> bool:
+        """
+        Closed-loop transition: a negotiation was agreed -> move the deal to
+        Stage 4 (รออนุมัติ PO) and record the winning vendor + agreed price.
+        Idempotent; returns True if the deal exists.
+        """
+        with session_scope() as s:
+            d = s.get(Deal, (deal_id or "").lower())
+            if not d:
+                return False
+            d.stage = 4
+            d.stage_label = "รออนุมัติ PO"
+            d.winning_vendor_id = vendor_id
+            if agreed_price is not None:
+                d.agreed_price = float(agreed_price)
+            if d.po_status not in ("PO_CREATED",):
+                d.po_status = "AWARDED"
+            return True
+
+    def create_po(self, deal_id: str, po_number: str) -> bool:
+        """Record SAP PO creation on the deal (stage stays 4, po_status=PO_CREATED)."""
+        with session_scope() as s:
+            d = s.get(Deal, (deal_id or "").lower())
+            if not d:
+                return False
+            d.po_number = po_number
+            d.po_status = "PO_CREATED"
+            d.stage = 4
+            return True
+
 
 deal_repository_db = DealRepositoryDB()

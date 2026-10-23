@@ -164,6 +164,16 @@ class BedrockNegotiationService:
         # Save updated session
         session_repository.save_session(deal_key, vendor_id, session)
 
+        # Assemble the 5-dimension commercial terms snapshot for the live Scorecard.
+        commercial_terms = {
+            "unit_price": parsed_intent.get("proposed_unit_price"),
+            "credit_days": parsed_intent.get("proposed_credit_days"),
+            "lead_time_days": parsed_intent.get("proposed_lead_time_days"),
+            "warranty_months": parsed_intent.get("proposed_warranty_months"),
+            "sla_buffer_stock": parsed_intent.get("proposed_sla_buffer"),
+            "compliance_cert": parsed_intent.get("proposed_compliance_cert"),
+        }
+
         return {
             "status": "success",
             "reply": agent_reply,
@@ -171,6 +181,7 @@ class BedrockNegotiationService:
             "parsed_intent": parsed_intent,
             "tco_data": tco_data,
             "concession": concession,
+            "commercial_terms": commercial_terms,
             "audit_trace": agent_result.get("audit_trace", []),
             "messages": session["messages"],
             "ladder": session["concession_ladder"],

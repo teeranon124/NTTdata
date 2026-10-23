@@ -448,6 +448,62 @@ def executive_signoff(deal_id, vendor_id):
     return jsonify({"status": "ok", "signoff": result})
 
 
+@chat_bp.route("/api/deals/<deal_id>/create-po", methods=["POST"])
+def create_po(deal_id):
+    """
+    Closed-loop SAP PO creation. Generates a SAP-style PO number, records it on
+    the deal (po_status=PO_CREATED, stage 4), logs an audit event, and returns
+    the PO number so the dashboard can update its stats. Simulates BAPI_PO_CREATE1.
+    """
+    import random
+    data = request.json or {}
+    approved_by = (data.get("approved_by") or "CPO").strip()
+    vendor_id = data.get("vendor_id") or ""
+
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        return jsonify({"status": "error", "detail": f"Deal {deal_id} not found"}), 404
+
+    # SAP S/4HANA purchase order numbers are 10-digit, commonly starting 45xxxxxxxx.
+    po_number = f"PO#{random.randint(4500000000, 4509999999)}"
+
+    if hasattr(deal_repository, "create_po"):
+        deal_repository.create_po(deal_id, po_number)
+
+    # Record the executive sign-off on the winning vendor's session too.
+    win_vendor = vendor_id or deal.get("winning_vendor_id") or ""
+    if win_vendor and hasattr(session_repository, "sign_off"):
+        try:
+            session_repository.sign_off(
+                deal_id=deal_id, vendor_id=win_vendor,
+                approved_by=approved_by, decision="approved", po_number=po_number,
+                note="BAPI_PO_CREATE1 committed to SAP S/4HANA",
+            )
+        except Exception as e:
+            logger.warning(f"sign_off during create-po failed: {e}")
+
+    add_live_event(
+        f"✅ ผู้บริหาร ({approved_by}) ลงนามอนุมัติดีล {deal_id.upper()} ➔ ยิง BAPI_PO_CREATE1 "
+        f"ออกใบสั่งซื้อ {po_number} เข้า SAP S/4HANA สำเร็จ [Closed-Loop]"
+    )
+    publish_event("po_created", {
+        "deal_id": deal_id,
+        "po_number": po_number,
+        "approved_by": approved_by,
+        "stage": 4,
+        "time": datetime.datetime.now().strftime("%H:%M:%S"),
+    })
+
+    return jsonify({
+        "status": "success",
+        "deal_id": deal_id,
+        "po_number": po_number,
+        "po_status": "PO_CREATED",
+        "stage": 4,
+        "approved_by": approved_by,
+    })
+
+
 @chat_bp.route("/api/negotiate", methods=["POST"])
 def negotiate():
     data = request.json or {}
@@ -473,6 +529,18 @@ def negotiate():
     credit_days = parsed_intent.get("proposed_credit_days") or concession.get("target_credit")
     is_agreed = concession.get("strategy") == "AGREE_AND_AWARD" or "ตกลง" in message or "รับข้อเสนอ" in message
 
+    # Closed-loop: when the negotiation is agreed, transition the deal to Stage 4
+    # (รออนุมัติ PO) and record the winning vendor, so the sign-off button unlocks.
+    stage_now = None
+    if is_agreed and hasattr(deal_repository, "mark_deal_awarded"):
+        try:
+            agreed_price = concession.get("counter_price") or parsed_intent.get("proposed_unit_price") or target_price
+            if deal_repository.mark_deal_awarded(deal_id, vendor_id, agreed_price):
+                stage_now = 4
+                add_live_event(f"✅ ดีล {deal_id.upper()} บรรลุข้อตกลงกับ {vendor_name} ➔ เลื่อนเป็น Stage 4 (รออนุมัติ PO)")
+        except Exception as e:
+            logger.warning(f"mark_deal_awarded failed: {e}")
+
     add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: เสนอเงื่อนไขรอบ {round_num}")
 
     # Real-time push to the Buyer dashboard: supplier message + AI reply land live.
@@ -487,6 +555,8 @@ def negotiate():
         "price": target_price,
         "credit_days": credit_days,
         "deal_agreed": bool(is_agreed),
+        "stage": stage_now,
+        "commercial_terms": result.get("commercial_terms", {}),
         "round": round_num,
         "time": now_hhmm,
     })
@@ -499,8 +569,10 @@ def negotiate():
         "price": target_price,
         "credit_days": credit_days,
         "deal_agreed": is_agreed,
+        "stage": stage_now,
         "tco_data": tco_data,
         "concession": concession,
+        "commercial_terms": result.get("commercial_terms", {}),
         "messages": result.get("messages", []),
         "ladder": result.get("ladder", [])
     })
