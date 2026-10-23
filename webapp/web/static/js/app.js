@@ -3631,9 +3631,8 @@
 
                 setTimeout(() => c.innerHTML = '', 3500);
 
-            }
+            },
 
-        
             analyticsChartsInitialized: false,
 
             initAnalyticsCharts() {
