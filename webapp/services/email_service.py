@@ -1,6 +1,6 @@
 """
 AWS SES Email Service for supplier Magic Link invitations.
-Design goal: Sophisticated, Natural Executive RFQ Invitation (Zero Price Leakage).
+Design goal: Sharp, Direct, Tactical RFP (No Early Concessions, No Price Leakage).
 """
 import logging
 import os
@@ -24,7 +24,7 @@ def _region() -> str:
 def _build_html(vendor_name: str, deal_id: str, portal_url: str, deal_data: dict = None) -> str:
     deal = deal_data or {}
     part_code = deal.get("part_code") or f"{deal_id.upper()}-STD"
-    item_name = deal.get("name") or f"อะไหล่อุตสาหกรรมมาตรฐาน MRO ({deal_id.upper()})"
+    item_name = deal.get("name") or f"อะไหล่อุตสาหกรรม ({deal_id.upper()})"
     total_qty = deal.get("total_quantity", 1200)
     total_prs = deal.get("total_prs", 16)
     
@@ -32,122 +32,74 @@ def _build_html(vendor_name: str, deal_id: str, portal_url: str, deal_data: dict
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เรียนเชิญยื่นข้อเสนอราคาและเงื่อนไขทางการค้า — โครงการจัดซื้อกรอบสัญญารายปี 2026</title>
+  <title>หนังสือเชิญยื่นข้อเสนอราคา — {part_code}</title>
 </head>
-<body style="margin:0;padding:24px;background-color:#f8fafc;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;color:#1e293b;line-height:1.65">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;margin:auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);border:1px solid #e2e8f0">
+<body style="margin:0;padding:20px;background:#f8fafc;font-family:'Segoe UI',-apple-system,sans-serif;color:#0f172a;line-height:1.6">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:580px;margin:auto;background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden">
     
-    <!-- HEADER -->
     <tr>
-      <td style="background:#0f172a;padding:24px 32px;border-bottom:3px solid #2563eb">
-        <table width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td>
-              <div style="font-size:12px;font-weight:700;color:#94a3b8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px">
-                ฝ่ายบริหารการจัดซื้อและซัพพลายเชนกลาง
-              </div>
-              <div style="font-size:18px;font-weight:700;color:#ffffff;line-height:1.3">
-                หนังสือเชิญยื่นข้อเสนอทางการค้า (Request for Proposal / Quotation)
-              </div>
-              <div style="font-size:12px;color:#38bdf8;margin-top:4px">
-                โครงการจัดทำสัญญาซื้อขายระยะยาวรายปี (Annual Blanket Order 2026)
-              </div>
-            </td>
-          </tr>
-        </table>
+      <td style="background:#0f172a;padding:20px 28px;border-bottom:3px solid #2563eb;color:#fff">
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase">ฝ่ายจัดซื้อและบริหารซัพพลายเชน</div>
+        <div style="font-size:17px;font-weight:700;margin-top:2px">หนังสือเชิญยื่นข้อเสนอราคา (Request for Quotation)</div>
       </td>
     </tr>
 
-    <!-- CONTENT BODY -->
     <tr>
-      <td style="padding:32px">
-        <p style="font-size:15px;margin-top:0;color:#0f172a">
-          เรียน ผู้จัดการฝ่ายขายและทีมงานดูแลบัญชีลูกค้ารายใหญ่ <strong>{vendor_name}</strong>
+      <td style="padding:28px">
+        <p style="margin-top:0;font-size:14px">
+          เรียน ผู้จัดการฝ่ายขาย <strong>{vendor_name}</strong>,
         </p>
         
-        <p style="font-size:14px;color:#334155;text-align:justify">
-          สืบเนื่องจากการทบทวนแผนจัดซื้ออะไหล่ซ่อมบำรุงและงานบำรุงรักษาเชิงป้องกัน (MRO) ประจำปีงบประมาณ 2026 สำหรับกลุ่มโรงงานอุตสาหกรรมในเครือของเรา 
-          ฝ่ายจัดซื้อกลางได้รวบรวมปริมาณความต้องการใช้งานจริงเพื่อยกระดับเป็น <strong>สัญญาความร่วมมือทางการค้าระยะยาว 1 ปีเต็ม (Blanket Purchase Order)</strong> 
-          เพื่อสร้างความมั่นคงในห่วงโซ่อุปทานร่วมกัน
+        <p style="font-size:13px;color:#334155">
+          ฝ่ายจัดซื้อขอเชิญบริษัทของท่านในฐานะคู่ค้าที่ผ่านการรับรอง (Approved Vendor) 
+          เข้าร่วมยื่นข้อเสนอราคาและเงื่อนไขทางการค้า สำหรับรายการจัดซื้อต่อไปนี้:
         </p>
 
-        <p style="font-size:14px;color:#334155;text-align:justify">
-          ทางฝ่ายจัดซื้อมีความยินดีขอเรียนเชิญบริษัทของท่าน ในฐานะคู่ค้าที่ผ่านการรับรองมาตรฐาน (Approved Vendor) เข้าร่วมยื่นข้อเสนอราคาและเงื่อนไขทางการค้าพิเศษสำหรับรายการจัดซื้อสำคัญดังต่อไปนี้:
-        </p>
-
-        <!-- SPEC CARD (NO TARGET PRICE REVEALED!) -->
-        <table width="100%" cellspacing="0" cellpadding="0" style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;margin:20px 0;overflow:hidden">
+        <table width="100%" cellspacing="0" cellpadding="0" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin:16px 0;font-size:13px">
           <tr>
-            <td colspan="2" style="background:#f1f5f9;padding:12px 18px;border-bottom:1px solid #cbd5e1;font-weight:700;font-size:13px;color:#0f172a">
-              📦 รายละเอียดรายการจัดซื้อและปริมาณความต้องการ
-            </td>
+            <td style="padding:10px 14px;color:#64748b;width:35%;border-bottom:1px solid #e2e8f0">รายการสินค้า:</td>
+            <td style="padding:10px 14px;font-weight:700;color:#0f172a;border-bottom:1px solid #e2e8f0">{part_code} ({item_name})</td>
           </tr>
           <tr>
-            <td style="padding:10px 18px;font-size:13px;color:#64748b;width:38%;border-bottom:1px solid #e2e8f0">รหัสและรายการสินค้า:</td>
-            <td style="padding:10px 18px;font-size:13px;font-weight:700;color:#0f172a;border-bottom:1px solid #e2e8f0">{part_code} — {item_name}</td>
+            <td style="padding:10px 14px;color:#64748b;border-bottom:1px solid #e2e8f0">ปริมาณความต้องการ:</td>
+            <td style="padding:10px 14px;font-weight:700;color:#1d4ed8;border-bottom:1px solid #e2e8f0">{total_qty:,.0f} หน่วย (รวบยอดจาก {total_prs} ใบขอซื้อ)</td>
           </tr>
           <tr>
-            <td style="padding:10px 18px;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0">ปริมาณสั่งซื้อรวมทั้งปี:</td>
-            <td style="padding:10px 18px;font-size:13px;font-weight:700;color:#1d4ed8;border-bottom:1px solid #e2e8f0">{total_qty:,.0f} หน่วย (รวบยอดความต้องการใช้งานจาก {total_prs} ใบขอซื้อ)</td>
-          </tr>
-          <tr>
-            <td style="padding:10px 18px;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0">จุดรับมอบสินค้า:</td>
-            <td style="padding:10px 18px;font-size:13px;color:#334155;border-bottom:1px solid #e2e8f0">คลังพัสดุกลางโรงงานในเครือ (นิคมฯ ชลบุรี, อยุธยา และระยอง) ทยอยส่งตามรอบ</td>
-          </tr>
-          <tr>
-            <td style="padding:10px 18px;font-size:13px;color:#64748b">กรอบความร่วมมือ:</td>
-            <td style="padding:10px 18px;font-size:13px;color:#059669;font-weight:600">การันตีคำสั่งซื้อตลอดทั้งปี พร้อมโอกาสขยายสโคปรายการอะไหล่อื่นๆ เพิ่มเติม</td>
+            <td style="padding:10px 14px;color:#64748b">รูปแบบการจัดซื้อ:</td>
+            <td style="padding:10px 14px;color:#059669;font-weight:600">พิจารณาสัญญา Blanket Order 1 ปี หรือสั่งซื้อรายครั้ง ตามความคุ้มค่าของข้อเสนอ</td>
           </tr>
         </table>
 
-        <!-- TACTICAL INVITATION -->
-        <p style="font-size:14px;color:#334155;text-align:justify">
-          เนื่องจากเป็นสัญญาการันตีปริมาณสั่งซื้อล็อตใหญ่ ฝ่ายจัดซื้อจึงเปิดโอกาสให้ท่านนำเสนอ <strong>โครงสร้างราคาขายส่งที่ดีที่สุด (Volume-discounted Pricing)</strong> 
-          ตลอดจนเงื่อนไขการสนับสนุนทางธุรกิจ เช่น ระยะเวลาสินเชื่อทางการค้า (Credit Terms), ข้อตกลงระยะเวลาส่งมอบ (SLA Lead-time), และการสำรองสต็อกฉุกเฉิน
+        <p style="font-size:13px;color:#334155">
+          ทางเราเปิดรับข้อเสนอทั้งในมิติด้านราคาขายส่ง, เครดิตเทอม, และเงื่อนไขการส่งมอบ (SLA) 
+          โดยคู่ค้าที่เสนอเงื่อนไขได้เหมาะสมที่สุดจะได้รับการพิจารณาเป็นคู่สัญญาหลัก 
+          ท่านสามารถคลิกเข้าสู่ห้องเจรจาออนไลน์เพื่อยื่นและปรับข้อเสนอได้ทันที:
         </p>
 
-        <p style="font-size:14px;color:#334155;text-align:justify">
-          เพื่อความรวดเร็วและโปร่งใส ท่านสามารถเข้าสู่ระบบเจรจาทางการค้าดิจิทัล เพื่อร่วมพูดคุย ปรับแก้ข้อเสนอ และสรุปเงื่อนไขกับตัวแทนระบบจัดซื้ออัตโนมัติของเราได้โดยตรงผ่านลิงก์เฉพาะบุคคลด้านล่างนี้:
-        </p>
-
-        <!-- CTA BUTTON -->
-        <table width="100%" cellspacing="0" cellpadding="0" style="margin:28px 0 20px 0">
-          <tr>
-            <td align="center">
-              <a href="{portal_url}" target="_blank"
-                 style="background:#2563eb;color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 34px;border-radius:10px;display:inline-block;box-shadow:0 4px 12px rgba(37,99,235,0.25)">
-                เข้าสู่ห้องเจรจาข้อเสนอทางการค้า (Supplier Portal) →
-              </a>
-            </td>
-          </tr>
-        </table>
+        <div style="text-align:center;margin:24px 0">
+          <a href="{portal_url}" target="_blank"
+             style="background:#2563eb;color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 28px;border-radius:8px;display:inline-block">
+            เข้าสู่ห้องเจรจาข้อเสนอ (Supplier Portal) →
+          </a>
+        </div>
 
         <p style="font-size:11px;color:#64748b;text-align:center;word-break:break-all">
-          หรือคัดลอกลิงก์เพื่อเข้าใช้งานผ่านเบราว์เซอร์: <a href="{portal_url}" style="color:#2563eb">{portal_url}</a>
+          ลิงก์ตรง: <a href="{portal_url}" style="color:#2563eb">{portal_url}</a>
         </p>
 
-        <hr style="border:none;border-top:1px solid #e2e8f0;margin:28px 0 20px 0">
+        <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0">
 
-        <!-- SIGNATURE -->
-        <table width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td style="font-size:13px;color:#475569">
-              จึงเรียนมาเพื่อโปรดพิจารณาและร่วมยื่นข้อเสนอราคาที่ดีที่สุดสำหรับองค์กรของเรา<br><br>
-              ขอแสดงความนับถืออย่างสูง,<br>
-              <strong>ฝ่ายบริหารการจัดซื้อเชิงกลยุทธ์และห่วงโซ่อุปทาน</strong><br>
-              <span style="font-size:12px;color:#64748b">ระบบจัดซื้ออัจฉริยะ AutoProcure.AI · Enterprise Sourcing Solution</span>
-            </td>
-          </tr>
-        </table>
-
+        <p style="font-size:12px;color:#64748b;margin-bottom:0">
+          ขอแสดงความนับถือ,<br>
+          <strong>ฝ่ายบริหารการจัดซื้อเชิงกลยุทธ์</strong><br>
+          ระบบจัดซื้ออัตโนมัติ AutoProcure.AI
+        </p>
       </td>
     </tr>
 
-    <!-- FOOTER -->
     <tr>
-      <td style="background:#f1f5f9;padding:14px 32px;font-size:11px;color:#64748b;text-align:center">
-        อีเมลนี้เป็นเอกสารเชิญยื่นข้อเสนอทางการค้าเฉพาะบุคคล กรุณาอย่าส่งต่อหรือเปิดเผยเงื่อนไขแก่บุคคลภายนอก (Strictly Confidential)
+      <td style="background:#f1f5f9;padding:10px 24px;font-size:10px;color:#94a3b8;text-align:center">
+        เอกสารความลับทางการค้าเฉพาะบุคคล (Strictly Confidential)
       </td>
     </tr>
 
@@ -157,12 +109,9 @@ def _build_html(vendor_name: str, deal_id: str, portal_url: str, deal_data: dict
 
 
 def send_magic_link(to_email: str, vendor_name: str, deal_id: str, portal_url: str, deal_data: dict = None) -> dict:
-    """
-    Send a natural, sophisticated tender invitation with zero target price leakage.
-    """
     deal = deal_data or {}
     part_code = deal.get("part_code") or deal_id.upper()
-    subject = f"[RFQ-2026] หนังสือเชิญยื่นข้อเสนอราคาอะไหล่ {part_code} (สัญญารายปี) — {vendor_name}"
+    subject = f"[RFQ-2026] ขอเชิญยื่นข้อเสนอราคาอะไหล่ {part_code} — {vendor_name}"
 
     if not _is_enabled():
         logger.info("SES disabled — simulated invite to %s (%s) %s", to_email, vendor_name, portal_url)
