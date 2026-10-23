@@ -2,6 +2,122 @@
         // FULL DATA STORE: MULTI-VENDOR CHATS & PER-DEAL REASONING TIMELINES
         const database = {
             deals: {
+                festo_cyl: {
+                    "title": "กระบอกลมนิวเมติกส์ Festo (DSBC-32-100-PPVA) ยอดรวม 850 ตัว",
+                    "budgetStr": "฿3,850.00/ตัว (฿3,272,500)",
+                    "targetStr": "฿3,320.00 - ฿3,380.00/ตัว (เป้าหมายเซฟ -13.5%)",
+                    "chips": [
+                                        "ขอราคาพิเศษสำหรับวอลลุ่ม 850 ตัว",
+                                        "ขยายเครดิตเทอมเป็น 45 วัน",
+                                        "การันตีส่งมอบภายใน 7 วัน",
+                                        "ขอใบรับรองมาตรฐาน ISO 15552"
+                    ],
+                    "vendors": [
+                                        {
+                                                            "id": "v_siam_pneu",
+                                                            "name": "บจก. สยาม นิวเมติกส์ แอนด์ ซัพพลาย",
+                                                            "email": "teeranonn124@gmail.com",
+                                                            "price": "฿3,850.00",
+                                                            "credit": "30 วัน",
+                                                            "leadTime": "7 วันทำการ",
+                                                            "warranty": "1 ปี",
+                                                            "cert": "ISO 15552 ✓",
+                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "ladder": [],
+                                                            "messages": []
+                                        },
+                                        {
+                                                            "id": "v_roykaen_part",
+                                                            "name": "บจก. รอยแก่น พาร์ท ซัพพลาย",
+                                                            "email": "roykaen.30@gmail.com",
+                                                            "price": "฿3,890.00",
+                                                            "credit": "30 วัน",
+                                                            "leadTime": "10 วันทำการ",
+                                                            "warranty": "1 ปี",
+                                                            "cert": "ISO 15552 ✓",
+                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "ladder": [],
+                                                            "messages": []
+                                        },
+                                        {
+                                                            "id": "v_film_auto",
+                                                            "name": "บจก. ฟิล์ม ออโตเมชั่น แอนด์ ทูลส์",
+                                                            "email": "filmzazazs63@gmail.com",
+                                                            "price": "฿3,820.00",
+                                                            "credit": "30 วัน",
+                                                            "leadTime": "14 วันทำการ",
+                                                            "warranty": "1 ปี",
+                                                            "cert": "ISO 15552 ✓",
+                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "ladder": [],
+                                                            "messages": []
+                                        }
+                    ]
+},
+                omron_photo: {
+                    "title": "โฟโตอิเล็กทริกเซนเซอร์ Omron (E3Z-T61 2M) ยอดรวม 1,400 ตัว",
+                    "budgetStr": "฿1,650.00/ตัว (฿2,310,000)",
+                    "targetStr": "฿1,420.00 - ฿1,450.00/ตัว (เป้าหมายเซฟ -13.9%)",
+                    "chips": [
+                                        "ขอราคาขายส่งวอลลุ่ม 1,400 ตัว",
+                                        "ขอเครดิตเทอม 60 วัน",
+                                        "รับประกันสินค้า 18 เดือน",
+                                        "การันตีสต็อกสำรอง 10%"
+                    ],
+                    "vendors": [
+                                        {
+                                                            "id": "v_siam_sensor",
+                                                            "name": "บจก. สยาม เซนเซอร์ โซลูชั่น",
+                                                            "email": "teeranonn124@gmail.com",
+                                                            "price": "฿1,650.00",
+                                                            "credit": "30 วัน",
+                                                            "leadTime": "5 วันทำการ",
+                                                            "warranty": "1 ปี",
+                                                            "cert": "CE / RoHS ✓",
+                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "ladder": [],
+                                                            "messages": []
+                                        },
+                                        {
+                                                            "id": "v_roykaen_eng",
+                                                            "name": "บจก. รอยแก่น เอ็นจิเนียริ่ง พาร์ท",
+                                                            "email": "roykaen.30@gmail.com",
+                                                            "price": "฿1,680.00",
+                                                            "credit": "30 วัน",
+                                                            "leadTime": "7 วันทำการ",
+                                                            "warranty": "1 ปี",
+                                                            "cert": "CE / RoHS ✓",
+                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "ladder": [],
+                                                            "messages": []
+                                        },
+                                        {
+                                                            "id": "v_film_tech",
+                                                            "name": "บจก. ฟิล์ม เทคโนโลยี แอนด์ อีควิปเมนท์",
+                                                            "email": "filmzazazs63@gmail.com",
+                                                            "price": "฿1,640.00",
+                                                            "credit": "30 วัน",
+                                                            "leadTime": "10 วันทำการ",
+                                                            "warranty": "1 ปี",
+                                                            "cert": "CE / RoHS ✓",
+                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "ladder": [],
+                                                            "messages": []
+                                        }
+                    ]
+},
                 nsk: {
                     title: "ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 1,200 ชิ้น",
                     budgetStr: "฿450.00/ชิ้น (฿540,000)",

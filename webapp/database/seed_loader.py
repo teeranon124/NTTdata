@@ -56,6 +56,7 @@ def _build_deal(deal_id: str, data: dict) -> Deal:
             position=pos,
             vendor_id=v.get("id"),
             name=v.get("name"),
+            email=v.get("email"),
             price=v.get("price"),
             credit=v.get("credit"),
             lead_time=v.get("leadTime"),

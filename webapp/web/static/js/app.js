@@ -93,10 +93,13 @@
                 }
 
                 const vendorClean = selectedVendor.name.replace(/\(V-.*?\)/, '').trim();
-                const vendorEmail = `sales-director@${vendorSlug}-supplier.co.th`;
+                const vendorEmail = selectedVendor.email || 'teeranonn124@gmail.com';
 
                 const elRecipient = document.getElementById('email-recipient-address');
                 if (elRecipient) elRecipient.innerText = vendorEmail;
+                
+                const realInput = document.getElementById('email-real-recipient');
+                if (realInput) realInput.value = vendorEmail;
 
                 const elCompany = document.getElementById('email-vendor-company');
                 if (elCompany) elCompany.innerText = selectedVendor.name;
@@ -782,7 +785,7 @@
                         tabsHtml += `
                             <button onclick="app.switchVendorChat('${dealKey}', ${idx})" id="vtab-${idx}" class="btn btn-xs rounded-full ${isActive ? 'btn-primary text-white shadow-sm' : 'btn-ghost bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'} gap-1.5 shrink-0 font-medium transition-all" title="${v.name}">
                                 <span class="max-w-[140px] truncate">${cleanName}</span>
-                                <span class="badge badge-xs ${v.statusBadge}">${v.status.includes('ชนะ') ? 'ชนะดีล (PO)' : (v.status.includes('SLA') ? 'ตกรอบ SLA' : 'ราคาสูง')}</span>
+                                <span class="badge badge-xs ${v.statusBadge}">${v.status.includes('ชนะ') ? 'ชนะดีล (PO)' : (v.status.includes('SLA') ? 'ตกรอบ SLA' : (v.status.includes('รอ') ? 'รอเริ่มเจรจา' : 'ราคาสูง'))}</span>
                             </button>
                         `;
                     });
@@ -873,6 +876,18 @@
             renderVendorMessages(vendor) {
                 const container = document.getElementById('chat-messages-container');
                 if (!container) return;
+                if (!vendor.messages || vendor.messages.length === 0) {
+                    container.innerHTML = `
+                        <div class="flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 border border-slate-200 shadow-inner">
+                                <i data-lucide="messages-square" class="w-6 h-6"></i>
+                            </div>
+                            <div class="font-bold text-slate-700 text-sm">ห้องเจรจาว่างสด — ยังไม่มีประวัติการพูดคุย</div>
+                            <div class="text-xs text-slate-500 mt-1 max-w-sm">คุณสามารถคลิกปุ่มกลยุทธ์ด้านล่างเพื่อส่งข้อเสนอแรก หรือส่งอีเมลเชิญคู่ค้าเข้าเจรจาผ่าน Supplier Portal</div>
+                        </div>
+                    `;
+                    return;
+                }
                 let html = '';
 
                 vendor.messages.forEach(m => {

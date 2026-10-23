@@ -41,7 +41,7 @@ _DEAL_FIELD_ORDER = [
 
 # Canonical vendor field order (optional fields included only if present in raw).
 _VENDOR_FIELD_ORDER = [
-    "id", "name", "price", "credit", "leadTime", "warranty",
+    "id", "name", "email", "price", "credit", "leadTime", "warranty",
     "cert", "status", "statusBadge", "outcome",
 ]
 
@@ -100,6 +100,7 @@ class Vendor(Base):
 
     vendor_id = Column(String(64), index=True)   # "sp", "eb", "tk", ...
     name = Column(Text)
+    email = Column(String(255), nullable=True)
     price = Column(String(64))     # pre-formatted string e.g. "฿398.00"
     credit = Column(String(64))    # e.g. "45 วัน"
     lead_time = Column(String(64))
