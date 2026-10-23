@@ -719,3 +719,6 @@
         const datasetPageSize = 25;
         let datasetFiltered = DATASET_2500;
 
+
+
+if (typeof window !== 'undefined') { window.database = database; }

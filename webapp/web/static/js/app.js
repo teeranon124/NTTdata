@@ -1595,10 +1595,8 @@
 
             getDeal(dealKey) {
                 if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
-                if (!window.database) window.database = {};
-                if (!window.database.deals) window.database.deals = {};
-
-                let deal = window.database.deals[dealKey];
+                const db = (typeof database !== 'undefined') ? database : (typeof window !== 'undefined' ? window.database : null);
+                let deal = (db && db.deals) ? db.deals[dealKey] : null;
                 
                 // If deal already exists in data.js, ensure deal.stage accurately reflects DOM/status
                 if (deal) {
@@ -3143,12 +3141,26 @@
                 
 
                 const container = document.getElementById('reasoning-modal-container');
+                if (!container) return;
+
+                const reasoningList = (deal && deal.reasoning && deal.reasoning.length > 0) ? deal.reasoning : [];
+
+                if (reasoningList.length === 0) {
+                    container.innerHTML = `
+                        <div class="flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 border border-slate-200 shadow-inner">
+                                <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                            </div>
+                            <div class="font-bold text-slate-700 text-sm">ยังไม่มีประวัติการวิเคราะห์สด (Live CoT ว่างสด)</div>
+                            <div class="text-xs text-slate-500 mt-1 max-w-sm">ห้องเจรจานี้ยังไม่มีการส่งข้อเสนอ — ระบบจะเริ่มบันทึก Chain-of-Thought, แผนกลยุทธ์ และการเรียก Tool Calls ทันทีที่เริ่มการเจรจากับคู่ค้า</div>
+                        </div>
+                    `;
+                    document.getElementById('reasoning_modal').showModal();
+                    lucide.createIcons({ root: document.getElementById('reasoning_modal') });
+                    return;
+                }
 
                 let html = '<ul class="timeline timeline-vertical timeline-compact">';
-
-
-
-                const reasoningList = (deal.reasoning && deal.reasoning.length > 0) ? deal.reasoning : (database.deals.nsk ? database.deals.nsk.reasoning : []);
 
                 reasoningList.forEach((r, idx) => {
 
