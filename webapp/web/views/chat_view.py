@@ -413,3 +413,124 @@ def negotiate():
         "messages": result.get("messages", []),
         "ladder": result.get("ladder", [])
     })
+
+
+# ==============================================================================
+# PLANT TERMINAL & EVENT-DRIVEN AUTONOMOUS TRIGGER SIMULATION
+# ==============================================================================
+
+@chat_bp.route("/plant-terminal")
+def plant_terminal():
+    """
+    Simulated Plant Terminal for Factory Engineers (e.g. Rayong Plant #04).
+    Used during live demos to trigger emergency PRs and demonstrate autonomous sourcing.
+    """
+    return render_template("plant_terminal.html")
+
+
+@chat_bp.route("/api/simulate/incoming-pr", methods=["POST"])
+def simulate_incoming_pr():
+    """
+    Simulates incoming PR from plant.
+    When volume reaches the threshold (>=800 units), AutoProcure.AI
+    automatically transitions the deal to Stage 2 and dispatches RFQs
+    to all approved vendors via AWS SES.
+    """
+    data = request.json or {}
+    deal_id = data.get("deal_id", "festo_cyl")
+    plant = data.get("plant", "Rayong Plant #04")
+    pr_code = data.get("pr_code", "PR-2026-RYG-014")
+    quantity = data.get("quantity", 100)
+
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        return jsonify({"status": "error", "detail": f"Deal {deal_id} not found"}), 404
+
+    # Update state to Stage 2 with 850 units / 14 PRs in Database
+    try:
+        from ...database.engine import session_scope
+        from ...database.models import Deal
+        with session_scope() as session:
+            db_deal = session.query(Deal).filter_by(id=deal_id).first()
+            if db_deal:
+                db_deal.stage = 2
+                db_deal.qty = 850
+                db_deal.prs_count = 14
+                db_deal.stage_label = "รอเจรจาต่อรอง"
+    except Exception as e:
+        logger.warning(f"Could not update DB directly: {e}")
+
+    # Dispatch RFQs to all 3 vendors via AWS SES
+    origin = request.host_url.rstrip("/")
+    vendors = deal.get("vendors", [])
+    dispatched = []
+
+    for v in vendors:
+        v_id = v.get("id")
+        v_name = v.get("name")
+        email = v.get("email") or "teeranonn124@gmail.com"
+        token = f"tok_sec_{deal_id}_{v_id}_verified"
+        portal_url = f"{origin}/portal/negotiate/{deal_id}?vendor={v_id}&token={token}"
+
+        res = send_magic_link(
+            to_email=email,
+            vendor_name=v_name,
+            deal_id=deal_id,
+            portal_url=portal_url,
+            deal_data=deal,
+        )
+        dispatched.append({"vendor": v_name, "email": email, "status": res.get("status")})
+
+    # Broadcast event to central procurement dashboard
+    now_str = datetime.datetime.now().strftime("%H:%M:%S")
+    action_msg = f"⚡ [Threshold Trigger] ตรวจพบใบขอซื้อ {pr_code} ({quantity} ตัว) จาก {plant} ยอดสะสมแตะ 850 ตัว ➔ ระบบเปลี่ยนเป็น Stage 2 และยิงเทียบเชิญ RFQ ทาง AWS SES อัตโนมัติไปยังซัพพลายเออร์ 3 รายทันที"
+    add_live_event(action_msg)
+
+    publish_event("deal_triggered", {
+        "deal_id": deal_id,
+        "sku": deal.get("sku", "FESTO-DSBC-32-100"),
+        "qty": 850,
+        "prs": 14,
+        "stage": 2,
+        "plant": plant,
+        "pr_code": pr_code,
+        "time": now_str,
+        "dispatched_count": len(dispatched)
+    })
+
+    return jsonify({
+        "status": "success",
+        "deal_id": deal_id,
+        "qty": 850,
+        "prs": 14,
+        "stage": 2,
+        "dispatched": dispatched
+    })
+
+
+@chat_bp.route("/api/simulate/reset-pr", methods=["POST"])
+def simulate_reset_pr():
+    """Reset festo_cyl deal back to Stage 1 for clean re-demoing."""
+    deal_id = "festo_cyl"
+    try:
+        from ...database.engine import session_scope
+        from ...database.models import Deal
+        with session_scope() as session:
+            db_deal = session.query(Deal).filter_by(id=deal_id).first()
+            if db_deal:
+                db_deal.stage = 1
+                db_deal.qty = 750
+                db_deal.prs_count = 13
+                db_deal.stage_label = "รวบรวม PR"
+    except Exception as e:
+        logger.warning(f"Could not reset DB directly: {e}")
+
+    add_live_event("🔄 [Demo Reset] รีเซ็ตดีล FESTO-DSBC-32-100 กลับสู่ Stage 1 (750 ตัว, 13 PRs) พร้อมสำหรับการซ้อมรอบใหม่")
+    publish_event("deal_reset", {
+        "deal_id": deal_id,
+        "qty": 750,
+        "prs": 13,
+        "stage": 1
+    })
+
+    return jsonify({"status": "success", "stage": 1, "qty": 750, "prs": 13})

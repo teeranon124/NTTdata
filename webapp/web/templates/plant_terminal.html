@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Plant Terminal — โรงงานระยอง (Rayong Site #04)</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+        body { font-family: 'IBM Plex Sans Thai', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-tech { font-family: 'Chakra Petch', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+        
+        <!-- TOP INDUSTRIAL HEADER -->
+        <div class="bg-gradient-to-r from-slate-900 via-amber-950/40 to-slate-900 p-4 border-b border-amber-500/20 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                    <i data-lucide="factory" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <div class="text-[10px] font-mono font-bold tracking-wider text-amber-400 uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        SAP Plant Node: RAYONG-04
+                    </div>
+                    <div class="text-sm font-bold text-white font-tech">สถานีช่างซ่อมบำรุง — นิคมระยอง</div>
+                </div>
+            </div>
+            <span class="badge badge-warning badge-sm font-mono text-[10px]">SCADA LIVE</span>
+        </div>
+
+        <div class="p-5 space-y-4">
+            
+            <!-- ALARM CARD -->
+            <div class="bg-amber-950/20 border border-amber-500/30 rounded-xl p-3.5 space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-tech">
+                        <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i> แจ้งเตือน Safety Stock วิกฤต
+                    </span>
+                    <span class="badge badge-error badge-xs font-mono font-bold">ALARM ACTIVE</span>
+                </div>
+                <div class="text-xs text-slate-300 leading-relaxed">
+                    สายการผลิต <strong>Assembly Line 2 (Conveyor Zone C)</strong> ตรวจพบสต็อกกระบอกลมนิวเมติกส์ต่ำกว่าเกณฑ์ความปลอดภัยโรงงาน
+                </div>
+                <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-xs">
+                    <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                        <div class="text-[10px] text-slate-400">สต็อกคงเหลือจริง</div>
+                        <div class="text-red-400 font-bold text-base">4 <span class="text-xs font-normal">ตัว</span></div>
+                    </div>
+                    <div class="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                        <div class="text-[10px] text-slate-400">Safety Threshold</div>
+                        <div class="text-slate-300 font-bold text-base">20 <span class="text-xs font-normal">ตัว</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PR DETAILS -->
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-3.5 space-y-2.5">
+                <div class="text-xs font-bold text-slate-300 flex items-center gap-1.5 font-tech">
+                    <i data-lucide="file-text" class="w-4 h-4 text-blue-400"></i> รายละเอียดใบขอซื้อฉุกเฉิน (PR Draft)
+                </div>
+                
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between py-1 border-b border-slate-800">
+                        <span class="text-slate-400">รหัสใบขอซื้อ:</span>
+                        <span class="font-mono font-bold text-blue-400">#PR-2026-RYG-014</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-slate-800">
+                        <span class="text-slate-400">รายการอะไหล่:</span>
+                        <span class="font-bold text-slate-200">Festo DSBC-32-100-PPVA</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-slate-800">
+                        <span class="text-slate-400">จำนวนที่ขอเบิก:</span>
+                        <span class="font-mono font-bold text-emerald-400 text-sm">100 ตัว</span>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <span class="text-slate-400">ผลต่อยอดรวมจัดซื้อ:</span>
+                        <span class="font-mono text-amber-300">750 ➔ 850 ตัว (ทะลุ Threshold)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRIGGER BUTTON (BIG TOUCH TARGET) -->
+            <button id="btn-trigger-pr" onclick="sendEmergencyPR()" 
+                    class="btn btn-lg w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 hover:from-blue-500 hover:to-indigo-500 text-white font-tech font-bold text-base border-0 shadow-lg shadow-indigo-600/30 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95">
+                <i data-lucide="send" class="w-5 h-5"></i>
+                <span>🚀 ยิงใบขอซื้อเข้าสู่ระบบจัดซื้อกลาง</span>
+            </button>
+
+            <!-- RESET BUTTON (FOR RE-DEMO) -->
+            <button id="btn-reset-pr" onclick="resetDemoState()" 
+                    class="btn btn-sm btn-ghost w-full text-slate-400 hover:text-slate-200 text-xs font-mono flex items-center justify-center gap-1.5">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span>รีเซ็ตสถานะกลับเป็น Stage 1 (เพื่อซ้อมใหม่)</span>
+            </button>
+
+            <!-- LIVE STATUS DISPLAY -->
+            <div id="status-card" class="hidden rounded-xl p-3 text-xs font-mono space-y-1.5 transition-all">
+                <div id="status-title" class="font-bold flex items-center gap-1.5"></div>
+                <div id="status-detail" class="text-slate-400 text-[11px] leading-relaxed"></div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="bg-slate-950 p-3 text-center border-t border-slate-800/80 text-[10px] text-slate-500 font-mono">
+            AutoProcure.AI × NTT DATA Enterprise Integration Bridge
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        async function sendEmergencyPR() {
+            const btn = document.getElementById('btn-trigger-pr');
+            const card = document.getElementById('status-card');
+            const sTitle = document.getElementById('status-title');
+            const sDetail = document.getElementById('status-detail');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading loading-spinner loading-sm"></span> กำลังส่งเข้าระบบจัดซื้อกลาง...';
+
+            try {
+                const res = await fetch('/api/simulate/incoming-pr', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        deal_id: 'festo_cyl',
+                        plant: 'Rayong Plant #04',
+                        pr_code: 'PR-2026-RYG-014',
+                        quantity: 100
+                    })
+                });
+                const data = await res.json();
+
+                card.classList.remove('hidden', 'bg-red-950/40', 'border-red-500/30', 'text-red-300');
+                card.classList.add('bg-emerald-950/40', 'border', 'border-emerald-500/30', 'text-emerald-300');
+
+                sTitle.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> ยอดทะลุเกณฑ์ 850 ชิ้น ➔ AI ยิงเมลอัตโนมัติแล้ว!';
+                sDetail.innerHTML = `
+                    <div>• ยอดรวมแตะเกณฑ์: <strong>850 ตัว (14 PRs)</strong></div>
+                    <div>• เปลี่ยนสถานะบน Dashboard เป็น: <strong>Stage 2 (เจรจาต่อรอง)</strong></div>
+                    <div>• ยิง RFQ ผ่าน AWS SES อัตโนมัติ: <strong>ครบทั้ง 3 ซัพพลายเออร์แล้ว</strong></div>
+                `;
+                lucide.createIcons({ root: card });
+
+                btn.classList.remove('from-blue-600', 'to-indigo-600');
+                btn.classList.add('bg-emerald-700', 'text-white');
+                btn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i> <span>ส่งใบขอซื้อเข้าสู่ระบบแล้ว</span>';
+                btn.disabled = false;
+                lucide.createIcons({ root: btn });
+
+            } catch (err) {
+                card.classList.remove('hidden', 'bg-emerald-950/40', 'border-emerald-500/30', 'text-emerald-300');
+                card.classList.add('bg-red-950/40', 'border', 'border-red-500/30', 'text-red-300');
+                sTitle.innerHTML = 'เกิดข้อผิดพลาดในการเชื่อมต่อ';
+                sDetail.innerText = err.message;
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i> <span>🚀 ลองส่งใหม่อีกครั้ง</span>';
+                lucide.createIcons({ root: btn });
+            }
+        }
+
+        async function resetDemoState() {
+            const btn = document.getElementById('btn-reset-pr');
+            btn.innerHTML = '<span class="loading loading-spinner loading-xs"></span> กำลังรีเซ็ต...';
+            try {
+                await fetch('/api/simulate/reset-pr', { method: 'POST' });
+                location.reload();
+            } catch (e) {
+                alert('Reset failed: ' + e.message);
+                btn.innerHTML = '<i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> <span>รีเซ็ตสถานะกลับเป็น Stage 1</span>';
+            }
+        }
+    </script>
+</body>
+</html>

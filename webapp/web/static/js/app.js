@@ -315,6 +315,10 @@
                             this.tickerMessages = [data.text, ...(this.tickerMessages || [])].slice(0, 30);
                             const el = document.getElementById('ticker-msg');
                             if (el) el.innerText = data.text;
+                        } else if (data.type === 'deal_triggered') {
+                            this.handleDealTriggered(data);
+                        } else if (data.type === 'deal_reset') {
+                            this.handleDealReset(data);
                         } else if (data.type === 'negotiation') {
                             this.onLiveNegotiation(data);
                         }
@@ -365,6 +369,70 @@
                 if (isOpen && this.currentChatDealKey === dealKey && this.currentChatVendorIndex === vIdx) {
                     this.renderVendorMessages(vendor);
                     lucide.createIcons({ root: modal });
+                }
+            },
+
+            handleDealTriggered(data) {
+                this.showToast(`⚡ [Auto-Trigger] ได้รับ PR จากระยอง (100 ตัว) ยอดรวมแตะ 850 ตัวครบเกณฑ์ ➔ AI ยิงเทียบเชิญ RFQ อัตโนมัติไปยังซัพพลายเออร์ 3 เจ้าผ่าน AWS SES สำเร็จ!`, 'info');
+                const row = document.getElementById('row-deal-festo_cyl');
+                if (row) {
+                    row.classList.remove('bg-amber-50/20');
+                    row.classList.add('bg-emerald-100', 'transition-all', 'duration-700');
+                    setTimeout(() => {
+                        row.classList.remove('bg-emerald-100');
+                        row.classList.add('bg-blue-50/20');
+                    }, 3500);
+
+                    const badgeAuto = row.querySelector('.badge-warning');
+                    if (badgeAuto && badgeAuto.innerText.includes('TRIGGER')) {
+                        badgeAuto.className = 'badge badge-primary badge-xs text-[9px] font-mono px-1';
+                        badgeAuto.innerText = 'STAGE 2 ACTIVE';
+                    }
+
+                    const stageBadge = row.querySelector('.stage-badge-container');
+                    if (stageBadge) {
+                        stageBadge.innerHTML = `
+                            <div class="inline-flex flex-col items-center justify-center px-2.5 py-1 rounded-lg bg-blue-50 border-blue-200 text-blue-800 shadow-xs animate-bounce">
+                                <span class="font-bold text-[10px] font-mono leading-none">Stage 2</span>
+                                <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เจรจาต่อรอง</span>
+                            </div>
+                        `;
+                    }
+                    const qtyEl = row.querySelector('.deal-qty-val');
+                    if (qtyEl) qtyEl.innerHTML = `850 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span>`;
+                    const prsBtn = row.querySelector('.deal-prs-btn');
+                    if (prsBtn) prsBtn.innerHTML = `<i data-lucide="layers" class="w-3 h-3"></i> รวม 14 PRs`;
+                    lucide.createIcons({ root: row });
+                }
+            },
+
+            handleDealReset(data) {
+                this.showToast(`🔄 รีเซ็ตดีล FESTO-DSBC-32-100 กลับสู่ Stage 1 สำหรับซ้อมเดโม`, 'info');
+                const row = document.getElementById('row-deal-festo_cyl');
+                if (row) {
+                    row.classList.remove('bg-blue-50/20', 'bg-emerald-100');
+                    row.classList.add('bg-amber-50/20');
+
+                    const badgeAuto = row.querySelector('.badge-primary');
+                    if (badgeAuto && badgeAuto.innerText.includes('STAGE 2')) {
+                        badgeAuto.className = 'badge badge-warning badge-xs text-[9px] font-mono px-1';
+                        badgeAuto.innerText = 'AUTO TRIGGER';
+                    }
+
+                    const stageBadge = row.querySelector('.stage-badge-container');
+                    if (stageBadge) {
+                        stageBadge.innerHTML = `
+                            <div class="inline-flex flex-col items-center justify-center px-2.5 py-1 rounded-lg bg-amber-50 border-amber-200 text-amber-800 shadow-xs">
+                                <span class="font-bold text-[10px] font-mono leading-none">Stage 1</span>
+                                <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวบรวม PR</span>
+                            </div>
+                        `;
+                    }
+                    const qtyEl = row.querySelector('.deal-qty-val');
+                    if (qtyEl) qtyEl.innerHTML = `750 <span class="text-[10px] text-slate-500 font-normal">ชิ้น</span>`;
+                    const prsBtn = row.querySelector('.deal-prs-btn');
+                    if (prsBtn) prsBtn.innerHTML = `<i data-lucide="layers" class="w-3 h-3"></i> รวม 13 PRs`;
+                    lucide.createIcons({ root: row });
                 }
             },
 
