@@ -26,7 +26,7 @@ class MarketIntelligenceAgent:
           leverage_stance, volume_discount_pct, confidence, matched. Always
           includes an `audit` entry.
         """
-        target = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or 398.0)
+        target = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or round(budget * 0.85, 2))
         budget = float(deal_data.get("budget_unit_price") or deal_data.get("pre_price") or 450.0)
         annual_qty = int(deal_data.get("total_quantity") or deal_data.get("qty") or 0)
         part = deal_data.get("sku") or deal_data.get("part_code") or str(deal_data.get("id", "")).upper()

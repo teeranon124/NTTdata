@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def _is_enabled() -> bool:
-    return os.environ.get("SES_ENABLED", "false").lower() in ("1", "true", "yes")
+    return os.environ.get("SES_ENABLED", "true").lower() in ("1", "true", "yes")
 
 
 def _sender() -> str:

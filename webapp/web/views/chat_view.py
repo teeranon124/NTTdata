@@ -91,42 +91,45 @@ def supplier_portal(deal_id):
             "statusBadge": "badge-success text-white font-bold"
         }
 
-    pre_p = float(deal.get("pre_price", 450.0))
-    post_p = float(deal.get("post_price", 398.0))
+    pre_p = float(deal.get("pre_price") or 1000.0)
+    post_p = float(deal.get("post_price") or round(pre_p * 0.85, 2))
+    deal["post_price"] = post_p
     v_id = str(active_vendor.get("id", "v1")).lower()
 
-    # Dynamic pricing tiers for realistic simulation per vendor
-    if "sp" in v_id or "siam" in v_id:
-        active_vendor["initial_price"] = 425.0
-        active_vendor["counter_price"] = 408.0
-        active_vendor["final_price"] = post_p
-        active_vendor["rank_text"] = "TCO Rank #1 (ผู้นำการประมูล)"
-        active_vendor["rank_badge"] = "badge-success text-white"
-        active_vendor["tco_score"] = 94.8
-        active_vendor["initial_credit"] = "30 วัน"
-    elif "eb" in v_id or "eastern" in v_id:
-        active_vendor["initial_price"] = 440.0
-        active_vendor["counter_price"] = 420.0
-        active_vendor["final_price"] = 412.0
-        active_vendor["rank_text"] = "TCO Rank #2 (ตามหลังผู้นำ ฿14)"
-        active_vendor["rank_badge"] = "badge-warning text-slate-900"
-        active_vendor["tco_score"] = 81.5
-        active_vendor["initial_credit"] = "30 วัน"
-    elif "tk" in v_id or "koyo" in v_id or "thai" in v_id:
-        active_vendor["initial_price"] = 430.0
-        active_vendor["counter_price"] = 415.0
-        active_vendor["final_price"] = 405.0
-        active_vendor["rank_text"] = "ตกรอบ SLA (ส่งช้าเกิน 7 วันทำการ)"
-        active_vendor["rank_badge"] = "badge-error text-white"
-        active_vendor["tco_score"] = 58.2
-        active_vendor["initial_credit"] = "30 วัน"
+    # Dynamic pricing tiers tailored to the deal SKU / price scale
+    if deal_id == "nsk":
+        if "sp" in v_id or "siam" in v_id:
+            active_vendor["initial_price"] = 425.0
+            active_vendor["counter_price"] = 408.0
+            active_vendor["final_price"] = 398.0
+            active_vendor["rank_text"] = "TCO Rank #1 (ผู้นำการประมูล)"
+            active_vendor["rank_badge"] = "badge-success text-white"
+            active_vendor["tco_score"] = 94.8
+            active_vendor["initial_credit"] = "30 วัน"
+        elif "eb" in v_id or "eastern" in v_id:
+            active_vendor["initial_price"] = 440.0
+            active_vendor["counter_price"] = 420.0
+            active_vendor["final_price"] = 412.0
+            active_vendor["rank_text"] = "TCO Rank #2 (ตามหลังผู้นำ ฿14)"
+            active_vendor["rank_badge"] = "badge-warning text-slate-900"
+            active_vendor["tco_score"] = 81.5
+            active_vendor["initial_credit"] = "30 วัน"
+        else:
+            active_vendor["initial_price"] = 430.0
+            active_vendor["counter_price"] = 415.0
+            active_vendor["final_price"] = 405.0
+            active_vendor["rank_text"] = "ตกรอบ SLA (ส่งช้าเกิน 7 วันทำการ)"
+            active_vendor["rank_badge"] = "badge-error text-white"
+            active_vendor["tco_score"] = 58.2
+            active_vendor["initial_credit"] = "30 วัน"
     else:
+        # Scale presets realistically for any deal (Omron, Festo, SKF, etc.)
         active_vendor["initial_price"] = round(pre_p * 0.96, 2)
-        active_vendor["counter_price"] = round(post_p * 1.05, 2)
+        active_vendor["counter_price"] = round(pre_p * 0.90, 2)
         active_vendor["final_price"] = post_p
-        active_vendor["rank_text"] = "อยู่ระหว่างประเมินข้อเสนอ"
+        active_vendor["rank_text"] = "อยู่ระหว่างเจรจาข้อเสนอ (Live Negotiation)"
         active_vendor["rank_badge"] = "badge-info text-white"
-        active_vendor["tco_score"] = 85.0
+        active_vendor["tco_score"] = 88.5
         active_vendor["initial_credit"] = "30 วัน"
 
     token = request.args.get("token", "").strip()

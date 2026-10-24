@@ -291,7 +291,7 @@
                     <div class="chat-bubble bg-white text-slate-800 shadow-xs border border-slate-200 leading-relaxed">
                         เรียนฝ่ายขายและการตลาด <strong>{{ active_vendor.name if active_vendor else deal.supplier }}</strong> ครับ ทางฝ่ายจัดซื้อกลางขอเปิดการเจรจาสัญญารายปี LTA สำหรับ <strong>{{ deal.name }} ({{ deal.sku }})</strong> ปริมาณรวมทั้งปี <strong>{{ '{:,}'.format(deal.qty) }} {{ deal.unit }}</strong> (รวบรวมจาก {{ deal.prs_count }} ใบขอซื้อทั่วประเทศ)
                         <br><br>
-                        เพื่อให้เกิดความคุ้มค่าแบบ Win-Win ทางกลุ่มโรงงานขอเสนอเป้าหมายราคาจัดซื้อที่ <strong>฿{{ '{:,.2f}'.format(deal.post_price) }} / {{ deal.unit }}</strong> และเครดิตเทอม <strong>45 วัน</strong> เพื่อแลกกับการผูกสัญญา <strong>Blanket Order 1 ปีเต็ม</strong> ทางท่านมีความเห็นหรือต้องการเสนอเงื่อนไขโต้ตอบอย่างไรครับ?
+                        เพื่อให้เกิดความคุ้มค่าแบบ Win-Win ทางกลุ่มโรงงานขอเสนอเป้าหมายราคาจัดซื้อที่ <strong>฿{{ '{:,.2f}'.format(deal.post_price if deal.post_price else (deal.pre_price * 0.85)) }} / {{ deal.unit }}</strong> และเครดิตเทอม <strong>45 วัน</strong> เพื่อแลกกับการผูกสัญญา <strong>Blanket Order 1 ปีเต็ม</strong> ทางท่านมีความเห็นหรือต้องการเสนอเงื่อนไขโต้ตอบอย่างไรครับ?
                         <div class="mt-2 pt-1.5 border-t border-slate-100 text-[10px] text-blue-700 font-mono flex items-center gap-1">
                             <i data-lucide="sparkles" class="w-3 h-3"></i> [Volume Consolidation: การันตีคำสั่งซื้อรวมแลกส่วนลดและเครดิตเทอม]
                         </div>

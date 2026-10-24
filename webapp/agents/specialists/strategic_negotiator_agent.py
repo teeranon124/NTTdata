@@ -31,7 +31,7 @@ class StrategicNegotiatorAgent:
         audit = []
 
         budget_price = float(deal_data.get("budget_unit_price") or deal_data.get("pre_price") or 450.0)
-        target_price = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or 398.0)
+        target_price = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or round(budget_price * 0.85, 2))
         annual_qty = int(deal_data.get("total_quantity") or deal_data.get("qty") or 1000)
         std_credit = int(deal_data.get("standard_credit_days") or 30)
         plants = deal_data.get("plants") or ["PLANT-CBI-02 (ชลบุรี)", "PLANT-RYG-03 (ระยอง)", "PLANT-AYU-01 (อยุธยา)"]
@@ -130,7 +130,7 @@ anchor. End with the tactic tag in brackets.
                 "tool_call": f"model_gateway.invoke(negotiate) -> tokens={model_meta['input_tokens']}+{model_meta['output_tokens']} SUCCESS",
             })
         else:
-            reply_text = self._fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market)
+            reply_text = self._fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market, deal_data=deal_data, parsed_entities=parsed_entities, user_message=user_message, budget_price=budget_price)
             audit.append({
                 "step": 5,
                 "agent": "Autonomous Negotiation Engine (Ready for Claude 3.5 Sonnet)",
@@ -187,7 +187,10 @@ anchor. End with the tactic tag in brackets.
         )
 
     @staticmethod
-    def _fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market=None) -> str:
+    def _fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market=None, deal_data=None, parsed_entities=None, user_message="", budget_price=0.0) -> str:
+        deal_data = deal_data or {}
+        parsed_entities = parsed_entities or {}
+        budget_price = budget_price or float(deal_data.get("budget_unit_price") or deal_data.get("pre_price") or target_price)
         market = market or {}
         m_low = market.get("market_low")
         m_high = market.get("market_high")
@@ -215,11 +218,24 @@ anchor. End with the tactic tag in brackets.
                 f"เป็น {concession['target_credit']} วัน พร้อมเงื่อนไขการจัดส่งแบบ DDP โดยไม่มีค่าใช้จ่ายเพิ่มเติม ซึ่งจะช่วยให้โครงสร้างต้นทุนรวม (TCO) "
                 f"ผ่านเกณฑ์การอนุมัติขององค์กรได้ครับ {concession['tactic_label']}"
             )
+        deal_name = deal_data.get("name") or deal_data.get("sku") or "สินค้า"
+        unit_name = deal_data.get("unit") or "หน่วย"
+
+        # If user did not offer a price (e.g. asked an inquiry, questioned 0.00 or terms)
+        if not parsed_entities.get("proposed_unit_price") or str(user_message).strip() == "" or "ฟรี" in str(user_message) or "0.00" in str(user_message):
+            return (
+                f"เรียน {vendor_name}\n\n"
+                f"ฝ่ายจัดซื้อกลางขอเรียนชี้แจงเพิ่มเติมครับ สำหรับรายการ {deal_name} ทางกลุ่มโรงงานมีเป้าหมายราคาจัดซื้อที่ "
+                f"฿{target_price:,.2f} ต่อ{unit_name} (เทียบจากงบเดิม ฿{budget_price:,.2f}) พร้อมเงื่อนไขการชำระเงิน 45 วัน "
+                f"เพื่อแลกกับการผูกสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม การันตียอดสั่งซื้อรวม {annual_qty:,} {unit_name}{market_evidence}\n\n"
+                f"ทางท่านเห็นสมควรหรือต้องการเสนอเงื่อนไขราคาและเครดิตเทอมโต้ตอบอย่างไร สามารถแจ้งข้อเสนอเข้ามาได้เลยครับ {concession['tactic_label']}"
+            )
+
         return (
             f"เรียน {vendor_name}\n\n"
-            f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย อย่างไรก็ดี ราคาดังกล่าวยังสูงกว่ากรอบราคาตลาดอ้างอิงขององค์กร"
+            f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อ{unit_name} อย่างไรก็ดี ราคาดังกล่าวยังสูงกว่ากรอบราคาตลาดอ้างอิงขององค์กร"
             f"{market_evidence}\n\n"
             f"เพื่อประโยชน์สูงสุดร่วมกัน ฝ่ายจัดซื้อขอเรียนเสนอการจัดทำสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม โดยการันตียอดสั่งซื้อรวม "
-            f"{annual_qty:,} หน่วย แลกกับการปรับราคามาที่ ฿{target_price:,.2f} ต่อหน่วย และเงื่อนไขการชำระเงิน 45 วัน "
+            f"{annual_qty:,} {unit_name} แลกกับการปรับราคามาที่ ฿{target_price:,.2f} ต่อ{unit_name} และเงื่อนไขการชำระเงิน 45 วัน "
             f"หากท่านยืนยันเงื่อนไขนี้ ทางเราพร้อมล็อกสถานะคู่สัญญาหลักให้ท่านได้ทันทีครับ {concession['tactic_label']}"
         )

@@ -24,7 +24,7 @@ class CentralArbitratorAgent:
             "audit": {step dict}
           }
         """
-        target_price = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or 398.0)
+        target_price = float(deal_data.get("target_unit_price") or deal_data.get("post_price") or round(budget * 0.85, 2))
         budget_price = float(deal_data.get("budget_unit_price") or deal_data.get("pre_price") or 450.0)
         effective = float(tco_data.get("effective_tco_price") or tco_data.get("offered_price") or budget_price)
 

@@ -1323,11 +1323,11 @@
     "qty": 1400,
     "prs_count": 22,
     "pre_price": 1650.0,
-    "post_price": null,
+    "post_price": 1400.0,
     "pre_spend": 2310000.0,
-    "post_spend": null,
-    "savings": 0.0,
-    "savings_pct": 0.0,
+    "post_spend": 1960000.0,
+    "savings": 350000.0,
+    "savings_pct": 15.15,
     "supplier": "บจก. สยาม เซนเซอร์ โซลูชั่น",
     "vendors": [
       {
@@ -1375,7 +1375,8 @@
         "ladder": [],
         "messages": []
       }
-    ]
+    ],
+    "target_unit_price": 1400.0
   },
   "keyence_fiber": {
     "id": "keyence_fiber",
@@ -3445,11 +3446,11 @@
     "qty": 750,
     "prs_count": 13,
     "pre_price": 3850.0,
-    "post_price": null,
+    "post_price": 3250.0,
     "pre_spend": 3272500.0,
-    "post_spend": null,
-    "savings": 0.0,
-    "savings_pct": 0.0,
+    "post_spend": 2437500.0,
+    "savings": 835000.0,
+    "savings_pct": 25.52,
     "supplier": "บจก. สยาม นิวเมติกส์ แอนด์ ซัพพลาย",
     "vendors": [
       {
@@ -3497,6 +3498,7 @@
         "ladder": [],
         "messages": []
       }
-    ]
+    ],
+    "target_unit_price": 3250.0
   }
 }
