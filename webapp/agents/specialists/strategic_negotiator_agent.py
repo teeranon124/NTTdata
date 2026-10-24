@@ -5,6 +5,7 @@ high-fidelity deterministic fallback when AWS is unavailable.
 """
 import logging
 import os
+import re
 
 from ..model_gateway import TaskComplexity, model_gateway
 from ..tools import calculate_tco, evaluate_concessions

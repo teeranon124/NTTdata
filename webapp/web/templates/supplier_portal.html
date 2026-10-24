@@ -360,6 +360,8 @@
             init() {
                 lucide.createIcons();
                 this.loadHistory();
+                // Proactive real-time sync: poll every 3.5s for incoming agent updates
+                setInterval(() => this.pollNewMessages(), 3500);
             },
 
             // Rehydrate prior chat transcript + concession ladder when the supplier
@@ -388,6 +390,27 @@
                         if (rn) rn.innerText = this.round;
                     }
                 } catch (e) { /* first-time open: nothing to load */ }
+            },
+
+            async pollNewMessages() {
+                try {
+                    const vKey = (this.vendorName || this.vendorId).replace(/ /g, '_').toLowerCase();
+                    const res = await fetch(`/api/chat/${this.dealKey}/${encodeURIComponent(vKey)}`);
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    const msgs = (data.session && data.session.messages) || [];
+                    const stream = document.getElementById('portal-chat-stream');
+                    if (!stream) return;
+                    const rendered = stream.querySelectorAll('.chat').length;
+                    if (msgs.length > rendered) {
+                        for (let i = rendered; i < msgs.length; i++) {
+                            const m = msgs[i];
+                            const role = (m.sender === 'vendor') ? 'vendor' : 'agent';
+                            const name = m.name || (role === 'vendor' ? this.vendorName : 'AutoProcure.AI Sourcing Agent');
+                            this.appendMessage(role, name, m.text);
+                        }
+                    }
+                } catch (e) {}
             },
 
             selectPreset(text) {
@@ -451,7 +474,9 @@
                         this.round += 1;
                         document.getElementById('current-round-num').innerText = this.round;
                     } else {
-                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', "ขอบคุณสำหรับข้อเสนอครับ ทางระบบกำลังเชื่อมต่อเพื่อคำนวณโครงสร้าง TCO และจะสรุปผลทันที");
+                        const errData = await res.json().catch(() => ({}));
+                        const errMsg = errData.detail || errData.error || "ขออภัยครับ ระบบกำลังประมวลผลข้อเสนอ กรุณากดส่งข้อเสนออีกครั้งครับ";
+                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', errMsg);
                     }
                 } catch(err) {
                     this.removeTyping(typingId);
