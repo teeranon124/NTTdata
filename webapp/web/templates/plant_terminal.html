@@ -97,7 +97,14 @@
             <button id="btn-reset-pr" onclick="resetDemoState()" 
                     class="btn btn-sm btn-ghost w-full text-slate-400 hover:text-slate-200 text-xs font-mono flex items-center justify-center gap-1.5">
                 <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                <span>รีเซ็ตสถานะกลับเป็น Stage 1 (เพื่อซ้อมใหม่)</span>
+                <span>รีเซ็ตสถานะ Festo กลับเป็น Stage 1 (เพื่อซ้อมใหม่)</span>
+            </button>
+
+            <!-- FULL DEMO DATABASE RESET BUTTON -->
+            <button id="btn-master-reset" onclick="resetAllDemoDatabase()" 
+                    class="btn btn-sm bg-red-950/30 border border-red-500/40 text-red-300 hover:bg-red-900/50 hover:text-white w-full text-xs font-mono flex items-center justify-center gap-1.5 rounded-xl shadow-xs transition-all">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-red-400"></i>
+                <span>🔄 คืนค่าฐานข้อมูลทั้งหมดสำหรับเริ่ม Demo ใหม่ (Master Reset)</span>
             </button>
 
             <!-- LIVE STATUS DISPLAY -->
@@ -176,6 +183,25 @@
             } catch (e) {
                 alert('Reset failed: ' + e.message);
                 btn.innerHTML = '<i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> <span>รีเซ็ตสถานะกลับเป็น Stage 1</span>';
+            }
+        }
+
+        async function resetAllDemoDatabase() {
+            if (!confirm('ยืนยันล้างประวัติแชทและคืนค่าระบบจัดซื้อทั้งหมดสำหรับเริ่ม Live Demo ใหม่?')) return;
+            const btn = document.getElementById('btn-master-reset');
+            btn.innerHTML = '<span class="loading loading-spinner loading-xs"></span> กำลังล้างฐานข้อมูล...';
+            try {
+                const res = await fetch('/api/demo/reset-all', { method: 'POST' });
+                if (res.ok) {
+                    alert('✅ คืนค่าฐานข้อมูลและล้างเซสชันทั้งหมดเรียบร้อยแล้ว พร้อมเริ่ม Demo ใหม่!');
+                    location.reload();
+                } else {
+                    alert('เกิดข้อผิดพลาดในการรีเซ็ต');
+                    location.reload();
+                }
+            } catch (e) {
+                alert('Reset failed: ' + e.message);
+                location.reload();
             }
         }
     </script>

@@ -11,6 +11,11 @@ class DealRepository:
         self._deals_cache = None
         self._raw_cache = None
 
+    def reload(self):
+        self._deals_cache = None
+        self._raw_cache = None
+        return self.get_all_deals()
+
     def get_all_deals(self) -> Dict[str, dict]:
         if not self._deals_cache:
             if os.path.exists(MASTER_DEALS_FILE):

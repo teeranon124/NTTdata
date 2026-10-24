@@ -357,13 +357,39 @@ def reset_chat_session(deal_id, vendor_id):
     deal = deal_repository.get_deal(deal_id)
     session = negotiation_service.reset_session(deal_id, vendor_id)
     if deal:
+        did = (deal_id or "").lower()
+        # Rollback winning status and stage if the deal was previously awarded
+        if deal.get("stage") == 4 or deal.get("winning_vendor_id"):
+            deal["stage"] = 3 if did == "nsk" else 2
+            deal["stage_label"] = "AI กำลังเจรจา" if did == "nsk" else "รอเจรจาต่อรอง"
+            deal["winning_vendor_id"] = None
+            deal["agreed_price"] = None
+            deal["po_status"] = None
+            deal["po_number"] = None
+            try:
+                from ...database.engine import session_scope
+                from ...database.models import Deal
+                with session_scope() as s:
+                    db_d = s.get(Deal, did)
+                    if db_d:
+                        db_d.stage = deal["stage"]
+                        db_d.stage_label = deal["stage_label"]
+                        db_d.winning_vendor_id = None
+                        db_d.agreed_price = None
+                        db_d.po_status = None
+                        db_d.po_number = None
+            except Exception as e:
+                pass
+
         vendor_data = next((v for v in deal.get("vendors", []) if v["name"].replace(" ", "_").lower() == vendor_id.lower()), None)
         if vendor_data and "messages" in vendor_data:
             session["messages"] = vendor_data["messages"]
             if "ladder" in vendor_data:
                 session["concession_ladder"] = vendor_data["ladder"]
             session_repository.save_session(deal_id, vendor_id, session)
-    return jsonify({"status": "reset", "session": session})
+
+    publish_event("deal_reset", {"deal_id": deal_id, "stage": deal.get("stage") if deal else 2})
+    return jsonify({"status": "reset", "session": session, "deal": deal})
 
 @chat_bp.route("/api/sla")
 @chat_bp.route("/api/sla/<deal_id>")
@@ -700,3 +726,69 @@ def simulate_reset_pr():
     })
 
     return jsonify({"status": "success", "stage": 1, "qty": 750, "prs": 13})
+
+
+@chat_bp.route("/api/demo/reset-all", methods=["POST"])
+def demo_reset_all():
+    """
+    Master Demo Reset:
+    1. Resets all transient sessions (clears messages, concession ladders, audit traces).
+    2. Resets all Deals and PRs back to their baseline demo stages:
+       - festo_cyl: Stage 1 (750 qty, 13 PRs, รวบรวม PR)
+       - omron_photo: Stage 2 (1,400 qty, 22 PRs, รอเจรจาต่อรอง)
+       - nsk: Stage 3 (5,000 qty, 28 PRs, AI กำลังเจรจา)
+    3. Resets SQLite database if USE_DATABASE is enabled.
+    """
+    # 1. Reset file-based JSON sessions
+    sessions_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data", "sessions")
+    if os.path.exists(sessions_dir):
+        for f in os.listdir(sessions_dir):
+            if f.endswith(".json"):
+                try:
+                    os.remove(os.path.join(sessions_dir, f))
+                except Exception:
+                    pass
+
+    # 2. Reset database tables
+    try:
+        from ...database.seed_loader import seed, reset_sessions
+        reset_sessions()
+        seed(force=True)
+    except Exception as e:
+        logger.warning(f"DB reset error (fallback to JSON): {e}")
+
+    # 3. Reload in-memory deal repository
+    if hasattr(deal_repository, "reload"):
+        deal_repository.reload()
+
+    # 4. Explicitly guarantee baseline stages for core demo deals
+    deals = deal_repository.get_all_deals()
+    if "festo_cyl" in deals:
+        deals["festo_cyl"]["stage"] = 1
+        deals["festo_cyl"]["stage_label"] = "รวบรวม PR"
+        deals["festo_cyl"]["qty"] = 750
+        deals["festo_cyl"]["prs_count"] = 13
+        deals["festo_cyl"]["winning_vendor_id"] = None
+        deals["festo_cyl"]["po_status"] = None
+        deals["festo_cyl"]["po_number"] = None
+
+    if "omron_photo" in deals:
+        deals["omron_photo"]["stage"] = 2
+        deals["omron_photo"]["stage_label"] = "รอเจรจาต่อรอง"
+        deals["omron_photo"]["qty"] = 1400
+        deals["omron_photo"]["prs_count"] = 22
+        deals["omron_photo"]["winning_vendor_id"] = None
+        deals["omron_photo"]["po_status"] = None
+        deals["omron_photo"]["po_number"] = None
+
+    if "nsk" in deals:
+        deals["nsk"]["stage"] = 3
+        deals["nsk"]["stage_label"] = "AI กำลังเจรจา"
+        deals["nsk"]["winning_vendor_id"] = None
+        deals["nsk"]["po_status"] = None
+        deals["nsk"]["po_number"] = None
+
+    add_live_event("🔄 [Master Demo Reset] ล้างประวัติแชทและคืนค่าสถานะดีลทุกตัวสู่จุดเริ่มต้นสำหรับ Live Demo เรียบร้อยแล้ว")
+    publish_event("deal_reset", {"status": "all_reset"})
+
+    return jsonify({"status": "success", "message": "Demo system reset complete"})
