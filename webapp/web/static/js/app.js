@@ -1655,10 +1655,19 @@
                 }
 
                 // 4. Update KPI strip
+                let completedSavings = 0;
+                completedRows.forEach(r => {
+                    const s = parseFloat(r.getAttribute('data-savings') || '0') || 0;
+                    completedSavings += s;
+                });
+                const totalSavings = pendingSavings + completedSavings;
+
                 const kpiPending = document.getElementById('gov-kpi-pending');
                 if (kpiPending) kpiPending.innerText = `${pendingCount} ดีล`;
                 const kpiCompleted = document.getElementById('gov-kpi-completed');
                 if (kpiCompleted) kpiCompleted.innerText = `${completedCount} ดีล`;
+                const kpiSavings = document.getElementById('gov-kpi-savings');
+                if (kpiSavings) kpiSavings.innerText = `฿${Math.round(totalSavings).toLocaleString()}`;
 
                 // 5. Re-apply current tab filter
                 if (this.currentGovTab) {

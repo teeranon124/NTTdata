@@ -3509,11 +3509,15 @@
                         </h1>
                         <p class="text-xs text-slate-500 mt-0.5">ด่านตรวจสอบความถูกต้อง (Guardrail Audit Trail) และการลงนามของผู้มีอำนาจจัดซื้อ (Human-in-the-Loop) ก่อนยิง BAPI อนุมัติ PO เข้าระบบ SAP S/4HANA</p>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="badge badge-warning text-xs font-mono font-bold px-3 py-1 shadow-xs" id="governance-badge-count">13 ดีลรอลงนาม (฿8.45M พร้อมออก PO)</span>
-                        <span class="badge bg-slate-100 text-slate-700 border border-slate-300 text-xs font-mono font-bold px-3 py-1 shadow-xs hidden sm:inline-flex" id="governance-badge-completed-chip">
-                            <span id="gov-badge-completed-num">3</span> ดีลออก PO สำเร็จ
-                        </span>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-900 shadow-xs text-xs font-medium" id="governance-badge-container">
+                            <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
+                            <span id="governance-badge-count" class="font-mono font-semibold">13 ดีลรอลงนาม (฿8.45M พร้อมออก PO)</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 shadow-xs text-xs font-medium" id="governance-badge-completed-chip">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                            <span class="font-mono font-semibold"><span id="gov-badge-completed-num">3</span> ดีลออก PO สำเร็จ</span>
+                        </div>
                     </div>
                 </div>
 
