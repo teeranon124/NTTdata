@@ -73,11 +73,15 @@ class StrategicNegotiatorAgent:
             annual_quantity=annual_qty,
             round_num=round_num,
         )
+        from ..skills import skill_registry
+        skill_name = "anchoring_concession_ladder.md" if round_num <= 1 else "nash_bargaining_equilibrium.md"
+        skill_content = skill_registry.read_skill(skill_name)
+
         audit.append({
             "step": 4,
-            "agent": "Game Theory Concession Engine (Nash Bargaining)",
-            "thought": f"เลือกยุทธวิธี: {concession['strategy']} | {concession['rationale']} | อ้างอิงราคากลางตลาด ฿{market.get('market_mid', target_price):,.2f}",
-            "tool_call": f"evaluate_concessions(gap={tco_res['price_gap_per_unit']}) -> Strategy: {concession['strategy']}",
+            "agent": f"Game Theory Engine (Skill: {skill_name})",
+            "thought": f"เปิดอ่านทฤษฎี [{skill_name}] | เลือกยุทธวิธี: {concession['strategy']} | {concession['rationale']} | อ้างอิงราคากลาง ฿{market.get('market_mid', target_price):,.2f}",
+            "tool_call": f"skill_registry.read_skill('{skill_name}') -> evaluate_concessions(round={round_num}) -> {concession['strategy']}",
         })
 
         # --- LLM synthesis via Dynamic Model Gateway (HEAVY tier) ---
