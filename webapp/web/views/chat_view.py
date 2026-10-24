@@ -359,9 +359,9 @@ def reset_chat_session(deal_id, vendor_id):
     if deal:
         did = (deal_id or "").lower()
         # Rollback winning status and stage if the deal was previously awarded
-        if deal.get("stage") == 4 or deal.get("winning_vendor_id"):
-            deal["stage"] = 3 if did == "nsk" else 2
-            deal["stage_label"] = "เจรจาต่อรอง" if did == "nsk" else "ออกเทียบราคา"
+        if deal.get("stage") in (4, 5) or deal.get("winning_vendor_id"):
+            deal["stage"] = 4 if did == "nsk" else 2
+            deal["stage_label"] = "รอลงนาม PO" if did == "nsk" else "ออกเทียบราคา"
             deal["winning_vendor_id"] = None
             deal["agreed_price"] = None
             deal["po_status"] = None
@@ -519,7 +519,8 @@ def create_po(deal_id):
         "deal_id": deal_id,
         "po_number": po_number,
         "approved_by": approved_by,
-        "stage": 4,
+        "stage": 5,
+        "stage_label": "ออก PO สำเร็จ",
         "time": datetime.datetime.now().strftime("%H:%M:%S"),
     })
 
@@ -528,7 +529,8 @@ def create_po(deal_id):
         "deal_id": deal_id,
         "po_number": po_number,
         "po_status": "PO_CREATED",
-        "stage": 4,
+        "stage": 5,
+        "stage_label": "ออก PO สำเร็จ",
         "approved_by": approved_by,
     })
 
@@ -782,8 +784,8 @@ def demo_reset_all():
         deals["omron_photo"]["po_number"] = None
 
     if "nsk" in deals:
-        deals["nsk"]["stage"] = 3
-        deals["nsk"]["stage_label"] = "เจรจาต่อรอง"
+        deals["nsk"]["stage"] = 4
+        deals["nsk"]["stage_label"] = "รอลงนาม PO"
         deals["nsk"]["winning_vendor_id"] = None
         deals["nsk"]["po_status"] = None
         deals["nsk"]["po_number"] = None

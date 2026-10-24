@@ -33,8 +33,8 @@ class DealRepositoryDB:
             total_prs = sum((d.prs_count or 0) for d in deals)
             total_qty = sum((d.qty or 0) for d in deals)
 
-            stages_count = {1: 0, 2: 0, 3: 0, 4: 0}
-            stages_prs = {1: 0, 2: 0, 3: 0, 4: 0}
+            stages_count = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+            stages_prs = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
             for d in deals:
                 st = d.stage or 1
                 stages_count[st] = stages_count.get(st, 0) + 1
@@ -83,7 +83,7 @@ class DealRepositoryDB:
             if not d:
                 return False
             d.stage = 4
-            d.stage_label = "ลงนามเปิด PO"
+            d.stage_label = "รอลงนาม PO"
             d.winning_vendor_id = vendor_id
             if agreed_price is not None:
                 d.agreed_price = float(agreed_price)
@@ -99,7 +99,8 @@ class DealRepositoryDB:
                 return False
             d.po_number = po_number
             d.po_status = "PO_CREATED"
-            d.stage = 4
+            d.stage = 5
+            d.stage_label = "ออก PO สำเร็จ"
             return True
 
 

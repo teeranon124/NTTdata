@@ -36,8 +36,8 @@ class DealRepository:
         total_prs = sum(d.get('prs_count', d.get('total_prs', 0)) for d in deals.values())
         total_qty = sum(d.get('qty', d.get('total_quantity', 0)) for d in deals.values())
 
-        stages_count = {1: 0, 2: 0, 3: 0, 4: 0}
-        stages_prs = {1: 0, 2: 0, 3: 0, 4: 0}
+        stages_count = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+        stages_prs = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
         for d in deals.values():
             s = d.get('stage', 1)
             stages_count[s] = stages_count.get(s, 0) + 1
@@ -84,7 +84,7 @@ class DealRepository:
         if not d:
             return False
         d["stage"] = 4
-        d["stage_label"] = "ลงนามเปิด PO"
+        d["stage_label"] = "รอลงนาม PO"
         d["winning_vendor_id"] = vendor_id
         if agreed_price is not None:
             d["agreed_price"] = float(agreed_price)

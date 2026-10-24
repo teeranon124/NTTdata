@@ -722,7 +722,7 @@
 
                         if (stats.stages_count) {
 
-                            for (let s = 1; s <= 4; s++) {
+                            for (let s = 1; s <= 5; s++) {
 
                                 const cEl = document.getElementById(`stage-count-${s}`);
 
@@ -1567,7 +1567,7 @@
 
             updateStageCounters() {
 
-                for (let s = 1; s <= 4; s++) {
+                for (let s = 1; s <= 5; s++) {
 
                     const count = document.querySelectorAll(`.job-row[data-stage="${s}"]`).length;
 
@@ -3445,8 +3445,34 @@
                         const data = await res.json();
                         if (res.ok && data.po_number) {
                             this.showToast(`ลงนามสำเร็จ! ยิง BAPI_PO_CREATE1 ออกใบสั่งซื้อ ${data.po_number} เข้า SAP S/4HANA เรียบร้อยแล้ว`, 'success');
-                            // Bump the dashboard committed-PO stat if present.
                             if (this.bumpSignedPoStat) this.bumpSignedPoStat(deal);
+                            
+                            // Immediately transition row to Stage 5 (ออก PO สำเร็จ - สีเทาหรูหรา)
+                            const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
+                            if (row) {
+                                row.setAttribute('data-stage', '5');
+                                row.setAttribute('data-stages', '5');
+                                const badgeContainer = row.querySelector('.stage-badge-container') || row.children[6];
+                                if (badgeContainer) {
+                                    badgeContainer.innerHTML = `
+                                        <div class="inline-flex flex-col items-center justify-center px-2.5 py-1 rounded-lg bg-slate-100 border-slate-300 text-slate-700 shadow-xs">
+                                            <span class="font-bold text-[10px] font-mono leading-none">Stage 5</span>
+                                            <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ออก PO สำเร็จ</span>
+                                        </div>
+                                    `;
+                                }
+                                const signBtn = row.querySelector('button[onclick*="openSignOff"]');
+                                if (signBtn) {
+                                    signBtn.outerHTML = `
+                                        <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) เรียบร้อยแล้วใน SAP">
+                                            <i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                            <span>PO ออกแล้ว</span>
+                                        </button>
+                                    `;
+                                    if (window.lucide) lucide.createIcons({ root: row });
+                                }
+                            }
+                            this.updateStageCounters();
                         } else {
                             this.showToast('ส่งคำสั่งลงนามแล้ว (ระบบบันทึกสถานะเรียบร้อย)', 'success');
                         }
