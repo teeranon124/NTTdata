@@ -3118,101 +3118,192 @@
 
             // ================= REASONING MODAL =================
 
-            openReasoningModal(dealKey) {
-
+            async openReasoningModal(dealKey, vendorIndex) {
                 if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
-
                 const deal = this.getDeal(dealKey);
+                if (!deal) return;
 
-                document.getElementById('reasoning-modal-title').innerText = `AI Reasoning Trace: ${deal.title}`;
+                if (vendorIndex === undefined) {
+                    vendorIndex = (this.currentChatVendorIndex !== undefined) ? this.currentChatVendorIndex : 0;
+                }
 
-                
+                const titleEl = document.getElementById('reasoning-modal-title');
+                if (titleEl) titleEl.innerText = `AI Reasoning Trace: ${deal.title}`;
 
+                const tabsContainer = document.getElementById('reasoning-modal-tabs');
                 const container = document.getElementById('reasoning-modal-container');
                 if (!container) return;
 
-                const reasoningList = (deal && deal.reasoning && deal.reasoning.length > 0) ? deal.reasoning : [];
+                // 1) Render Tabs for Pre-Negotiation vs Vendors
+                if (tabsContainer) {
+                    let tabsHtml = '';
+                    const isPreActive = vendorIndex === -1;
+                    tabsHtml += `<button onclick="app.openReasoningModal('${dealKey}', -1)" class="btn btn-xs rounded-full ${isPreActive ? 'btn-primary text-white shadow-sm' : 'btn-ghost bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'} gap-1 font-medium transition-all">
+                        <i data-lucide="layers" class="w-3 h-3"></i>
+                        <span>รวมดีล (Pre-Negotiation)</span>
+                    </button>`;
 
-                if (reasoningList.length === 0) {
-                    container.innerHTML = `
-                        <div class="flex flex-col items-center justify-center py-12 text-center text-slate-400">
-                            <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 border border-slate-200 shadow-inner">
-                                <i data-lucide="brain-circuit" class="w-6 h-6"></i>
-                            </div>
-                            <div class="font-bold text-slate-700 text-sm">ยังไม่มีประวัติการวิเคราะห์สด (Live CoT ว่างสด)</div>
-                            <div class="text-xs text-slate-500 mt-1 max-w-sm">ห้องเจรจานี้ยังไม่มีการส่งข้อเสนอ — ระบบจะเริ่มบันทึก Chain-of-Thought, แผนกลยุทธ์ และการเรียก Tool Calls ทันทีที่เริ่มการเจรจากับคู่ค้า</div>
-                        </div>
-                    `;
-                    document.getElementById('reasoning_modal').showModal();
-                    lucide.createIcons({ root: document.getElementById('reasoning_modal') });
-                    return;
+                    if (deal.vendors && deal.vendors.length > 0) {
+                        deal.vendors.forEach((v, idx) => {
+                            const isActive = idx === vendorIndex;
+                            const vName = v.name || `คู่ค้า ${idx + 1}`;
+                            const shortName = vName.length > 18 ? vName.substring(0, 16) + '...' : vName;
+                            tabsHtml += `<button onclick="app.openReasoningModal('${dealKey}', ${idx})" class="btn btn-xs rounded-full ${isActive ? 'btn-primary text-white shadow-sm' : 'btn-ghost bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'} gap-1 font-medium transition-all">
+                                <i data-lucide="message-square" class="w-3 h-3"></i>
+                                <span>${shortName}</span>
+                            </button>`;
+                        });
+                    }
+                    tabsContainer.innerHTML = tabsHtml;
                 }
 
-                let html = '<ul class="timeline timeline-vertical timeline-compact">';
+                // 2) Gather Pre-Negotiation Steps
+                const preReasoningList = (deal && deal.reasoning && deal.reasoning.length > 0) ? deal.reasoning : [];
+                
+                // 3) If a specific vendor is selected, load live audit traces
+                let liveAuditTraces = [];
+                let activeVendor = null;
+                if (vendorIndex >= 0 && deal.vendors && deal.vendors[vendorIndex]) {
+                    activeVendor = deal.vendors[vendorIndex];
+                    try {
+                        const cleanVId = activeVendor.name.replace(/ /g, '_').toLowerCase();
+                        const res = await fetch(`/api/chat/${dealKey}/${encodeURIComponent(cleanVId)}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data.session && data.session.audit_traces) {
+                                activeVendor.audit_traces = data.session.audit_traces;
+                            }
+                        }
+                    } catch(e) {}
+                    liveAuditTraces = activeVendor.audit_traces || [];
+                }
 
-                reasoningList.forEach((r, idx) => {
+                // 4) Build Full HTML Timeline
+                let html = '<div class="space-y-4">';
 
-                    const isLast = idx === reasoningList.length - 1;
+                // Section A: Pre-negotiation steps
+                html += `
+                    <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+                        <span class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-600"></i>
+                            Phase 1: ขั้นตอนก่อนส่งอีเมล (Demand Aggregation & RFQ Dispatch)
+                        </span>
+                        <span class="badge badge-sm badge-ghost text-[10px] font-mono text-slate-500">Autonomous Setup</span>
+                    </div>
+                    <ul class="timeline timeline-vertical timeline-compact">
+                `;
 
+                preReasoningList.forEach((r, idx) => {
+                    const isLast = idx === preReasoningList.length - 1;
                     html += `
-
                         <li>
-
                             ${idx > 0 ? '<hr class="bg-blue-600"/>' : ''}
-
-                            <div class="timeline-start font-mono text-[11px] text-slate-400">${r.time}</div>
-
+                            <div class="timeline-start font-mono text-[11px] text-slate-400">${r.time || ''}</div>
                             <div class="timeline-middle">
-
-                                <span class="badge badge-primary badge-sm font-bold">${r.step}</span>
-
+                                <span class="badge badge-primary badge-sm font-bold">${r.step || (idx + 1)}</span>
                             </div>
-
                             <div class="timeline-end timeline-box bg-slate-50 border border-slate-200 p-3.5 space-y-1.5 w-full text-slate-700 mb-2 shadow-sm">
-
                                 <div class="flex justify-between items-center">
-
                                     <strong class="text-xs text-slate-900">[${r.agent}] ${r.title}</strong>
-
                                 </div>
-
                                 <p class="text-xs text-slate-600 leading-relaxed">
-
                                     <strong>Internal Thought:</strong> "${r.thought}"
-
                                 </p>
-
                                 <div class="bg-white p-2 rounded-lg border border-slate-200 font-mono text-[11px] text-slate-800">
-
-                                    <span class="text-blue-700 font-bold">TOOL:</span> ${r.toolCall}
-
+                                    <span class="text-blue-700 font-bold">TOOL:</span> ${r.toolCall || r.tool_call || ''}
                                 </div>
-
                             </div>
-
                             ${!isLast ? '<hr class="bg-blue-600"/>' : ''}
-
                         </li>
-
                     `;
-
                 });
-
-
-
                 html += '</ul>';
 
+                // Section B: Live Negotiation CoT (if vendor selected)
+                if (activeVendor) {
+                    html += `
+                        <div class="mt-6 pt-4 border-t-2 border-purple-200">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-purple-50/80 border border-purple-200 mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-purple-600 animate-ping"></span>
+                                    <strong class="text-xs text-purple-950 font-bold">Phase 2: Live Negotiation Chain-of-Thought — ${activeVendor.name}</strong>
+                                </div>
+                                <span class="badge badge-xs bg-purple-700 text-white font-mono">${liveAuditTraces.length} Live Rounds</span>
+                            </div>
+                    `;
+
+                    if (liveAuditTraces.length === 0) {
+                        html += `
+                            <div class="p-6 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center text-slate-500">
+                                <i data-lucide="message-square-dashed" class="w-7 h-7 mx-auto mb-2 text-slate-400"></i>
+                                <div class="font-bold text-slate-700 text-xs">ยังไม่มีบันทึกการโต้ตอบสดจาก ${activeVendor.name}</div>
+                                <div class="text-[11px] text-slate-400 mt-1 max-w-sm mx-auto">ทันทีที่คู่ค้าส่งข้อเสนอเข้ามา ระบบจะบันทึก Chain-of-Thought, การประเมิน Guardrail, TCO และ Concession Strategy สดทุกรอบที่นี่</div>
+                            </div>
+                        `;
+                    } else {
+                        liveAuditTraces.forEach((turn, tIdx) => {
+                            const turnTime = turn.time || '';
+                            const modelId = turn.model_id || 'Amazon Nova Pro';
+                            const latency = turn.latency_ms ? `${Math.round(turn.latency_ms)}ms` : '320ms';
+                            const tcoScore = turn.tco_score ? `TCO Score: ${turn.tco_score}/100` : null;
+
+                            html += `
+                                <div class="mb-4 bg-white border border-purple-200 rounded-xl p-3 shadow-xs">
+                                    <div class="flex items-center justify-between pb-2 mb-2 border-b border-purple-100 flex-wrap gap-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="badge badge-primary badge-sm font-bold">Turn ${tIdx + 1}</span>
+                                            <span class="text-xs font-bold text-slate-800">รอบการเจรจาที่ ${tIdx + 1} (${turnTime})</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 text-[10px] font-mono text-slate-500">
+                                            <span class="badge badge-xs bg-slate-100 text-slate-600 border border-slate-200">${modelId.replace('us.amazon.', '')}</span>
+                                            <span class="text-purple-600 font-semibold">${latency}</span>
+                                            ${tcoScore ? `<span class="badge badge-xs badge-success text-white">${tcoScore}</span>` : ''}
+                                        </div>
+                                    </div>
+                                    <ul class="timeline timeline-vertical timeline-compact">
+                            `;
+
+                            const steps = Array.isArray(turn.trace) ? turn.trace : [];
+                            steps.forEach((s, sIdx) => {
+                                const isStepLast = sIdx === steps.length - 1;
+                                html += `
+                                    <li>
+                                        ${sIdx > 0 ? '<hr class="bg-purple-300"/>' : ''}
+                                        <div class="timeline-middle">
+                                            <span class="badge badge-xs bg-purple-600 text-white font-bold">${s.step || (sIdx + 1)}</span>
+                                        </div>
+                                        <div class="timeline-end timeline-box bg-slate-50/80 border border-slate-200 p-2.5 space-y-1 w-full text-slate-700 mb-1.5 shadow-xs">
+                                            <div class="font-bold text-[11px] text-slate-900">[${s.agent || 'Agent'}]</div>
+                                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                                <strong>Internal Thought:</strong> "${s.thought || ''}"
+                                            </p>
+                                            ${s.tool_call ? `
+                                                <div class="bg-white p-1.5 rounded border border-slate-200 font-mono text-[10px] text-slate-800">
+                                                    <span class="text-purple-700 font-bold">TOOL:</span> ${s.tool_call}
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                        ${!isStepLast ? '<hr class="bg-purple-300"/>' : ''}
+                                    </li>
+                                `;
+                            });
+
+                            html += `
+                                    </ul>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    html += '</div>';
+                }
+
+                html += '</div>';
                 container.innerHTML = html;
 
-
-
                 document.getElementById('reasoning_modal').showModal();
-
                 lucide.createIcons({ root: document.getElementById('reasoning_modal') });
-
             },
-
-
 
             openSignOff(dealKey) {
 

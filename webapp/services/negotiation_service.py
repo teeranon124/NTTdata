@@ -117,30 +117,52 @@ class BedrockNegotiationService:
         # Update session concession ladder if price/concession was proposed
         tco_data = agent_result.get("tco_data", {})
         concession = agent_result.get("concession", {})
+        is_blocked = "[Security Alert: Prompt Injection Blocked]" in agent_tactic or "BLOCKED" in agent_tactic
         
-        if parsed_intent.get("proposed_unit_price"):
+        if not is_blocked and parsed_intent.get("proposed_unit_price"):
             offered_p = parsed_intent["proposed_unit_price"]
-            ladder_entry = {
-                "round": f"Round {len(session.get('concession_ladder', [])) + 1}",
-                "title": f"ข้อเสนอจากคู่ค้า ฿{offered_p:,.2f}",
-                "price": f"฿{offered_p:,.2f}",
-                "tag": parsed_intent.get("intent", "Offer"),
-                "color": "border-slate-300 text-slate-700",
-                "note": f"เครดิต {parsed_intent.get('proposed_credit_days', 30)} วัน"
-            }
-            session["concession_ladder"].append(ladder_entry)
+            offered_credit = parsed_intent.get("proposed_credit_days", 30)
+            ladder = session.setdefault("concession_ladder", [])
             
-        if concession.get("target_price"):
-            ladder_entry = {
-                "round": f"Counter {len(session.get('concession_ladder', [])) + 1}",
-                "title": f"AI เสนอกลับ: {concession.get('strategy', 'Counter')}",
-                "price": f"฿{concession.get('target_price', 0):,.2f}",
-                "tag": concession.get("tactic_label", "Concession"),
-                "color": "border-blue-400 bg-blue-50 text-blue-900 font-bold",
-                "note": concession.get("rationale", "")
-            }
-            session["concession_ladder"].append(ladder_entry)
+            # Avoid recording identical duplicate entries if vendor resends same offer
+            last_entry = ladder[-1] if ladder else None
+            is_dup = (last_entry and 
+                      last_entry.get("price") == f"฿{offered_p:,.2f}" and 
+                      last_entry.get("note") == f"เครดิต {offered_credit} วัน")
             
+            if not is_dup:
+                round_num = len([e for e in ladder if "ข้อเสนอจากคู่ค้า" in e.get("title", "")]) + 1
+                ladder_entry = {
+                    "round": f"Round {round_num}",
+                    "title": f"ข้อเสนอจากคู่ค้า ฿{offered_p:,.2f}",
+                    "price": f"฿{offered_p:,.2f}",
+                    "tag": parsed_intent.get("intent", "Offer"),
+                    "color": "border-slate-300 text-slate-700",
+                    "note": f"เครดิต {offered_credit} วัน"
+                }
+                ladder.append(ladder_entry)
+                
+                # Pair with AI response
+                if concession.get("target_price"):
+                    counter_entry = {
+                        "round": f"Counter {round_num}",
+                        "title": f"AI เสนอกลับ: {concession.get('strategy', 'Counter-Offer')}",
+                        "price": f"฿{concession.get('target_price', 0):,.2f}",
+                        "tag": concession.get("tactic_label", "Concession"),
+                        "color": "border-blue-400 bg-blue-50 text-blue-900 font-bold",
+                        "note": concession.get("rationale") or f"ต่อรองราคาเป้าหมาย เครดิต {concession.get('target_credit', 45)} วัน"
+                    }
+                    ladder.append(counter_entry)
+                elif concession.get("strategy") == "AGREE_AND_AWARD" or "Award PO" in agent_tactic:
+                    award_entry = {
+                        "round": f"Agreement {round_num}",
+                        "title": f"AI บรรลุข้อตกลง: อนุมัติราคา ฿{offered_p:,.2f}",
+                        "price": f"฿{offered_p:,.2f}",
+                        "tag": "Award PO",
+                        "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
+                        "note": f"บรรลุเป้าหมาย TCO ยืนยันออก Draft PO เครดิต {offered_credit} วัน"
+                    }
+                    ladder.append(award_entry)
         # Store audit trace in session, stamped with model/cost telemetry so the
         # DB AuditTrail rows carry model_id, tier, latency, tokens and tco_score.
         if "audit_trace" in agent_result:
