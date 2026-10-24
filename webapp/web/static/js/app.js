@@ -2404,7 +2404,7 @@
 
                 if (badgeEl) {
 
-                    badgeEl.innerText = vendor.ladder ? `Total ${vendor.ladder.length} Steps` : 'Round 1';
+                    badgeEl.innerText = vendor.ladder ? `${vendor.ladder.length} ขั้นตอนเจรจา` : 'ขั้นตอนเจรจา';
 
                 }
 

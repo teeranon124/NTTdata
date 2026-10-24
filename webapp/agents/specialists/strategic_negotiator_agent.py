@@ -17,6 +17,7 @@ _PROMPTS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts
 
 class StrategicNegotiatorAgent:
     name = "Strategic Negotiator Agent"
+    policy_file = os.path.join(_PROMPTS_DIR, "strategic_negotiator_policy.md")
 
     def run(self, deal_data: dict, vendor_name: str, user_message: str, history: list,
             parsed_entities: dict, market: dict) -> dict:
@@ -70,6 +71,7 @@ class StrategicNegotiatorAgent:
             target_price=target_price,
             current_credit=offered_credit,
             annual_quantity=annual_qty,
+            round_num=round_num,
         )
         audit.append({
             "step": 4,
@@ -79,7 +81,10 @@ class StrategicNegotiatorAgent:
         })
 
         # --- LLM synthesis via Dynamic Model Gateway (HEAVY tier) ---
-        policy_prompt = open(os.path.join(_PROMPTS_DIR, "negotiator_policy.md"), "r", encoding="utf-8").read()
+        prompt_path = os.path.join(_PROMPTS_DIR, "strategic_negotiator_policy.md")
+        if not os.path.exists(prompt_path):
+            prompt_path = os.path.join(_PROMPTS_DIR, "negotiator_policy.md")
+        policy_prompt = open(prompt_path, "r", encoding="utf-8").read()
         directive = self._strategy_directive(concession, target_price, annual_qty, round_num, offered_price)
         deal_context = f"""
 CURRENT NEGOTIATION CONTEXT:
@@ -179,13 +184,15 @@ anchor. Do NOT append internal tactic tags or brackets to the message.
                 "(optionally free DDP delivery). Do not ask for a price reduction. Frame it as a "
                 "win-win on working capital."
             )
+        counter_price = concession.get("counter_price", target_price)
+        target_credit = concession.get("target_credit", 45)
         # VOLUME_LTA_CONCESSION (or default)
         return (
             round_note + f" COUNTER the offer: propose a 1-year Blanket Order (LTA) guaranteeing "
-            f"{annual_qty:,} units in exchange for the target price of ฿{target_price:,.2f} "
-            "and 45-day credit. Justify using the market band, not the secret target. "
-            "If this is a later round and the supplier is already near target, acknowledge the "
-            "progress and move to close rather than restating the full opening position."
+            f"{annual_qty:,} units in exchange for the counter price of ฿{counter_price:,.2f} "
+            f"and {target_credit}-day credit. Do NOT cite the secret target (฿{target_price:,.2f}) or budget ceiling. "
+            "Justify using the market band and volume consolidation across all plants. "
+            "If the supplier has already conceded close to target, move toward convergence."
         )
 
     @staticmethod
@@ -207,37 +214,39 @@ anchor. Do NOT append internal tactic tags or brackets to the message.
         if concession["strategy"] == "AGREE_AND_AWARD":
             return (
                 f"เรียน {vendor_name}\n\n"
-                f"ฝ่ายจัดซื้อกลางขอขอบคุณสำหรับข้อเสนอที่ราคา ฿{offered_price:,.2f} ต่อหน่วย พร้อมเงื่อนไขการชำระเงิน {offered_credit} วัน "
-                f"จากการประเมินโครงสร้างต้นทุนรวม (TCO) ข้อเสนอของท่านผ่านเกณฑ์เป้าหมายขององค์กรเรียบร้อยแล้ว\n\n"
-                f"ในลำดับถัดไป ระบบ AutoProcure.AI ได้จัดทำร่างใบสั่งซื้อ (Draft PO) เพื่อเสนอผู้บริหารลงนามอนุมัติผ่านระบบ SAP S/4HANA "
-                f"และขอเรียนเชิญท่านเป็นคู่สัญญาหลักภายใต้ข้อตกลงระยะยาว (LTA) ประจำปีนี้ครับ"
+                f"ฝ่ายจัดซื้อกลางขอขอบคุณสำหรับความร่วมมือและข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย พร้อมเงื่อนไขการชำระเงิน {offered_credit} วัน "
+                f"ซึ่งสอดคล้องกับกรอบสัญญาจัดซื้อและข้อตกลงระยะยาว (LTA) ประจำปีขององค์กรเรียบร้อยแล้ว\n\n"
+                f"ในลำดับถัดไป ระบบได้จัดทำร่างใบสั่งซื้อ (Draft PO) เพื่อเสนอผู้บริหารลงนามอนุมัติตามขั้นตอนกำกับดูแลผ่านระบบ SAP S/4HANA "
+                f"และขอต้อนรับท่านเป็นคู่สัญญาหลักสำหรับเครือข่ายโรงงานทั้ง 3 แห่งอย่างเป็นทางการครับ"
             )
         if concession["strategy"] == "CREDIT_TERM_LEVER":
             return (
                 f"เรียน {vendor_name}\n\n"
-                f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย ฝ่ายจัดซื้อเข้าใจถึงข้อจำกัดด้านโครงสร้างต้นทุนของท่านเป็นอย่างดี\n\n"
-                f"เพื่อให้เกิดจุดลงตัวที่เป็นประโยชน์ร่วมกันของทั้งสองฝ่าย ทางเราขอเรียนเสนอให้คงราคาดังกล่าว โดยขอปรับเงื่อนไขการชำระเงิน (Credit Terms) "
-                f"เป็น {concession['target_credit']} วัน พร้อมเงื่อนไขการจัดส่งแบบ DDP โดยไม่มีค่าใช้จ่ายเพิ่มเติม ซึ่งจะช่วยให้โครงสร้างต้นทุนรวม (TCO) "
-                f"ผ่านเกณฑ์การอนุมัติขององค์กรได้ครับ"
+                f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย ฝ่ายจัดซื้อเข้าใจถึงโครงสร้างต้นทุนของท่านเป็นอย่างดี\n\n"
+                f"เพื่อให้เกิดจุดลงตัวร่วมกันของทั้งสองฝ่าย ทางฝ่ายจัดซื้อขอเรียนเสนอให้คงราคาดังกล่าว โดยขอปรับเงื่อนไขการชำระเงิน (Credit Terms) "
+                f"เป็น {concession['target_credit']} วัน พร้อมเงื่อนไขการจัดส่งแบบ DDP ถึงโรงงานทั้ง 3 นิคมฯ โดยไม่มีค่าใช้จ่ายเพิ่มเติม เพื่อให้สอดคล้องกับเกณฑ์การอนุมัติสัญญาขององค์กรครับ"
             )
         deal_name = deal_data.get("name") or deal_data.get("sku") or "สินค้า"
         unit_name = deal_data.get("unit") or "หน่วย"
+
+        counter_p = concession.get("counter_price", target_price)
+        target_c = concession.get("target_credit", 45)
 
         # If user did not offer a price (e.g. asked an inquiry, questioned 0.00 or terms)
         if not parsed_entities.get("proposed_unit_price") or str(user_message).strip() == "" or "ฟรี" in str(user_message) or "0.00" in str(user_message):
             return (
                 f"เรียน {vendor_name}\n\n"
-                f"ฝ่ายจัดซื้อกลางขอเรียนชี้แจงเพิ่มเติมครับ สำหรับรายการ {deal_name} ทางกลุ่มโรงงานมีเป้าหมายราคาจัดซื้อที่ "
-                f"฿{target_price:,.2f} ต่อ{unit_name} (เทียบจากงบเดิม ฿{budget_price:,.2f}) พร้อมเงื่อนไขการชำระเงิน 45 วัน "
+                f"ฝ่ายจัดซื้อกลางขอเรียนชี้แจงเพิ่มเติมครับ สำหรับรายการ {deal_name} ทางกลุ่มโรงงานขอเรียนเสนอเปิดเงื่อนไขการจัดซื้อที่ "
+                f"฿{counter_p:,.2f} ต่อ{unit_name} พร้อมเงื่อนไขการชำระเงิน {target_c} วัน "
                 f"เพื่อแลกกับการผูกสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม การันตียอดสั่งซื้อรวม {annual_qty:,} {unit_name}{market_evidence}\n\n"
                 f"ทางท่านเห็นสมควรหรือต้องการเสนอเงื่อนไขราคาและเครดิตเทอมโต้ตอบอย่างไร สามารถแจ้งข้อเสนอเข้ามาได้เลยครับ"
             )
 
         return (
             f"เรียน {vendor_name}\n\n"
-            f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อ{unit_name} อย่างไรก็ดี ราคาดังกล่าวยังสูงกว่ากรอบราคาตลาดอ้างอิงขององค์กร"
+            f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อ{unit_name} อย่างไรก็ดี ราคาดังกล่าวยังสูงกว่ากรอบราคากลางอุตสาหกรรม"
             f"{market_evidence}\n\n"
             f"เพื่อประโยชน์สูงสุดร่วมกัน ฝ่ายจัดซื้อขอเรียนเสนอการจัดทำสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม โดยการันตียอดสั่งซื้อรวม "
-            f"{annual_qty:,} {unit_name} แลกกับการปรับราคามาที่ ฿{target_price:,.2f} ต่อ{unit_name} และเงื่อนไขการชำระเงิน 45 วัน "
-            f"หากท่านยืนยันเงื่อนไขนี้ ทางเราพร้อมล็อกสถานะคู่สัญญาหลักให้ท่านได้ทันทีครับ"
+            f"{annual_qty:,} {unit_name} ให้กับท่าน แลกกับการปรับเงื่อนไขราคามาที่ ฿{counter_p:,.2f} ต่อ{unit_name} "
+            f"และเงื่อนไขการชำระเงิน {target_c} วัน หากท่านสามารถยืนยันเงื่อนไขนี้ได้ ทางเราพร้อมล็อกสถานะคู่สัญญาหลักให้ท่านทันทีครับ"
         )

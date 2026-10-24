@@ -27,6 +27,7 @@ logger = logging.getLogger(__name__)
 
 
 class ComplianceGuardrailAgent:
+    policy_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "compliance_policy.md")
     name = "Compliance & Guardrail Agent"
 
     def __init__(self):

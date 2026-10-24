@@ -1,3 +1,4 @@
+import os
 """
 MarketIntelligenceAgent — estimates the fair market price band for a part and
 derives BATNA leverage the negotiator uses as an evidence-based bargaining anchor.
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class MarketIntelligenceAgent:
+    policy_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "market_intel_policy.md")
     name = "Market Intelligence Agent"
 
     def __init__(self, benchmark_tool=None):

@@ -102,7 +102,7 @@ def supplier_portal(deal_id):
             active_vendor["initial_price"] = 425.0
             active_vendor["counter_price"] = 408.0
             active_vendor["final_price"] = 398.0
-            active_vendor["rank_text"] = "TCO Rank #1 (ผู้นำการประมูล)"
+            active_vendor["rank_text"] = "ผู้นำการเสนอราคา (Preferred Partner)"
             active_vendor["rank_badge"] = "badge-success text-white"
             active_vendor["tco_score"] = 94.8
             active_vendor["initial_credit"] = "30 วัน"
@@ -110,7 +110,7 @@ def supplier_portal(deal_id):
             active_vendor["initial_price"] = 440.0
             active_vendor["counter_price"] = 420.0
             active_vendor["final_price"] = 412.0
-            active_vendor["rank_text"] = "TCO Rank #2 (ตามหลังผู้นำ ฿14)"
+            active_vendor["rank_text"] = "ข้อเสนออยู่นอกกรอบเป้าหมาย (ต่างอยู่ ฿14)"
             active_vendor["rank_badge"] = "badge-warning text-slate-900"
             active_vendor["tco_score"] = 81.5
             active_vendor["initial_credit"] = "30 วัน"
@@ -118,7 +118,7 @@ def supplier_portal(deal_id):
             active_vendor["initial_price"] = 430.0
             active_vendor["counter_price"] = 415.0
             active_vendor["final_price"] = 405.0
-            active_vendor["rank_text"] = "ตกรอบ SLA (ส่งช้าเกิน 7 วันทำการ)"
+            active_vendor["rank_text"] = "ไม่ผ่านเกณฑ์ส่งมอบ SLA (ส่งช้าเกิน 7 วันทำการ)"
             active_vendor["rank_badge"] = "badge-error text-white"
             active_vendor["tco_score"] = 58.2
             active_vendor["initial_credit"] = "30 วัน"
@@ -622,7 +622,7 @@ def negotiate():
         except Exception as e:
             logger.warning(f"mark_deal_awarded failed: {e}")
 
-    add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: เสนอเงื่อนไขรอบ {round_num}")
+    add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: ยื่นข้อเสนอเงื่อนไขสัญญา LTA")
 
     # Real-time push to the Buyer dashboard: supplier message + AI reply land live.
     now_hhmm = datetime.datetime.now().strftime("%H:%M")

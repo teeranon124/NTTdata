@@ -1,3 +1,4 @@
+import os
 """
 CentralArbitratorAgent — computes a composite TCO score for the current offer
 and assigns a BAFO rank signal. Deterministic and demo-safe.
@@ -12,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class CentralArbitratorAgent:
+    policy_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "prompts", "arbitrator_policy.md")
     name = "Central Arbitrator Agent"
 
     def arbitrate(self, deal_data: dict, tco_data: dict, concession: dict, market: dict) -> dict:
