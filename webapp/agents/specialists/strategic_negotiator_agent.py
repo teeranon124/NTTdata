@@ -97,7 +97,7 @@ REQUIRED ACTION FOR THIS TURN:
 STYLE: Reply in professional Thai procurement language. Be concise and decisive
 — no more than ~5 short sentences or a short numbered list. Do NOT pad or repeat.
 When countering a high price, cite the market band (not the secret target) as the
-anchor. End with the tactic tag in brackets.
+anchor. Do NOT append internal tactic tags or brackets to the message.
 """
         system_text = policy_prompt + "\n" + deal_context
 
@@ -123,6 +123,7 @@ anchor. End with the tactic tag in brackets.
 
         if res.get("status") == "live_aws" and res.get("text"):
             reply_text = res["text"].strip()
+            reply_text = re.sub(r"\s*\[[^\]]+\]\s*$", "", reply_text).strip()
             audit.append({
                 "step": 5,
                 "agent": f"Strategic Synthesis ({res.get('model_id')})",
@@ -208,7 +209,7 @@ anchor. End with the tactic tag in brackets.
                 f"ฝ่ายจัดซื้อกลางขอขอบคุณสำหรับข้อเสนอที่ราคา ฿{offered_price:,.2f} ต่อหน่วย พร้อมเงื่อนไขการชำระเงิน {offered_credit} วัน "
                 f"จากการประเมินโครงสร้างต้นทุนรวม (TCO) ข้อเสนอของท่านผ่านเกณฑ์เป้าหมายขององค์กรเรียบร้อยแล้ว\n\n"
                 f"ในลำดับถัดไป ระบบ AutoProcure.AI ได้จัดทำร่างใบสั่งซื้อ (Draft PO) เพื่อเสนอผู้บริหารลงนามอนุมัติผ่านระบบ SAP S/4HANA "
-                f"และขอเรียนเชิญท่านเป็นคู่สัญญาหลักภายใต้ข้อตกลงระยะยาว (LTA) ประจำปีนี้ครับ {concession['tactic_label']}"
+                f"และขอเรียนเชิญท่านเป็นคู่สัญญาหลักภายใต้ข้อตกลงระยะยาว (LTA) ประจำปีนี้ครับ"
             )
         if concession["strategy"] == "CREDIT_TERM_LEVER":
             return (
@@ -216,7 +217,7 @@ anchor. End with the tactic tag in brackets.
                 f"ขอขอบคุณสำหรับข้อเสนอราคา ฿{offered_price:,.2f} ต่อหน่วย ฝ่ายจัดซื้อเข้าใจถึงข้อจำกัดด้านโครงสร้างต้นทุนของท่านเป็นอย่างดี\n\n"
                 f"เพื่อให้เกิดจุดลงตัวที่เป็นประโยชน์ร่วมกันของทั้งสองฝ่าย ทางเราขอเรียนเสนอให้คงราคาดังกล่าว โดยขอปรับเงื่อนไขการชำระเงิน (Credit Terms) "
                 f"เป็น {concession['target_credit']} วัน พร้อมเงื่อนไขการจัดส่งแบบ DDP โดยไม่มีค่าใช้จ่ายเพิ่มเติม ซึ่งจะช่วยให้โครงสร้างต้นทุนรวม (TCO) "
-                f"ผ่านเกณฑ์การอนุมัติขององค์กรได้ครับ {concession['tactic_label']}"
+                f"ผ่านเกณฑ์การอนุมัติขององค์กรได้ครับ"
             )
         deal_name = deal_data.get("name") or deal_data.get("sku") or "สินค้า"
         unit_name = deal_data.get("unit") or "หน่วย"
@@ -228,7 +229,7 @@ anchor. End with the tactic tag in brackets.
                 f"ฝ่ายจัดซื้อกลางขอเรียนชี้แจงเพิ่มเติมครับ สำหรับรายการ {deal_name} ทางกลุ่มโรงงานมีเป้าหมายราคาจัดซื้อที่ "
                 f"฿{target_price:,.2f} ต่อ{unit_name} (เทียบจากงบเดิม ฿{budget_price:,.2f}) พร้อมเงื่อนไขการชำระเงิน 45 วัน "
                 f"เพื่อแลกกับการผูกสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม การันตียอดสั่งซื้อรวม {annual_qty:,} {unit_name}{market_evidence}\n\n"
-                f"ทางท่านเห็นสมควรหรือต้องการเสนอเงื่อนไขราคาและเครดิตเทอมโต้ตอบอย่างไร สามารถแจ้งข้อเสนอเข้ามาได้เลยครับ {concession['tactic_label']}"
+                f"ทางท่านเห็นสมควรหรือต้องการเสนอเงื่อนไขราคาและเครดิตเทอมโต้ตอบอย่างไร สามารถแจ้งข้อเสนอเข้ามาได้เลยครับ"
             )
 
         return (
@@ -237,5 +238,5 @@ anchor. End with the tactic tag in brackets.
             f"{market_evidence}\n\n"
             f"เพื่อประโยชน์สูงสุดร่วมกัน ฝ่ายจัดซื้อขอเรียนเสนอการจัดทำสัญญาซื้อขายระยะยาวแบบ Blanket Order 1 ปีเต็ม โดยการันตียอดสั่งซื้อรวม "
             f"{annual_qty:,} {unit_name} แลกกับการปรับราคามาที่ ฿{target_price:,.2f} ต่อ{unit_name} และเงื่อนไขการชำระเงิน 45 วัน "
-            f"หากท่านยืนยันเงื่อนไขนี้ ทางเราพร้อมล็อกสถานะคู่สัญญาหลักให้ท่านได้ทันทีครับ {concession['tactic_label']}"
+            f"หากท่านยืนยันเงื่อนไขนี้ ทางเราพร้อมล็อกสถานะคู่สัญญาหลักให้ท่านได้ทันทีครับ"
         )
