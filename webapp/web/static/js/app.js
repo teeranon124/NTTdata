@@ -3387,35 +3387,59 @@
             },
 
                         openSignOff(dealKey) {
+                if (!dealKey) dealKey = this.currentChatDealKey || 'nsk';
                 this.currentSignoffDealKey = dealKey;
                 const modal = document.getElementById('signoff_modal');
-                if (!modal) return;
+                if (!modal) {
+                    console.error('signoff_modal element not found in DOM');
+                    return;
+                }
 
-                const deal = (database.deals && database.deals[dealKey]) ? database.deals[dealKey] : null;
-                const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
+                // Check gov row first
+                const govRow = document.getElementById(`gov-row-${dealKey}`) || document.querySelector(`.gov-deal-row[data-deal-key="${dealKey}"]`);
+                // Check pipeline row
+                const pipeRow = document.querySelector(`tr.job-row[data-deal-key="${dealKey}"]`) || document.getElementById(`row-deal-${dealKey}`);
+                const deal = (this.getDeal && this.getDeal(dealKey)) || (typeof database !== 'undefined' && database.deals && database.deals[dealKey]) || null;
 
-                let title = dealKey.toUpperCase();
                 let sku = dealKey.toUpperCase();
+                let title = dealKey.toUpperCase();
                 let qtyStr = '1,200 ชิ้น';
                 let prePrice = '฿450.00';
                 let postPrice = '฿398.00';
-                let savings = '฿62,400 บาท (-11.5%)';
+                let savings = '฿62,400 (-11.5%)';
                 let vendor = 'บจก. สยาม พรีซิชั่น เทค (V-4019)';
-                let terms = 'เครดิตเทอม 45 วัน • ส่งมอบใน 7 วัน';
+                let terms = 'สัญญารายปี • เครดิต 45 วัน • ส่งมอบ 7 วัน';
 
-                if (row) {
-                    const skuEl = row.querySelector('.font-mono.text-blue-900');
+                if (govRow) {
+                    const skuEl = govRow.querySelector('.font-mono.text-blue-900');
                     if (skuEl) sku = skuEl.innerText.trim();
-                    const nameEl = row.querySelector('.text-\[11px\].text-slate-600') || row.querySelector('.text-slate-600');
+                    const nameEl = govRow.querySelector('.text-\[11px\].text-slate-700') || govRow.querySelector('.text-slate-700');
                     if (nameEl) title = nameEl.innerText.trim();
-                    const qtyEl = row.querySelector('.deal-qty-val') || row.cells[3];
-                    if (qtyEl) qtyStr = qtyEl.innerText.trim().replace(/\s+/g, ' ');
-                    const preEl = row.cells[4];
+                    const qtyEl = govRow.querySelector('.text-\[10px\].text-slate-400.font-mono');
+                    if (qtyEl) qtyStr = qtyEl.innerText.trim();
+                    const vEl = govRow.querySelector('.font-medium.text-slate-800');
+                    if (vEl) vendor = vEl.innerText.trim();
+                    const preEl = govRow.querySelector('.line-through');
                     if (preEl) prePrice = preEl.innerText.trim();
-                    const postEl = row.querySelector('.deal-post-price') || row.cells[5];
-                    if (postEl && postEl.innerText.trim() !== '-') postPrice = postEl.innerText.trim();
-                    const savEl = row.querySelector('.deal-savings-val') || row.cells[6];
-                    if (savEl && savEl.innerText.trim() !== '-') savings = savEl.innerText.trim();
+                    const postEl = govRow.querySelector('strong.text-blue-800');
+                    if (postEl) postPrice = postEl.innerText.trim();
+                    const savEl = govRow.querySelector('strong.text-emerald-700');
+                    if (savEl) savings = savEl.innerText.trim();
+                    const termEl = govRow.querySelector('td:nth-child(5) div');
+                    if (termEl) terms = termEl.getAttribute('title') || termEl.innerText.trim();
+                } else if (pipeRow) {
+                    const skuEl = pipeRow.querySelector('.font-mono.text-blue-900');
+                    if (skuEl) sku = skuEl.innerText.trim();
+                    const nameEl = pipeRow.querySelector('.text-\[11px\].text-slate-600') || pipeRow.querySelector('.text-slate-600');
+                    if (nameEl) title = nameEl.innerText.trim();
+                    const qtyEl = pipeRow.querySelector('.deal-qty-val');
+                    if (qtyEl) qtyStr = qtyEl.innerText.trim();
+                    const preEl = pipeRow.cells[4];
+                    if (preEl) prePrice = preEl.innerText.trim();
+                    const postEl = pipeRow.querySelector('.deal-post-price') || pipeRow.cells[5];
+                    if (postEl) postPrice = postEl.innerText.trim();
+                    const savEl = pipeRow.querySelector('.deal-savings-val') || pipeRow.cells[6];
+                    if (savEl) savings = savEl.innerText.trim();
                 }
 
                 if (deal) {
@@ -3423,13 +3447,13 @@
                     if (deal.sku) sku = deal.sku;
                     if (deal.vendors && deal.vendors.length > 0) {
                         const win = deal.vendors.find(v => v.status && (v.status.includes('ชนะ') || v.status.includes('PO'))) || deal.vendors[0];
-                        vendor = win.name;
-                        if (win.credit) terms = `เครดิตเทอม ${win.credit} • ส่งมอบใน ${win.leadTime || '7 วัน'}`;
+                        if (win && win.name) vendor = win.name;
+                        if (win && win.credit) terms = `เครดิตเทอม ${win.credit} • ส่งมอบใน ${win.leadTime || '7 วัน'}`;
                     }
                 }
 
                 const titleEl = document.getElementById('modal-item-title');
-                if (titleEl) titleEl.innerText = `${title} (${sku}) ยอดรวม ${qtyStr}`;
+                if (titleEl) titleEl.innerText = `${title} (${sku}) | ${qtyStr}`;
                 const vendorEl = document.getElementById('modal-signoff-vendor');
                 if (vendorEl) vendorEl.innerText = vendor;
                 const preEl = document.getElementById('modal-signoff-pre-price');
@@ -3441,12 +3465,20 @@
                 const savEl = document.getElementById('modal-signoff-savings');
                 if (savEl) savEl.innerText = savings;
 
-                this.pushLiveEvent(`ส่งร่างสัญญาดีล ${title} (${sku}) เข้าสู่กระบวนการลงนามอนุมัติ (Executive Sign-Off Gate)`, true);
-                modal.showModal();
+                const agreeCheck = document.getElementById('signoff-agree-check');
+                if (agreeCheck) agreeCheck.checked = true;
+
+                if (this.pushLiveEvent) {
+                    this.pushLiveEvent(`ส่งร่างสัญญาดีล ${title} (${sku}) เข้าสู่กระบวนการลงนามอนุมัติ (Executive Sign-Off Gate)`, true);
+                }
+
+                if (typeof modal.showModal === 'function') {
+                    modal.showModal();
+                } else {
+                    modal.setAttribute('open', '');
+                }
                 if (window.lucide) lucide.createIcons({ root: modal });
             },
-
-
 
             openRAGModal(dealKey) {
 
