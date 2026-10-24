@@ -1,61 +1,88 @@
     <dialog id="signoff_modal" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box p-0 max-w-2xl bg-white border border-slate-200">
+        <div class="modal-box p-0 max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden">
+            <!-- Header -->
             <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold">
-                        <i data-lucide="file-signature" class="w-4 h-4"></i>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold border border-emerald-200">
+                        <i data-lucide="file-signature" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-sm text-slate-900">ตรวจสอบร่างสัญญาและลงนามอนุมัติ (Executive Sign-Off)</h3>
-                        <span class="text-xs text-slate-400 font-mono">อ้างอิงการแจ้งเตือนอะไหล่ใกล้หมดจาก SAP ERP</span>
+                        <h3 class="font-bold text-sm text-slate-900">ตรวจสอบร่างสัญญาและลงนามอนุมัติ (Executive Sign-Off Gate)</h3>
+                        <span class="text-xs text-slate-500 font-mono">BAPI_PO_CREATE1 • SAP S/4HANA Direct Integration</span>
                     </div>
                 </div>
-                <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost"><i data-lucide="x" class="w-4 h-4"></i></button></form>
+                <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-4 h-4"></i></button></form>
             </div>
 
             <div class="p-5 space-y-4 text-xs">
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-                    <div class="font-bold text-sm flex justify-between items-center text-slate-800">
-                        <span id="modal-item-title">ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 1,200 ชิ้น</span>
-                        <span class="badge badge-success text-white badge-sm">Guardrail 100% Pass</span>
+                <!-- Contract Overview Card -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2.5">
+                    <div class="font-bold text-sm flex justify-between items-center text-slate-900 border-b border-slate-200/80 pb-2">
+                        <span id="modal-item-title" class="truncate pr-2">ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 1,200 ชิ้น</span>
+                        <span class="badge badge-success text-white badge-sm shrink-0 font-medium">Guardrails 100% Pass</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 text-slate-600">
-                        <div>• คู่สัญญา: <strong>บจก. สยาม พรีซิชั่น เทค (V-4019)</strong></div>
-                        <div>• ประเภทสัญญา: <strong>สัญญาซื้อขาย 1 ปี (LTA)</strong></div>
-                        <div>• ราคาเดิมซื้อเฉพาะหน้า: <span class="line-through text-slate-400">฿450 / ชิ้น (฿540,000)</span></div>
-                        <div>• ราคาใหม่หลังเจรจา: <strong class="text-emerald-700 text-sm font-mono">฿398 / ชิ้น (฿477,600)</strong></div>
-                        <div>• เงื่อนไขพิเศษที่ต่อรองได้: <strong>ขยายเครดิตเทอม 45 วัน</strong></div>
-                        <div>• กำหนดส่งมอบ: <strong>รับประกันส่งมอบภายใน 7 วัน</strong></div>
+                    <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-slate-600">
+                        <div>• คู่สัญญาผู้ชนะ: <strong id="modal-signoff-vendor" class="text-slate-900">บจก. สยาม พรีซิชั่น เทค (V-4019)</strong></div>
+                        <div>• ประเภทสัญญา: <strong id="modal-signoff-type" class="text-slate-900">สัญญาผูกพันรายปี (LTA Blanket Order 1 ปี)</strong></div>
+                        <div>• ราคาเดิมก่อนเจรจา: <span id="modal-signoff-pre-price" class="line-through text-slate-400">฿450.00 / ชิ้น</span></div>
+                        <div>• ราคาที่ตกลงได้: <strong id="modal-signoff-post-price" class="text-emerald-700 text-sm font-mono font-bold">฿398.00 / ชิ้น</strong></div>
+                        <div>• เครดิตเทอม &amp; SLA: <strong id="modal-signoff-terms" class="text-slate-900">เครดิต 45 วัน • ส่งมอบใน 7 วัน</strong></div>
+                        <div>• การจัดสรรคำสั่งซื้อ: <strong class="text-blue-700 font-medium">100% สัญญารายปี</strong></div>
                     </div>
-                    <div class="pt-2 border-t border-slate-200 flex justify-between text-emerald-700 font-bold text-sm">
-                        <span>เงินรั่วไหลที่กู้คืนได้ (Value Recovered):</span>
-                        <span>฿62,400 บาท (-11.55%)</span>
+                    <div class="pt-2.5 border-t border-slate-200 flex justify-between items-center text-emerald-800 font-bold text-sm bg-emerald-50/60 p-2.5 rounded-lg border border-emerald-100">
+                        <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i> มูลค่าเงินรั่วไหลที่กู้คืนได้ (Value Recovered):</span>
+                        <span id="modal-signoff-savings" class="font-mono text-base font-bold text-emerald-700">฿62,400 บาท (-11.5%)</span>
                     </div>
                 </div>
 
-                <div class="space-y-1.5 text-slate-600">
-                    <div class="text-[11px] uppercase font-bold text-slate-400">Guardrail Agent ตรวจสอบร่างสัญญา:</div>
-                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-4 h-4"></i> คำนวณ TCO แล้วคุ้มค่ากว่าราคาเดิมในอดีต</div>
-                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-4 h-4"></i> คู่ค้าอยู่ในบัญชีผู้ค้าที่ได้รับอนุญาต (Approved Vendor List)</div>
-                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-4 h-4"></i> มีเงื่อนไขค่าปรับ SLA ชัดเจน ป้องกันความเสี่ยงสายการผลิตหยุดชะงัก</div>
+                <!-- Guardrail Checks -->
+                <div class="space-y-1.5 text-slate-600 bg-white border border-slate-200 rounded-xl p-3">
+                    <div class="text-[11px] uppercase font-bold text-slate-400 mb-1 flex items-center gap-1">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i> ผลการตรวจรับรองโดย Autonomous Guardrail Agent:
+                    </div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> คำนวณโครงสร้าง TCO และ Batna แล้วคุ้มค่าที่สุดในบรรดาคู่ค้า AVL ทั้งหมด</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> คู่ค้าผ่านการรับรอง Approved Vendor List (AVL Tier-1) และไม่มีประวัติทุจริต</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> บันทึก Audit Trail การเจรจาโต้ตอบครบถ้วน โปร่งใส ตรวจสอบย้อนกลับได้ 100%</div>
                 </div>
 
-                <div class="bg-blue-50 border border-blue-200 py-2.5 px-3 rounded-xl flex justify-between items-center text-xs">
-                    <div class="flex items-center gap-2 text-blue-900 font-medium">
-                        <i data-lucide="key-round" class="w-4 h-4 text-blue-700"></i>
-                        <span>รหัสผ่านดิจิทัล (Digital Signature PIN):</span>
+                <!-- Interactive Signature Inputs -->
+                <div class="bg-blue-50/60 border border-blue-200 p-3.5 rounded-xl space-y-2.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                        <div>
+                            <label class="block text-[11px] font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-700"></i> ชื่อผู้มีอำนาจลงนามอนุมัติ (Signer):
+                            </label>
+                            <input id="signoff-approver-name" type="text" value="คุณ ธีรนนท์ (CPO - ประธานเจ้าหน้าที่ฝ่ายจัดซื้อ)" class="input input-xs input-bordered w-full bg-white text-slate-800 font-medium" placeholder="ระบุชื่อผู้มีอำนาจอนุมัติ" />
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                <i data-lucide="key-round" class="w-3.5 h-3.5 text-blue-700"></i> รหัสผ่านดิจิทัล / OTP (Digital PIN):
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <input id="signoff-pin-input" type="text" value="9942" maxlength="8" class="input input-xs input-bordered w-28 font-mono text-center font-bold tracking-widest bg-white text-slate-800 focus:border-blue-500" placeholder="PIN" />
+                                <span class="text-[10px] text-slate-500 italic">ใส่รหัส PIN หรือพิมพ์ลายเซ็น</span>
+                            </div>
+                        </div>
                     </div>
-                    <input type="password" value="••••" readonly class="input input-xs input-bordered w-20 font-mono text-center font-bold tracking-widest bg-white" />
+                    <div class="pt-2 border-t border-blue-200/60 flex items-center gap-2">
+                        <input type="checkbox" id="signoff-agree-check" checked class="checkbox checkbox-xs checkbox-primary" />
+                        <label for="signoff-agree-check" class="text-[11px] text-blue-950 cursor-pointer font-medium select-none">
+                            ข้าพเจ้าตรวจสอบแล้ว ยืนยันความถูกต้องของร่างสัญญา และอนุมัติออกใบสั่งซื้อ (PO) ใน SAP S/4HANA
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div class="p-4 border-t border-slate-200 flex justify-end gap-2 bg-slate-50">
-                <form method="dialog"><button class="btn btn-sm btn-ghost rounded-full px-4">ยกเลิก</button></form>
-                <button onclick="app.executeSAPCommit()" class="btn btn-sm btn-primary rounded-full px-5 text-white">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 mr-1"></i> ลงนามอนุมัติและเปิด PO ใน SAP
-                </button>
+            <!-- Footer Buttons -->
+            <div class="p-4 border-t border-slate-200 flex justify-between items-center bg-slate-50">
+                <span class="text-[10px] text-slate-400 font-mono">Status: Stage 4 (รอลงนาม PO) ➔ Stage 5 (ออก PO สำเร็จ)</span>
+                <div class="flex items-center gap-2">
+                    <form method="dialog"><button class="btn btn-sm btn-ghost rounded-full px-4 text-slate-500">ยกเลิก</button></form>
+                    <button id="btn-submit-signoff" onclick="app.executeSAPCommit()" class="btn btn-sm bg-emerald-600 hover:bg-emerald-700 rounded-full px-5 text-white font-bold shadow-md transition-all flex items-center gap-1.5">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> ลงนามอนุมัติและเปิด PO ใน SAP
+                    </button>
+                </div>
             </div>
         </div>
         <form method="dialog" class="modal-backdrop"><button>close</button></form>
     </dialog>
-

@@ -3305,40 +3305,64 @@
                 lucide.createIcons({ root: document.getElementById('reasoning_modal') });
             },
 
-            openSignOff(dealKey) {
-
+                        openSignOff(dealKey) {
                 this.currentSignoffDealKey = dealKey;
-
                 const modal = document.getElementById('signoff_modal');
+                if (!modal) return;
 
                 const deal = (database.deals && database.deals[dealKey]) ? database.deals[dealKey] : null;
+                const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
 
-                const dealName = deal ? deal.title : dealKey.toUpperCase();
+                let title = dealKey.toUpperCase();
+                let sku = dealKey.toUpperCase();
+                let qtyStr = '1,200 ชิ้น';
+                let prePrice = '฿450.00';
+                let postPrice = '฿398.00';
+                let savings = '฿62,400 บาท (-11.5%)';
+                let vendor = 'บจก. สยาม พรีซิชั่น เทค (V-4019)';
+                let terms = 'เครดิตเทอม 45 วัน • ส่งมอบใน 7 วัน';
 
-                this.pushLiveEvent(`ส่งร่างสัญญาดีล ${dealName} เข้าสู่กระบวนการลงนามอนุมัติ (Executive Sign-Off)`, true);
-
-                if (dealKey === 'skf') {
-
-                    document.getElementById('modal-item-title').innerText = 'ตลับลูกปืน SKF (6310-2Z/C3) ยอดรวม 800 ชิ้น (เซฟ ฿128,000)';
-
-                } else if (dealKey === 'smc') {
-
-                    document.getElementById('modal-item-title').innerText = 'โซลินอยด์วาล์วนิวเมติกส์ SMC (SY5120) ยอดรวม 7,777 ชิ้น';
-
-                } else if (dealKey === 'omron') {
-
-                    document.getElementById('modal-item-title').innerText = 'อินดักทีฟพร็อกซิมิตี้เซนเซอร์ OMRON M18 ยอดรวม 11,155 ตัว (เซฟ ฿1,288,141)';
-
-                } else {
-
-                    document.getElementById('modal-item-title').innerText = 'ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 20,274 ชิ้น (เซฟ ฿1,119,509)';
-
+                if (row) {
+                    const skuEl = row.querySelector('.font-mono.text-blue-900');
+                    if (skuEl) sku = skuEl.innerText.trim();
+                    const nameEl = row.querySelector('.text-\[11px\].text-slate-600') || row.querySelector('.text-slate-600');
+                    if (nameEl) title = nameEl.innerText.trim();
+                    const qtyEl = row.querySelector('.deal-qty-val') || row.cells[3];
+                    if (qtyEl) qtyStr = qtyEl.innerText.trim().replace(/\s+/g, ' ');
+                    const preEl = row.cells[4];
+                    if (preEl) prePrice = preEl.innerText.trim();
+                    const postEl = row.querySelector('.deal-post-price') || row.cells[5];
+                    if (postEl && postEl.innerText.trim() !== '-') postPrice = postEl.innerText.trim();
+                    const savEl = row.querySelector('.deal-savings-val') || row.cells[6];
+                    if (savEl && savEl.innerText.trim() !== '-') savings = savEl.innerText.trim();
                 }
 
+                if (deal) {
+                    if (deal.title) title = deal.title;
+                    if (deal.sku) sku = deal.sku;
+                    if (deal.vendors && deal.vendors.length > 0) {
+                        const win = deal.vendors.find(v => v.status && (v.status.includes('ชนะ') || v.status.includes('PO'))) || deal.vendors[0];
+                        vendor = win.name;
+                        if (win.credit) terms = `เครดิตเทอม ${win.credit} • ส่งมอบใน ${win.leadTime || '7 วัน'}`;
+                    }
+                }
+
+                const titleEl = document.getElementById('modal-item-title');
+                if (titleEl) titleEl.innerText = `${title} (${sku}) ยอดรวม ${qtyStr}`;
+                const vendorEl = document.getElementById('modal-signoff-vendor');
+                if (vendorEl) vendorEl.innerText = vendor;
+                const preEl = document.getElementById('modal-signoff-pre-price');
+                if (preEl) preEl.innerText = `${prePrice} / หน่วย`;
+                const postEl = document.getElementById('modal-signoff-post-price');
+                if (postEl) postEl.innerText = `${postPrice} / หน่วย`;
+                const termEl = document.getElementById('modal-signoff-terms');
+                if (termEl) termEl.innerText = terms;
+                const savEl = document.getElementById('modal-signoff-savings');
+                if (savEl) savEl.innerText = savings;
+
+                this.pushLiveEvent(`ส่งร่างสัญญาดีล ${title} (${sku}) เข้าสู่กระบวนการลงนามอนุมัติ (Executive Sign-Off Gate)`, true);
                 modal.showModal();
-
-                lucide.createIcons({ root: modal });
-
+                if (window.lucide) lucide.createIcons({ root: modal });
             },
 
 
@@ -3429,9 +3453,21 @@
 
 
 
-            executeSAPCommit() {
+                        executeSAPCommit() {
+                const agreeCheck = document.getElementById('signoff-agree-check');
+                if (agreeCheck && !agreeCheck.checked) {
+                    this.showToast('กรุณากาเครื่องหมายยินยอมเพื่อยืนยันการลงนามอนุมัติ', 'warning');
+                    return;
+                }
+
+                const approverInput = document.getElementById('signoff-approver-name');
+                const approver = (approverInput && approverInput.value.trim()) || 'คุณ ธีรนนท์ (CPO - ประธานเจ้าหน้าที่ฝ่ายจัดซื้อ)';
+
+                const pinInput = document.getElementById('signoff-pin-input');
+                const pin = (pinInput && pinInput.value.trim()) || '9942';
 
                 document.getElementById('signoff_modal').close();
+
                 (async () => {
                     const dealKey = this.currentSignoffDealKey || this.currentChatDealKey || 'nsk';
                     const deal = this.getDeal ? this.getDeal(dealKey) : (database.deals[dealKey] || {});
@@ -3440,19 +3476,19 @@
                         const res = await fetch(`/api/deals/${dealKey}/create-po`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ approved_by: 'CPO', vendor_id: winVendor })
+                            body: JSON.stringify({ approved_by: approver, pin: pin, vendor_id: winVendor })
                         });
                         const data = await res.json();
                         if (res.ok && data.po_number) {
                             this.showToast(`ลงนามสำเร็จ! ยิง BAPI_PO_CREATE1 ออกใบสั่งซื้อ ${data.po_number} เข้า SAP S/4HANA เรียบร้อยแล้ว`, 'success');
                             if (this.bumpSignedPoStat) this.bumpSignedPoStat(deal);
-                            
+
                             // Immediately transition row to Stage 5 (ออก PO สำเร็จ - สีเทาหรูหรา)
                             const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
                             if (row) {
                                 row.setAttribute('data-stage', '5');
                                 row.setAttribute('data-stages', '5');
-                                const badgeContainer = row.querySelector('.stage-badge-container') || row.children[6];
+                                const badgeContainer = row.querySelector('.stage-badge-container') || row.children[7] || row.children[6];
                                 if (badgeContainer) {
                                     badgeContainer.innerHTML = `
                                         <div class="inline-flex flex-col items-center justify-center px-2.5 py-1 rounded-lg bg-slate-100 border-slate-300 text-slate-700 shadow-xs">
@@ -3474,21 +3510,13 @@
                             }
                             this.updateStageCounters();
                         } else {
-                            this.showToast('ส่งคำสั่งลงนามแล้ว (ระบบบันทึกสถานะเรียบร้อย)', 'success');
+                            this.showToast(data.detail || 'ส่งคำสั่งลงนามแล้ว (ระบบบันทึกสถานะเรียบร้อย)', 'success');
                         }
                     } catch (e) {
                         this.showToast('บันทึกการลงนามเข้าคิว SAP เรียบร้อยแล้ว', 'success');
                     }
                 })();
-                return;
-
-                this.pushLiveEvent('✅ ผู้บริหารลงนามอนุมัติสำเร็จ: ยิงคำสั่ง BAPI_PO_CREATE1 ออกใบสั่งซื้อ PO ใน SAP S/4HANA เรียบร้อยแล้ว', true);
-
-                this.showToast('ลงนามสำเร็จ! ยิงคำสั่ง BAPI_PO_CREATE1 ออกใบสั่งซื้อ PO ใน SAP S/4HANA เรียบร้อยแล้ว', 'success');
-
             },
-
-
 
             bumpSignedPoStat(deal) {
                 // Increment the "signed PO" counter + recovered savings on the dashboard, if those elements exist.

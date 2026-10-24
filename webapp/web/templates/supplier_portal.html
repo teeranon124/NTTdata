@@ -385,11 +385,53 @@
                             const name = m.name || (role === 'vendor' ? this.vendorName : 'AutoProcure.AI Sourcing Agent');
                             this.appendMessage(role, name, m.text, m.tactic);
                         });
+                        this.checkPOStatus(data.session);
                         this.round = msgs.filter(m => m.sender === 'vendor').length + 1;
                         const rn = document.getElementById('current-round-num');
                         if (rn) rn.innerText = this.round;
                     }
                 } catch (e) { /* first-time open: nothing to load */ }
+            },
+
+                        checkPOStatus(session) {
+                if (!session) return;
+                const signoff = session.signoff || {};
+                const msgs = session.messages || [];
+                const hasPoInMsgs = msgs.some(m => m.text && m.text.includes('ออกใบสั่งซื้อเลขที่'));
+                const isWinner = signoff.status === 'approved' || hasPoInMsgs;
+
+                if (isWinner || signoff.signed_off) {
+                    const poNum = signoff.po_number || (msgs.find(m => m.text && m.text.includes('PO#'))?.text.match(/PO#\d+/) || ['PO#SAP-ACTIVE'])[0];
+                    const input = document.getElementById('portal-msg-input');
+                    const sendBtn = document.getElementById('btn-portal-send');
+                    const rankBadge = document.getElementById('live-rank-badge');
+
+                    if (isWinner) {
+                        if (rankBadge) {
+                            rankBadge.className = 'badge badge-sm badge-success text-white font-bold text-[11px]';
+                            rankBadge.innerText = '🏆 ชนะการคัดเลือก (ได้รับ PO)';
+                        }
+                        if (input) {
+                            input.disabled = true;
+                            input.placeholder = `🎉 สัญญา Blanket Order 1 ปี ได้รับการลงนามและออกใบสั่งซื้อ ${poNum} ใน SAP เรียบร้อยแล้ว (ปิดการเจรจา)`;
+                            input.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+                        }
+                    } else {
+                        if (rankBadge) {
+                            rankBadge.className = 'badge badge-sm badge-ghost text-slate-500 font-medium text-[11px]';
+                            rankBadge.innerText = 'สิ้นสุดการเจรจา (ไม่ได้คัดเลือก)';
+                        }
+                        if (input) {
+                            input.disabled = true;
+                            input.placeholder = 'การเจรจารอบนี้สิ้นสุดลงแล้ว ข้อมูลของท่านยังคงอยู่ในระบบ AVL สำหรับรอบถัดไป';
+                            input.classList.add('bg-slate-100', 'text-slate-500');
+                        }
+                    }
+                    if (sendBtn) {
+                        sendBtn.disabled = true;
+                        sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                }
             },
 
             async pollNewMessages() {
@@ -402,6 +444,7 @@
                     const stream = document.getElementById('portal-chat-stream');
                     if (!stream) return;
                     const rendered = stream.querySelectorAll('.chat').length;
+                    this.checkPOStatus(data.session);
                     if (msgs.length > rendered) {
                         for (let i = rendered; i < msgs.length; i++) {
                             const m = msgs[i];

@@ -481,12 +481,13 @@ def executive_signoff(deal_id, vendor_id):
 def create_po(deal_id):
     """
     Closed-loop SAP PO creation. Generates a SAP-style PO number, records it on
-    the deal (po_status=PO_CREATED, stage 4), logs an audit event, and returns
-    the PO number so the dashboard can update its stats. Simulates BAPI_PO_CREATE1.
+    the deal (po_status=PO_CREATED, stage 5), notifies winning and losing vendors,
+    logs an audit event, and returns the PO number so the dashboard can update its stats.
+    Simulates BAPI_PO_CREATE1.
     """
     import random
     data = request.json or {}
-    approved_by = (data.get("approved_by") or "CPO").strip()
+    approved_by = (data.get("approved_by") or "คุณ ธีรนนท์ (CPO)").strip()
     vendor_id = data.get("vendor_id") or ""
 
     deal = deal_repository.get_deal(deal_id)
@@ -499,21 +500,70 @@ def create_po(deal_id):
     if hasattr(deal_repository, "create_po"):
         deal_repository.create_po(deal_id, po_number)
 
-    # Record the executive sign-off on the winning vendor's session too.
+    # Identify winning vendor
     win_vendor = vendor_id or deal.get("winning_vendor_id") or ""
-    if win_vendor and hasattr(session_repository, "sign_off"):
-        try:
-            session_repository.sign_off(
-                deal_id=deal_id, vendor_id=win_vendor,
-                approved_by=approved_by, decision="approved", po_number=po_number,
-                note="BAPI_PO_CREATE1 committed to SAP S/4HANA",
-            )
-        except Exception as e:
-            logger.warning(f"sign_off during create-po failed: {e}")
+    if not win_vendor and deal.get("vendors"):
+        win_vendor = deal["vendors"][0].get("id") or deal["vendors"][0].get("name")
 
+    sku_str = deal.get("sku") or deal.get("name") or deal_id.upper()
+    qty_str = f"{deal.get('qty', 0):,} {deal.get('unit', 'หน่วย')}"
+    deal_title = deal.get("name") or sku_str
+
+    # Process all vendors in the deal: Award notification for winner, formal regret notice for losers
+    vendors_list = deal.get("vendors", [])
+    for v in vendors_list:
+        v_id = v.get("id") or v.get("name")
+        v_name = v.get("name") or v_id
+        is_winner = (v_id == win_vendor or v_name == win_vendor)
+
+        if is_winner:
+            # 1. Winning Vendor: Sign off and send official Award & PO confirmation
+            try:
+                session_repository.sign_off(
+                    deal_id=deal_id, vendor_id=v_id,
+                    approved_by=approved_by, decision="approved", po_number=po_number,
+                    note=f"BAPI_PO_CREATE1 committed to SAP S/4HANA ({po_number})",
+                )
+                award_msg = (
+                    f"🎉 ขอแสดงความยินดีครับ ทางฝ่ายจัดซื้อกลางและผู้บริหารระดับสูง ({approved_by}) ได้ลงนามอนุมัติสัญญา Blanket Order 1 ปีเต็ม "
+                    f"และออกใบสั่งซื้อเลขที่ {po_number} ในระบบ SAP S/4HANA เรียบร้อยแล้ว\n\n"
+                    f"• เลขที่เอกสาร: {po_number}\n"
+                    f"• สินค้า: {deal_title} ({sku_str})\n"
+                    f"• ปริมาณรวมตามสัญญา: {qty_str}\n"
+                    f"• สถานะ: บรรลุข้อตกลงและออกเอกสารจัดซื้อสมบูรณ์ (Awarded & Signed)\n\n"
+                    f"ทางระบบขอขอบพระคุณ {v_name} ที่ร่วมมือเป็นพันธมิตรทางธุรกิจ และจะดำเนินการจัดส่งสัญญาฉบับลงนามสมบูรณ์ให้ทางอีเมลต่อไปครับ"
+                )
+                session_repository.append_message(
+                    deal_id=deal_id, vendor_id=v_id,
+                    sender="agent", name="AutoProcure.AI Sourcing Agent", text=award_msg
+                )
+                v["status"] = "ชนะการคัดเลือก (ได้รับ PO)"
+                v["statusBadge"] = "badge-success text-white font-bold"
+            except Exception as e:
+                logger.warning(f"Error notifying winning vendor {v_id}: {e}")
+        else:
+            # 2. Non-Winning / Competing Vendors: Send formal polite tender conclusion notice
+            try:
+                regret_msg = (
+                    f"เรียนฝ่ายขายและการตลาด {v_name} ครับ\n\n"
+                    f"ทางฝ่ายจัดซื้อกลางขอขอบพระคุณเป็นอย่างยิ่งที่ท่านได้เข้าร่วมโครงการจัดซื้อสัญญารายปี LTA "
+                    f"สำหรับ {deal_title} ({sku_str}) ในรอบนี้\n\n"
+                    f"ทางคณะกรรมการขอแจ้งให้ทราบว่า ในรอบนี้บริษัทได้คัดเลือกคู่ค้ารายอื่นที่ข้อเสนอและโครงสร้าง TCO สอดคล้องกับเกณฑ์ของกลุ่มโรงงานมากที่สุด "
+                    f"อย่างไรก็ดี ข้อมูลบริษัทของท่านยังคงบันทึกอยู่ในระบบ Approved Vendor List (AVL) ในฐานะคู่ค้าที่ผ่านการรับรอง และท่านจะได้รับเทียบเชิญในโครงการจัดซื้อรอบถัดไปอย่างแน่นอนครับ"
+                )
+                session_repository.append_message(
+                    deal_id=deal_id, vendor_id=v_id,
+                    sender="agent", name="AutoProcure.AI Sourcing Agent", text=regret_msg
+                )
+                v["status"] = "ไม่ได้คัดเลือก (ปิดโครงการ)"
+                v["statusBadge"] = "badge-ghost text-slate-500 font-normal"
+            except Exception as e:
+                logger.warning(f"Error notifying losing vendor {v_id}: {e}")
+
+    # Broadcast live event
     add_live_event(
         f"✅ ผู้บริหาร ({approved_by}) ลงนามอนุมัติดีล {deal_id.upper()} ➔ ยิง BAPI_PO_CREATE1 "
-        f"ออกใบสั่งซื้อ {po_number} เข้า SAP S/4HANA สำเร็จ [Closed-Loop]"
+        f"ออกใบสั่งซื้อ {po_number} เข้า SAP S/4HANA สำเร็จ [Stage 5: ออก PO สำเร็จ]"
     )
     publish_event("po_created", {
         "deal_id": deal_id,
