@@ -1648,6 +1648,12 @@
                 const badgeCompNum = document.getElementById('gov-badge-completed-num');
                 if (badgeCompNum) badgeCompNum.innerText = completedCount;
 
+                // 3.1 Update Left Sidebar Badge
+                const sidebarBadge = document.getElementById('sidebar-governance-badge');
+                if (sidebarBadge) {
+                    sidebarBadge.innerText = `${pendingCount} รอลงนาม`;
+                }
+
                 // 4. Update KPI strip
                 const kpiPending = document.getElementById('gov-kpi-pending');
                 if (kpiPending) kpiPending.innerText = `${pendingCount} ดีล`;
@@ -3411,11 +3417,11 @@
                 let terms = 'สัญญารายปี • เครดิต 45 วัน • ส่งมอบ 7 วัน';
 
                 if (govRow) {
-                    const skuEl = govRow.querySelector('.font-mono.text-blue-900');
+                    const skuEl = govRow.querySelector('.font-mono.text-blue-900') || govRow.querySelector('.font-mono');
                     if (skuEl) sku = skuEl.innerText.trim();
-                    const nameEl = govRow.querySelector('.text-\[11px\].text-slate-700') || govRow.querySelector('.text-slate-700');
+                    const nameEl = govRow.querySelector('td:first-child div[title]') || govRow.querySelector('td:first-child div:nth-child(2)') || govRow.querySelector('.text-slate-700');
                     if (nameEl) title = nameEl.innerText.trim();
-                    const qtyEl = govRow.querySelector('.text-\[10px\].text-slate-400.font-mono');
+                    const qtyEl = govRow.querySelector('td:first-child div:last-child') || govRow.querySelector('.font-mono');
                     if (qtyEl) qtyStr = qtyEl.innerText.trim();
                     const vEl = govRow.querySelector('.font-medium.text-slate-800');
                     if (vEl) vendor = vEl.innerText.trim();
@@ -3428,9 +3434,9 @@
                     const termEl = govRow.querySelector('td:nth-child(5) div');
                     if (termEl) terms = termEl.getAttribute('title') || termEl.innerText.trim();
                 } else if (pipeRow) {
-                    const skuEl = pipeRow.querySelector('.font-mono.text-blue-900');
+                    const skuEl = pipeRow.querySelector('.font-mono.text-blue-900') || pipeRow.querySelector('.font-mono');
                     if (skuEl) sku = skuEl.innerText.trim();
-                    const nameEl = pipeRow.querySelector('.text-\[11px\].text-slate-600') || pipeRow.querySelector('.text-slate-600');
+                    const nameEl = pipeRow.querySelector('td:first-child div[title]') || pipeRow.querySelector('td:first-child div:nth-child(2)') || pipeRow.querySelector('.text-slate-600');
                     if (nameEl) title = nameEl.innerText.trim();
                     const qtyEl = pipeRow.querySelector('.deal-qty-val');
                     if (qtyEl) qtyStr = qtyEl.innerText.trim();
@@ -3739,7 +3745,7 @@
                                     aCell.innerHTML = `
                                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 font-mono text-[11px] font-bold shadow-xs transition-all" title="ออกใบสั่งซื้อ (PO) ในระบบ SAP S/4HANA เรียบร้อยแล้ว">
                                             <i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i>
-                                            <span>${d.po_number || 'PO ออกแล้ว'}</span>
+                                            <span>${d.po_number || 'PO#450098110'}</span>
                                         </span>
                                     `;
                                 }

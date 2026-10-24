@@ -175,7 +175,7 @@
                         <a id="nav-governance" onclick="app.switchView('governance')" class="flex items-center p-2.5 rounded-xl font-medium text-xs text-slate-600 hover:bg-slate-50 transition-all group" title="ลงนามสัญญา (HITL)">
                             <i data-lucide="file-check-2" class="w-4 h-4 text-slate-500 group-hover:text-blue-600 shrink-0"></i>
                             <span class="sidebar-text truncate flex-1 ml-2.5 transition-all duration-200">ลงนามสัญญา (HITL)</span>
-                            <span class="badge badge-warning badge-sm font-mono text-[10px] sidebar-text ml-auto">16 รอเซ็น</span>
+                            <span id="sidebar-governance-badge" class="badge badge-warning badge-sm font-mono text-[10px] sidebar-text ml-auto">12 รอลงนาม</span>
                         </a>
                     </li>
                     <li>
@@ -955,7 +955,7 @@
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('lovejoy_coupling')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
                                             <button type="button" onclick="app.openChatModal('lovejoy_coupling')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) เรียบร้อยแล้วใน SAP"><i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>PO ออกแล้ว</span></button>
+                                            <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) ในระบบ SAP S/4HANA เรียบร้อยแล้ว"><i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>PO#450098113</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -1696,7 +1696,7 @@
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('autonics_temp')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
                                             <button type="button" onclick="app.openChatModal('autonics_temp')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) เรียบร้อยแล้วใน SAP"><i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>PO ออกแล้ว</span></button>
+                                            <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) ในระบบ SAP S/4HANA เรียบร้อยแล้ว"><i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>PO#450098115</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -2125,7 +2125,7 @@
                                         <div class="flex items-center justify-center gap-1.5 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('rexroth')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-7 h-7 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
                                             <button type="button" onclick="app.openChatModal('rexroth')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-2.5 py-1 shadow-xs flex items-center gap-1 transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) เรียบร้อยแล้วใน SAP"><i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>PO ออกแล้ว</span></button>
+                                            <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) ในระบบ SAP S/4HANA เรียบร้อยแล้ว"><i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span>PO#450098112</span></button>
                                         </div>
                                     </td>
                                 </tr>

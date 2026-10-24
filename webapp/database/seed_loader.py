@@ -27,7 +27,7 @@ _DEAL_SCALAR_FIELDS = [
     "deal_code", "sku", "name", "category", "category_th", "stage",
     "stage_label", "stock_alert", "stock_type", "unit", "qty", "prs_count",
     "pre_price", "post_price", "pre_spend", "post_spend", "savings",
-    "savings_pct", "supplier",
+    "savings_pct", "supplier", "po_number", "po_status",
 ]
 
 _PR_SCALAR_FIELDS = [

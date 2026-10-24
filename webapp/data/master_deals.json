@@ -735,7 +735,9 @@
         ],
         "email": "teeranonn124@gmail.com"
       }
-    ]
+    ],
+    "po_number": "PO#450098113",
+    "po_status": "PO_CREATED"
   },
   "khk_gear": {
     "id": "khk_gear",
@@ -1832,7 +1834,9 @@
         ],
         "email": "teeranonn124@gmail.com"
       }
-    ]
+    ],
+    "po_number": "PO#450098115",
+    "po_status": "PO_CREATED"
   },
   "omron_ssr": {
     "id": "omron_ssr",
@@ -2459,7 +2463,9 @@
         ],
         "email": "teeranonn124@gmail.com"
       }
-    ]
+    ],
+    "po_number": "PO#450098112",
+    "po_status": "PO_CREATED"
   },
   "festo_cylinder": {
     "id": "festo_cylinder",
