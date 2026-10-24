@@ -45,22 +45,16 @@ class BedrockClient:
             ["BEDROCK_NEGOTIATOR_MODEL_ID", "BEDROCK_NEGOTIATOR_MODEL"], DEFAULT_NEGOTIATOR_MODEL
         )
         self._client = None
-        self._credentials_present = bool(
-            os.environ.get("AWS_ACCESS_KEY_ID") and os.environ.get("AWS_SECRET_ACCESS_KEY")
-        ) or bool(os.environ.get("AWS_PROFILE"))
 
     @property
     def client(self):
-        # When no AWS credentials are configured, stay in deterministic fallback mode
-        # instead of creating a client that will fail on every call (keeps demo fast + stable).
-        if not self._credentials_present:
-            return None
         if self._client is None:
             try:
-                # boto3 picks up AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_SESSION_TOKEN from env.
-                self._client = boto3.client(
-                    "bedrock-runtime", region_name=self.region, config=_BEDROCK_BOTO_CONFIG
-                )
+                session = boto3.Session(region_name=self.region)
+                if session.get_credentials() is not None:
+                    self._client = session.client(
+                        "bedrock-runtime", region_name=self.region, config=_BEDROCK_BOTO_CONFIG
+                    )
             except Exception as e:
                 logger.warning(f"Bedrock client initialization warning: {e}")
         return self._client

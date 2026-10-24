@@ -221,28 +221,24 @@
                 </div>
             </div>
 
-            <!-- CARD 3: MULTI-VENDOR ARBITRATOR POLICY & TRANSPARENCY -->
+            <!-- CARD 3: COMMERCIAL TERMS & SUBMISSION GUIDELINES -->
             <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-2 text-xs">
                 <div class="font-bold text-slate-800 flex items-center gap-1.5 border-b border-slate-100 pb-2">
-                    <i data-lucide="cpu" class="w-4 h-4 text-blue-700"></i>
-                    <span>กลไกการตัดสินใจของ AI Agent (Multi-Vendor Policy)</span>
+                    <i data-lucide="shield-check" class="w-4 h-4 text-blue-700"></i>
+                    <span>ข้อกำหนดและมาตรฐานการจัดซื้อ (Commercial Terms & Standards)</span>
                 </div>
                 <ul class="space-y-2 text-[11px] text-slate-600 pt-1">
                     <li class="flex items-start gap-2">
-                        <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5"></i>
-                        <div><strong>แยกห้องเจรจาอิสระ (Zero Data Leakage):</strong> การเจรจานี้เป็นความลับเฉพาะท่าน ข้อมูลต้นทุนและใบเสนอราคาจะไม่รั่วไหลไปยังคู่ค้ารายอื่น</div>
+                        <i data-lucide="lock" class="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5"></i>
+                        <div><strong>การรักษาความลับทางการค้า (Strict NDA):</strong> ข้อมูลการเจรจาและโครงสร้างราคาของท่านเป็นความลับเฉพาะราย ไม่มีการเปิดเผยต่อบุคคลภายนอก</div>
                     </li>
                     <li class="flex items-start gap-2">
-                        <i data-lucide="calculator" class="w-3.5 h-3.5 text-indigo-600 shrink-0 mt-0.5"></i>
-                        <div><strong>สูตรประเมิน TCO รวม 100 คะแนน:</strong> คำนวณจาก ราคาต่อหน่วย (50%) + เครดิตเทอม (20%) + ความเร็วส่งมอบ (15%) + ประวัติคุณภาพ AVL (15%)</div>
+                        <i data-lucide="award" class="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                        <div><strong>มาตรฐานคุณภาพและแหล่งกำเนิด:</strong> อะไหล่ทุกรายการต้องเป็นของแท้ พร้อมใบรับรองมาตรฐานโรงงานผู้ผลิต (Manufacturer Certificate)</div>
                     </li>
                     <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                        <div><strong>การันตีไม่รับ 2 เจ้าซ้ำซ้อน (Single Winner Guarantee):</strong> ระบบ SAP จะออก Blanket PO ให้แก่ผู้ชนะ Rank #1 เพียงรายเดียวเท่านั้น โดยคู่ค้าลำดับถัดไปที่ผ่านเกณฑ์จะอยู่ใน Backup Pool</div>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5"></i>
-                        <div><strong>Dynamic BATNA (หากคู่แข่งเสนอดีกว่า):</strong> AI Agent จะนำแต้มต่อของผู้นำมาแจ้งสถานะในแชต เพื่อให้ท่านมีสิทธิ์ยื่น Counter-Offer ปรับปรุงราคาชิงตำแหน่งได้ตลอดเวลาก่อนปิดรอบ</div>
+                        <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-600 shrink-0 mt-0.5"></i>
+                        <div><strong>เงื่อนไขการส่งมอบ (Delivery Terms):</strong> จัดส่งถึงคลังสินค้าโรงงานในเครืออุตสาหกรรม (DDP) พร้อมใบกำกับภาษีอิเล็กทรอนิกส์เต็มรูปแบบ</div>
                     </li>
                 </ul>
             </div>
@@ -300,27 +296,7 @@
 
             </div>
 
-            <!-- QUICK COUNTER-OFFER PRESETS (TAILORED TO THIS VENDOR) -->
-            <div class="bg-white border-t border-slate-100 p-2.5 shrink-0 flex flex-wrap items-center gap-1.5 text-xs">
-                <span class="text-[10px] font-bold text-slate-400 uppercase mr-1 flex items-center gap-1">
-                    <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i> ตัวเลือกข้อเสนอแนะนำ:
-                </span>
-                
-                <!-- Preset 1: Initial Ask -->
-                <button type="button" onclick="portalApp.selectPreset('ทางเราขอยืนยันราคาเปิดแรกที่ ฿{{ '{:,.2f}'.format(active_vendor.initial_price) }} เครดิต 30 วัน เนื่องจากต้นทุนนำเข้าและค่าขนส่งสูงขึ้นครับ')" class="badge badge-sm badge-outline hover:bg-slate-100 cursor-pointer text-[10px] py-2">
-                    1. ยืนราคาเปิด ฿{{ '{:,.2f}'.format(active_vendor.initial_price) }}
-                </button>
-                
-                <!-- Preset 2: Counter Offer -->
-                <button type="button" onclick="portalApp.selectPreset('ทางเราลดราคาให้พิเศษได้ที่ ฿{{ '{:,.2f}'.format(active_vendor.counter_price) }} แต่ขอรักษาระยะเวลาเครดิตเทอมไว้ที่ 30 วันครับ')" class="badge badge-sm badge-outline hover:bg-blue-50 text-blue-800 cursor-pointer text-[10px] py-2">
-                    2. เสนอ ฿{{ '{:,.2f}'.format(active_vendor.counter_price) }} (เครดิต 30 วัน)
-                </button>
-                
-                <!-- Preset 3: Agree & Win LTA -->
-                <button type="button" onclick="portalApp.selectPreset('ยินดีตกลงตามเงื่อนไขเป้าหมายครับ: ราคา ฿{{ '{:,.2f}'.format(active_vendor.final_price) }} เครดิต 45 วัน ส่งมอบ 7 วัน พร้อมผูกสัญญา LTA 1 ปีครับ')" class="badge badge-sm bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer text-[10px] py-2">
-                    3. ตกลงเป้าหมาย ฿{{ '{:,.2f}'.format(active_vendor.final_price) }} (รับเงื่อนไข LTA)
-                </button>
-            </div>
+
 
             <!-- CHAT INPUT FORM -->
             <form id="portal-chat-form" onsubmit="portalApp.sendMessage(event)" class="bg-white border-t border-slate-200 p-3 shrink-0 flex items-center gap-2">
@@ -379,7 +355,7 @@
             dealKey: dealData.id || "nsk",
             vendorId: vendorData.id || "sp",
             vendorName: vendorData.name || dealData.supplier || "บจก. คู่ค้า AVL",
-            currentPrice: Number(vendorData.initial_price || 425.0),
+            currentPrice: Number(vendorData.initial_price || (dealData.pre_price * 0.96)),
             currentCredit: 30,
             isAgreed: false,
 
@@ -471,7 +447,7 @@
                             this.updateTermCredit(Number(data.credit_days));
                         }
                         if (data.deal_agreed || data.status === 'agreed' || text.includes('ตกลง') || text.includes('ยินดีตกลง')) {
-                            this.unlockAgreedState(data.price || vendorData.final_price || 398.0, data.credit_days || 45);
+                            this.unlockAgreedState(data.price || vendorData.final_price || (dealData.post_price || dealData.pre_price * 0.85), data.credit_days || 45);
                         }
 
                         this.round += 1;
@@ -501,7 +477,7 @@
                     this.updateTermCredit(parseInt(creditMatch[1]));
                 }
                 if (text.includes('ตกลง') || text.includes('ยินดีตกลง') || text.includes('รับเงื่อนไข')) {
-                    this.unlockAgreedState(vendorData.final_price || 398.0, 45);
+                    this.unlockAgreedState(vendorData.final_price || (dealData.post_price || dealData.pre_price * 0.85), 45);
                 }
             },
 
