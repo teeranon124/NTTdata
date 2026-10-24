@@ -83,7 +83,7 @@ class DealRepositoryDB:
             if not d:
                 return False
             d.stage = 4
-            d.stage_label = "รออนุมัติ PO"
+            d.stage_label = "ลงนามเปิด PO"
             d.winning_vendor_id = vendor_id
             if agreed_price is not None:
                 d.agreed_price = float(agreed_price)

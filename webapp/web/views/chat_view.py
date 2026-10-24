@@ -361,7 +361,7 @@ def reset_chat_session(deal_id, vendor_id):
         # Rollback winning status and stage if the deal was previously awarded
         if deal.get("stage") == 4 or deal.get("winning_vendor_id"):
             deal["stage"] = 3 if did == "nsk" else 2
-            deal["stage_label"] = "AI กำลังเจรจา" if did == "nsk" else "รอเจรจาต่อรอง"
+            deal["stage_label"] = "เจรจาต่อรอง" if did == "nsk" else "ออกเทียบราคา"
             deal["winning_vendor_id"] = None
             deal["agreed_price"] = None
             deal["po_status"] = None
@@ -648,7 +648,7 @@ def simulate_incoming_pr():
                 db_deal.stage = 2
                 db_deal.qty = 850
                 db_deal.prs_count = 14
-                db_deal.stage_label = "รอเจรจาต่อรอง"
+                db_deal.stage_label = "ออกเทียบราคา"
     except Exception as e:
         logger.warning(f"Could not update DB directly: {e}")
 
@@ -713,7 +713,7 @@ def simulate_reset_pr():
                 db_deal.stage = 1
                 db_deal.qty = 750
                 db_deal.prs_count = 13
-                db_deal.stage_label = "รวบรวม PR"
+                db_deal.stage_label = "รวมความต้องการ"
     except Exception as e:
         logger.warning(f"Could not reset DB directly: {e}")
 
@@ -765,7 +765,7 @@ def demo_reset_all():
     deals = deal_repository.get_all_deals()
     if "festo_cyl" in deals:
         deals["festo_cyl"]["stage"] = 1
-        deals["festo_cyl"]["stage_label"] = "รวบรวม PR"
+        deals["festo_cyl"]["stage_label"] = "รวมความต้องการ"
         deals["festo_cyl"]["qty"] = 750
         deals["festo_cyl"]["prs_count"] = 13
         deals["festo_cyl"]["winning_vendor_id"] = None
@@ -774,7 +774,7 @@ def demo_reset_all():
 
     if "omron_photo" in deals:
         deals["omron_photo"]["stage"] = 2
-        deals["omron_photo"]["stage_label"] = "รอเจรจาต่อรอง"
+        deals["omron_photo"]["stage_label"] = "ออกเทียบราคา"
         deals["omron_photo"]["qty"] = 1400
         deals["omron_photo"]["prs_count"] = 22
         deals["omron_photo"]["winning_vendor_id"] = None
@@ -783,7 +783,7 @@ def demo_reset_all():
 
     if "nsk" in deals:
         deals["nsk"]["stage"] = 3
-        deals["nsk"]["stage_label"] = "AI กำลังเจรจา"
+        deals["nsk"]["stage_label"] = "เจรจาต่อรอง"
         deals["nsk"]["winning_vendor_id"] = None
         deals["nsk"]["po_status"] = None
         deals["nsk"]["po_number"] = None

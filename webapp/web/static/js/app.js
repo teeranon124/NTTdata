@@ -630,8 +630,8 @@
                             ${isAwarded 
                                 ? `<span class="font-bold text-blue-700">฿${(r.post_p || 0).toLocaleString(undefined, {minimumFractionDigits:2})}</span>` 
                                 : (isStage1 
-                                    ? '<span class="badge badge-warning badge-xs text-[10px]">รอเจรจา (Stage 1)</span>' 
-                                    : `<span class="badge badge-info badge-xs text-[10px]">อยู่ระหว่างเจรจา (Stage ${currentStage})</span>`
+                                    ? '<span class="badge badge-warning badge-xs text-[10px]">รวมความต้องการ (Stage 1)</span>' 
+                                    : `<span class="badge badge-info badge-xs text-[10px]">${currentStage === 2 ? 'ออกเทียบราคา (Stage 2)' : (currentStage === 3 ? 'เจรจาต่อรอง (Stage 3)' : 'Stage ' + currentStage)}</span>`
                                 )
                             }
                         </td>
@@ -961,7 +961,7 @@
 
                                 <span class="font-bold text-[10px] font-mono leading-none">Stage 2</span>
 
-                                <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เจรจาต่อรอง</span>
+                                <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ออกเทียบราคา</span>
 
                             </div>
 
@@ -1003,7 +1003,7 @@
 
                                 <span class="font-bold text-[10px] font-mono leading-none">Stage 1</span>
 
-                                <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวบรวม PR</span>
+                                <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รวมความต้องการ</span>
 
                             </div>
 
