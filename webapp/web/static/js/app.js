@@ -1257,6 +1257,8 @@
                     this.initAwardDealOptions();
                     this.loadAwardBoard();
                     this.loadSlaMonitor();
+                    if (this.updateGovernanceCounters) this.updateGovernanceCounters();
+                    if (this.filterGovernanceTab) this.filterGovernanceTab(this.currentGovTab || 'all');
                 } else if (viewName === 'analytics') {
                     this.initAnalyticsCharts();
                 }
@@ -1577,6 +1579,85 @@
 
                 }
 
+            },
+
+            currentGovTab: 'all',
+
+            filterGovernanceTab(tab) {
+                this.currentGovTab = tab || 'all';
+                const tabs = ['pending', 'completed', 'all'];
+                tabs.forEach(t => {
+                    const btn = document.getElementById(`gov-tab-${t}`);
+                    if (!btn) return;
+                    if (t === this.currentGovTab) {
+                        btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 bg-emerald-600 text-white shadow-xs transition-all cursor-pointer';
+                        const badge = btn.querySelector('.badge');
+                        if (badge) badge.className = 'badge badge-xs bg-white text-emerald-800 font-mono font-bold';
+                    } else {
+                        btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 shadow-xs transition-all cursor-pointer';
+                        const badge = btn.querySelector('.badge');
+                        if (badge) badge.className = 'badge badge-xs bg-slate-200 text-slate-700 font-mono font-bold';
+                    }
+                });
+
+                const rows = document.querySelectorAll('.gov-deal-row');
+                rows.forEach(r => {
+                    const govStage = r.getAttribute('data-gov-stage') || 'pending';
+                    if (this.currentGovTab === 'all') {
+                        r.classList.remove('hidden');
+                    } else if (this.currentGovTab === 'pending') {
+                        if (govStage === 'pending') r.classList.remove('hidden');
+                        else r.classList.add('hidden');
+                    } else if (this.currentGovTab === 'completed') {
+                        if (govStage === 'completed') r.classList.remove('hidden');
+                        else r.classList.add('hidden');
+                    }
+                });
+            },
+
+            updateGovernanceCounters() {
+                const pendingRows = document.querySelectorAll('.gov-deal-row[data-gov-stage="pending"]');
+                const completedRows = document.querySelectorAll('.gov-deal-row[data-gov-stage="completed"]');
+                const allRows = document.querySelectorAll('.gov-deal-row');
+
+                const pendingCount = pendingRows.length;
+                const completedCount = completedRows.length;
+                const allCount = allRows.length;
+
+                // 1. Update sub-tab badge counts
+                const elPending = document.getElementById('gov-tab-count-pending');
+                if (elPending) elPending.innerText = pendingCount;
+                const elCompleted = document.getElementById('gov-tab-count-completed');
+                if (elCompleted) elCompleted.innerText = completedCount;
+                const elAll = document.getElementById('gov-tab-count-all');
+                if (elAll) elAll.innerText = allCount;
+
+                // 2. Sum pending savings
+                let pendingSavings = 0;
+                pendingRows.forEach(r => {
+                    const s = parseFloat(r.getAttribute('data-savings') || '0') || 0;
+                    pendingSavings += s;
+                });
+                const pendingM = (pendingSavings / 1000000).toFixed(2);
+
+                // 3. Update header badges
+                const badgeEl = document.getElementById('governance-badge-count');
+                if (badgeEl) {
+                    badgeEl.innerText = `${pendingCount} ดีลรอลงนาม (฿${pendingM}M พร้อมออก PO)`;
+                }
+                const badgeCompNum = document.getElementById('gov-badge-completed-num');
+                if (badgeCompNum) badgeCompNum.innerText = completedCount;
+
+                // 4. Update KPI strip
+                const kpiPending = document.getElementById('gov-kpi-pending');
+                if (kpiPending) kpiPending.innerText = `${pendingCount} ดีล`;
+                const kpiCompleted = document.getElementById('gov-kpi-completed');
+                if (kpiCompleted) kpiCompleted.innerText = `${completedCount} ดีล`;
+
+                // 5. Re-apply current tab filter
+                if (this.currentGovTab) {
+                    this.filterGovernanceTab(this.currentGovTab);
+                }
             },
 
 
@@ -3483,9 +3564,16 @@
                             this.showToast(`ลงนามสำเร็จ! ยิง BAPI_PO_CREATE1 ออกใบสั่งซื้อ ${data.po_number} เข้า SAP S/4HANA เรียบร้อยแล้ว`, 'success');
                             if (this.bumpSignedPoStat) this.bumpSignedPoStat(deal);
 
-                            // Immediately transition row to Stage 5 (ออก PO สำเร็จ - สีเทาหรูหรา)
-                            const row = document.querySelector(`button[onclick*="'${dealKey}'"]`)?.closest('tr');
-                            if (row) {
+                            // Update in-memory deal object
+                            if (deal) {
+                                deal.stage = 5;
+                                deal.po_number = data.po_number;
+                                deal.status = `ออกใบสั่งซื้อแล้ว (${data.po_number})`;
+                            }
+
+                            // 1. Update View 1 (Pipeline View) table rows and cards
+                            const pipelineRows = document.querySelectorAll(`tr.job-row[data-deal-key="${dealKey}"]`);
+                            pipelineRows.forEach(row => {
                                 row.setAttribute('data-stage', '5');
                                 row.setAttribute('data-stages', '5');
                                 const badgeContainer = row.querySelector('.stage-badge-container') || row.children[7] || row.children[6];
@@ -3502,13 +3590,55 @@
                                     signBtn.outerHTML = `
                                         <button type="button" class="btn btn-xs bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 rounded-lg px-2 py-1 shadow-xs flex items-center gap-1 cursor-default transition-all" title="ออกใบสั่งซื้อ (PO) เรียบร้อยแล้วใน SAP">
                                             <i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i>
-                                            <span>PO ออกแล้ว</span>
+                                            <span>${data.po_number}</span>
                                         </button>
                                     `;
-                                    if (window.lucide) lucide.createIcons({ root: row });
                                 }
+                                if (window.lucide) lucide.createIcons({ root: row });
+                            });
+
+                            // 2. Update View 2 (HITL Governance View) table row
+                            const govRow = document.getElementById(`gov-row-${dealKey}`) || document.querySelector(`.gov-deal-row[data-deal-key="${dealKey}"]`);
+                            if (govRow) {
+                                govRow.setAttribute('data-stage', '5');
+                                govRow.setAttribute('data-gov-stage', 'completed');
+                                govRow.classList.add('bg-slate-50/60');
+
+                                // Update Guardrail cell
+                                const gCell = document.getElementById(`gov-guardrail-cell-${dealKey}`) || govRow.querySelector('td[id*="guardrail"]');
+                                if (gCell) {
+                                    gCell.innerHTML = `
+                                        <span class="badge badge-xs bg-slate-100 text-slate-700 border border-slate-300 font-mono gap-1">
+                                            <i data-lucide="check-check" class="w-2.5 h-2.5 text-emerald-600"></i> SAP BAPI สำเร็จ
+                                        </span>
+                                        <div class="text-[9px] text-emerald-600 font-mono mt-0.5">${data.po_number}</div>
+                                    `;
+                                }
+
+                                // Update Action cell
+                                const aCell = document.getElementById(`gov-action-cell-${dealKey}`) || govRow.querySelector('td[id*="action"]');
+                                if (aCell) {
+                                    aCell.innerHTML = `
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 font-mono text-[11px] font-bold shadow-xs transition-all" title="ออกใบสั่งซื้อ (PO) ในระบบ SAP S/4HANA เรียบร้อยแล้ว">
+                                            <i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                            <span>${data.po_number}</span>
+                                        </span>
+                                    `;
+                                }
+                                if (window.lucide) lucide.createIcons({ root: govRow });
                             }
+
+                            // 3. Update Cockpit Header sign-off button if open
+                            const headerSignOff = document.getElementById('chat-header-signoff-btn');
+                            if (headerSignOff && this.currentChatDealKey === dealKey) {
+                                headerSignOff.className = 'btn btn-xs bg-slate-100 text-slate-700 border border-slate-300 rounded-lg gap-1 shadow-sm cursor-default';
+                                headerSignOff.innerHTML = `<i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i> <span class="hidden sm:inline">ออก PO สำเร็จ (${data.po_number})</span>`;
+                                headerSignOff.onclick = null;
+                            }
+
+                            // 4. Dynamically re-calculate all counters
                             this.updateStageCounters();
+                            this.updateGovernanceCounters();
                         } else {
                             this.showToast(data.detail || 'ส่งคำสั่งลงนามแล้ว (ระบบบันทึกสถานะเรียบร้อย)', 'success');
                         }
@@ -3532,6 +3662,64 @@
                         savEl.innerText = `฿${Math.round(cur + Number(deal.savings)).toLocaleString()}`;
                     }
                 } catch (e) { /* stats are optional */ }
+            },
+
+            async syncDealsFromBackend() {
+                try {
+                    const res = await fetch('/api/deals');
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    const deals = data.deals || {};
+                    Object.entries(deals).forEach(([key, d]) => {
+                        if (d.stage === 5 || d.po_number) {
+                            // Update pipeline row
+                            const pRow = document.querySelector(`tr.job-row[data-deal-key="${key}"]`);
+                            if (pRow) {
+                                pRow.setAttribute('data-stage', '5');
+                                pRow.setAttribute('data-stages', '5');
+                                const badgeContainer = pRow.querySelector('.stage-badge-container');
+                                if (badgeContainer) {
+                                    badgeContainer.innerHTML = `
+                                        <div class="inline-flex flex-col items-center justify-center px-2.5 py-1 rounded-lg bg-slate-100 border-slate-300 text-slate-700 shadow-xs">
+                                            <span class="font-bold text-[10px] font-mono leading-none">Stage 5</span>
+                                            <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">ออก PO สำเร็จ</span>
+                                        </div>
+                                    `;
+                                }
+                            }
+                            // Update gov row
+                            const gRow = document.getElementById(`gov-row-${key}`);
+                            if (gRow) {
+                                gRow.setAttribute('data-stage', '5');
+                                gRow.setAttribute('data-gov-stage', 'completed');
+                                gRow.classList.add('bg-slate-50/60');
+                                const gCell = document.getElementById(`gov-guardrail-cell-${key}`);
+                                if (gCell) {
+                                    gCell.innerHTML = `
+                                        <span class="badge badge-xs bg-slate-100 text-slate-700 border border-slate-300 font-mono gap-1">
+                                            <i data-lucide="check-check" class="w-2.5 h-2.5 text-emerald-600"></i> SAP BAPI สำเร็จ
+                                        </span>
+                                        <div class="text-[9px] text-emerald-600 font-mono mt-0.5">${d.po_number || 'PO#450098110'}</div>
+                                    `;
+                                }
+                                const aCell = document.getElementById(`gov-action-cell-${key}`);
+                                if (aCell) {
+                                    aCell.innerHTML = `
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 font-mono text-[11px] font-bold shadow-xs transition-all" title="ออกใบสั่งซื้อ (PO) ในระบบ SAP S/4HANA เรียบร้อยแล้ว">
+                                            <i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                            <span>${d.po_number || 'PO ออกแล้ว'}</span>
+                                        </span>
+                                    `;
+                                }
+                            }
+                        }
+                    });
+                    this.updateStageCounters();
+                    this.updateGovernanceCounters();
+                    if (window.lucide) lucide.createIcons();
+                } catch (e) {
+                    console.warn('Sync backend deals skipped:', e);
+                }
             },
 
             // ================= 2,500 DATASET EXPLORER METHODS =================
@@ -3978,6 +4166,8 @@
             lucide.createIcons();
 
             if (app.updateStageCounters) app.updateStageCounters();
+            if (app.updateGovernanceCounters) app.updateGovernanceCounters();
+            if (app.syncDealsFromBackend) app.syncDealsFromBackend();
 
             try {
 
