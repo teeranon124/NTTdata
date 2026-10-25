@@ -129,7 +129,7 @@
 
                 omron_photo: {
 
-                    "title": "โฟโตอิเล็กทริกเซนเซอร์ Omron (E3Z-T61 2M) ยอดรวม 1,400 ตัว",
+                    "title": "โฟโตอิเล็กทริกเซนเซอร์ Omron (E3Z-T61 2M) ยอดรวม 1,400 ตัว (22 PRs)",
 
                     "budgetStr": "฿1,650.00/ตัว (฿2,310,000)",
 
@@ -157,21 +157,21 @@
 
                                                             "email": "teeranonn124@gmail.com",
 
-                                                            "price": "฿1,650.00",
+                                                            "price": "-",
 
-                                                            "credit": "30 วัน",
+                                                            "credit": "-",
 
-                                                            "leadTime": "5 วันทำการ",
+                                                            "leadTime": "-",
 
-                                                            "warranty": "1 ปี",
+                                                            "warranty": "-",
 
-                                                            "cert": "CE / RoHS ✓",
+                                                            "cert": "-",
 
-                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "status": "รอเสนอราคา",
 
-                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "statusBadge": "badge-ghost text-slate-400",
 
-                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
+                                                            "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
 
                                                             "ladder": [],
 
@@ -187,21 +187,21 @@
 
                                                             "email": "roykaen.30@gmail.com",
 
-                                                            "price": "฿1,680.00",
+                                                            "price": "-",
 
-                                                            "credit": "30 วัน",
+                                                            "credit": "-",
 
-                                                            "leadTime": "7 วันทำการ",
+                                                            "leadTime": "-",
 
-                                                            "warranty": "1 ปี",
+                                                            "warranty": "-",
 
-                                                            "cert": "CE / RoHS ✓",
+                                                            "cert": "-",
 
-                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "status": "รอเสนอราคา",
 
-                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "statusBadge": "badge-ghost text-slate-400",
 
-                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
+                                                            "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
 
                                                             "ladder": [],
 
@@ -217,21 +217,21 @@
 
                                                             "email": "filmzazazs63@gmail.com",
 
-                                                            "price": "฿1,640.00",
+                                                            "price": "-",
 
-                                                            "credit": "30 วัน",
+                                                            "credit": "-",
 
-                                                            "leadTime": "10 วันทำการ",
+                                                            "leadTime": "-",
 
-                                                            "warranty": "1 ปี",
+                                                            "warranty": "-",
 
-                                                            "cert": "CE / RoHS ✓",
+                                                            "cert": "-",
 
-                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "status": "รอเสนอราคา",
 
-                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "statusBadge": "badge-ghost text-slate-400",
 
-                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
+                                                            "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
 
                                                             "ladder": [],
 

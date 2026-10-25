@@ -1264,7 +1264,7 @@
 
                 };
 
-                if (this.pushLiveEvent) this.pushLiveEvent(`สลับมุมมองหน้าจอ: ${viewLabels[viewName] || viewName}`);
+                // UI tab view - no fake live event
 
                 ['pipeline', 'governance', 'analytics'].forEach(v => {
 
@@ -2040,7 +2040,7 @@
 
                 if (titleEl) titleEl.innerText = `ห้องควบคุมการเจรจาต่อรองคู่ค้า: ${deal.title}`;
 
-                this.pushLiveEvent(`เปิดห้องเจรจา: ${deal.title} (${deal.part_code || dealKey.toUpperCase()}) ดึงประวัติคู่ค้าและเพดานราคาตลาด`, true);
+                // UI modal view - no fake live event
 
 
 
@@ -3625,9 +3625,7 @@
                 const agreeCheck = document.getElementById('signoff-agree-check');
                 if (agreeCheck) agreeCheck.checked = true;
 
-                if (this.pushLiveEvent) {
-                    this.pushLiveEvent(`ส่งร่างสัญญาดีล ${title} (${sku}) เข้าสู่กระบวนการลงนามอนุมัติ (Executive Sign-Off Gate)`, true);
-                }
+                // UI signoff view - no fake live event
 
                 if (typeof modal.showModal === 'function') {
                     modal.showModal();

@@ -1074,6 +1074,17 @@ def demo_reset_all():
         deals["omron_photo"]["winning_vendor_id"] = None
         deals["omron_photo"]["po_status"] = None
         deals["omron_photo"]["po_number"] = None
+        for v in deals["omron_photo"].get("vendors", []):
+            v["price"] = "-"
+            v["credit"] = "-"
+            v["leadTime"] = "-"
+            v["warranty"] = "-"
+            v["cert"] = "-"
+            v["status"] = "รอเสนอราคา"
+            v["statusBadge"] = "badge-ghost text-slate-400"
+            v["outcome"] = "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ"
+            v["ladder"] = []
+            v["messages"] = []
 
     if "nsk" in deals:
         deals["nsk"]["stage"] = 4
