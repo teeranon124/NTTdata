@@ -56,7 +56,7 @@ class AgentOrchestrator:
         # Router/intent trace (kept for continuity with the prior audit layout).
         audit_trace.append({
             "step": 2,
-            "agent": f"Router Agent ({parsed_entities.get('source', 'Nova Lite')})",
+            "agent": f"Router Agent ({parsed_entities.get('source', 'Nova Micro')})",
             "thought": (
                 f"สกัดความประสงค์คู่ค้า: {parsed_entities.get('intent')} | "
                 f"ราคาเสนอ: {parsed_entities.get('proposed_unit_price')} | "

@@ -141,11 +141,12 @@ def reset_sessions() -> int:
     Clean-slate helper for demo preparation.
     """
     init_db()
-    from .models import NegotiationSession
+    from sqlalchemy import text
 
     with session_scope() as s:
-        count = s.query(NegotiationSession).count()
-        s.query(NegotiationSession).delete()
+        s.execute(text("DELETE FROM audit_trails"))
+        s.execute(text("DELETE FROM message_logs"))
+        count = s.execute(text("DELETE FROM negotiation_sessions")).rowcount
     logger.info("Cleared %d negotiation sessions (seed catalog kept).", count)
     return count
 

@@ -234,9 +234,11 @@ class SessionRepositoryDB:
         leaving the seed catalog (deals / vendors / purchase_requests) intact.
         Gives a clean slate before a demo without destroying the 60 deals / 2,500 PRs.
         """
+        from sqlalchemy import text
         with session_scope() as s:
-            count = s.query(NegotiationSession).count()
-            s.query(NegotiationSession).delete()
+            s.execute(text("DELETE FROM audit_trails"))
+            s.execute(text("DELETE FROM message_logs"))
+            count = s.execute(text("DELETE FROM negotiation_sessions")).rowcount
         return count
 
 

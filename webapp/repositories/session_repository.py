@@ -10,8 +10,20 @@ class SessionRepository:
         os.makedirs(SESSIONS_DIR, exist_ok=True)
 
     def _get_session_path(self, deal_id: str, vendor_id: str) -> str:
-        clean_deal = deal_id.lower().replace('/', '_')
-        clean_vendor = vendor_id.lower().replace('/', '_').replace(' ', '_')
+        clean_deal = (deal_id or "").lower().replace('/', '_')
+        clean_vendor = (vendor_id or "").lower().replace('/', '_').replace(' ', '_')
+        try:
+            from .deal_repository import deal_repository
+            deal = deal_repository.get_deal(deal_id)
+            if deal and "vendors" in deal:
+                for v in deal["vendors"]:
+                    vid = str(v.get("id", "")).lower()
+                    vname = str(v.get("name", "")).lower().replace(" ", "_")
+                    if clean_vendor == vid or clean_vendor == vname or vid in clean_vendor or vname in clean_vendor:
+                        clean_vendor = vid
+                        break
+        except Exception:
+            pass
         return os.path.join(SESSIONS_DIR, f'{clean_deal}_{clean_vendor}.json')
 
     def load_session(self, deal_id: str, vendor_id: str) -> dict:

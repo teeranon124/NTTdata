@@ -1343,13 +1343,13 @@
         "cert": "CE / RoHS ✓",
         "status": "รอเริ่มเจรจา (ห้องว่างสด)",
         "statusBadge": "badge-info text-white font-bold",
-        "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+        "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
         "ladder": [],
         "messages": []
       },
       {
         "id": "v_roykaen_eng",
-        "name": "บจก. รอยแก่น เอ็นจิเนียริ่ง พาร์ท",
+        "name": "บจก. รอยคีน พาร์ท ซัพพลาย",
         "email": "roykaen.30@gmail.com",
         "price": "฿1,680.00",
         "credit": "30 วัน",
@@ -1358,7 +1358,7 @@
         "cert": "CE / RoHS ✓",
         "status": "รอเริ่มเจรจา (ห้องว่างสด)",
         "statusBadge": "badge-info text-white font-bold",
-        "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+        "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
         "ladder": [],
         "messages": []
       },
@@ -1373,7 +1373,7 @@
         "cert": "CE / RoHS ✓",
         "status": "รอเริ่มเจรจา (ห้องว่างสด)",
         "statusBadge": "badge-info text-white font-bold",
-        "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+        "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
         "ladder": [],
         "messages": []
       }
@@ -2467,63 +2467,6 @@
     "po_number": "PO#450098112",
     "po_status": "PO_CREATED"
   },
-  "festo_cylinder": {
-    "id": "festo_cylinder",
-    "deal_code": "DEAL-2026-FESTO_CYLINDER",
-    "sku": "FESTO-DNC-40-100",
-    "name": "กระบอกลมนิวเมติกส์มาตรฐาน Festo ISO Cylinder (DNC-40-100-PPV-A)",
-    "category": "pneumatic",
-    "category_th": "นิวเมติกส์ & ไฮดรอลิกส์",
-    "stage": 3,
-    "stage_label": "เจรจาต่อรอง",
-    "stock_alert": "ชลบุรี Line Stamping",
-    "stock_type": "Safety Stock",
-    "unit": "ตัว",
-    "qty": 265,
-    "prs_count": 27,
-    "pre_price": 4200.0,
-    "post_price": 3690.0,
-    "pre_spend": 1138428.28,
-    "post_spend": 977850.0,
-    "savings": 160578.28,
-    "savings_pct": 14.1,
-    "supplier": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
-    "vendors": [
-      {
-        "id": "v1_festo_cylinder",
-        "name": "บจก. บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912)",
-        "price": "฿3,690.00",
-        "credit": "45 วัน",
-        "leadTime": "7 วันทำการ",
-        "warranty": "1 ปี",
-        "status": "กำลังเจรจารอบ 2",
-        "statusBadge": "badge-info text-white",
-        "outcome": "ผู้ชนะ TCO Rank #1 | ประหยัด ฿160,578.28 (-14.1%)",
-        "messages": [
-          {
-            "sender": "vendor",
-            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
-            "time": "10:30",
-            "text": "เรียนฝ่ายจัดซื้อ ตามคำขอเสนอราคา (RFQ) สำหรับ กระบอกลมนิวเมติกส์มาตรฐาน Festo ISO Cylinder (DNC-40-100-PPV-A) ยอดรวม 265 ตัว ทางเราขอเสนอราคา ฿4,200.00/ตัว เครดิต 30 วันครับ"
-          },
-          {
-            "sender": "agent",
-            "name": "AI จัดซื้ออัตโนมัติ (Autonomous Agent)",
-            "time": "10:32",
-            "text": "ขอบคุณครับ จากการรวมใบขอซื้อ 27 PRs ข้ามโรงงาน ทำให้เรามี Volume รวม 265 ตัว ทางระบบขอต่อรองราคาเป้าหมายที่ ฿3,690.00 พร้อมสัญญารายปี LTA ครับ",
-            "tactic": "[Spend Pooling: รวมยอดข้ามโรงงานเพื่อปลดล็อก Volume Tier]"
-          },
-          {
-            "sender": "vendor",
-            "name": "บางกอก นิวเมติกส์ เซ็นเตอร์ (V-3912) (ฝ่ายขาย)",
-            "time": "10:38",
-            "text": "หากผูกสัญญารายปีตามยอดดังกล่าว ทางเรายินดีอนุมัติราคาพิเศษที่ ฿3,690.00/ตัว เครดิต 45 วันครับ ขอบคุณครับ"
-          }
-        ],
-        "email": "teeranonn124@gmail.com"
-      }
-    ]
-  },
   "smc_compact_cyl": {
     "id": "smc_compact_cyl",
     "deal_code": "DEAL-2026-SMC_COMPACT_CYL",
@@ -3463,29 +3406,29 @@
         "id": "v_siam_pneu",
         "name": "บจก. สยาม นิวเมติกส์ แอนด์ ซัพพลาย",
         "email": "teeranonn124@gmail.com",
-        "price": "฿3,850.00",
+        "price": "฿3,680.00",
         "credit": "30 วัน",
         "leadTime": "7 วันทำการ",
         "warranty": "1 ปี",
         "cert": "ISO 15552 ✓",
-        "status": "รอเริ่มเจรจา (ห้องว่างสด)",
-        "statusBadge": "badge-info text-white font-bold",
-        "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+        "status": "กำลังเจรจาต่อรอง",
+        "statusBadge": "badge-primary text-white font-bold",
+        "outcome": "คู่ค้ายื่นข้อเสนอ ฿3,680.00 (เครดิต 30 วัน, สำรองสต็อก 10%) — ระบบอยู่ระหว่างเจรจาต่อรอง",
         "ladder": [],
         "messages": []
       },
       {
         "id": "v_roykaen_part",
-        "name": "บจก. รอยแก่น พาร์ท ซัพพลาย",
+        "name": "บจก. รอยคีน พาร์ท ซัพพลาย",
         "email": "roykaen.30@gmail.com",
-        "price": "฿3,890.00",
-        "credit": "30 วัน",
-        "leadTime": "10 วันทำการ",
-        "warranty": "1 ปี",
-        "cert": "ISO 15552 ✓",
-        "status": "รอเริ่มเจรจา (ห้องว่างสด)",
-        "statusBadge": "badge-info text-white font-bold",
-        "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+        "price": "-",
+        "credit": "-",
+        "leadTime": "-",
+        "warranty": "-",
+        "cert": "-",
+        "status": "รอเสนอราคา",
+        "statusBadge": "badge-ghost text-slate-400",
+        "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
         "ladder": [],
         "messages": []
       },
@@ -3493,14 +3436,14 @@
         "id": "v_film_auto",
         "name": "บจก. ฟิล์ม ออโตเมชั่น แอนด์ ทูลส์",
         "email": "filmzazazs63@gmail.com",
-        "price": "฿3,820.00",
-        "credit": "30 วัน",
-        "leadTime": "14 วันทำการ",
-        "warranty": "1 ปี",
-        "cert": "ISO 15552 ✓",
-        "status": "รอเริ่มเจรจา (ห้องว่างสด)",
-        "statusBadge": "badge-info text-white font-bold",
-        "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+        "price": "-",
+        "credit": "-",
+        "leadTime": "-",
+        "warranty": "-",
+        "cert": "-",
+        "status": "รอเสนอราคา",
+        "statusBadge": "badge-ghost text-slate-400",
+        "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
         "ladder": [],
         "messages": []
       }

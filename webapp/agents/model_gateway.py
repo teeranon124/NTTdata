@@ -6,7 +6,7 @@ complexity, then invokes it through the shared Bedrock Converse client.
 
 Routing policy (Mentor spec — Cost & Latency Optimization):
   - LIGHT tasks (intent parsing, classification, validation) -> fast tier
-    (Amazon Nova Lite / Claude 3.5 Haiku)
+    (Amazon Nova Micro / Claude 3.5 Haiku)
   - HEAVY tasks (strategic negotiation, persuasion, game theory) -> strong tier
     (Claude 3.5 Sonnet / Nova Pro)
 
@@ -42,7 +42,7 @@ class ModelGateway:
     """Selects and invokes the right model tier for a given task."""
 
     def __init__(self):
-        # Fast tier: default to the configured router model (Nova Lite), allow override.
+        # Fast tier: default to the configured router model (Nova Micro), allow override.
         self.fast_model = _env_any(
             ["BEDROCK_FAST_MODEL_ID", "BEDROCK_ROUTER_MODEL_ID", "BEDROCK_ROUTER_MODEL"],
             bedrock_client.router_model,

@@ -98,7 +98,7 @@
                     <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
                         <div class="text-[10px] text-slate-400 font-bold uppercase font-sans">ยอดความต้องการรวมทั้งปี</div>
                         <div class="text-base font-bold text-slate-900 mt-0.5">{{ '{:,}'.format(deal.qty) }} <span class="text-xs font-normal text-slate-500 font-sans">{{ deal.unit }}</span></div>
-                        <div class="text-[10px] text-blue-700 font-sans font-semibold mt-0.5">รวมจาก {{ deal.prs_count }} PRs ทั่วประเทศ</div>
+                        <div class="text-[10px] text-blue-700 font-sans font-semibold mt-0.5">ครอบคลุมความต้องการ 3 โรงงานหลัก</div>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
                         <div class="text-[10px] text-slate-400 font-bold uppercase font-sans">รูปแบบสัญญา & การันตี</div>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="text-right">
                             <div class="font-mono font-bold text-base text-blue-800" id="live-term-price">
-                                ฿{{ '{:,.2f}'.format(active_vendor.initial_price) }}
+                                {% if active_vendor.initial_price %}฿{{ '{:,.2f}'.format(active_vendor.initial_price) }}{% else %}รอท่านยื่นข้อเสนอ{% endif %}
                             </div>
                             <div class="text-[9px] text-slate-400 font-mono" id="live-term-price-hint">ราคาเปิดแรกตามใบเสนอราคา</div>
                         </div>
@@ -209,14 +209,14 @@
                     </div>
                 </div>
 
-                <!-- SUBMIT BINDING OFFER CTA (LOCKED UNTIL AGREED IN CHAT) -->
+                <!-- SUBMIT BINDING OFFER CTA -->
                 <div class="pt-1" id="portal-cta-wrapper">
-                    <button onclick="portalApp.submitBindingOffer()" id="btn-portal-accept" disabled class="btn btn-sm btn-ghost bg-slate-100 text-slate-400 border border-slate-200 w-full font-medium gap-1.5 cursor-not-allowed opacity-75 transition-all">
-                        <i data-lucide="lock" class="w-4 h-4" id="btn-portal-icon"></i>
-                        <span id="btn-portal-text">กรุณาเจรจาต่อรองผ่านห้องแชตด้านขวา</span>
+                    <button onclick="portalApp.submitBindingOffer()" id="btn-portal-accept" class="btn btn-sm bg-blue-700 hover:bg-blue-800 text-white w-full font-bold gap-1.5 shadow-xs transition-all cursor-pointer">
+                        <i data-lucide="check-circle-2" class="w-4 h-4" id="btn-portal-icon"></i>
+                        <span id="btn-portal-text">ยืนยันส่งข้อเสนอผูกพัน (Submit Final BAFO)</span>
                     </button>
-                    <div class="text-[10px] text-center text-slate-400 mt-1.5" id="btn-portal-subtext">
-                        ปุ่มยื่นข้อเสนอผูกพัน (Submit Binding BAFO) จะปลดล็อกทันทีที่ท่านบรรลุข้อตกลงในห้องแชต
+                    <div class="text-[10px] text-center text-slate-500 mt-1.5" id="btn-portal-subtext">
+                        ✓ ทุกข้อความเสนอราคาในแชตจะซิงก์เข้าตารางเปรียบเทียบจัดซื้อกลางสดอัตโนมัติ
                     </div>
                 </div>
             </div>
@@ -284,7 +284,7 @@
                         <time class="text-[9px] text-slate-400">10:00</time>
                     </div>
                     <div class="chat-bubble bg-white text-slate-800 shadow-xs border border-slate-200 leading-relaxed">
-                        เรียนฝ่ายขายและการตลาด <strong>{{ active_vendor.name if active_vendor else deal.supplier }}</strong> ครับ ทางฝ่ายจัดซื้อกลางขอเปิดการเจรจาสัญญารายปี LTA สำหรับ <strong>{{ deal.name }} ({{ deal.sku }})</strong> ปริมาณรวมทั้งปี <strong>{{ '{:,}'.format(deal.qty) }} {{ deal.unit }}</strong> (รวบรวมจาก {{ deal.prs_count }} ใบขอซื้อทั่วประเทศ)
+                        เรียนฝ่ายขายและการตลาด <strong>{{ active_vendor.name if active_vendor else deal.supplier }}</strong> ครับ ทางฝ่ายจัดซื้อกลางขอเปิดการเจรจาสัญญารายปี LTA สำหรับ <strong>{{ deal.name }} ({{ deal.sku }})</strong> ปริมาณรวมทั้งปี <strong>{{ '{:,}'.format(deal.qty) }} {{ deal.unit }}</strong> (สัญญารวมศูนย์ครอบคลุมโรงงานชลบุรี, ระยอง และอยุธยา)
                         <br><br>
                         เพื่อแลกกับการผูกสัญญา <strong>Blanket Order 1 ปีเต็ม</strong> และการันตีปริมาณสั่งซื้อ ทางฝ่ายจัดซื้อขอเรียนเสนอเปิดเงื่อนไขการจัดซื้อที่ <strong>฿{{ '{:,.2f}'.format((deal.post_price * 0.93) if deal.post_price else (deal.pre_price * 0.79)) }} / {{ deal.unit }}</strong> พร้อมเงื่อนไขการชำระเงิน <strong>60 วัน</strong> และส่งมอบแบบ DDP ทั้ง 3 นิคมฯ ทางท่านมีความเห็นหรือต้องการเสนอเงื่อนไขราคาและเครดิตเทอมอย่างไรบ้างครับ?
                     </div>
@@ -387,6 +387,24 @@
                         this.round = msgs.filter(m => m.sender === 'vendor').length + 1;
                         const rn = document.getElementById('current-round-num');
                         if (rn) rn.innerText = this.round;
+
+                        // Check if transcript or session has already agreed on terms
+                        const isAgreedHistory = msgs.some(m => 
+                            (m.tactic && m.tactic.includes('Award PO')) || 
+                            (m.text && (m.text.includes('ขอยืนยันการตกลง') || m.text.includes('อนุมัติราคา') || m.text.includes('ยินดีตกลง') || m.text.includes('รับเงื่อนไข')))
+                        );
+                        if (isAgreedHistory || (data.session && data.session.status === 'agreed')) {
+                            let p = (data.session && data.session.agreed_price) || Number(dealData.post_price || 1400);
+                            let c = (data.session && data.session.agreed_credit) || 45;
+                            const agreeMsg = msgs.find(m => m.text && (m.text.includes('1,400') || m.text.includes('1400')));
+                            if (agreeMsg && (!data.session || !data.session.agreed_price)) p = 1400;
+                            this.unlockAgreedState(p, c);
+                        } else {
+                            const lastVendorMsg = [...msgs].reverse().find(m => m.sender === 'vendor');
+                            if (lastVendorMsg) {
+                                this.detectTermsFromText(lastVendorMsg.text);
+                            }
+                        }
                     }
                 } catch (e) { /* first-time open: nothing to load */ }
             },
@@ -501,15 +519,19 @@
                         const reply = data.agent_reply || data.reply || "รับทราบข้อเสนอครับ ฝ่ายจัดซื้อกลางกำลังพิจารณาข้อเสนอของท่าน";
                         this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', reply, data.tactic);
                         
-                        // Update Live Term Sheet from backend response
-                        if (data.price) {
+                        // Update Live Term Sheet with what the SUPPLIER actually offered
+                        if (data.offered_price) {
+                            this.updateTermPrice(Number(data.offered_price));
+                        } else if (data.price && !data.buyer_price) {
                             this.updateTermPrice(Number(data.price));
                         }
-                        if (data.credit_days) {
-                            this.updateTermCredit(Number(data.credit_days));
+                        if (data.offered_credit) {
+                            this.updateTermCredit(Number(data.offered_credit));
                         }
-                        if (data.deal_agreed || data.status === 'agreed' || text.includes('ตกลง') || text.includes('ยินดีตกลง')) {
-                            this.unlockAgreedState(data.price || vendorData.final_price || (dealData.post_price || dealData.pre_price * 0.85), data.credit_days || 45);
+                        if (data.deal_agreed || data.status === 'agreed' || text.includes('ตกลง') || text.includes('ยินดีตกลง') || text.includes('รับเงื่อนไข') || text.includes('รับราคา')) {
+                            const finalPrice = Number(data.price || this.currentPrice || dealData.post_price || 1400);
+                            const finalCredit = Number(data.credit_days || this.currentCredit || 45);
+                            this.unlockAgreedState(finalPrice, finalCredit);
                         }
 
                         this.round += 1;
@@ -528,20 +550,22 @@
             },
 
             detectTermsFromText(text) {
-                // Heuristic regex to match prices like 425, 408, 398
-                const priceMatch = text.match(/(\d{3,4}(?:\.\d+)?)/);
+                // Heuristic regex to match prices like 1,400 or 1400 or 398.00
+                const priceMatch = text.match(/(?:฿|ราคา)?\s*([\d,]+(?:\.\d+)?)\s*(?:บาท|\/|ต่อ|$)?/);
                 if (priceMatch) {
-                    const p = parseFloat(priceMatch[1]);
-                    if (p > 100 && p < 1000) {
+                    const p = parseFloat(priceMatch[1].replace(/,/g, ''));
+                    if (!isNaN(p) && p > 50) {
                         this.updateTermPrice(p);
                     }
                 }
-                const creditMatch = text.match(/(\d{2})\s*วัน/);
+                const creditMatch = text.match(/(\d{2,3})\s*วัน/);
                 if (creditMatch) {
                     this.updateTermCredit(parseInt(creditMatch[1]));
                 }
-                if (text.includes('ตกลง') || text.includes('ยินดีตกลง') || text.includes('รับเงื่อนไข')) {
-                    this.unlockAgreedState(vendorData.final_price || (dealData.post_price || dealData.pre_price * 0.85), 45);
+                if (text.includes('ตกลง') || text.includes('ยินดีตกลง') || text.includes('รับเงื่อนไข') || text.includes('รับราคา') || text.includes('ยืนยัน')) {
+                    const finalP = this.currentPrice || Number(dealData.post_price || 1400);
+                    const finalC = this.currentCredit || 45;
+                    this.unlockAgreedState(finalP, finalC);
                 }
             },
 

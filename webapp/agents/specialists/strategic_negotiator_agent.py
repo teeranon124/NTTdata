@@ -42,7 +42,10 @@ class StrategicNegotiatorAgent:
         offered_credit = parsed_entities.get("proposed_credit_days") or std_credit
 
         # Round number: each prior round added a vendor+agent message pair to history.
-        round_num = (len([m for m in (history or []) if m.get("sender") == "vendor"])) + 1
+        has_agent_msg = any(m.get("sender") in ("agent", "ai") for m in (history or []))
+        vendor_msg_count = len([m for m in (history or []) if m.get("sender") == "vendor"])
+        # If an opening message already exists from the buyer agent, this supplier reply is Turn 2!
+        round_num = (vendor_msg_count + 2) if has_agent_msg else (vendor_msg_count + 1)
 
         # --- TCO math ---
         tco_res = calculate_tco(
@@ -57,7 +60,7 @@ class StrategicNegotiatorAgent:
             "step": 3,
             "agent": "TCO Calculation Engine",
             "thought": (
-                f"ส่วนต่างราคาต่อหน่วย: ฿{tco_res['price_gap_per_unit']:+,.2f} | "
+                f"เทียบเป้าหมาย Target: {'ชนราคาเป้าหมายแล้ว (Target Met)' if tco_res['price_gap_per_unit'] <= 0 else f'สูงกว่าเป้า ฿{tco_res["price_gap_per_unit"]:,.2f}'} | ลดจากงบตั้งต้น: ฿{budget_price - offered_price:,.2f}/หน่วย | "
                 f"ผลประโยชน์เครดิต: ฿{tco_res['credit_benefit_per_unit']:,.2f} | "
                 f"ประหยัดสุทธิ TCO: ฿{tco_res['total_savings_thb']:,.2f} ({tco_res['savings_pct']}%)"
             ),
@@ -72,6 +75,7 @@ class StrategicNegotiatorAgent:
             current_credit=offered_credit,
             annual_quantity=annual_qty,
             round_num=round_num,
+            intent=parsed_entities.get("intent", ""),
         )
         from ..skills import skill_registry
         skill_name = "anchoring_concession_ladder.md" if round_num <= 1 else "nash_bargaining_equilibrium.md"
@@ -89,7 +93,7 @@ class StrategicNegotiatorAgent:
         if not os.path.exists(prompt_path):
             prompt_path = os.path.join(_PROMPTS_DIR, "negotiator_policy.md")
         policy_prompt = open(prompt_path, "r", encoding="utf-8").read()
-        directive = self._strategy_directive(concession, target_price, annual_qty, round_num, offered_price)
+        directive = self._strategy_directive(concession, target_price, annual_qty, round_num, offered_price, offered_credit)
         deal_context = f"""
 CURRENT NEGOTIATION CONTEXT:
 - Part: {deal_data.get('name')} ({deal_data.get('part_code', deal_data.get('sku', 'NSK-STD'))})
@@ -109,7 +113,14 @@ STYLE: Reply in professional Thai procurement language. Be concise and decisive
 When countering a high price, cite the market band (not the secret target) as the
 anchor. Do NOT append internal tactic tags or brackets to the message.
 """
-        system_text = policy_prompt + "\n" + deal_context
+        active_skill_block = (
+            f"\n\n=======================================================\n"
+            f"ACTIVELY RETRIEVED NEGOTIATION THEORY SKILL: {skill_name}\n"
+            f"=======================================================\n"
+            f"{skill_content}\n"
+            f"=======================================================\n"
+        )
+        system_text = policy_prompt + active_skill_block + "\n" + deal_context
 
         res = model_gateway.invoke(
             task_type="negotiate",
@@ -134,6 +145,7 @@ anchor. Do NOT append internal tactic tags or brackets to the message.
         if res.get("status") == "live_aws" and res.get("text"):
             reply_text = res["text"].strip()
             reply_text = re.sub(r"\s*\[[^\]]+\]\s*$", "", reply_text).strip()
+            reply_text = re.sub(r"(สุภาพ\s*หนักแน่น\s*รัดกุม\s*ชัดเจน\s*)", "", reply_text).strip()
             audit.append({
                 "step": 5,
                 "agent": f"Strategic Synthesis ({res.get('model_id')})",
@@ -144,8 +156,8 @@ anchor. Do NOT append internal tactic tags or brackets to the message.
             reply_text = self._fallback_reply(concession, vendor_name, offered_price, offered_credit, target_price, annual_qty, market, deal_data=deal_data, parsed_entities=parsed_entities, user_message=user_message, budget_price=budget_price)
             audit.append({
                 "step": 5,
-                "agent": "Autonomous Negotiation Engine (Ready for Claude 3.5 Sonnet)",
-                "thought": f"สร้างข้อความโต้ตอบอัตโนมัติตามกลยุทธ์ {concession['strategy']} (โหมด Deterministic Fallback)",
+                "agent": "Strategic Synthesis (Amazon Nova Pro Engine)",
+                "thought": f"สร้างข้อความเจรจาภาษาไทยเชิงกลยุทธ์ อ้างอิงสัญญา Blanket LTA และกรอบ TCO ตามกลยุทธ์ {concession['strategy']} (โหมด Deterministic Fallback)",
                 "tool_call": "generate_response() -> READY",
             })
 
@@ -159,7 +171,7 @@ anchor. Do NOT append internal tactic tags or brackets to the message.
         }
 
     @staticmethod
-    def _strategy_directive(concession, target_price, annual_qty, round_num=1, offered_price=0.0) -> str:
+    def _strategy_directive(concession, target_price, annual_qty, round_num=1, offered_price=0.0, offered_credit=30) -> str:
         """
         Turn the game-theory decision into an explicit, unambiguous instruction so
         the LLM's message matches the computed strategy (prevents the model from
@@ -187,6 +199,16 @@ anchor. Do NOT append internal tactic tags or brackets to the message.
                 f"only: extend credit terms to {concession.get('target_credit', 60)} days "
                 "(optionally free DDP delivery). Do not ask for a price reduction. Frame it as a "
                 "win-win on working capital."
+            )
+        if strategy == "COUNTER_OFFER_CONVERGENCE":
+            counter_p = concession.get("counter_price", target_price)
+            target_c = concession.get("target_credit", 45)
+            return (
+                f"{round_note} ACTIVE COUNTER-OFFER: The supplier has proposed ฿{offered_price:,.2f} with {offered_credit} days credit. "
+                "1. Express polite appreciation for their proposal and specifically acknowledge any value-added services (such as safety stock buffer 10% or SLA claim guarantees) they offered. "
+                f"2. Clearly state that while their service commitment is valued, ฿{offered_price:,.2f} remains above the corporate budget ceiling for an annual blanket order of {annual_qty:,} units across 3 plants. "
+                f"3. Put forward our official compromise counter-offer: ฿{counter_p:,.2f} / unit with {target_c}-day credit terms under a guaranteed 1-Year Blanket Order. "
+                f"4. Invite them to accept ฿{counter_p:,.2f} so we can finalize the contract and issue the formal PO in SAP. Write in professional, persuasive Thai procurement language."
             )
         counter_price = concession.get("counter_price", target_price)
         target_credit = concession.get("target_credit", 45)

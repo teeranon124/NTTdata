@@ -74,10 +74,14 @@
             </div>
 
             <!-- Footer Buttons -->
-            <div class="p-4 border-t border-slate-200 flex justify-between items-center bg-slate-50">
+            <div class="p-4 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3 bg-slate-50">
                 <span class="text-[10px] text-slate-400 font-mono">Status: Stage 4 (รอลงนาม PO) ➔ Stage 5 (ออก PO สำเร็จ)</span>
                 <div class="flex items-center gap-2">
-                    <form method="dialog"><button class="btn btn-sm btn-ghost rounded-full px-4 text-slate-500">ยกเลิก</button></form>
+                    <form method="dialog"><button class="btn btn-sm btn-ghost rounded-full px-4 text-slate-500">ปิด</button></form>
+                    <button type="button" id="btn-reject-signoff" onclick="app.rejectSignOff()" class="btn btn-sm bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-full px-4 font-bold transition-all flex items-center gap-1.5 shadow-xs" title="ปฏิเสธข้อเสนอและส่งคำสั่งให้ AI Agent กลับไปต่อรองเพิ่ม">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        <span>ไม่อนุมัติ (ส่ง AI เจรจาเพิ่ม)</span>
+                    </button>
                     <button id="btn-submit-signoff" onclick="app.executeSAPCommit()" class="btn btn-sm bg-emerald-600 hover:bg-emerald-700 rounded-full px-5 text-white font-bold shadow-md transition-all flex items-center gap-1.5">
                         <i data-lucide="check-circle-2" class="w-4 h-4"></i> ลงนามอนุมัติและเปิด PO ใน SAP
                     </button>

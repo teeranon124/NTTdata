@@ -16,9 +16,9 @@ _BEDROCK_BOTO_CONFIG = Config(
     retries={"max_attempts": 2, "mode": "standard"},
 )
 
-# Defaults: Claude 3.5 Sonnet for the Thai negotiation voice, Nova Lite for the router.
-DEFAULT_ROUTER_MODEL = "amazon.nova-lite-v1:0"
-DEFAULT_NEGOTIATOR_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+# Defaults: Claude 3.5 Sonnet for the Thai negotiation voice, Nova Micro for the router.
+DEFAULT_ROUTER_MODEL = "amazon.nova-micro-v1:0"
+DEFAULT_NEGOTIATOR_MODEL = "amazon.nova-pro-v1:0"
 
 
 def _env_any(keys: List[str], default: str) -> str:
@@ -67,19 +67,31 @@ class BedrockClient:
         """
         start_time = time.time()
         
-        # Bedrock messages format
-        bedrock_messages = []
+        # Bedrock Converse API compliance:
+        # 1. The first message MUST have role 'user'
+        # 2. Roles must strictly alternate (user -> assistant -> user ...)
+        raw_entries = []
         for m in messages:
-            role = "assistant" if m.get("sender") == "agent" else "user"
-            content = m.get("text", "")
+            role = "assistant" if m.get("sender") in ("agent", "ai") else "user"
+            content = (m.get("text") or "").strip()
             if content:
-                bedrock_messages.append({
-                    "role": role,
-                    "content": [{"text": content}]
-                })
+                raw_entries.append((role, content))
 
-        if not bedrock_messages:
-            bedrock_messages = [{"role": "user", "content": [{"text": "สวัสดีครับ"}]}]
+        if not raw_entries:
+            raw_entries = [("user", "สวัสดีครับ ขอเปิดการเจรจาเงื่อนไขจัดซื้อ")]
+        elif raw_entries[0][0] != "user":
+            # Prepend an initial RFQ trigger prompt so Bedrock's first turn is 'user'
+            raw_entries.insert(0, ("user", "ขอเปิดการเจรจาจัดซื้อสัญญารายปี LTA"))
+
+        # Strictly alternate roles by concatenating consecutive turns from the same sender
+        consolidated = []
+        for role, content_text in raw_entries:
+            if consolidated and consolidated[-1]["role"] == role:
+                consolidated[-1]["content"][0]["text"] += f"\n\n{content_text}"
+            else:
+                consolidated.append({"role": role, "content": [{"text": content_text}]})
+
+        bedrock_messages = consolidated
 
         if self.client:
             try:

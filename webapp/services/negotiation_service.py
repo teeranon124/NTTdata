@@ -32,7 +32,7 @@ class BedrockNegotiationService:
     def negotiate(self, deal_key: str, vendor_name: str, conversation_history: Optional[list] = None, latest_user_message: str = "") -> dict:
         """
         Conducts negotiation turn as an Autonomous Enterprise MRO Procurement Agent.
-        Uses Deal Repository, Session Repository, Router Agent (Nova Lite), and Negotiator Agent (Nova Pro).
+        Uses Deal Repository, Session Repository, Router Agent (Nova Micro), and Negotiator Agent (Nova Pro).
         """
         deal_key = deal_key.lower().strip()
         deal_data = deal_repository.get_deal(deal_key)
@@ -75,7 +75,7 @@ class BedrockNegotiationService:
         }
         session["messages"].append(user_msg_entry)
         
-        # Step A: Router Agent (Nova Lite / Deterministic Parser)
+        # Step A: Router Agent (Nova Micro / Deterministic Parser)
         parsed_intent = parse_supplier_intent(latest_user_message)
         
         # Step B: Strategic Negotiator Turn (Guardrail -> TCO -> Concession Engine -> Nova Pro)
@@ -118,8 +118,9 @@ class BedrockNegotiationService:
         tco_data = agent_result.get("tco_data", {})
         concession = agent_result.get("concession", {})
         is_blocked = "[Security Alert: Prompt Injection Blocked]" in agent_tactic or "BLOCKED" in agent_tactic
+        is_already_agreed = session.get("status") == "agreed"
         
-        if not is_blocked and parsed_intent.get("proposed_unit_price"):
+        if not is_blocked and parsed_intent.get("proposed_unit_price") and not is_already_agreed:
             offered_p = parsed_intent["proposed_unit_price"]
             offered_credit = parsed_intent.get("proposed_credit_days", 30)
             ladder = session.setdefault("concession_ladder", [])
@@ -160,9 +161,12 @@ class BedrockNegotiationService:
                         "price": f"฿{offered_p:,.2f}",
                         "tag": "Award PO",
                         "color": "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold",
-                        "note": f"บรรลุเป้าหมาย TCO ยืนยันออก Draft PO เครดิต {offered_credit} วัน"
+                        "note": f"บรรลุเป้าหมายตามกรอบสัญญา ยืนยันออก Draft PO เครดิต {offered_credit} วัน"
                     }
                     ladder.append(award_entry)
+                    session["status"] = "agreed"
+                    session["agreed_price"] = offered_p
+                    session["agreed_credit"] = offered_credit
         # Store audit trace in session, stamped with model/cost telemetry so the
         # DB AuditTrail rows carry model_id, tier, latency, tokens and tco_score.
         if "audit_trace" in agent_result:
@@ -185,6 +189,20 @@ class BedrockNegotiationService:
 
         # Save updated session
         session_repository.save_session(deal_key, vendor_id, session)
+
+        # Update deal stage to Stage 3 (เจรจาต่อรอง) and vendor terms in database!
+        if hasattr(deal_repository, "update_vendor_terms"):
+            try:
+                deal_repository.update_vendor_terms(
+                    deal_id=deal_key,
+                    vendor_identifier=vendor_name,
+                    price=parsed_intent.get("proposed_unit_price"),
+                    credit_days=parsed_intent.get("proposed_credit_days"),
+                    lead_time_days=parsed_intent.get("proposed_lead_time_days"),
+                    status="กำลังเจรจา (Stage 3)"
+                )
+            except Exception as e:
+                logger.warning(f"Failed to update vendor terms: {e}")
 
         # Assemble the 5-dimension commercial terms snapshot for the live Scorecard.
         commercial_terms = {

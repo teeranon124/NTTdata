@@ -1,3 +1,4 @@
+import re
 import logging
 logger = logging.getLogger(__name__)
 import datetime
@@ -123,14 +124,21 @@ def supplier_portal(deal_id):
             active_vendor["tco_score"] = 58.2
             active_vendor["initial_credit"] = "30 วัน"
     else:
-        # Scale presets realistically for any deal (Omron, Festo, SKF, etc.)
-        active_vendor["initial_price"] = round(pre_p * 0.96, 2)
-        active_vendor["counter_price"] = round(pre_p * 0.90, 2)
+        import re
+        v_p = active_vendor.get("price")
+        if v_p and str(v_p).strip() != "-":
+            try:
+                active_vendor["initial_price"] = float(re.sub(r"[^\d.]", "", str(v_p)))
+            except Exception:
+                active_vendor["initial_price"] = None
+        else:
+            active_vendor["initial_price"] = None
+        active_vendor["counter_price"] = post_p
         active_vendor["final_price"] = post_p
         active_vendor["rank_text"] = "อยู่ระหว่างเจรจาข้อเสนอ (Live Negotiation)"
         active_vendor["rank_badge"] = "badge-info text-white"
         active_vendor["tco_score"] = 88.5
-        active_vendor["initial_credit"] = "30 วัน"
+        active_vendor["initial_credit"] = active_vendor.get("credit") or "30 วัน"
 
     token = request.args.get("token", "").strip()
     target_vid = str(active_vendor.get("id", "v1")).strip().lower()
@@ -267,6 +275,16 @@ def send_invite():
     mode = "ส่งจริงผ่าน AWS SES" if result.get("status") == "live_ses" else "โหมดจำลอง (Simulation)"
     add_live_event(f"ส่ง Magic Link เชิญ {vendor_name} เข้าห้องเจรจาดีล {deal_id.upper()} ({mode}) → {email}")
 
+    # Advance deal to Stage 2 (ออกเทียบราคา) if currently at Stage 1
+    if deal_data and deal_data.get("stage", 1) < 2:
+        if hasattr(deal_repository, "update_stage"):
+            deal_repository.update_stage(deal_id, 2, "ออกเทียบราคา")
+        publish_event("deal_stage_changed", {
+            "deal_id": deal_id,
+            "stage": 2,
+            "stage_label": "ออกเทียบราคา"
+        })
+
     return jsonify({"portal_url": portal_url, **result})
 
 
@@ -350,7 +368,7 @@ def get_chat_session(deal_id, vendor_id):
                 session["concession_ladder"] = vendor_data["ladder"]
             session_repository.save_session(deal_id, vendor_id, session)
 
-    return jsonify({"session": session})
+    return jsonify({"session": session, "deal": deal})
 
 @chat_bp.route("/api/chat/<deal_id>/<vendor_id>/reset", methods=["POST"])
 def reset_chat_session(deal_id, vendor_id):
@@ -411,6 +429,172 @@ def get_award_board(deal_id):
     """
     board = negotiation_service.get_award_board(deal_id)
     return jsonify(board)
+
+
+@chat_bp.route("/api/deals/<deal_id>/award", methods=["POST"])
+def award_deal(deal_id):
+    """
+    Explicitly award the deal to a single vendor (Stage 4: รอลงนาม PO).
+    In competitive multi-vendor sourcing, the buyer filters and selects the #1 best offer.
+    """
+    import re
+    data = request.json or {}
+    vendor_id = data.get("vendor_id")
+    agreed_price = data.get("agreed_price")
+    
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        return jsonify({"status": "error", "detail": f"Deal {deal_id} not found"}), 404
+        
+    vendors = deal.get("vendors", [])
+    selected_vendor = None
+    if vendor_id:
+        target = str(vendor_id).lower().replace("_", " ").strip()
+        for v in vendors:
+            vid = str(v.get("id", "")).lower().replace("_", " ").strip()
+            vname = str(v.get("name", "")).lower().replace("_", " ").strip()
+            if vid == target or target in vid or target in vname or (vname and vname in target):
+                selected_vendor = v
+                break
+    elif vendors:
+        selected_vendor = vendors[0]
+
+    if not selected_vendor:
+        return jsonify({"status": "error", "detail": "Vendor not found in this deal"}), 404
+
+    target_vid = selected_vendor.get("id") or selected_vendor.get("name")
+    v_name = selected_vendor.get("name")
+    if agreed_price is None and selected_vendor.get("price"):
+        p_str = re.sub(r"[^\d.]", "", str(selected_vendor.get("price")))
+        try:
+            agreed_price = float(p_str)
+        except Exception:
+            pass
+
+    if hasattr(deal_repository, "mark_deal_awarded"):
+        deal_repository.mark_deal_awarded(deal_id, target_vid, agreed_price)
+
+    add_live_event(f"🏆 คัดยลือก {v_name} เป็นผู้ชนะดีล {deal_id.upper()} ➔ เลื่อนเป็น Stage 4 (รอ CPO ลงนาม PO)")
+    publish_event("deal_awarded", {"deal_id": deal_id, "vendor_id": target_vid, "stage": 4})
+    
+    updated_deal = deal_repository.get_deal(deal_id)
+    return jsonify({"status": "success", "winner": target_vid, "deal": updated_deal})
+
+
+def auto_evaluate_and_award(deal_id: str):
+    """
+    Autonomous Sourcing Engine:
+    Compares all submitted quotes in the deal, evaluates TCO & price,
+    and automatically awards the winning vendor (moving deal to Stage 4: รอลงนาม PO).
+    """
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        return None, None
+        
+    vendors = deal.get("vendors", [])
+    valid_quotes = []
+    
+    for v in vendors:
+        raw_price = v.get("price")
+        if not raw_price or str(raw_price).strip() in ("-", "", "รอเสนอราคา"):
+            continue
+        try:
+            p_val = float(re.sub(r"[^\d.]", "", str(raw_price)))
+            if p_val > 0:
+                valid_quotes.append({
+                    "id": v.get("id") or v.get("name"),
+                    "name": v.get("name"),
+                    "price": p_val,
+                    "credit": v.get("credit", "30 วัน"),
+                    "lead_time": v.get("leadTime", "7 วันทำการ"),
+                })
+        except Exception:
+            continue
+            
+    if not valid_quotes:
+        return None, None
+        
+    # Sort by price ascending (lowest price = rank 1 / best TCO)
+    valid_quotes.sort(key=lambda x: x["price"])
+    best_vendor = valid_quotes[0]
+    
+    if hasattr(deal_repository, "mark_deal_awarded"):
+        deal_repository.mark_deal_awarded(deal_id, best_vendor["id"], best_vendor["price"])
+        
+    add_live_event(
+        f"🏆 [AI Autonomous BAFO Award] Agent คัดเลือก {best_vendor['name']} ชนะการประมูล "
+        f"(เสนอราคาต่ำสุด ฿{best_vendor['price']:,.2f}) ➔ ปรับสถานะเป็น Stage 4 (รอผู้บริหารลงนาม PO)"
+    )
+    
+    publish_event("deal_awarded", {
+        "deal_id": deal_id,
+        "vendor_id": best_vendor["id"],
+        "vendor_name": best_vendor["name"],
+        "price": best_vendor["price"],
+        "stage": 4,
+        "stage_label": "รอลงนาม PO"
+    })
+    
+    return best_vendor, 4
+
+
+@chat_bp.route("/api/deals/<deal_id>/reject", methods=["POST"])
+def reject_deal(deal_id):
+    """
+    Human-in-the-Loop Governance: Executive rejects the current BAFO recommendation
+    and gives directive instructions to the AI Agent to negotiate further.
+    Moves deal back to Stage 3 (เจรจาต่อรอง).
+    """
+    data = request.json or {}
+    directive = (data.get("directive") or "ขอต่อรองราคาลงเพิ่มเติม และขอขยายเครดิตเทอมเป็น 60 วัน").strip()
+    rejected_by = (data.get("rejected_by") or "คุณ ธีรนนท์ (CPO)").strip()
+
+    deal = deal_repository.get_deal(deal_id)
+    if not deal:
+        return jsonify({"status": "error", "detail": f"Deal {deal_id} not found"}), 404
+
+    # Move back to Stage 3
+    if hasattr(deal_repository, "update_stage"):
+        deal_repository.update_stage(deal_id, 3, "เจรจาต่อรอง")
+
+    # Reset vendor winning statuses back to active negotiation
+    try:
+        from ...database.engine import session_scope
+        from ...database.models import Deal, Vendor
+        with session_scope() as session:
+            db_deal = session.query(Deal).filter_by(id=deal_id).first()
+            if db_deal:
+                db_deal.stage = 3
+                db_deal.stage_label = "เจรจาต่อรอง"
+                db_deal.po_status = "NEGOTIATING"
+                for v in db_deal.vendors:
+                    if "ชนะ" in (v.status or ""):
+                        v.status = "กำลังเจรจารอบใหม่ (CPO Directive)"
+                        v.status_badge = "badge-warning text-slate-900 font-bold"
+                    elif "ไม่ได้รับเลือก" in (v.status or ""):
+                        v.status = "รอเสนอราคาปรับปรุง"
+                        v.status_badge = "badge-ghost text-slate-500"
+    except Exception as e:
+        logger.warning(f"Error resetting vendor status on reject: {e}")
+
+    action_msg = f"↩️ [CPO Directive] {rejected_by} ส่งกลับให้ AI เจรจาเพิ่ม: \"{directive}\" ➔ ปรับกลับเป็น Stage 3 (เจรจาต่อรอง)"
+    add_live_event(action_msg)
+
+    publish_event("deal_rejected", {
+        "deal_id": deal_id,
+        "stage": 3,
+        "stage_label": "เจรจาต่อรอง",
+        "directive": directive,
+        "rejected_by": rejected_by
+    })
+
+    return jsonify({
+        "status": "success",
+        "deal_id": deal_id,
+        "stage": 3,
+        "stage_label": "เจรจาต่อรอง",
+        "directive": directive
+    })
 
 
 @chat_bp.route("/api/audit/sessions")
@@ -539,6 +723,22 @@ def create_po(deal_id):
                 )
                 v["status"] = "ชนะการคัดเลือก (ได้รับ PO)"
                 v["statusBadge"] = "badge-success text-white font-bold"
+
+                # Dispatched real official PO Confirmation email via AWS SES to winner and buyer
+                winner_email = v.get("email") or "teeranonn124@gmail.com"
+                try:
+                    from ...services.email_service import send_po_award_email
+                    mail_res = send_po_award_email(
+                        to_email=winner_email,
+                        vendor_name=v_name,
+                        deal_id=deal_id,
+                        po_number=po_number,
+                        approved_by=approved_by,
+                        deal_data=deal,
+                    )
+                    logger.info(f"Dispatched PO confirmation email to {winner_email}: {mail_res}")
+                except Exception as e:
+                    logger.warning(f"Failed to dispatch PO email to {winner_email}: {e}")
             except Exception as e:
                 logger.warning(f"Error notifying winning vendor {v_id}: {e}")
         else:
@@ -589,6 +789,7 @@ def create_po(deal_id):
 def negotiate():
     data = request.json or {}
     deal_id = data.get("deal_id", "nsk")
+    deal = deal_repository.get_deal(deal_id)
     vendor_id = data.get("vendor_id", "siam_precision")
     vendor_name = data.get("vendor_name", "สยาม พรีซิชั่น (ฝ่ายขาย)")
     message = data.get("message", "")
@@ -608,21 +809,44 @@ def negotiate():
 
     target_price = concession.get("counter_price") or concession.get("target_price") or parsed_intent.get("proposed_unit_price")
     credit_days = parsed_intent.get("proposed_credit_days") or concession.get("target_credit")
-    is_agreed = concession.get("strategy") == "AGREE_AND_AWARD" or "ตกลง" in message or "รับข้อเสนอ" in message
+    offered_price = parsed_intent.get("proposed_unit_price")
+    offered_credit = parsed_intent.get("proposed_credit_days")
+    offered_lead_time = parsed_intent.get("proposed_lead_time_days")
 
-    # Closed-loop: when the negotiation is agreed, transition the deal to Stage 4
-    # (รออนุมัติ PO) and record the winning vendor, so the sign-off button unlocks.
-    stage_now = None
-    if is_agreed and hasattr(deal_repository, "mark_deal_awarded"):
+    # 1. Update vendor terms in the repository
+    if hasattr(deal_repository, "update_vendor_terms"):
         try:
-            agreed_price = concession.get("counter_price") or parsed_intent.get("proposed_unit_price") or target_price
-            if deal_repository.mark_deal_awarded(deal_id, vendor_id, agreed_price):
-                stage_now = 4
-                add_live_event(f"✅ ดีล {deal_id.upper()} บรรลุข้อตกลงกับ {vendor_name} ➔ เลื่อนเป็น Stage 4 (รออนุมัติ PO)")
+            deal_repository.update_vendor_terms(
+                deal_id=deal_id,
+                vendor_identifier=vendor_name,
+                price=offered_price,
+                credit_days=offered_credit,
+                lead_time_days=offered_lead_time,
+                status="กำลังเจรจา (Stage 3)"
+            )
         except Exception as e:
-            logger.warning(f"mark_deal_awarded failed: {e}")
+            logger.warning(f"update_vendor_terms failed: {e}")
 
-    add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: ยื่นข้อเสนอเงื่อนไขสัญญา LTA")
+    # 2. Check if negotiation achieved agreement or binding BAFO
+    strat = concession.get("strategy", "")
+    msg_l = (message or "").lower()
+    is_agreed_trigger = (strat == "AGREE_AND_AWARD") or any(
+        k in msg_l for k in ["ตกลง", "ยินดีรับ", "ยืนยันราคา", "bafo", "ยื่นข้อเสนอผูกพัน", "ข้อเสนอสุดท้าย", "ยอมรับเงื่อนไข"]
+    )
+
+    stage_now = 3
+    is_agreed = False
+    winning_vendor = None
+
+    # When agreement/BAFO/acceptable quote is reached, Agent autonomously evaluates all bids
+    if is_agreed_trigger or (offered_price and strat in ("HOLD_FIRM", "AGREE_AND_AWARD")):
+        best_v, st = auto_evaluate_and_award(deal_id)
+        if best_v:
+            winning_vendor = best_v
+            is_agreed = True
+            stage_now = 4
+
+    add_live_event(f"AI Agent เจรจาดีล {deal_id.upper()} กับ {vendor_name}: ตอบสนองเงื่อนไขสัญญา LTA")
 
     # Real-time push to the Buyer dashboard: supplier message + AI reply land live.
     now_hhmm = datetime.datetime.now().strftime("%H:%M")
@@ -642,13 +866,19 @@ def negotiate():
         "time": now_hhmm,
     })
 
+    offered_price = parsed_intent.get("proposed_unit_price")
+    offered_credit = parsed_intent.get("proposed_credit_days")
     return jsonify({
         "status": "success",
         "agent_reply": reply_text,
         "reply": reply_text,
         "tactic": tactic_text,
-        "price": target_price,
-        "credit_days": credit_days,
+        "offered_price": offered_price,
+        "offered_credit": offered_credit,
+        "buyer_price": target_price,
+        "buyer_credit": credit_days,
+        "price": offered_price or target_price,
+        "credit_days": offered_credit or credit_days,
         "deal_agreed": is_agreed,
         "stage": stage_now,
         "tco_data": tco_data,
@@ -803,6 +1033,7 @@ def demo_reset_all():
 
     # 2. Reset database tables
     try:
+        session_repository.clear_all_sessions()
         from ...database.seed_loader import seed, reset_sessions
         reset_sessions()
         seed(force=True)

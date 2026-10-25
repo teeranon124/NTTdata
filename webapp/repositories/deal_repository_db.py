@@ -89,6 +89,22 @@ class DealRepositoryDB:
                 d.agreed_price = float(agreed_price)
             if d.po_status not in ("PO_CREATED",):
                 d.po_status = "AWARDED"
+            for v in getattr(d, 'vendors', []):
+                vid = str(getattr(v, 'vendor_id', '') or '').lower()
+                vname = str(getattr(v, 'name', '') or '').lower()
+                target = str(vendor_id).lower()
+                if vid == target or target in vid or target in vname or vid in target:
+                    v.status = "ชนะการประมูล (ออกใบ PO)"
+                    v.status_badge = "badge-success text-white font-bold"
+                    if agreed_price is not None:
+                        v.price = f"฿{float(agreed_price):,.2f}"
+                else:
+                    if not v.price or str(v.price).strip() in ("-", ""):
+                        v.status = "รอเสนอราคา"
+                        v.status_badge = "badge-ghost text-slate-400"
+                    else:
+                        v.status = "ไม่ได้รับเลือก (Outbid)"
+                        v.status_badge = "badge-ghost text-slate-500"
             return True
 
     def create_po(self, deal_id: str, po_number: str) -> bool:
@@ -103,5 +119,47 @@ class DealRepositoryDB:
             d.stage_label = "ออก PO สำเร็จ"
             return True
 
+
+    def update_stage(self, deal_id: str, stage: int, stage_label: str = None) -> bool:
+        with session_scope() as s:
+            d = s.get(Deal, (deal_id or "").lower())
+            if not d:
+                return False
+            d.stage = stage
+            if stage_label:
+                d.stage_label = stage_label
+            elif stage == 1:
+                d.stage_label = "รวมความต้องการ"
+            elif stage == 2:
+                d.stage_label = "ออกเทียบราคา"
+            elif stage == 3:
+                d.stage_label = "เจรจาต่อรอง"
+            elif stage == 4:
+                d.stage_label = "รอลงนาม PO"
+            return True
+
+    def update_vendor_terms(self, deal_id: str, vendor_identifier: str, price: float = None, credit_days: int = None, lead_time_days: int = None, status: str = None) -> bool:
+        with session_scope() as s:
+            d = s.get(Deal, (deal_id or "").lower())
+            if not d:
+                return False
+            if d.stage < 3:
+                d.stage = 3
+                d.stage_label = "เจรจาต่อรอง"
+            for v in getattr(d, 'vendors', []):
+                vid = str(getattr(v, 'vendor_id', '') or '').lower().replace('_', ' ').strip()
+                vname = str(getattr(v, 'name', '') or '').lower().replace('_', ' ').strip()
+                target = str(vendor_identifier).lower().replace('_', ' ').strip()
+                if vid == target or target in vid or target in vname or vid in target or (vname and vname in target):
+                    if price is not None and price > 0:
+                        v.price = f"฿{float(price):,.2f}"
+                    if credit_days is not None and credit_days > 0:
+                        v.credit = f"{int(credit_days)} วัน"
+                    if lead_time_days is not None and lead_time_days > 0:
+                        v.lead_time = f"{int(lead_time_days)} วันทำการ"
+                    if status:
+                        v.status = status
+                        v.status_badge = "badge-primary text-white font-bold"
+            return True
 
 deal_repository_db = DealRepositoryDB()

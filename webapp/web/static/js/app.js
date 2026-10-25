@@ -148,10 +148,9 @@
 
                                             </button>
 
-                                            <a href="${portalUrl}" target="_blank" class="btn btn-xs btn-ghost text-indigo-400 hover:text-indigo-300 hover:bg-slate-800 rounded-lg p-1" title="เปิดหน้าจอคู่ค้า (Supplier Portal)">
-
-                                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-
+                                            <a href="${portalUrl}" target="_blank" class="btn btn-xs bg-indigo-600/30 hover:bg-indigo-600/60 text-indigo-200 border border-indigo-500/30 rounded-lg px-2 py-1 h-auto flex items-center gap-1 shadow-xs transition-all" title="เปิดหน้าจอคู่ค้า (Supplier Portal)">
+                                                <i data-lucide="external-link" class="w-3 h-3"></i>
+                                                <span>เปิด Portal</span>
                                             </a>
 
                                         </div>
@@ -819,9 +818,59 @@
                             this.handleDealReset(data);
 
                         } else if (data.type === 'negotiation') {
-
                             this.onLiveNegotiation(data);
-
+                        } else if (data.type === 'deal_awarded') {
+                            const dealKey = (data.deal_id || '').toLowerCase();
+                            const deal = this.getDeal ? this.getDeal(dealKey) : (database.deals[dealKey] || {});
+                            if (deal) {
+                                deal.stage = 4;
+                                deal.stage_label = 'รอลงนาม PO';
+                                deal.winning_vendor_id = data.vendor_id;
+                            }
+                            const pipelineRows = document.querySelectorAll(`tr.job-row[data-deal-key="${dealKey}"]`);
+                            pipelineRows.forEach(row => {
+                                row.setAttribute('data-stage', '4');
+                                const badgeContainer = row.querySelector('.stage-badge-container');
+                                if (badgeContainer) {
+                                    badgeContainer.innerHTML = `
+                                        <div class="inline-flex flex-col items-center justify-center px-1.5 py-0.5 rounded bg-emerald-50 border-emerald-200 text-emerald-800 shadow-xs">
+                                            <span class="font-bold text-[10px] font-mono leading-none">Stage 4</span>
+                                            <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">รอลงนาม PO</span>
+                                        </div>
+                                    `;
+                                }
+                                const actionTd = row.children[8] || row.querySelector('td:last-child');
+                                if (actionTd) {
+                                    const signBtn = actionTd.querySelector('button:last-child');
+                                    if (signBtn) {
+                                        signBtn.outerHTML = `<button type="button" onclick="app.openSignOff('${dealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-1.5 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>`;
+                                        if (window.lucide) lucide.createIcons({ root: actionTd });
+                                    }
+                                }
+                            });
+                            // Unlock header button
+                            const headerSignOff = document.getElementById('chat-header-signoff-btn');
+                            if (headerSignOff) {
+                                headerSignOff.className = 'btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg gap-1 border border-emerald-400/40 shadow-sm cursor-pointer transition-all';
+                                headerSignOff.innerHTML = '<i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">ได้ข้อสรุปแล้ว ➔ ลงนาม PO</span>';
+                                headerSignOff.onclick = () => app.openSignOff(dealKey);
+                                if (window.lucide) lucide.createIcons({ root: headerSignOff });
+                            }
+                        } else if (data.type === 'deal_stage_changed') {
+                            const dealKey = (data.deal_id || '').toLowerCase();
+                            const pipelineRows = document.querySelectorAll(`tr.job-row[data-deal-key="${dealKey}"]`);
+                            pipelineRows.forEach(row => {
+                                row.setAttribute('data-stage', String(data.stage || '2'));
+                                const badgeContainer = row.querySelector('.stage-badge-container');
+                                if (badgeContainer) {
+                                    badgeContainer.innerHTML = `
+                                        <div class="inline-flex flex-col items-center justify-center px-1.5 py-0.5 rounded bg-blue-50 border-blue-200 text-blue-800 shadow-xs">
+                                            <span class="font-bold text-[10px] font-mono leading-none">Stage ${data.stage || 2}</span>
+                                            <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">${data.stage_label || 'ออกเทียบราคา'}</span>
+                                        </div>
+                                    `;
+                                }
+                            });
                         }
 
                     };
@@ -2059,7 +2108,7 @@
 
                                 <span class="max-w-[140px] truncate">${cleanName}</span>
 
-                                <span class="badge badge-xs ${v.statusBadge}">${v.status.includes('ชนะ') ? 'ชนะดีล (PO)' : (v.status.includes('SLA') ? 'ตกรอบ SLA' : (v.status.includes('รอ') ? 'รอเริ่มเจรจา' : 'ราคาสูง'))}</span>
+                                <span class="badge badge-xs ${v.statusBadge}">${v.status.includes('ชนะ') ? 'ชนะดีล (PO)' : (v.status.includes('SLA') ? 'ตกรอบ SLA' : (v.status.includes('เจรจา') ? 'กำลังเจรจา' : (v.status.startsWith('รอ') || !v.price || v.price === '-' ? 'รอเสนอราคา' : 'ราคาสูง')))}</span>
 
                             </button>
 
@@ -2101,6 +2150,21 @@
 
                             }
 
+                            if (data.deal) {
+                                deal.stage = data.deal.stage || deal.stage;
+                                deal.stage_label = data.deal.stage_label || deal.stage_label;
+                                if (data.deal.vendors) {
+                                    data.deal.vendors.forEach((dv, idx) => {
+                                        if (deal.vendors && deal.vendors[idx]) {
+                                            if (dv.price) deal.vendors[idx].price = dv.price;
+                                            if (dv.credit) deal.vendors[idx].credit = dv.credit;
+                                            if (dv.leadTime) deal.vendors[idx].leadTime = dv.leadTime;
+                                            if (dv.status) deal.vendors[idx].status = dv.status;
+                                        }
+                                    });
+                                }
+                            }
+
                         }
 
                     } catch(e) {}
@@ -2118,6 +2182,57 @@
             },
 
 
+
+            async awardVendor(dealKey, vendorId) {
+                if (!dealKey) dealKey = this.currentChatDealKey || 'festo_cyl';
+                try {
+                    const res = await fetch(`/api/deals/${dealKey}/award`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ vendor_id: vendorId })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.status === 'success') {
+                        const deal = this.getDeal(dealKey);
+                        if (deal) {
+                            deal.stage = 4;
+                            deal.stage_label = 'รอลงนาม PO';
+                            deal.winning_vendor_id = vendorId;
+                            if (deal.vendors) {
+                                deal.vendors.forEach(v => {
+                                    const vid = (v.id || v.name || '').toLowerCase();
+                                    const target = (vendorId || '').toLowerCase();
+                                    if (vid === target || target.includes(vid) || vid.includes(target)) {
+                                        v.status = 'ชนะการประมูล (ออกใบ PO)';
+                                        v.statusBadge = 'badge-success text-white font-bold';
+                                    } else {
+                                        v.status = 'ไม่ได้รับเลือก (Outbid)';
+                                        v.statusBadge = 'badge-ghost text-slate-400 font-normal';
+                                    }
+                                });
+                            }
+                        }
+                        this.showToast(`🏆 คัดเลือกผู้ชนะเรียบร้อย! ปลดล็อกขั้นตอนลงนาม PO แล้ว`, 'success');
+                        
+                        // Update Header Sign-Off button to green unlocked
+                        const headerSignOff = document.getElementById('chat-header-signoff-btn');
+                        if (headerSignOff) {
+                            headerSignOff.className = 'btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg gap-1 border border-emerald-400/40 shadow-sm cursor-pointer transition-all animate-bounce';
+                            headerSignOff.innerHTML = '<i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">ได้ข้อสรุปแล้ว ➔ ลงนาม PO</span>';
+                            headerSignOff.onclick = () => app.openSignOff(dealKey);
+                            headerSignOff.title = 'คลิกเพื่อลงนามอนุมัติ PO ผู้ชนะในระบบ SAP';
+                        }
+                        
+                        // Re-render chat modal panels
+                        if (deal) this.renderRightPanel(deal, this.currentChatVendorIndex || 0);
+                        if (window.lucide) lucide.createIcons();
+                    } else {
+                        this.showToast(data.detail || 'เกิดข้อผิดพลาดในการคัดเลือกผู้ชนะ', 'error');
+                    }
+                } catch(e) {
+                    console.error('Error awarding vendor:', e);
+                }
+            },
 
             async switchVendorChat(dealKey, vendorIndex) {
 
@@ -2171,6 +2286,21 @@
 
                                 }
 
+                            }
+
+                            if (data.deal) {
+                                deal.stage = data.deal.stage || deal.stage;
+                                deal.stage_label = data.deal.stage_label || deal.stage_label;
+                                if (data.deal.vendors) {
+                                    data.deal.vendors.forEach((dv, idx) => {
+                                        if (deal.vendors && deal.vendors[idx]) {
+                                            if (dv.price) deal.vendors[idx].price = dv.price;
+                                            if (dv.credit) deal.vendors[idx].credit = dv.credit;
+                                            if (dv.leadTime) deal.vendors[idx].leadTime = dv.leadTime;
+                                            if (dv.status) deal.vendors[idx].status = dv.status;
+                                        }
+                                    });
+                                }
                             }
 
                         }
@@ -2495,9 +2625,20 @@
                                 <td class="py-1.5 px-1 text-center font-mono text-[10px] text-slate-600">${v.leadTime || '-'}</td>
 
                                 <td class="py-1.5 px-1 text-right">
-
-                                    <span class="badge badge-xs ${v.statusBadge} text-[9px] scale-95">${v.status.includes('ชนะ') ? 'ชนะประมูล (PO)' : (v.status.includes('SLA') ? 'ตกรอบ SLA' : 'ไม่ได้รับเลือก')}</span>
-
+                                    ${(() => {
+                                        const hasPrice = v.price && v.price !== '-' && v.price !== 'รอเสนอราคา';
+                                        const isWinner = v.status && (v.status.includes('ชนะ') || v.status.includes('PO') || v.status.includes('AI คัดเลือก'));
+                                        const isOutbid = v.status && (v.status.includes('ไม่ได้รับ') || v.status.includes('Outbid'));
+                                        if (isWinner) {
+                                            return '<span class="badge badge-xs badge-success text-white font-bold scale-95 shadow-2xs">🏆 AI คัดเลือกให้ชนะ (Best TCO)</span>';
+                                        } else if (isOutbid || (deal.stage >= 4 && !isWinner)) {
+                                            return '<span class="badge badge-xs badge-ghost text-slate-400 scale-95">ไม่ได้รับเลือก (ราคาสูงกว่า)</span>';
+                                        } else if (hasPrice) {
+                                            return '<span class="badge badge-xs badge-info text-white font-medium scale-95">ยื่นเสนอราคาแล้ว</span>';
+                                        } else {
+                                            return '<span class="badge badge-xs badge-ghost text-slate-400 border border-slate-200 text-[9px] scale-95">รอเสนอราคา</span>';
+                                        }
+                                    })()}
                                 </td>
 
                             </tr>
@@ -3323,6 +3464,7 @@
                                 <div class="flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-purple-600 animate-ping"></span>
                                     <strong class="text-xs text-purple-950 font-bold">Phase 2: Live Negotiation Chain-of-Thought — ${activeVendor.name}</strong>
+                                    <span class="badge badge-xs bg-purple-200 text-purple-900 border border-purple-300 font-bold">Dual-Tier (Nova Micro + Nova Pro)</span>
                                 </div>
                                 <span class="badge badge-xs bg-purple-700 text-white font-mono">${liveAuditTraces.length} Live Rounds</span>
                             </div>
@@ -3694,6 +3836,58 @@
                     }
                 })();
             },
+
+            async rejectSignOff() {
+                const dealKey = this.currentSignoffDealKey || this.currentChatDealKey || 'festo_cyl';
+                const directive = prompt(
+                    "ระบุเหตุผลหรือคำสั่งให้ AI เจรจาต่อ เช่น 'ขอต่อราคาลงอีก 5% และขอขยายเครดิตเทอมเป็น 60 วัน':",
+                    "ขอต่อรองราคาลงเพิ่มเติมอีก 5% และขอขยายเครดิตเทอมเป็น 60 วัน"
+                );
+                if (!directive) return;
+
+                const approverInput = document.getElementById('signoff-approver-name');
+                const approver = (approverInput && approverInput.value.trim()) || 'คุณ ธีรนนท์ (CPO - ประธานเจ้าหน้าที่ฝ่ายจัดซื้อ)';
+
+                try {
+                    const res = await fetch(`/api/deals/${dealKey}/reject`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ directive: directive, rejected_by: approver })
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.status === 'success') {
+                        const modal = document.getElementById('signoff_modal');
+                        if (modal) modal.close();
+
+                        this.showToast(`↩️ ส่งคำสั่งให้ AI Agent นำไปเจรจาต่อเรียบร้อยแล้ว: "${directive}"`, 'info');
+                        this.pushLiveEvent(`↩️ [CPO Directive] ผู้บริหารส่งกลับให้ AI เจรจาเพิ่ม: "${directive}" ➔ ปรับกลับเป็น Stage 3`, true);
+
+                        const deal = this.getDeal ? this.getDeal(dealKey) : (database.deals[dealKey] || {});
+                        if (deal) {
+                            deal.stage = 3;
+                            deal.stage_label = 'เจรจาต่อรอง';
+                        }
+
+                        // Update table rows to Stage 3
+                        const pipelineRows = document.querySelectorAll(`tr.job-row[data-deal-key="${dealKey}"]`);
+                        pipelineRows.forEach(row => {
+                            row.setAttribute('data-stage', '3');
+                            const badgeContainer = row.querySelector('.stage-badge-container');
+                            if (badgeContainer) {
+                                badgeContainer.innerHTML = `
+                                    <div class="inline-flex flex-col items-center justify-center px-1.5 py-0.5 rounded bg-purple-50 border-purple-200 text-purple-800 shadow-xs">
+                                        <span class="font-bold text-[10px] font-mono leading-none">Stage 3</span>
+                                        <span class="text-[10px] font-medium mt-0.5 leading-tight whitespace-nowrap">เจรจาต่อรอง</span>
+                                    </div>
+                                `;
+                            }
+                        });
+                    }
+                } catch(e) {
+                    console.error('Error rejecting deal:', e);
+                }
+            },
+
 
             bumpSignedPoStat(deal) {
                 // Increment the "signed PO" counter + recovered savings on the dashboard, if those elements exist.
@@ -4241,6 +4435,23 @@
         });
 
 
+
+
+        app.resetAllDemoData = async function() {
+            if (!confirm('ยืนยันล้างประวัติแชทและคืนค่าระบบจัดซื้อทั้งหมดสำหรับเริ่ม Live Demo ใหม่?')) return;
+            try {
+                const res = await fetch('/api/demo/reset-all', { method: 'POST' });
+                if (res.ok) {
+                    alert('✅ คืนค่าฐานข้อมูลและล้างเซสชันทั้งหมดเรียบร้อยแล้ว');
+                    window.location.reload();
+                } else {
+                    alert('เกิดข้อผิดพลาดในการรีเซ็ต');
+                }
+            } catch (e) {
+                alert('Reset failed: ' + e.message);
+            }
+        };
+        window.resetAllDemoData = app.resetAllDemoData;
 
 ;window.app = app;
 

@@ -33,10 +33,6 @@
                         <i data-lucide="mail-check" class="w-3.5 h-3.5"></i>
                         <span class="hidden sm:inline">หน้าจอคู่ค้า (Supplier Portal)</span>
                     </button>
-                    <button onclick="app.resetCurrentChat()" id="btn-reset-chat" class="btn btn-xs btn-ghost text-slate-300 hover:text-white rounded-lg gap-1 border border-slate-700" title="ล้างประวัติแชตเพื่อเริ่มคุยใหม่">
-                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                        <span class="hidden sm:inline">รีเซ็ตห้อง</span>
-                    </button>
 
                     <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost text-slate-300 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button></form>
                 </div>
@@ -66,29 +62,6 @@
 
                     <!-- BUYER AGENT SUPERVISOR CONTROL DOCK (HUMAN-IN-THE-LOOP COCKPIT) -->
                     <div class="p-3 border-t border-slate-200 bg-slate-50/95 shrink-0 space-y-2">
-                        <!-- QUICK STRATEGY DIRECTIVE BUTTONS -->
-                        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
-                            <span class="text-slate-400 font-medium shrink-0 flex items-center gap-1 text-[10px] uppercase font-mono mr-1">
-                                <i data-lucide="command" class="w-3 h-3 text-blue-600"></i> กลยุทธ์ด่วน:
-                            </span>
-                            <button type="button" onclick="app.applyQuickDirective('target_price')" class="btn btn-xs bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-200 rounded-lg px-2.5 shadow-2xs whitespace-nowrap transition-all flex items-center gap-1">
-                                <i data-lucide="trending-down" class="w-3 h-3 text-blue-600"></i>
-                                <span>ยื่นราคาเป้าหมาย (Counter-Offer)</span>
-                            </button>
-                            <button type="button" onclick="app.applyQuickDirective('extend_credit')" class="btn btn-xs bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200 rounded-lg px-2.5 shadow-2xs whitespace-nowrap transition-all flex items-center gap-1">
-                                <i data-lucide="calendar" class="w-3 h-3 text-emerald-600"></i>
-                                <span>ต่อรองขยายเครดิต 60 วัน</span>
-                            </button>
-                            <button type="button" onclick="app.applyQuickDirective('lock_sla')" class="btn btn-xs bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 rounded-lg px-2.5 shadow-2xs whitespace-nowrap transition-all flex items-center gap-1">
-                                <i data-lucide="shield-alert" class="w-3 h-3 text-purple-600"></i>
-                                <span>ยืนยัน SLA & สต็อกสำรอง</span>
-                            </button>
-                            <button type="button" onclick="app.applyQuickDirective('accept_deal')" class="btn btn-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg px-2.5 shadow-2xs whitespace-nowrap transition-all flex items-center gap-1 font-semibold">
-                                <i data-lucide="check-circle" class="w-3 h-3 text-emerald-600"></i>
-                                <span>ยอมรับข้อตกลงและปิดดีล</span>
-                            </button>
-                        </div>
-
                         <!-- CUSTOM DIRECTIVE INPUT & SUBMIT -->
                         <form onsubmit="event.preventDefault(); app.sendLiveUserMessage();" class="flex items-center gap-2">
                             <div class="relative flex-1">
@@ -114,19 +87,6 @@
                 <!-- RIGHT COLUMN: LIVE CONCESSION LADDER & VENDOR MATRIX (5 cols) -->
                 <div class="lg:col-span-5 flex flex-col bg-slate-50/70 p-3.5 overflow-y-auto space-y-3 text-xs min-h-0">
                     
-                    <!-- 1. CONCESSION TRAJECTORY / LADDER -->
-                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                        <div class="flex justify-between items-center pb-1.5 border-b border-slate-100">
-                            <span class="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
-                                <i data-lucide="trending-down" class="w-3.5 h-3.5 text-blue-700"></i> Concession Steps (ไทม์ไลน์ต่อรองราคา)
-                            </span>
-                            <span class="badge badge-xs badge-ghost font-mono" id="concession-round-badge">ขั้นตอนการเจรจา</span>
-                        </div>
-                        <div class="space-y-1.5" id="concession-ladder-container">
-                            <!-- Dynamically generated steps -->
-                        </div>
-                    </div>
-
                     <!-- 2. MULTI-VENDOR COMPARISON MATRIX -->
                     <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1.5">
                         <div class="flex justify-between items-center pb-1.5 border-b border-slate-100">
@@ -160,6 +120,19 @@
                         </span>
                         <div class="grid grid-cols-2 gap-1.5 text-[11px]" id="modal-terms-scorecard">
                             <!-- Dynamically filled -->
+                        </div>
+                    </div>
+
+                    <!-- 1. CONCESSION TRAJECTORY / LADDER -->
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                        <div class="flex justify-between items-center pb-1.5 border-b border-slate-100">
+                            <span class="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
+                                <i data-lucide="trending-down" class="w-3.5 h-3.5 text-blue-700"></i> Concession Steps (ไทม์ไลน์ต่อรองราคา)
+                            </span>
+                            <span class="badge badge-xs badge-ghost font-mono" id="concession-round-badge">ขั้นตอนการเจรจา</span>
+                        </div>
+                        <div class="space-y-1.5" id="concession-ladder-container">
+                            <!-- Dynamically generated steps -->
                         </div>
                     </div>
 

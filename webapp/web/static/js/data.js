@@ -37,7 +37,7 @@
 
                                                             "email": "teeranonn124@gmail.com",
 
-                                                            "price": "฿3,850.00",
+                                                            "price": "฿3,680.00",
 
                                                             "credit": "30 วัน",
 
@@ -47,11 +47,11 @@
 
                                                             "cert": "ISO 15552 ✓",
 
-                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "status": "กำลังเจรจาต่อรอง",
 
-                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "statusBadge": "badge-primary text-white font-bold",
 
-                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
 
                                                             "ladder": [],
 
@@ -63,25 +63,25 @@
 
                                                             "id": "v_roykaen_part",
 
-                                                            "name": "บจก. รอยแก่น พาร์ท ซัพพลาย",
+                                                            "name": "บจก. รอยคีน พาร์ท ซัพพลาย",
 
                                                             "email": "roykaen.30@gmail.com",
 
-                                                            "price": "฿3,890.00",
+                                                            "price": "-",
 
-                                                            "credit": "30 วัน",
+                                                            "credit": "-",
 
-                                                            "leadTime": "10 วันทำการ",
+                                                            "leadTime": "-",
 
-                                                            "warranty": "1 ปี",
+                                                            "warranty": "-",
 
-                                                            "cert": "ISO 15552 ✓",
+                                                            "cert": "-",
 
-                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "status": "รอเสนอราคา",
 
-                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "statusBadge": "badge-ghost text-slate-400",
 
-                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
 
                                                             "ladder": [],
 
@@ -97,21 +97,21 @@
 
                                                             "email": "filmzazazs63@gmail.com",
 
-                                                            "price": "฿3,820.00",
+                                                            "price": "-",
 
-                                                            "credit": "30 วัน",
+                                                            "credit": "-",
 
-                                                            "leadTime": "14 วันทำการ",
+                                                            "leadTime": "-",
 
-                                                            "warranty": "1 ปี",
+                                                            "warranty": "-",
 
-                                                            "cert": "ISO 15552 ✓",
+                                                            "cert": "-",
 
-                                                            "status": "รอเริ่มเจรจา (ห้องว่างสด)",
+                                                            "status": "รอเสนอราคา",
 
-                                                            "statusBadge": "badge-info text-white font-bold",
+                                                            "statusBadge": "badge-ghost text-slate-400",
 
-                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
 
                                                             "ladder": [],
 
@@ -127,7 +127,7 @@
 
                         { step: 2, agent: 'Market Benchmark & TCO Engine', time: 'T+0.85s | RAG Vector', title: 'วิเคราะห์ราคากลางอุตสาหกรรมและคำนวณ TCO Target', thought: 'ดึงข้อมูลสเปกมาตรฐาน ISO 15552 และประวัติการจัดซื้อ 2,500 รายการ คำนวณราคาเป้าหมาย TCO ที่ ฿3,320.00/ตัว (เซฟเป้าหมาย -13.5% หรือ ฿450,500)', toolCall: 'tco_benchmark(catalog_price=3850, historical_avg=3720) ➔ Target: ฿3,320.00' },
 
-                        { step: 3, agent: 'Multi-Vendor Dispatcher', time: 'T+1.40s | AWS SES Batch', title: 'สร้าง Magic Links และส่งหนังสือเชิญยื่นข้อเสนอ 3 เจ้า', thought: 'สร้าง Secure Magic Link Token แยกเฉพาะสำหรับ 3 ซัพพลายเออร์ใน AVL (สยาม นิวเมติกส์, รอยแก่น พาร์ท, ฟิล์ม ออโตเมชั่น) และส่งคำขอใบเสนอราคาผ่าน AWS SES', toolCall: 'aws_ses_batch_dispatch(deal="festo_cyl", vendors=3) ➔ Magic Links Dispatched ✓' },
+                        { step: 3, agent: 'Multi-Vendor Dispatcher', time: 'T+1.40s | AWS SES Batch', title: 'สร้าง Magic Links และส่งหนังสือเชิญยื่นข้อเสนอ 3 เจ้า', thought: 'สร้าง Secure Magic Link Token แยกเฉพาะสำหรับ 3 ซัพพลายเออร์ใน AVL (สยาม นิวเมติกส์, รอยคีน พาร์ท, ฟิล์ม ออโตเมชั่น) และส่งคำขอใบเสนอราคาผ่าน AWS SES', toolCall: 'aws_ses_batch_dispatch(deal="festo_cyl", vendors=3) ➔ Magic Links Dispatched ✓' },
 
                         { step: 4, agent: 'Guardrail & Compliance Agent', time: 'T+2.10s | Rule Engine', title: 'ตรวจสอบเงื่อนไขความเสี่ยงและมาตรการควบคุม', thought: 'กำหนด Guardrail: ราคาสูงสุดห้ามเกิน ฿3,850, เครดิตเทอมขั้นต่ำ 30 วัน (เป้าหมาย 45 วัน), ส่งมอบไม่เกิน 14 วัน, และต้องมี ISO 15552', toolCall: 'apply_guardrail(max_price=3850, min_credit=30, cert="ISO 15552") ➔ Guardrails Active ✓' }
 
@@ -179,7 +179,7 @@
 
                                                             "statusBadge": "badge-info text-white font-bold",
 
-                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
 
                                                             "ladder": [],
 
@@ -191,7 +191,7 @@
 
                                                             "id": "v_roykaen_eng",
 
-                                                            "name": "บจก. รอยแก่น เอ็นจิเนียริ่ง พาร์ท",
+                                                            "name": "บจก. รอยคีน พาร์ท ซัพพลาย",
 
                                                             "email": "roykaen.30@gmail.com",
 
@@ -209,7 +209,7 @@
 
                                                             "statusBadge": "badge-info text-white font-bold",
 
-                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
 
                                                             "ladder": [],
 
@@ -239,7 +239,7 @@
 
                                                             "statusBadge": "badge-info text-white font-bold",
 
-                                                            "outcome": "ยังไม่มีการเจรจา — รอคู่ค้ายื่นข้อเสนอผ่าน Supplier Portal หรือฝ่ายจัดซื้อเริ่มคุย",
+                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
 
                                                             "ladder": [],
 
@@ -255,7 +255,7 @@
 
                         { step: 2, agent: 'Market Benchmark & TCO Engine', time: 'T+0.72s | RAG Vector', title: 'คำนวณราคา TCO และกำหนดเพดานเจรจาต่อรอง', thought: 'ราคาตลาดปลีกอยู่ที่ ฿1,650/ตัว กำหนดเป้าหมายเจรจาที่ ฿1,420 - ฿1,450/ตัว (เซฟ -13.9% หรือ ฿322,000) พร้อมขยายเครดิตเทอม 60 วัน', toolCall: 'tco_benchmark(catalog_price=1650, target_discount=0.139) ➔ Target: ฿1,420.00' },
 
-                        { step: 3, agent: 'Multi-Vendor Dispatcher', time: 'T+1.15s | AWS SES Batch', title: 'ยิง RFQ พร้อม Magic Token ไปยังคู่ค้า AVL 3 เจ้า', thought: 'จัดส่งอีเมลเชิญเจรจาพร้อม Magic Link Token เฉพาะตัวให้ บจก. สยาม เซนเซอร์, รอยแก่น เอ็นจิเนียริ่ง, และ ฟิล์ม เทคโนโลยี', toolCall: 'aws_ses_batch_dispatch(deal="omron_photo", vendors=3) ➔ 3 Invites Sent ✓' }
+                        { step: 3, agent: 'Multi-Vendor Dispatcher', time: 'T+1.15s | AWS SES Batch', title: 'ยิง RFQ พร้อม Magic Token ไปยังคู่ค้า AVL 3 เจ้า', thought: 'จัดส่งอีเมลเชิญเจรจาพร้อม Magic Link Token เฉพาะตัวให้ บจก. สยาม เซนเซอร์, รอยคีน เอ็นจิเนียริ่ง, และ ฟิล์ม เทคโนโลยี', toolCall: 'aws_ses_batch_dispatch(deal="omron_photo", vendors=3) ➔ 3 Invites Sent ✓' }
 
                     ]
 

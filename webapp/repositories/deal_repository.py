@@ -89,6 +89,24 @@ class DealRepository:
         if agreed_price is not None:
             d["agreed_price"] = float(agreed_price)
         d.setdefault("po_status", "AWARDED")
+        
+        # Update in-memory vendor list statuses
+        for v in d.get("vendors", []):
+            vid = str(v.get("id", "")).lower()
+            vname = str(v.get("name", "")).lower()
+            target = str(vendor_id).lower()
+            if vid == target or target in vid or target in vname or vid in target:
+                v["status"] = "ชนะการประมูล (ออกใบ PO)"
+                v["statusBadge"] = "badge-success text-white font-bold"
+                if agreed_price is not None:
+                    v["price"] = f"฿{float(agreed_price):,.2f}"
+            else:
+                if not v.get("price") or str(v.get("price")).strip() in ("-", ""):
+                    v["status"] = "รอเสนอราคา"
+                    v["statusBadge"] = "badge-ghost text-slate-400"
+                else:
+                    v["status"] = "ไม่ได้รับเลือก (Outbid)"
+                    v["statusBadge"] = "badge-ghost text-slate-500"
         return True
 
     def create_po(self, deal_id: str, po_number: str) -> bool:
@@ -99,6 +117,38 @@ class DealRepository:
         d["po_number"] = po_number
         d["po_status"] = "PO_CREATED"
         d["stage"] = 4
+        return True
+
+    def update_stage(self, deal_id: str, stage: int, stage_label: str = None) -> bool:
+        deal = self.get_deal(deal_id)
+        if not deal:
+            return False
+        deal["stage"] = stage
+        if stage_label:
+            deal["stage_label"] = stage_label
+        return True
+
+    def update_vendor_terms(self, deal_id: str, vendor_identifier: str, price: float = None, credit_days: int = None, lead_time_days: int = None, status: str = None) -> bool:
+        deal = self.get_deal(deal_id)
+        if not deal:
+            return False
+        if deal.get("stage", 1) < 3:
+            deal["stage"] = 3
+            deal["stage_label"] = "เจรจาต่อรอง"
+        for v in deal.get("vendors", []):
+            vid = str(v.get("id") or "").lower().replace('_', ' ').strip()
+            vname = str(v.get("name") or "").lower().replace('_', ' ').strip()
+            target = str(vendor_identifier).lower().replace('_', ' ').strip()
+            if vid == target or target in vid or target in vname or vid in target or (vname and vname in target):
+                if price is not None and price > 0:
+                    v["price"] = f"฿{float(price):,.2f}"
+                if credit_days is not None and credit_days > 0:
+                    v["credit"] = f"{int(credit_days)} วัน"
+                if lead_time_days is not None and lead_time_days > 0:
+                    v["leadTime"] = f"{int(lead_time_days)} วันทำการ"
+                if status:
+                    v["status"] = status
+                    v["statusBadge"] = "badge-primary text-white font-bold"
         return True
 
 deal_repository = DealRepository()

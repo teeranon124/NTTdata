@@ -68,11 +68,11 @@ def _extract_price(text: str):
 
 def parse_supplier_intent(user_message: str) -> dict:
     """
-    Uses Amazon Nova Lite to extract intent and structured commercial facts.
+    Uses Amazon Nova Micro to extract intent and structured commercial facts.
     """
     system_prompt = open(os.path.join(PROMPTS_DIR, "router_system.md"), "r", encoding="utf-8").read()
 
-    # Route to the FAST tier (Nova Lite) via the Dynamic Model Gateway — this is a
+    # Route to the FAST tier (Nova Micro) via the Dynamic Model Gateway — this is a
     # LIGHT classification/extraction task, so we deliberately avoid the costly model.
     res = model_gateway.invoke(
         task_type="intent",
@@ -172,6 +172,6 @@ def _regex_parse(user_message: str) -> dict:
         "proposed_warranty_months": warranty_months,
         "proposed_sla_buffer": sla_buffer,
         "proposed_compliance_cert": cert_hit,
-        "source": "Local Deterministic Parser (Ready for Bedrock Nova Lite)",
+        "source": "Local Deterministic Parser (Ready for Bedrock Nova Micro)",
         "latency_ms": 1.2
     }
