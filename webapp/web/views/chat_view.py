@@ -1054,6 +1054,17 @@ def demo_reset_all():
         deals["festo_cyl"]["winning_vendor_id"] = None
         deals["festo_cyl"]["po_status"] = None
         deals["festo_cyl"]["po_number"] = None
+        for v in deals["festo_cyl"].get("vendors", []):
+            v["price"] = "-"
+            v["credit"] = "-"
+            v["leadTime"] = "-"
+            v["warranty"] = "-"
+            v["cert"] = "-"
+            v["status"] = "รอเสนอราคา"
+            v["statusBadge"] = "badge-ghost text-slate-400"
+            v["outcome"] = "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ"
+            v["ladder"] = []
+            v["messages"] = []
 
     if "omron_photo" in deals:
         deals["omron_photo"]["stage"] = 2

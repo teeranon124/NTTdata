@@ -37,22 +37,14 @@
 
                                                             "email": "teeranonn124@gmail.com",
 
-                                                            "price": "฿3,680.00",
-
-                                                            "credit": "30 วัน",
-
-                                                            "leadTime": "7 วันทำการ",
-
-                                                            "warranty": "1 ปี",
-
-                                                            "cert": "ISO 15552 ✓",
-
-                                                            "status": "กำลังเจรจาต่อรอง",
-
-                                                            "statusBadge": "badge-primary text-white font-bold",
-
-                                                            "outcome": "ยื่นใบเสนอราคาเริ่มต้นแล้ว (Initial RFQ) — พร้อมเริ่มเจรจาต่อรองราคาผ่านระบบหรือส่งอีเมลเชิญเข้า Supplier Portal",
-
+                                                            "price": "-",
+                                                            "credit": "-",
+                                                            "leadTime": "-",
+                                                            "warranty": "-",
+                                                            "cert": "-",
+                                                            "status": "รอเสนอราคา",
+                                                            "statusBadge": "badge-ghost text-slate-400",
+                                                            "outcome": "ยังไม่ได้รับใบเสนอราคา / รอคู่ค้าตอบกลับ",
                                                             "ladder": [],
 
                                                             "messages": []
