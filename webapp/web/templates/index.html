@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoProcure.AI - ระบบ AI จัดซื้ออะไหล่ MRO อัตโนมัติ (NTT DATA Enterprise)</title>
+    <title>J-RAJA - ระบบ AI จัดซื้ออะไหล่ MRO อัตโนมัติ (NTT DATA Enterprise)</title>
     
     <!-- DaisyUI & Tailwind CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -40,7 +40,7 @@
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="text-base md:text-lg font-bold tracking-tight text-slate-900 leading-none">AutoProcure<span class="text-blue-700">.AI</span></span>
+                    <span class="text-base md:text-lg font-bold tracking-tight text-slate-900 leading-none">J-<span class="text-blue-700">RAJA</span></span>
                     <span class="badge badge-sm badge-outline font-mono text-[10px] text-slate-500">NTT DATA Solution</span>
                 </div>
                 <div class="text-[11px] text-slate-400 mt-0.5 hidden sm:block">ระบบ Multi-Agent บริหารจัดการและเจรจาจัดซื้ออะไหล่ MRO อัตโนมัติ</div>
@@ -180,7 +180,7 @@
             <!-- SIDEBAR FOOTER (WITH BOTTOM TOGGLE & BRAND) -->
             <div class="p-2 border-t border-slate-100 flex flex-col gap-1.5 bg-slate-50/50">
                 <div class="flex items-center justify-between px-2 text-[11px] text-slate-400 sidebar-text transition-all duration-200">
-                    <span>AutoProcure v2.7</span>
+                    <span>J-RAJA v2.7</span>
                     <span class="font-mono text-[10px] text-blue-700 font-semibold">NTT DATA</span>
                 </div>
                 
@@ -477,10 +477,11 @@
                                         </div>
                                     </td>
                                     <td class="py-2 px-1.5 text-center min-w-[155px]">
-                                        <div class="flex items-center justify-center gap-0.5 whitespace-nowrap">
+                                        <div class="flex items-center justify-center gap-1 whitespace-nowrap">
                                             <button type="button" onclick="app.openEmailModal('nsk')" class="btn btn-xs btn-ghost text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 w-6 h-6 p-0 flex items-center justify-center rounded-lg" title="จำลองอีเมลคำเชิญ (AWS SES) &amp; หน้าจอคู่ค้า"><i data-lucide="mail" class="w-3.5 h-3.5"></i></button>
                                             <button type="button" onclick="app.openChatModal('nsk')" class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-1.5 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="เปิดห้องควบคุมการเจรจาต่อรองคู่ค้า"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i> <span>ห้องเจรจา</span></button>
-                                            <button type="button" onclick="app.openSignOff('nsk')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-1.5 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>
+                                            <button type="button" onclick="app.openSignOff('nsk')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg px-2 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="อนุมัติและออกใบสั่งซื้อ PO ใน SAP"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> <span>อนุมัติ</span></button>
+                                            <button type="button" onclick="app.rejectSignOffDirect('nsk')" class="btn btn-xs bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 font-semibold rounded-lg px-2 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="ปฏิเสธและส่ง AI เจรจาเพิ่ม"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i> <span>ปฏิเสธ</span></button>
                                         </div>
                                     </td>
                                 </tr>

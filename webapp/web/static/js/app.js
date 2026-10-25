@@ -843,7 +843,7 @@
                                 if (actionTd) {
                                     const signBtn = actionTd.querySelector('button:last-child');
                                     if (signBtn) {
-                                        signBtn.outerHTML = `<button type="button" onclick="app.openSignOff('${dealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg px-1.5 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="ได้ข้อสรุปแล้ว ➔ ลงนามอนุมัติ PO ใน SAP"><i data-lucide="file-check-2" class="w-3.5 h-3.5"></i> <span>ลงนาม</span></button>`;
+                                        signBtn.outerHTML = `<button type="button" onclick="app.openSignOff('${dealKey}')" class="btn btn-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg px-2 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all" title="อนุมัติและออกใบสั่งซื้อ PO ใน SAP"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> <span>อนุมัติ</span></button><button type="button" onclick="app.rejectSignOffDirect('${dealKey}')" class="btn btn-xs bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 font-semibold rounded-lg px-2 py-0.5 shadow-xs flex items-center gap-1 text-[11px] transition-all ml-0.5" title="ปฏิเสธและส่ง AI เจรจาต่อ"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i> <span>ปฏิเสธ</span></button>`;
                                         if (window.lucide) lucide.createIcons({ root: actionTd });
                                     }
                                 }
@@ -949,7 +949,7 @@
 
                 if (data.agent_reply) {
 
-                    vendor.messages.push({ sender: 'agent', name: 'AutoProcure AI (Procurement Agent)', time: data.time || '', text: data.agent_reply, tactic: data.tactic || '' });
+                    vendor.messages.push({ sender: 'agent', name: 'J-RAJA (Procurement Agent)', time: data.time || '', text: data.agent_reply, tactic: data.tactic || '' });
 
                 }
 
@@ -3101,7 +3101,7 @@
 
                     </div>
 
-                    <div class="chat-header text-[11px] text-slate-500 mb-0.5">AutoProcure.AI กำลังคำนวณและเจรจากับคู่ค้า...</div>
+                    <div class="chat-header text-[11px] text-slate-500 mb-0.5">J-RAJA กำลังคำนวณและเจรจากับคู่ค้า...</div>
 
                     <div class="chat-bubble bg-blue-50 text-blue-900 text-xs shadow-sm border border-blue-200 flex items-center gap-1.5">
 
@@ -3175,7 +3175,7 @@
 
                         sender: "ai",
 
-                        name: "AutoProcure.AI (ฝ่ายจัดซื้อ)",
+                        name: "J-RAJA (ฝ่ายจัดซื้อ)",
 
                         time: timeStr,
 
@@ -3305,7 +3305,7 @@
 
                         sender: "ai",
 
-                        name: "AutoProcure.AI (ฝ่ายจัดซื้อ)",
+                        name: "J-RAJA (ฝ่ายจัดซื้อ)",
 
                         time: timeStr,
 
@@ -3833,6 +3833,12 @@
                         this.showToast('บันทึกการลงนามเข้าคิว SAP เรียบร้อยแล้ว', 'success');
                     }
                 })();
+            },
+
+            async rejectSignOffDirect(dealKey) {
+                if (!dealKey) dealKey = this.currentSignoffDealKey || 'nsk';
+                this.currentSignoffDealKey = dealKey;
+                await this.rejectSignOff();
             },
 
             async rejectSignOff() {

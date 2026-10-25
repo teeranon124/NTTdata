@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-bold text-slate-900 text-sm tracking-tight">AutoProcure.AI</span>
+                        <span class="font-bold text-slate-900 text-sm tracking-tight">J-RAJA</span>
                         <span class="badge badge-outline border-blue-300 text-blue-800 text-[10px] font-bold">Supplier Portal</span>
                         <span class="badge badge-success badge-xs text-white text-[9px] gap-1">
                             <i data-lucide="shield-check" class="w-2.5 h-2.5"></i> SSL Encrypted & Isolated Session ✓
@@ -256,7 +256,7 @@
                     </div>
                     <div>
                         <div class="font-bold text-xs flex items-center gap-2">
-                            <span>AutoProcure.AI Sourcing Agent</span>
+                            <span>J-RAJA Sourcing Agent</span>
                             <span class="badge badge-success badge-xs text-white">Live Active</span>
                         </div>
                         <div class="text-[10px] text-slate-400 font-mono">
@@ -280,7 +280,7 @@
                         <div class="bg-blue-700 text-white rounded-full w-7 h-7 text-xs font-bold flex items-center justify-center shadow-xs">AI</div>
                     </div>
                     <div class="chat-header text-[10px] text-slate-400 mb-0.5 flex items-center gap-1.5">
-                        <span class="font-semibold text-slate-700">AutoProcure.AI Sourcing Agent</span>
+                        <span class="font-semibold text-slate-700">J-RAJA Sourcing Agent</span>
                         <time class="text-[9px] text-slate-400">10:00</time>
                     </div>
                     <div class="chat-bubble bg-white text-slate-800 shadow-xs border border-slate-200 leading-relaxed">
@@ -308,7 +308,7 @@
 
     <!-- FOOTER -->
     <footer class="bg-white border-t border-slate-200 py-3 text-center text-[11px] text-slate-400">
-        AutoProcure.AI Enterprise Sourcing Portal • Connected to SAP S/4HANA BTP • Powered by NTT DATA Thailand
+        J-RAJA Enterprise Sourcing Portal • Connected to SAP S/4HANA BTP • Powered by NTT DATA Thailand
     </footer>
 
     <!-- SUCCESS / BAFO SUBMISSION MODAL -->
@@ -380,7 +380,7 @@
                         msgs.forEach(m => {
                             // Map stored sender roles to the portal's bubble roles.
                             const role = (m.sender === 'vendor') ? 'vendor' : 'agent';
-                            const name = m.name || (role === 'vendor' ? this.vendorName : 'AutoProcure.AI Sourcing Agent');
+                            const name = m.name || (role === 'vendor' ? this.vendorName : 'J-RAJA Sourcing Agent');
                             this.appendMessage(role, name, m.text, m.tactic);
                         });
                         this.checkPOStatus(data.session);
@@ -465,7 +465,7 @@
                         for (let i = rendered; i < msgs.length; i++) {
                             const m = msgs[i];
                             const role = (m.sender === 'vendor') ? 'vendor' : 'agent';
-                            const name = m.name || (role === 'vendor' ? this.vendorName : 'AutoProcure.AI Sourcing Agent');
+                            const name = m.name || (role === 'vendor' ? this.vendorName : 'J-RAJA Sourcing Agent');
                             this.appendMessage(role, name, m.text);
                         }
                     }
@@ -517,7 +517,7 @@
                     if (res.ok) {
                         const data = await res.json();
                         const reply = data.agent_reply || data.reply || "รับทราบข้อเสนอครับ ฝ่ายจัดซื้อกลางกำลังพิจารณาข้อเสนอของท่าน";
-                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', reply, data.tactic);
+                        this.appendMessage('agent', 'J-RAJA Sourcing Agent', reply, data.tactic);
                         
                         // Update Live Term Sheet with what the SUPPLIER actually offered
                         if (data.offered_price) {
@@ -539,11 +539,11 @@
                     } else {
                         const errData = await res.json().catch(() => ({}));
                         const errMsg = errData.detail || errData.error || "ขออภัยครับ ระบบกำลังประมวลผลข้อเสนอ กรุณากดส่งข้อเสนออีกครั้งครับ";
-                        this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', errMsg);
+                        this.appendMessage('agent', 'J-RAJA Sourcing Agent', errMsg);
                     }
                 } catch(err) {
                     this.removeTyping(typingId);
-                    this.appendMessage('agent', 'AutoProcure.AI Sourcing Agent', "ระบบบันทึกข้อเสนอของท่านเข้าสู่การพิจารณาของฝ่ายจัดซื้อกลางเรียบร้อยแล้วครับ");
+                    this.appendMessage('agent', 'J-RAJA Sourcing Agent', "ระบบบันทึกข้อเสนอของท่านเข้าสู่การพิจารณาของฝ่ายจัดซื้อกลางเรียบร้อยแล้วครับ");
                 } finally {
                     btn.disabled = false;
                 }

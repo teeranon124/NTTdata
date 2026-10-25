@@ -92,7 +92,7 @@ def _build_html(vendor_name: str, deal_id: str, portal_url: str, deal_data: dict
         <p style="font-size:12px;color:#64748b;margin-bottom:0">
           ขอแสดงความนับถือ,<br>
           <strong>ฝ่ายบริหารการจัดซื้อเชิงกลยุทธ์</strong><br>
-          ระบบจัดซื้ออัตโนมัติ AutoProcure.AI
+          ระบบจัดซื้ออัตโนมัติ J-RAJA
         </p>
       </td>
     </tr>
@@ -232,14 +232,14 @@ def send_po_award_email(to_email: str, vendor_name: str, deal_id: str, po_number
           ขอแสดงความนับถือ,<br>
           <strong>{approved_by}</strong><br>
           ฝ่ายบริหารการจัดซื้อเชิงกลยุทธ์ (Strategic Procurement Department)<br>
-          ระบบจัดซื้ออัตโนมัติ AutoProcure.AI
+          ระบบจัดซื้ออัตโนมัติ J-RAJA
         </p>
       </td>
     </tr>
 
     <tr>
       <td style="background:#f1f5f9;padding:12px 24px;font-size:10px;color:#94a3b8;text-align:center">
-        เอกสารยืนยันสัญญานี้สร้างโดยระบบ AutoProcure.AI และเชื่อมตรงเข้าสู่ SAP S/4HANA (BAPI_PO_CREATE1)
+        เอกสารยืนยันสัญญานี้สร้างโดยระบบ J-RAJA และเชื่อมตรงเข้าสู่ SAP S/4HANA (BAPI_PO_CREATE1)
       </td>
     </tr>
   </table>

@@ -101,7 +101,7 @@ class BedrockNegotiationService:
 
         agent_msg_entry = {
             "sender": "agent",
-            "name": "AutoProcure AI (Procurement Agent)",
+            "name": "J-RAJA (Procurement Agent)",
             "time": time.strftime("%H:%M"),
             "text": agent_reply,
             "tactic": agent_tactic,

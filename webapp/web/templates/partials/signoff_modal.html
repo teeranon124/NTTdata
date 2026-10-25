@@ -1,27 +1,27 @@
     <dialog id="signoff_modal" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box p-0 max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden">
+        <div class="modal-box p-0 max-w-3xl w-11/12 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden">
             <!-- Header -->
-            <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+            <div class="p-4 sm:p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold border border-emerald-200">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold border border-emerald-200 shrink-0">
                         <i data-lucide="file-signature" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-sm text-slate-900">ตรวจสอบร่างสัญญาและลงนามอนุมัติ (Executive Sign-Off Gate)</h3>
+                        <h3 class="font-bold text-sm text-slate-900 leading-tight">ตรวจสอบร่างสัญญาและอนุมัติ PO (Executive Sign-Off Gate)</h3>
                         <span class="text-xs text-slate-500 font-mono">BAPI_PO_CREATE1 • SAP S/4HANA Direct Integration</span>
                     </div>
                 </div>
                 <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-4 h-4"></i></button></form>
             </div>
 
-            <div class="p-5 space-y-4 text-xs">
+            <div class="p-4 sm:p-5 space-y-4 text-xs max-h-[75vh] overflow-y-auto">
                 <!-- Contract Overview Card -->
                 <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2.5">
-                    <div class="font-bold text-sm flex justify-between items-center text-slate-900 border-b border-slate-200/80 pb-2">
-                        <span id="modal-item-title" class="truncate pr-2">ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 1,200 ชิ้น</span>
+                    <div class="font-bold text-sm flex flex-wrap justify-between items-center gap-2 text-slate-900 border-b border-slate-200/80 pb-2">
+                        <span id="modal-item-title" class="leading-snug pr-2 text-slate-900">ตลับลูกปืน NSK (6208-2RS1) ยอดรวม 1,200 ชิ้น</span>
                         <span class="badge badge-success text-white badge-sm shrink-0 font-medium">Guardrails 100% Pass</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-slate-600">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-slate-600">
                         <div>• คู่สัญญาผู้ชนะ: <strong id="modal-signoff-vendor" class="text-slate-900">บจก. สยาม พรีซิชั่น เทค (V-4019)</strong></div>
                         <div>• ประเภทสัญญา: <strong id="modal-signoff-type" class="text-slate-900">สัญญาผูกพันรายปี (LTA Blanket Order 1 ปี)</strong></div>
                         <div>• ราคาเดิมก่อนเจรจา: <span id="modal-signoff-pre-price" class="line-through text-slate-400">฿450.00 / ชิ้น</span></div>
@@ -29,7 +29,7 @@
                         <div>• เครดิตเทอม &amp; SLA: <strong id="modal-signoff-terms" class="text-slate-900">เครดิต 45 วัน • ส่งมอบใน 7 วัน</strong></div>
                         <div>• การจัดสรรคำสั่งซื้อ: <strong class="text-blue-700 font-medium">100% สัญญารายปี</strong></div>
                     </div>
-                    <div class="pt-2.5 border-t border-slate-200 flex justify-between items-center text-emerald-800 font-bold text-sm bg-emerald-50/60 p-2.5 rounded-lg border border-emerald-100">
+                    <div class="pt-2.5 border-t border-slate-200 flex flex-wrap justify-between items-center gap-2 text-emerald-800 font-bold text-sm bg-emerald-50/60 p-2.5 rounded-lg border border-emerald-100">
                         <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i> มูลค่าเงินรั่วไหลที่กู้คืนได้ (Value Recovered):</span>
                         <span id="modal-signoff-savings" class="font-mono text-base font-bold text-emerald-700">฿62,400 บาท (-11.5%)</span>
                     </div>
@@ -40,9 +40,9 @@
                     <div class="text-[11px] uppercase font-bold text-slate-400 mb-1 flex items-center gap-1">
                         <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i> ผลการตรวจรับรองโดย Autonomous Guardrail Agent:
                     </div>
-                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> คำนวณโครงสร้าง TCO และ Batna แล้วคุ้มค่าที่สุดในบรรดาคู่ค้า AVL ทั้งหมด</div>
-                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> คู่ค้าผ่านการรับรอง Approved Vendor List (AVL Tier-1) และไม่มีประวัติทุจริต</div>
-                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5"></i> บันทึก Audit Trail การเจรจาโต้ตอบครบถ้วน โปร่งใส ตรวจสอบย้อนกลับได้ 100%</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5 shrink-0"></i> คำนวณโครงสร้าง TCO และ Batna แล้วคุ้มค่าที่สุดในบรรดาคู่ค้า AVL ทั้งหมด</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5 shrink-0"></i> คู่ค้าผ่านการรับรอง Approved Vendor List (AVL Tier-1) และไม่มีประวัติทุจริต</div>
+                    <div class="flex items-center gap-2 text-emerald-700"><i data-lucide="check" class="w-3.5 h-3.5 shrink-0"></i> บันทึก Audit Trail การเจรจาโต้ตอบครบถ้วน โปร่งใส ตรวจสอบย้อนกลับได้ 100%</div>
                 </div>
 
                 <!-- Interactive Signature Inputs -->
@@ -74,16 +74,17 @@
             </div>
 
             <!-- Footer Buttons -->
-            <div class="p-4 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3 bg-slate-50">
-                <span class="text-[10px] text-slate-400 font-mono">Status: Stage 4 (รอลงนาม PO) ➔ Stage 5 (ออก PO สำเร็จ)</span>
+            <div class="p-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 bg-slate-50">
+                <span class="text-[11px] text-slate-500 font-mono">Stage 4 (รออนุมัติ) ➔ Stage 5 (ออก PO)</span>
                 <div class="flex items-center gap-2">
-                    <form method="dialog"><button class="btn btn-sm btn-ghost rounded-full px-4 text-slate-500">ปิด</button></form>
-                    <button type="button" id="btn-reject-signoff" onclick="app.rejectSignOff()" class="btn btn-sm bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-full px-4 font-bold transition-all flex items-center gap-1.5 shadow-xs" title="ปฏิเสธข้อเสนอและส่งคำสั่งให้ AI Agent กลับไปต่อรองเพิ่ม">
-                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-                        <span>ไม่อนุมัติ (ส่ง AI เจรจาเพิ่ม)</span>
+                    <form method="dialog"><button class="btn btn-sm btn-ghost rounded-lg px-3 text-slate-500 font-medium">ปิด</button></form>
+                    <button type="button" id="btn-reject-signoff" onclick="app.rejectSignOff()" class="btn btn-sm bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-lg px-4 font-bold transition-all flex items-center gap-1.5 shadow-xs" title="ปฏิเสธและส่งคำสั่งให้ AI นำไปเจรจาต่อ">
+                        <i data-lucide="x-circle" class="w-4 h-4 text-rose-600"></i>
+                        <span>ปฏิเสธ</span>
                     </button>
-                    <button id="btn-submit-signoff" onclick="app.executeSAPCommit()" class="btn btn-sm bg-emerald-600 hover:bg-emerald-700 rounded-full px-5 text-white font-bold shadow-md transition-all flex items-center gap-1.5">
-                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> ลงนามอนุมัติและเปิด PO ใน SAP
+                    <button id="btn-submit-signoff" onclick="app.executeSAPCommit()" class="btn btn-sm bg-emerald-600 hover:bg-emerald-700 rounded-lg px-5 text-white font-bold shadow-md transition-all flex items-center gap-1.5" title="อนุมัติและออกใบสั่งซื้อ (PO) ใน SAP S/4HANA">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 text-white"></i>
+                        <span>อนุมัติ</span>
                     </button>
                 </div>
             </div>
